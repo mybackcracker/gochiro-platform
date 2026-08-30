@@ -1,5 +1,5 @@
-import fs from "fs";
 import { google } from "googleapis";
+import { loadServiceAccountKey } from "./googleAuth";
 
 // Reuses the same service-account JSON key as lib/googleCalendar.ts, just
 // impersonating the mailbox with the gmail.send scope instead of calendar.
@@ -27,17 +27,7 @@ let cachedAuth: InstanceType<typeof google.auth.JWT> | null = null;
 function getAuth(): InstanceType<typeof google.auth.JWT> {
   if (cachedAuth) return cachedAuth;
 
-  const keyPath = process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH;
-  if (!keyPath) {
-    throw new Error(
-      "GOOGLE_SERVICE_ACCOUNT_KEY_PATH is not set. Add it to .env.local, pointing to the downloaded service account JSON key."
-    );
-  }
-  if (!fs.existsSync(keyPath)) {
-    throw new Error(`Service account key file not found at: ${keyPath}`);
-  }
-
-  const key = JSON.parse(fs.readFileSync(keyPath, "utf-8"));
+  const key = loadServiceAccountKey();
 
   cachedAuth = new google.auth.JWT({
     email: key.client_email,
