@@ -10,6 +10,7 @@ import {
   isValidGroupVisitComposition,
   type VisitType,
 } from "@/lib/gochiro";
+import { zonedTimeToUtc, parseDateOnly, dayOfWeekFromDateString } from "@/lib/timezone";
 
 const VALID_REGIONS: Region[] = ["East", "West", "Central", "MainLine", "WestChester"];
 const WORK_START_HOUR = 9;
@@ -56,9 +57,7 @@ export async function GET(req: NextRequest) {
     durationMinOverride = groupVisitDurationMin(composition);
   }
 
-  const dayStart = new Date(`${dateParam}T00:00:00`);
-  const dayEnd = new Date(`${dateParam}T23:59:59`);
-  if (isNaN(dayStart.getTime())) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateParam) || isNaN(new Date(dateParam).getTime())) {
     return NextResponse.json({ error: "Invalid date format." }, { status: 400 });
   }
 
@@ -68,10 +67,17 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ slots: [] });
   }
 
-  const workStart = new Date(dayStart);
-  workStart.setHours(WORK_START_HOUR, 0, 0, 0);
-  const workEnd = new Date(dayStart);
-  workEnd.setHours(workEndHourFor(region, dayStart.getDay()), 0, 0, 0);
+  // The business's actual midnight-to-midnight day and 9am/close window, in
+  // America/New_York — computed explicitly (lib/timezone.ts) rather than via
+  // the server process's own local timezone, which may not be Eastern in
+  // production. dayOfWeek is pure UTC calendar math, never derived from a
+  // constructed instant's local getDay().
+  const { year, month, day } = parseDateOnly(dateParam);
+  const dayOfWeek = dayOfWeekFromDateString(dateParam);
+  const dayStart = zonedTimeToUtc(year, month, day, 0, 0, 0);
+  const dayEnd = zonedTimeToUtc(year, month, day, 23, 59, 59);
+  const workStart = zonedTimeToUtc(year, month, day, WORK_START_HOUR, 0, 0);
+  const workEnd = zonedTimeToUtc(year, month, day, workEndHourFor(region, dayOfWeek), 0, 0);
 
   try {
     const existingEvents = await listEvents(dayStart, dayEnd);

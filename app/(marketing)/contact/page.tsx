@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArticleShell } from "@/components/ui";
+import { Section, Container, PageHeader, TagList } from "@/components/ui";
 import { BUSINESS_PHONE, PUBLIC_CONTACT_EMAIL } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
@@ -25,38 +25,44 @@ const CONTACT_REASONS = [
 
 export default function ContactPage() {
   return (
-    <ArticleShell
-      eyebrow="Contact"
-      title="Contact GoChiroMobile"
-      lede="Have a question or need something outside regular online scheduling?"
-    >
-      <ul className="mt-6 space-y-2 text-lg text-slate-700">
-        {CONTACT_REASONS.map((reason) => (
-          <li key={reason} className="flex gap-2">
-            <span aria-hidden className="text-slate-400">
-              •
-            </span>
-            {reason}
-          </li>
-        ))}
-      </ul>
+    <div>
+      <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
+        <Container>
+          <PageHeader
+            eyebrow="Contact"
+            title="Contact GoChiroMobile"
+            lede="Have a question or need something outside regular online scheduling?"
+          />
 
-      <div className="mt-10 rounded-2xl border border-slate-200 bg-slate-50 p-6">
-        <p className="text-lg font-semibold text-slate-900">Phone / text</p>
-        <a
-          href={`tel:${BUSINESS_PHONE}`}
-          className="mt-1 block text-2xl font-bold text-slate-900 hover:underline"
-        >
-          {BUSINESS_PHONE}
-        </a>
-        <p className="mt-6 text-lg font-semibold text-slate-900">Email</p>
-        <a
-          href={`mailto:${PUBLIC_CONTACT_EMAIL}`}
-          className="mt-1 block text-lg text-slate-900 hover:underline"
-        >
-          {PUBLIC_CONTACT_EMAIL}
-        </a>
-      </div>
-    </ArticleShell>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            <a
+              href={`tel:${BUSINESS_PHONE}`}
+              className="group rounded-2xl border border-line bg-white p-7 transition-all hover:-translate-y-0.5 hover:border-navy/40 hover:shadow-[0_12px_32px_-16px_rgba(24,50,74,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
+            >
+              <p className="text-sm font-semibold uppercase tracking-wide text-muted">Call / Text</p>
+              <p className="mt-2 font-heading text-3xl font-bold text-navy">{BUSINESS_PHONE}</p>
+            </a>
+            <a
+              href={`mailto:${PUBLIC_CONTACT_EMAIL}`}
+              className="group rounded-2xl border border-line bg-white p-7 transition-all hover:-translate-y-0.5 hover:border-navy/40 hover:shadow-[0_12px_32px_-16px_rgba(24,50,74,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
+            >
+              <p className="text-sm font-semibold uppercase tracking-wide text-muted">Email</p>
+              <p className="mt-2 break-words font-heading text-2xl font-bold text-navy sm:text-3xl">
+                {PUBLIC_CONTACT_EMAIL}
+              </p>
+            </a>
+          </div>
+        </Container>
+      </Section>
+
+      <Section tone="cream" className="pt-8 pb-14 sm:pt-10 sm:pb-16">
+        <Container>
+          <p className="text-sm font-semibold uppercase tracking-wide text-muted">
+            Reach out about
+          </p>
+          <TagList items={CONTACT_REASONS} />
+        </Container>
+      </Section>
+    </div>
   );
 }

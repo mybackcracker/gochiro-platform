@@ -12,15 +12,9 @@ import {
   type GroupVisitComposition,
 } from "@/lib/gochiro";
 import type { Region } from "@/lib/scheduling";
+import { dateStringInTimeZone } from "@/lib/timezone";
 
 const VALID_REGIONS: Region[] = ["East", "West", "Central", "MainLine", "WestChester"];
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-export interface NewPatientParticipant {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
 
 interface BookRequestBody {
   region: Region;
@@ -38,7 +32,6 @@ interface BookRequestBody {
   // Group Visit only:
   newCount?: number;
   existingCount?: number;
-  newPatientParticipants?: NewPatientParticipant[];
 }
 
 export async function POST(req: NextRequest) {
@@ -64,7 +57,6 @@ export async function POST(req: NextRequest) {
     addressZip,
     newCount,
     existingCount,
-    newPatientParticipants,
   } = body;
 
   if (!region || !VALID_REGIONS.includes(region)) {
@@ -89,36 +81,26 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing patient contact information." }, { status: 400 });
   }
 
-  // Group Visit: validate participant composition and each new-patient
-  // participant's intake contact info. Existing patients don't need their
-  // own contact info collected here (GROUP_VISIT_SPECIFICATION.md §8).
+  // Group Visit: validate participant composition. Only the host's contact
+  // info is collected — individual attendees are not identified during
+  // booking (GROUP_VISIT_SPECIFICATION.md §8; the host relays the intake
+  // link to new-patient attendees, see lib/bookingEmail.ts).
   let composition: GroupVisitComposition | null = null;
   if (visit === "group-visit") {
     composition = { newCount: Number(newCount), existingCount: Number(existingCount) };
     if (!isValidGroupVisitComposition(composition)) {
       return NextResponse.json({ error: "Missing or invalid Group Visit participant counts." }, { status: 400 });
     }
-    if (!Array.isArray(newPatientParticipants) || newPatientParticipants.length !== composition.newCount) {
-      return NextResponse.json(
-        { error: "Missing intake contact info for one or more new-patient participants." },
-        { status: 400 }
-      );
-    }
-    for (const p of newPatientParticipants) {
-      if (!p.firstName?.trim() || !p.lastName?.trim() || !p.email?.trim() || !EMAIL_RE.test(p.email.trim())) {
-        return NextResponse.json(
-          { error: "Each new-patient participant needs a name and a valid email." },
-          { status: 400 }
-        );
-      }
-    }
   }
 
   const startTime = new Date(start);
 
-  const startDateStr = `${startTime.getFullYear()}-${String(startTime.getMonth() + 1).padStart(2, "0")}-${String(
-    startTime.getDate()
-  ).padStart(2, "0")}`;
+  // The business's calendar date, in America/New_York — not the server
+  // process's own local timezone (see lib/timezone.ts). A late-evening
+  // Eastern slot can fall on a different UTC calendar date, so reading this
+  // back via startTime.getDate()/getMonth()/getFullYear() would pick up
+  // whatever timezone the server happens to run in instead.
+  const startDateStr = dateStringInTimeZone(startTime);
   if (!isBusinessDay(startDateStr)) {
     return NextResponse.json({ error: "That day is not available for booking." }, { status: 400 });
   }
@@ -178,11 +160,6 @@ export async function POST(req: NextRequest) {
           ...trimmedInput,
           start: startTime,
           composition,
-          newPatientParticipants: newPatientParticipants!.map((p) => ({
-            firstName: p.firstName.trim(),
-            lastName: p.lastName.trim(),
-            email: p.email.trim(),
-          })),
         });
       } else {
         await sendBookingEmails({ ...trimmedInput, start: startTime });

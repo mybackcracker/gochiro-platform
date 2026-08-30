@@ -7,8 +7,20 @@ import { google } from "googleapis";
 // account with domain-wide delegation already set up for Calendar — see
 // the setup notes in the PR/conversation for the one extra admin-console
 // step (adding gmail.send to that same service account's delegated scopes).
+//
+// IMPERSONATED_MAILBOX is the delegated/authenticated account the service
+// account impersonates via JWT `subject` — this must stay
+// contact@mybackcracker.com regardless of what a message's visible From
+// address is. It does NOT have to match the From header: Gmail lets a
+// mailbox send as any of its own verified "Send mail as" aliases (Gmail
+// Settings -> Accounts) without separate delegation for that alias — the API
+// just needs the raw message's From header to match one of the
+// authenticated account's verified identities. contact@gochiromobile.com is
+// already configured and verified as a send-as alias on this mailbox (per
+// business owner confirmation), so callers may pass a different
+// `fromAddress` to sendEmail() for patient-facing sends.
 const SCOPES = ["https://www.googleapis.com/auth/gmail.send"];
-const SEND_AS = process.env.GOCHIRO_EMAIL_SENDER || "contact@mybackcracker.com";
+const IMPERSONATED_MAILBOX = process.env.GOCHIRO_EMAIL_SENDER || "contact@mybackcracker.com";
 
 let cachedAuth: InstanceType<typeof google.auth.JWT> | null = null;
 
@@ -31,7 +43,7 @@ function getAuth(): InstanceType<typeof google.auth.JWT> {
     email: key.client_email,
     key: key.private_key,
     scopes: SCOPES,
-    subject: SEND_AS,
+    subject: IMPERSONATED_MAILBOX,
   });
 
   return cachedAuth;
@@ -61,6 +73,7 @@ function buildRawMessage(opts: {
   to: string;
   toName?: string;
   fromName: string;
+  fromAddress: string;
   subject: string;
   text: string;
   html: string;
@@ -69,7 +82,7 @@ function buildRawMessage(opts: {
   const toHeader = opts.toName ? `${encodeHeaderValue(opts.toName)} <${opts.to}>` : opts.to;
 
   const headers = [
-    `From: ${encodeHeaderValue(opts.fromName)} <${SEND_AS}>`,
+    `From: ${encodeHeaderValue(opts.fromName)} <${opts.fromAddress}>`,
     `To: ${toHeader}`,
     `Subject: ${encodeHeaderValue(opts.subject)}`,
     "MIME-Version: 1.0",
@@ -97,11 +110,15 @@ export async function sendEmail(opts: {
   to: string;
   toName?: string;
   fromName: string;
+  // Visible From address. Defaults to the impersonated mailbox (previous
+  // behavior) — pass a different, verified send-as alias (e.g.
+  // PUBLIC_CONTACT_EMAIL) for patient-facing sends.
+  fromAddress?: string;
   subject: string;
   text: string;
   html: string;
 }): Promise<void> {
   const gmail = gmailClient();
-  const raw = buildRawMessage(opts);
+  const raw = buildRawMessage({ ...opts, fromAddress: opts.fromAddress || IMPERSONATED_MAILBOX });
   await gmail.users.messages.send({ userId: "me", requestBody: { raw } });
 }

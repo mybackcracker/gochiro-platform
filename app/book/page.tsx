@@ -134,18 +134,16 @@ export default function BookPage() {
 
   const [visit, setVisit] = useState<VisitType | null>(null);
 
-  // Group Visit composition and per-new-patient intake contacts. The host's
-  // own contact info reuses the same firstName/lastName/phone/email/address
-  // state as the New Patient / Returning Patient flows below — a user is
-  // only ever in one flow per session, so sharing it is safe and avoids
-  // duplicating ~9 fields.
+  // Group Visit composition. The host's own contact info reuses the same
+  // firstName/lastName/phone/email/address state as the New Patient /
+  // Returning Patient flows below — a user is only ever in one flow per
+  // session, so sharing it is safe and avoids duplicating ~9 fields. Only
+  // the host's contact info is collected — individual attendees are not
+  // identified during booking (see lib/bookingEmail.ts for how new patients
+  // are pointed to the intake form instead).
   const [groupNewCount, setGroupNewCount] = useState(1);
   const [groupExistingCount, setGroupExistingCount] = useState(1);
   const [groupPolicyAgreed, setGroupPolicyAgreed] = useState(false);
-  const [groupParticipants, setGroupParticipants] = useState<
-    { firstName: string; lastName: string; email: string }[]
-  >([{ firstName: "", lastName: "", email: "" }]); // kept in sync with groupNewCount's initial value of 1
-  const [groupParticipantErrors, setGroupParticipantErrors] = useState<Record<number, string>>({});
   const groupComposition = useMemo(
     () => ({ newCount: groupNewCount, existingCount: groupExistingCount }),
     [groupNewCount, groupExistingCount]
@@ -165,20 +163,6 @@ export default function BookPage() {
     },
     [groupComposition]
   );
-
-  // Keeps the participant-contact list in sync with a new new-patient count.
-  // Called directly from the count input's onChange rather than an effect —
-  // it's a direct response to a user action, not a sync-with-external-system
-  // concern, so an effect would just add an indirection.
-  function setGroupNewCountAndResize(count: number) {
-    setGroupNewCount(count);
-    setGroupParticipants((prev) => {
-      if (prev.length === count) return prev;
-      const next = prev.slice(0, count);
-      while (next.length < count) next.push({ firstName: "", lastName: "", email: "" });
-      return next;
-    });
-  }
 
   // Which of the 3 sequential triage questions (Section 2) is showing.
   const [triageStep, setTriageStep] = useState<1 | 2 | 3>(1);
@@ -595,17 +579,7 @@ export default function BookPage() {
     if (addressZip.replace(/\D/g, "").length !== 5) errors.addressZip = "Enter a valid 5-digit ZIP code.";
     setContactErrors(errors);
 
-    const participantErrors: Record<number, string> = {};
-    groupParticipants.forEach((p, i) => {
-      if (!p.firstName.trim() || !p.lastName.trim()) {
-        participantErrors[i] = "Name is required.";
-      } else if (!p.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.email.trim())) {
-        participantErrors[i] = "A valid email is required (for their intake link).";
-      }
-    });
-    setGroupParticipantErrors(participantErrors);
-
-    if (Object.keys(errors).length > 0 || Object.keys(participantErrors).length > 0) return;
+    if (Object.keys(errors).length > 0) return;
     go("review");
   }
 
@@ -633,7 +607,6 @@ export default function BookPage() {
           addressZip,
           newCount: groupComposition.newCount,
           existingCount: groupComposition.existingCount,
-          newPatientParticipants: groupParticipants,
         }),
       });
       const data = await res.json();
@@ -776,6 +749,7 @@ export default function BookPage() {
               onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
               inputMode="numeric"
               placeholder="ZIP code"
+              aria-label="ZIP code of the appointment"
               className="mt-6 w-full rounded-xl border border-slate-300 px-4 py-4 text-lg outline-none focus:border-slate-900"
             />
 
@@ -819,22 +793,24 @@ export default function BookPage() {
 
             <div className="mt-6 space-y-4">
               <div>
-                <label className="text-sm font-semibold text-slate-700">
+                <label htmlFor="group-new-count" className="text-sm font-semibold text-slate-700">
                   {`New patients ($${GROUP_VISIT_NEW_PATIENT_PRICE} each)`}
                 </label>
                 <input
+                  id="group-new-count"
                   type="number"
                   min={0}
                   value={groupNewCount}
-                  onChange={(e) => setGroupNewCountAndResize(Math.max(0, parseInt(e.target.value, 10) || 0))}
+                  onChange={(e) => setGroupNewCount(Math.max(0, parseInt(e.target.value, 10) || 0))}
                   className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-lg outline-none focus:border-slate-900"
                 />
               </div>
               <div>
-                <label className="text-sm font-semibold text-slate-700">
+                <label htmlFor="group-existing-count" className="text-sm font-semibold text-slate-700">
                   {`Existing patients ($${GROUP_VISIT_EXISTING_PATIENT_PRICE} each)`}
                 </label>
                 <input
+                  id="group-existing-count"
                   type="number"
                   min={0}
                   value={groupExistingCount}
@@ -870,6 +846,7 @@ export default function BookPage() {
               onChange={(e) => setZip(e.target.value.replace(/\D/g, "").slice(0, 5))}
               inputMode="numeric"
               placeholder="ZIP code"
+              aria-label="ZIP code of the appointment"
               className="mt-6 w-full rounded-xl border border-slate-300 px-4 py-4 text-lg outline-none focus:border-slate-900"
             />
 
@@ -1261,6 +1238,7 @@ export default function BookPage() {
               value={date}
               min={todayISO()}
               onChange={(e) => setDate(e.target.value)}
+              aria-label="Appointment date"
               className="mt-6 w-full rounded-xl border border-slate-300 px-4 py-4 text-lg outline-none focus:border-slate-900"
             />
 
@@ -1350,6 +1328,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, firstName: undefined }));
                   }}
                   placeholder="First name"
+                  aria-label="First name"
                   autoComplete="given-name"
                   className={`w-full rounded-xl border px-4 py-3 ${
                     contactErrors.firstName ? "border-red-400" : "border-slate-300"
@@ -1368,6 +1347,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, lastName: undefined }));
                   }}
                   placeholder="Last name"
+                  aria-label="Last name"
                   autoComplete="family-name"
                   className={`w-full rounded-xl border px-4 py-3 ${
                     contactErrors.lastName ? "border-red-400" : "border-slate-300"
@@ -1384,6 +1364,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, phone: undefined }));
                   }}
                   placeholder="(555) 555-5555"
+                  aria-label="Phone number"
                   inputMode="tel"
                   autoComplete="tel"
                   maxLength={14}
@@ -1402,6 +1383,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, email: undefined }));
                   }}
                   placeholder="Email"
+                  aria-label="Email"
                   inputMode="email"
                   autoComplete="email"
                   className={`w-full rounded-xl border px-4 py-3 ${
@@ -1419,6 +1401,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, address: undefined }));
                   }}
                   placeholder="Address of the appointment"
+                  aria-label="Street address of the appointment"
                   autoComplete="street-address"
                   className={`w-full rounded-xl border px-4 py-3 ${
                     contactErrors.address ? "border-red-400" : "border-slate-300"
@@ -1431,6 +1414,7 @@ export default function BookPage() {
                 value={addressLine2}
                 onChange={(e) => setAddressLine2(e.target.value)}
                 placeholder="Apt / unit (optional)"
+                aria-label="Apartment or unit number (optional)"
                 autoComplete="address-line2"
                 className="w-full rounded-xl border border-slate-300 px-4 py-3"
               />
@@ -1443,6 +1427,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, addressCity: undefined }));
                   }}
                   placeholder="City"
+                  aria-label="City"
                   autoComplete="address-level2"
                   className={`w-full rounded-xl border px-4 py-3 ${
                     contactErrors.addressCity ? "border-red-400" : "border-slate-300"
@@ -1462,6 +1447,7 @@ export default function BookPage() {
                       setContactErrors((err) => ({ ...err, addressState: undefined }));
                     }}
                     placeholder="State"
+                    aria-label="State"
                     autoComplete="address-level1"
                     className={`w-full rounded-xl border px-4 py-3 ${
                       contactErrors.addressState ? "border-red-400" : "border-slate-300"
@@ -1480,6 +1466,7 @@ export default function BookPage() {
                       setContactErrors((err) => ({ ...err, addressZip: undefined }));
                     }}
                     placeholder="ZIP code"
+                    aria-label="ZIP code"
                     inputMode="numeric"
                     autoComplete="postal-code"
                     className={`w-full rounded-xl border px-4 py-3 ${
@@ -1516,6 +1503,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, firstName: undefined }));
                   }}
                   placeholder="Host first name"
+                  aria-label="Host first name"
                   autoComplete="given-name"
                   className={`w-full rounded-xl border px-4 py-3 ${
                     contactErrors.firstName ? "border-red-400" : "border-slate-300"
@@ -1531,6 +1519,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, lastName: undefined }));
                   }}
                   placeholder="Host last name"
+                  aria-label="Host last name"
                   autoComplete="family-name"
                   className={`w-full rounded-xl border px-4 py-3 ${
                     contactErrors.lastName ? "border-red-400" : "border-slate-300"
@@ -1546,6 +1535,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, phone: undefined }));
                   }}
                   placeholder="(555) 555-5555"
+                  aria-label="Phone number"
                   inputMode="tel"
                   autoComplete="tel"
                   maxLength={14}
@@ -1563,6 +1553,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, email: undefined }));
                   }}
                   placeholder="Host email"
+                  aria-label="Host email"
                   inputMode="email"
                   autoComplete="email"
                   className={`w-full rounded-xl border px-4 py-3 ${
@@ -1579,6 +1570,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, address: undefined }));
                   }}
                   placeholder="Address of the appointment"
+                  aria-label="Street address of the appointment"
                   autoComplete="street-address"
                   className={`w-full rounded-xl border px-4 py-3 ${
                     contactErrors.address ? "border-red-400" : "border-slate-300"
@@ -1590,6 +1582,7 @@ export default function BookPage() {
                 value={addressLine2}
                 onChange={(e) => setAddressLine2(e.target.value)}
                 placeholder="Apt / unit (optional)"
+                aria-label="Apartment or unit number (optional)"
                 autoComplete="address-line2"
                 className="w-full rounded-xl border border-slate-300 px-4 py-3"
               />
@@ -1601,6 +1594,7 @@ export default function BookPage() {
                     setContactErrors((err) => ({ ...err, addressCity: undefined }));
                   }}
                   placeholder="City"
+                  aria-label="City"
                   autoComplete="address-level2"
                   className={`w-full rounded-xl border px-4 py-3 ${
                     contactErrors.addressCity ? "border-red-400" : "border-slate-300"
@@ -1619,6 +1613,7 @@ export default function BookPage() {
                       setContactErrors((err) => ({ ...err, addressState: undefined }));
                     }}
                     placeholder="State"
+                    aria-label="State"
                     autoComplete="address-level1"
                     className={`w-full rounded-xl border px-4 py-3 ${
                       contactErrors.addressState ? "border-red-400" : "border-slate-300"
@@ -1636,6 +1631,7 @@ export default function BookPage() {
                       setContactErrors((err) => ({ ...err, addressZip: undefined }));
                     }}
                     placeholder="ZIP code"
+                    aria-label="ZIP code"
                     inputMode="numeric"
                     autoComplete="postal-code"
                     className={`w-full rounded-xl border px-4 py-3 ${
@@ -1648,56 +1644,6 @@ export default function BookPage() {
                 </div>
               </div>
             </div>
-
-            {groupNewCount > 0 && (
-              <div className="mt-8">
-                <h2 className="text-lg font-bold text-slate-900">New Patient Intake Contacts</h2>
-                <p className="mt-1 text-sm text-slate-600">
-                  Each new patient needs their own intake — we&apos;ll email them a link directly.
-                </p>
-                <div className="mt-4 space-y-6">
-                  {groupParticipants.map((p, i) => (
-                    <div key={i} className="space-y-2 rounded-xl border border-slate-200 p-4">
-                      <p className="text-sm font-semibold text-slate-700">New patient #{i + 1}</p>
-                      <input
-                        value={p.firstName}
-                        onChange={(e) =>
-                          setGroupParticipants((prev) =>
-                            prev.map((pp, idx) => (idx === i ? { ...pp, firstName: e.target.value } : pp))
-                          )
-                        }
-                        placeholder="First name"
-                        className="w-full rounded-xl border border-slate-300 px-4 py-3"
-                      />
-                      <input
-                        value={p.lastName}
-                        onChange={(e) =>
-                          setGroupParticipants((prev) =>
-                            prev.map((pp, idx) => (idx === i ? { ...pp, lastName: e.target.value } : pp))
-                          )
-                        }
-                        placeholder="Last name"
-                        className="w-full rounded-xl border border-slate-300 px-4 py-3"
-                      />
-                      <input
-                        value={p.email}
-                        onChange={(e) =>
-                          setGroupParticipants((prev) =>
-                            prev.map((pp, idx) => (idx === i ? { ...pp, email: e.target.value } : pp))
-                          )
-                        }
-                        placeholder="Email (for their intake link)"
-                        inputMode="email"
-                        className="w-full rounded-xl border border-slate-300 px-4 py-3"
-                      />
-                      {groupParticipantErrors[i] && (
-                        <p className="text-sm text-red-600">{groupParticipantErrors[i]}</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <button onClick={groupContactComplete} className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white">
               Continue

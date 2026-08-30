@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArticleShell, H2, P, CTAButton } from "@/components/ui";
+import { Section, Container, PageHeader, H3, ChoiceCard, Callout } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Book Online — GoChiroMobile",
@@ -9,65 +9,70 @@ export const metadata: Metadata = {
 
 export default function BookOnlinePage() {
   return (
-    <ArticleShell
-      eyebrow="Book Online"
-      title="Schedule a Chiropractic Visit"
-      lede="Choose the option that applies to you."
-    >
-      <div className="space-y-6">
-        <div className="rounded-2xl border border-slate-200 p-6">
-          <h2 className="text-xl font-bold text-slate-900">New Patient</h2>
-          <p className="mt-2 text-lg text-slate-700">
-            First visit — or it&apos;s been more than one year since your last visit.
-          </p>
-          <div className="mt-4">
-            <CTAButton href="/book?start=new">Schedule a New Patient Visit</CTAButton>
+    <div>
+      <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
+        <Container>
+          <PageHeader
+            eyebrow="Book Online"
+            title="Schedule a Chiropractic Visit"
+            lede="Choose the option that applies to you."
+          />
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <ChoiceCard
+              title="New Patient"
+              description="First visit — or it's been more than one year since your last visit."
+              href="/book?start=new"
+              cta="Schedule a New Patient Visit"
+              emphasizeCta
+            />
+            <ChoiceCard
+              title="Returning Patient"
+              description="You've been seen by Dr. DeFries within the past year."
+              href="/book?start=returning"
+              cta="Schedule a Returning Patient Visit"
+              emphasizeCta
+            />
+            <ChoiceCard
+              title="Group Visit"
+              description="Two or more people receiving wellness-focused chiropractic care at one location."
+              href="/book?start=group"
+              cta="Schedule a Group Visit"
+              emphasizeCta
+            />
           </div>
-        </div>
 
-        <div className="rounded-2xl border border-slate-200 p-6">
-          <h2 className="text-xl font-bold text-slate-900">Returning Patient</h2>
-          <p className="mt-2 text-lg text-slate-700">
-            You&apos;ve been seen by Dr. DeFries within the past year.
-          </p>
-          <div className="mt-4">
-            <CTAButton href="/book?start=returning">Schedule a Returning Patient Visit</CTAButton>
+          <div className="mt-10">
+            <H3>Need More Information First?</H3>
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-base font-semibold text-navy">
+              <Link href="/pricing" className="hover:underline">
+                Pricing
+              </Link>
+              <Link href="/service-areas" className="hover:underline">
+                Service Areas
+              </Link>
+              <Link href="/what-to-expect" className="hover:underline">
+                What to Expect
+              </Link>
+            </div>
           </div>
-        </div>
+        </Container>
+      </Section>
 
-        <div className="rounded-2xl border border-slate-200 p-6">
-          <h2 className="text-xl font-bold text-slate-900">Group Visit</h2>
-          <p className="mt-2 text-lg text-slate-700">
-            Two or more people receiving wellness-focused chiropractic care at one location.
-          </p>
-          <div className="mt-4">
-            <CTAButton href="/book?start=group">Schedule a Group Visit</CTAButton>
-          </div>
-        </div>
-      </div>
-
-      <H2>Need More Information First?</H2>
-      <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-lg font-semibold text-slate-900">
-        <Link href="/pricing" className="underline hover:no-underline">
-          Pricing
-        </Link>
-        <Link href="/service-areas" className="underline hover:no-underline">
-          Service Areas
-        </Link>
-        <Link href="/what-to-expect" className="underline hover:no-underline">
-          What to Expect
-        </Link>
-      </div>
-
-      <H2>Cancellation &amp; Rescheduling</H2>
-      <P>
-        We require at least 24 hours&apos; notice to cancel or reschedule your appointment.
-        Cancellations, no-shows, or same-day changes made with less than 24 hours&apos; notice will
-        be charged a $50 fee. You&apos;ll see this policy again, and confirm it, as part of
-        scheduling. The same 24-hour notice applies to Group Visits — if a Group Visit is
-        cancelled or rescheduled late, the $50 fee applies once to the whole booking, and the host
-        is responsible for it.
-      </P>
-    </ArticleShell>
+      <Section tone="cream" className="pt-8 pb-12 sm:pt-10 sm:pb-14">
+        <Container>
+          <Callout title="Cancellation & Rescheduling" tone="white" className="mx-auto max-w-3xl">
+            <p className="text-sm leading-relaxed text-muted">
+              We require at least 24 hours&apos; notice to cancel or reschedule your appointment.
+              Cancellations, no-shows, or same-day changes made with less than 24 hours&apos;
+              notice will be charged a $50 fee. You&apos;ll see this policy again, and confirm it,
+              as part of scheduling. The same 24-hour notice applies to Group Visits — if a Group
+              Visit is cancelled or rescheduled late, the $50 fee applies once to the whole
+              booking, and the host is responsible for it.
+            </p>
+          </Callout>
+        </Container>
+      </Section>
+    </div>
   );
 }

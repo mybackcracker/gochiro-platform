@@ -1,8 +1,24 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { CTAButton } from "@/components/ui";
+import {
+  Section,
+  Container,
+  Eyebrow,
+  H1,
+  H2,
+  Lede,
+  P,
+  CTAButton,
+  ChoiceCard,
+  Step,
+  TagList,
+  TwoColumn,
+  ImageFrame,
+} from "@/components/ui";
 import ZipChecker from "@/components/ZipChecker";
 import { BUSINESS_PHONE } from "@/lib/gochiro";
+import { HOME_VISIT_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "GoChiroMobile — Chiropractic Care That Comes to You",
@@ -14,151 +30,165 @@ export default function HomePage() {
   return (
     <div>
       {/* 1. Hero */}
-      <section className="mx-auto w-full max-w-5xl px-4 pt-14 pb-10 sm:pt-20">
-        <h1 className="max-w-2xl text-4xl font-bold text-slate-900 sm:text-5xl">
-          Chiropractic Care That Comes to You
-        </h1>
-        <p className="mt-5 max-w-2xl text-xl text-slate-700">
-          Dr. David DeFries provides one-on-one chiropractic care in your home, workplace, or
-          other convenient location.
-        </p>
-        <p className="mt-3 max-w-2xl text-base text-slate-600">
-          Serving Delaware County, parts of Chester County and the Main Line, with special visits
-          and events available in Philadelphia and surrounding areas.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <CTAButton href="#service-area">Check My Area</CTAButton>
-          <CTAButton href="/book-online" variant="secondary">
-            Schedule a Visit
-          </CTAButton>
-        </div>
-      </section>
-
-      {/* 2. Ready to Schedule? */}
-      <section className="mx-auto w-full max-w-5xl px-4 py-10">
-        <h2 className="text-center text-2xl font-bold text-slate-900">Ready to Schedule?</h2>
-        <div className="mt-6 grid gap-6 sm:grid-cols-3">
-          <div className="rounded-2xl border border-slate-200 p-6">
-            <h3 className="text-lg font-bold text-slate-900">New Patient</h3>
-            <p className="mt-2 text-slate-700">
-              First visit — or haven&apos;t been seen in more than a year.
-            </p>
-            <div className="mt-4">
-              <CTAButton href="/book?start=new" variant="secondary">
-                Schedule a First Visit
-              </CTAButton>
-            </div>
-          </div>
-          <div className="rounded-2xl border border-slate-200 p-6">
-            <h3 className="text-lg font-bold text-slate-900">Returning Patient</h3>
-            <p className="mt-2 text-slate-700">
-              Already a patient and have been seen within the past year.
-            </p>
-            <div className="mt-4">
-              <CTAButton href="/book?start=returning" variant="secondary">
+      <Section tone="white" className="pb-14 pt-12 sm:pb-20 sm:pt-16">
+        <Container>
+          <TwoColumn
+            media={
+              <ImageFrame className="aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5]">
+                <Image
+                  src={HOME_VISIT_IMAGE.src}
+                  alt={HOME_VISIT_IMAGE.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className="object-cover"
+                />
+              </ImageFrame>
+            }
+          >
+            <H1>Chiropractic Care That Comes to You</H1>
+            <Lede className="mt-5">
+              Dr. David DeFries provides one-on-one chiropractic care in your home, workplace, or
+              other convenient location.
+            </Lede>
+            <P>
+              Serving Delaware County, parts of Chester County and the Main Line, with special
+              visits and events available in Philadelphia and surrounding areas.
+            </P>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <CTAButton href="#service-area">Check My Area</CTAButton>
+              <CTAButton href="/book-online" variant="secondary">
                 Schedule a Visit
               </CTAButton>
             </div>
+          </TwoColumn>
+        </Container>
+      </Section>
+
+      {/* 2. Ready to Schedule? */}
+      <Section tone="cream">
+        <Container>
+          <div className="text-center">
+            <H2>Ready to Schedule?</H2>
           </div>
-          <div className="rounded-2xl border border-slate-200 p-6">
-            <h3 className="text-lg font-bold text-slate-900">Group Visit</h3>
-            <p className="mt-2 text-slate-700">
-              Wellness-focused chiropractic care for two or more people at one location.
-            </p>
-            <div className="mt-4">
-              <CTAButton href="/book?start=group" variant="secondary">
-                Schedule a Group Visit
-              </CTAButton>
-            </div>
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            <ChoiceCard
+              title="New Patient"
+              description="First visit — or haven't been seen in more than a year."
+              href="/book?start=new"
+              cta="Schedule a First Visit"
+            />
+            <ChoiceCard
+              title="Returning Patient"
+              description="Already a patient and have been seen within the past year."
+              href="/book?start=returning"
+              cta="Schedule a Visit"
+            />
+            <ChoiceCard
+              title="Group Visit"
+              description="Wellness-focused chiropractic care for two or more people at one location."
+              href="/book?start=group"
+              cta="Schedule a Group Visit"
+            />
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
       {/* 3. Chiropractic Care Without the Trip */}
-      <section id="how-it-works" className="mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-10">
-        <h2 className="text-2xl font-bold text-slate-900">Chiropractic Care Without the Trip</h2>
-        <div className="mt-6 grid gap-6 sm:grid-cols-3">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">Step 1</p>
-            <p className="mt-1 text-lg font-bold text-slate-900">Schedule online</p>
-            <p className="mt-2 text-slate-700">Choose your visit and an available appointment time.</p>
+      <Section tone="white" id="how-it-works" className="scroll-mt-20">
+        <Container>
+          <H2>Chiropractic Care Without the Trip</H2>
+          <div className="mt-10 grid gap-10 sm:grid-cols-3 sm:gap-8">
+            <Step number={1} title="Schedule online" orientation="horizontal">
+              Choose your visit and an available appointment time.
+            </Step>
+            <Step number={2} title="I come to you" orientation="horizontal">
+              I bring the table and equipment needed for your visit.
+            </Step>
+            <Step number={3} title="Get evaluated and treated at your location" orientation="horizontal">
+              Your visit includes appropriate evaluation and treatment without the drive or waiting
+              room.
+            </Step>
           </div>
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">Step 2</p>
-            <p className="mt-1 text-lg font-bold text-slate-900">I come to you</p>
-            <p className="mt-2 text-slate-700">I bring the table and equipment needed for your visit.</p>
-          </div>
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">Step 3</p>
-            <p className="mt-1 text-lg font-bold text-slate-900">
-              Get evaluated and treated at your location
-            </p>
-            <p className="mt-2 text-slate-700">
-              Your visit includes appropriate evaluation and treatment without the drive or
-              waiting room.
-            </p>
-          </div>
-        </div>
-        <Link href="/what-to-expect" className="mt-6 inline-block font-semibold text-slate-900 hover:underline">
-          What to Expect →
-        </Link>
-      </section>
+          <Link
+            href="/what-to-expect"
+            className="mt-10 inline-flex items-center gap-1.5 font-semibold text-navy hover:underline"
+          >
+            What to Expect <span aria-hidden>→</span>
+          </Link>
+        </Container>
+      </Section>
 
       {/* 4. Conditions Snapshot */}
-      <section id="conditions" className="mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-10">
-        <h2 className="text-2xl font-bold text-slate-900">Common problems we help with</h2>
-        <ul className="mt-4 flex flex-wrap gap-3">
-          {["Back pain", "Neck pain", "Headaches", "Sciatica", "Joint pain", "Sports injuries"].map(
-            (item) => (
-              <li
-                key={item}
-                className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700"
-              >
-                {item}
-              </li>
-            )
-          )}
-        </ul>
-      </section>
+      <Section tone="cream" id="conditions" className="scroll-mt-20">
+        <Container>
+          <H2>Common problems we help with</H2>
+          <TagList items={["Back pain", "Neck pain", "Headaches", "Sciatica", "Joint pain", "Sports injuries"]} />
+        </Container>
+      </Section>
 
       {/* 5. Confirm Your Service Area */}
-      <section id="service-area" className="mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-10">
-        <h2 className="text-2xl font-bold text-slate-900">Do we come to you?</h2>
-        <ZipChecker />
-      </section>
+      <Section tone="navy" id="service-area" className="scroll-mt-20">
+        <Container>
+          <div className="mx-auto max-w-xl text-center">
+            <Eyebrow onDark>Service Area</Eyebrow>
+            <H2 onDark className="mt-3">
+              Do we come to you?
+            </H2>
+            <div className="mt-8 text-left">
+              <ZipChecker />
+            </div>
+          </div>
+        </Container>
+      </Section>
 
       {/* 6. Meet Dr. David DeFries */}
-      <section className="mx-auto w-full max-w-5xl px-4 py-10">
-        <h2 className="text-2xl font-bold text-slate-900">Meet Dr. David DeFries</h2>
-        <p className="mt-4 max-w-3xl text-lg text-slate-700">
-          Dr. David DeFries is a third-generation chiropractor who has been practicing since 2003.
-          He graduated from Parker College of Chiropractic and is a licensed Doctor of
-          Chiropractic in Pennsylvania.
-        </p>
-        <Link href="/about" className="mt-4 inline-block font-semibold text-slate-900 hover:underline">
-          Meet Dr. DeFries →
-        </Link>
-      </section>
+      <Section tone="white" className="pt-10 pb-14 sm:pt-14 sm:pb-20">
+        <Container>
+          <TwoColumn
+            reverse
+            media={
+              <ImageFrame className="aspect-[4/3] mx-auto max-w-md lg:mx-0 lg:max-w-none">
+                <Image
+                  src={DOCTOR_PORTRAIT_IMAGE.src}
+                  alt={DOCTOR_PORTRAIT_IMAGE.alt}
+                  fill
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  className="object-cover"
+                />
+              </ImageFrame>
+            }
+          >
+            <Eyebrow>Meet the Doctor</Eyebrow>
+            <H2 className="mt-3">Meet Dr. David DeFries</H2>
+            <P>
+              Dr. David DeFries is a third-generation chiropractor who has been practicing since
+              2003. He graduated from Parker College of Chiropractic and is a licensed Doctor of
+              Chiropractic in Pennsylvania.
+            </P>
+            <Link href="/about" className="mt-5 inline-flex items-center gap-1.5 font-semibold text-navy hover:underline">
+              Meet Dr. DeFries <span aria-hidden>→</span>
+            </Link>
+          </TwoColumn>
+        </Container>
+      </Section>
 
       {/* 7. Closing CTA */}
-      <section className="mx-auto w-full max-w-5xl px-4 py-16">
-        <div className="rounded-3xl bg-slate-900 px-8 py-12 text-center sm:px-16">
-          <h2 className="text-2xl font-bold text-white sm:text-3xl">
-            Chiropractic Care, Without the Trip to Get It.
-          </h2>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/book-online"
-              className="rounded-xl bg-white px-6 py-3.5 text-base font-semibold text-slate-900 hover:bg-slate-100"
-            >
-              Schedule a Visit
-            </Link>
-            <a href={`tel:${BUSINESS_PHONE}`} className="text-base font-semibold text-white hover:underline">
-              Call or text {BUSINESS_PHONE}
-            </a>
+      <Section tone="navy">
+        <Container>
+          <div className="mx-auto max-w-2xl text-center">
+            <H2 onDark>Chiropractic Care, Without the Trip to Get It.</H2>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
+              <CTAButton href="/book-online" variant="inverse">
+                Schedule a Visit
+              </CTAButton>
+              <a href={`tel:${BUSINESS_PHONE}`} className="text-base font-semibold text-white hover:underline">
+                Call or text {BUSINESS_PHONE}
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
     </div>
   );
 }

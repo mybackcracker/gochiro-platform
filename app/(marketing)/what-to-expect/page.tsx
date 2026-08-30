@@ -1,5 +1,7 @@
+import Image from "next/image";
 import type { Metadata } from "next";
-import { ArticleShell, H2, CTAButton } from "@/components/ui";
+import { Section, Container, PageHeader, Step, CTAButton, Callout, ImageFrame, TwoColumn } from "@/components/ui";
+import { HOUSE_CALL_TREATMENT_IMAGE } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "What to Expect — GoChiroMobile",
@@ -8,23 +10,23 @@ export const metadata: Metadata = {
 
 const STEPS: { title: string; body: string }[] = [
   {
-    title: "1. Schedule Your Visit",
+    title: "Schedule Your Visit",
     body: "Choose your visit and an available appointment time online. Your location and exact price are confirmed before you book.",
   },
   {
-    title: "2. Complete Your Intake",
+    title: "Complete Your Intake",
     body: "New patients complete an intake before the appointment so I can review your history, symptoms and goals before I arrive.",
   },
   {
-    title: "3. Evaluation & Examination",
+    title: "Evaluation & Examination",
     body: "We'll talk about what's bothering you and what you're trying to accomplish. I'll evaluate the problem, look at how you're moving and perform appropriate examination or testing based on your situation.",
   },
   {
-    title: "4. Treatment",
+    title: "Treatment",
     body: "When appropriate, treatment begins during the same visit. Care is based on what I find during your evaluation rather than a predetermined routine.",
   },
   {
-    title: "5. Know What Comes Next",
+    title: "Know What Comes Next",
     body: "Before I leave, we'll discuss what I found, things you can do between visits and whether additional care makes sense.",
   },
 ];
@@ -43,30 +45,60 @@ const PREPARATION = [
 
 export default function WhatToExpectPage() {
   return (
-    <ArticleShell
-      eyebrow="What to Expect"
-      title="What to Expect From a Mobile Chiropractic Visit"
-      lede="I bring the chiropractic visit to you. Here's what happens before, during and after your appointment."
-    >
-      <div className="space-y-8">
-        {STEPS.map((step) => (
-          <div key={step.title}>
-            <h2 className="text-xl font-bold text-slate-900">{step.title}</h2>
-            <p className="mt-2 text-lg leading-relaxed text-slate-700">{step.body}</p>
+    <div>
+      <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
+        <Container>
+          <PageHeader
+            eyebrow="What to Expect"
+            title="What to Expect From a Mobile Chiropractic Visit"
+            lede="I bring the chiropractic visit to you. Here's what happens before, during and after your appointment."
+          />
+
+          <div className="mt-14">
+            <TwoColumn
+              reverse
+              media={
+                <ImageFrame className="aspect-[4/5] lg:sticky lg:top-24">
+                  <Image
+                    src={HOUSE_CALL_TREATMENT_IMAGE.src}
+                    alt={HOUSE_CALL_TREATMENT_IMAGE.alt}
+                    fill
+                    sizes="(min-width: 1024px) 40vw, 100vw"
+                    className="object-cover object-[center_35%]"
+                  />
+                </ImageFrame>
+              }
+            >
+              <div>
+                {STEPS.map((step, i) => (
+                  <Step key={step.title} number={i + 1} title={step.title}>
+                    {step.body}
+                  </Step>
+                ))}
+              </div>
+            </TwoColumn>
           </div>
-        ))}
-      </div>
+        </Container>
+      </Section>
 
-      <H2>Preparing for Your Visit</H2>
-      <ul className="mt-4 space-y-2 text-lg leading-relaxed text-slate-700">
-        {PREPARATION.map((line) => (
-          <li key={line}>{line}</li>
-        ))}
-      </ul>
+      <Section tone="cream" className="pt-8 pb-14 sm:pt-10 sm:pb-16">
+        <Container>
+          <Callout title="Preparing for Your Visit" tone="white" className="mx-auto max-w-3xl">
+            <ul className="mt-3 space-y-2.5">
+              {PREPARATION.map((line) => (
+                <li key={line} className="flex gap-3 text-base leading-relaxed text-muted">
+                  <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-navy" aria-hidden />
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </Callout>
 
-      <div className="mt-10">
-        <CTAButton href="/book-online">Schedule a visit →</CTAButton>
-      </div>
-    </ArticleShell>
+          <div className="mt-10 text-center">
+            <CTAButton href="/book-online">Schedule a visit →</CTAButton>
+          </div>
+        </Container>
+      </Section>
+    </div>
   );
 }

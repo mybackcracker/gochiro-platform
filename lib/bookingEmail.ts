@@ -1,6 +1,7 @@
 import { sendEmail } from "./gmail";
 import {
   BOOKING_NOTIFICATION_EMAIL,
+  PUBLIC_CONTACT_EMAIL,
   BUSINESS_NAME,
   DOCTOR_NAME,
   BUSINESS_PHONE,
@@ -265,6 +266,7 @@ export async function sendPatientConfirmationEmail(input: BookingEmailInput): Pr
     to: b.patientEmail,
     toName: b.patientName,
     fromName: BUSINESS_NAME,
+    fromAddress: PUBLIC_CONTACT_EMAIL,
     subject: `Your ${b.visitLabel} is Confirmed — ${BUSINESS_NAME}`,
     text: buildPatientTextEmail(b),
     html: buildPatientHtmlEmail(b),
@@ -295,18 +297,15 @@ export async function sendBookingEmails(input: BookingEmailInput): Promise<void>
 // ---------------------------------------------------------------------------
 // Group Visit emails (GROUP_VISIT_SPECIFICATION.md, resolved 2026-08-28).
 // The host is the booking contact (firstName/lastName/phone/email/address
-// above are the host's, not a participant's). Only new-patient participants
-// get their own intake email — existing patients don't re-intake. Per the
-// V1 payment decision, there is no Square link here: the total is quoted,
-// the host is told they're responsible for it, and the visit books without
-// requiring advance payment.
+// above are the host's) and the sole point of contact — individual
+// attendees are not identified during booking. If the group includes new
+// patients, the host's confirmation includes the intake link and is told to
+// share it with each new-patient attendee, who each complete their own
+// intake before receiving care. Per the V1 payment decision, there is no
+// Square link here: the total is quoted, the host is told they're
+// responsible for it, and the visit books without requiring advance
+// payment.
 // ---------------------------------------------------------------------------
-
-export interface GroupNewPatientParticipant {
-  firstName: string;
-  lastName: string;
-  email: string;
-}
 
 export interface GroupBookingEmailInput {
   region: Region;
@@ -321,7 +320,6 @@ export interface GroupBookingEmailInput {
   addressState: string;
   addressZip: string;
   composition: GroupVisitComposition;
-  newPatientParticipants: GroupNewPatientParticipant[];
 }
 
 interface GroupBookingEmailData {
@@ -341,7 +339,6 @@ interface GroupBookingEmailData {
   existingSubtotal: number;
   travelFee: number;
   total: number;
-  participants: GroupNewPatientParticipant[];
 }
 
 function buildGroupBookingEmailData(input: GroupBookingEmailInput): GroupBookingEmailData {
@@ -367,7 +364,6 @@ function buildGroupBookingEmailData(input: GroupBookingEmailInput): GroupBooking
     existingSubtotal: existingCount * GROUP_VISIT_EXISTING_PATIENT_PRICE,
     travelFee: groupVisitTravelFee(input.region),
     total: groupVisitTotal(input.region, input.composition),
-    participants: input.newPatientParticipants,
   };
 }
 
@@ -397,7 +393,9 @@ function buildHostTextEmail(b: GroupBookingEmailData): string {
 
   if (b.newCount > 0) {
     body += "NEW PATIENT INTAKE\n";
-    body += `Each new patient in the group must complete their own intake at least ${INTAKE_DEADLINE_HOURS} hours before the visit. We've emailed an intake link directly to each of them.\n\n`;
+    body += "Your group includes new patients. Please share this intake link with each new patient attending. Each new patient must complete their own intake before receiving care.\n";
+    body += `Intake link: ${INTAKE_URL}\n`;
+    body += `Each new patient must complete their intake at least ${INTAKE_DEADLINE_HOURS} hours before the visit.\n\n`;
   }
 
   body += `Questions? Call or text ${BUSINESS_PHONE}.\n\n`;
@@ -442,7 +440,9 @@ function buildHostHtmlEmail(b: GroupBookingEmailData): string {
   if (b.newCount > 0) {
     html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
     html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#991b1b;">New Patient Intake</h2>';
-    html += `<p style="margin:0 0 16px 0;color:#991b1b;">Each new patient in the group must complete their own intake at least ${INTAKE_DEADLINE_HOURS} hours before the visit. We've emailed an intake link directly to each of them.</p>`;
+    html += '<p style="margin:0 0 16px 0;color:#991b1b;"><strong>Your group includes new patients.</strong> Please share this intake link with each new patient attending. Each new patient must complete their own intake before receiving care.</p>';
+    html += `<p style="margin:16px 0 6px 0;"><a href="${escapeHtml(INTAKE_URL)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Intake Link</a></p>`;
+    html += `<p style="margin:0 0 16px 0;color:#991b1b;">Each new patient must complete their intake at least ${INTAKE_DEADLINE_HOURS} hours before the visit.</p>`;
   }
 
   html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
@@ -465,38 +465,11 @@ function buildDoctorGroupEmail(b: GroupBookingEmailData): { subject: string; tex
   text += `ETA: ${b.arrivalStartStr} - ${b.arrivalEndStr}\n`;
   text += `Address:\n${b.fullAddress}\n`;
   text += `Participants: ${b.newCount} new, ${b.existingCount} existing\n`;
-  if (b.participants.length > 0) {
-    text += `New patients:\n${b.participants.map((p) => `  - ${p.firstName} ${p.lastName} (${p.email})`).join("\n")}\n`;
-  }
   text += `Total: $${b.total} (host responsible)`;
 
   const html = `<pre style="font-family:inherit;white-space:pre-wrap;">${escapeHtml(text)}</pre>`;
 
   return { subject, text, html };
-}
-
-function buildParticipantIntakeEmail(
-  participant: GroupNewPatientParticipant,
-  b: GroupBookingEmailData
-): { text: string; html: string } {
-  const text =
-    `Hi ${participant.firstName},\n\n` +
-    `You're part of a Group Visit hosted by ${b.hostName} on ${b.dateStr} at ${b.timeStr}.\n\n` +
-    `Your intake form must be completed at least ${INTAKE_DEADLINE_HOURS} hours before the appointment. Failure to complete it by this deadline may affect your participation in the visit.\n\n` +
-    `Complete your intake here:\n${INTAKE_URL}\n\n` +
-    `Questions? Call or text ${BUSINESS_PHONE}.\n\n${DOCTOR_NAME}\n${BUSINESS_NAME}`;
-
-  const html =
-    '<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.45;color:#222222;">' +
-    `<p>Hi ${escapeHtml(participant.firstName)},</p>` +
-    `<p>You're part of a Group Visit hosted by ${escapeHtml(b.hostName)} on ${escapeHtml(b.dateStr)} at ${escapeHtml(b.timeStr)}.</p>` +
-    `<p style="color:#991b1b;"><strong><u>Your intake form must be completed at least ${INTAKE_DEADLINE_HOURS} hours before the appointment.</u></strong> Failure to complete it by this deadline may affect your participation in the visit.</p>` +
-    `<p><a href="${escapeHtml(INTAKE_URL)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Complete Intake Forms</a></p>` +
-    `<p>Questions? Call or text <strong>${escapeHtml(BUSINESS_PHONE)}</strong>.</p>` +
-    `<p>${escapeHtml(DOCTOR_NAME)}<br>${escapeHtml(BUSINESS_NAME)}</p>` +
-    "</div>";
-
-  return { text, html };
 }
 
 export async function sendGroupBookingEmails(input: GroupBookingEmailInput): Promise<void> {
@@ -507,6 +480,7 @@ export async function sendGroupBookingEmails(input: GroupBookingEmailInput): Pro
       to: b.hostEmail,
       toName: b.hostName,
       fromName: BUSINESS_NAME,
+      fromAddress: PUBLIC_CONTACT_EMAIL,
       subject: `Your Group Visit is Confirmed — ${BUSINESS_NAME}`,
       text: buildHostTextEmail(b),
       html: buildHostHtmlEmail(b),
@@ -515,17 +489,6 @@ export async function sendGroupBookingEmails(input: GroupBookingEmailInput): Pro
       const { subject, text, html } = buildDoctorGroupEmail(b);
       return sendEmail({ to: BOOKING_NOTIFICATION_EMAIL, fromName: BUSINESS_NAME, subject, text, html });
     })(),
-    ...b.participants.map((p) => {
-      const { text, html } = buildParticipantIntakeEmail(p, b);
-      return sendEmail({
-        to: p.email,
-        toName: `${p.firstName} ${p.lastName}`,
-        fromName: BUSINESS_NAME,
-        subject: `Complete Your Intake — Group Visit on ${b.dateStr}`,
-        text,
-        html,
-      });
-    }),
   ];
 
   const results = await Promise.allSettled(sends);
