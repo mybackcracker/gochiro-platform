@@ -29,12 +29,17 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div>
-      {/* 1. Hero */}
+      {/* 1. Hero — the photo renders first in source order (no order-* classes) so
+          mobile/tablet (single-column, below lg) shows it immediately below the header,
+          with the headline/lede/CTA beneath; the same DOM order naturally gives the
+          image-left/text-right two-column layout at desktop via lg:grid-cols-2. Hand-rolled
+          rather than TwoColumn so the 16:9 hero aspect ratio stays scoped to the hero and
+          doesn't affect other TwoColumn/ImageFrame usage. */}
       <Section tone="white" className="pb-14 pt-12 sm:pb-20 sm:pt-16">
         <Container>
-          <TwoColumn
-            media={
-              <ImageFrame className="aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5]">
+          <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+            <div>
+              <ImageFrame className="aspect-video">
                 <Image
                   src={HOME_VISIT_IMAGE.src}
                   alt={HOME_VISIT_IMAGE.alt}
@@ -44,24 +49,25 @@ export default function HomePage() {
                   className="object-cover"
                 />
               </ImageFrame>
-            }
-          >
-            <H1>Chiropractic Care That Comes to You</H1>
-            <Lede className="mt-5">
-              Dr. David DeFries provides one-on-one chiropractic care in your home, workplace, or
-              other convenient location.
-            </Lede>
-            <P>
-              Serving Delaware County, parts of Chester County and the Main Line, with special
-              visits and events available in Philadelphia and surrounding areas.
-            </P>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <CTAButton href="#service-area">Check My Area</CTAButton>
-              <CTAButton href="/book-online" variant="secondary">
-                Schedule a Visit
-              </CTAButton>
             </div>
-          </TwoColumn>
+            <div>
+              <H1>Chiropractic Care That Comes to You</H1>
+              <Lede className="mt-5">
+                Dr. David DeFries provides one-on-one chiropractic care in your home, workplace, or
+                other convenient location.
+              </Lede>
+              <P>
+                Serving Delaware County, parts of Chester County and the Main Line, with special
+                visits and events available in Philadelphia and surrounding areas.
+              </P>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <CTAButton href="#service-area">Check My Area</CTAButton>
+                <CTAButton href="/book-online" variant="secondary">
+                  Schedule a Visit
+                </CTAButton>
+              </div>
+            </div>
+          </div>
         </Container>
       </Section>
 

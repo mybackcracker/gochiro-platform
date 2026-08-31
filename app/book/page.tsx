@@ -22,7 +22,6 @@ import {
 
 type Step =
   | "landing"
-  | "returning-12mo"
   | "region"
   | "zip"
   | "policy"
@@ -107,12 +106,13 @@ function formatPhoneInput(raw: string): string {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-// Section 4 step 3: tappable, color-coded region buttons. Only regions with
-// a real, recognizable patient-facing place name (Main Line, West Chester)
-// get a direct button — East/West/Central have no such name (they're
-// internal scheduling regions only), so those patients use the ZIP fallback
-// below instead of a same-labeled row of buttons they can't tell apart.
+// Section 4 step 3: tappable, color-coded region buttons — all five
+// scheduling areas, so a returning patient can self-select their area
+// directly instead of being funneled through ZIP entry.
 const REGION_OPTIONS: { id: Region; label: string; className: string }[] = [
+  { id: "West", label: "West", className: "border-blue-300 bg-blue-50 hover:border-blue-500" },
+  { id: "Central", label: "Central", className: "border-green-300 bg-green-50 hover:border-green-500" },
+  { id: "East", label: "East", className: "border-purple-300 bg-purple-50 hover:border-purple-500" },
   { id: "MainLine", label: "Main Line", className: "border-red-300 bg-red-50 hover:border-red-500" },
   { id: "WestChester", label: "West Chester", className: "border-yellow-300 bg-yellow-50 hover:border-yellow-500" },
 ];
@@ -122,10 +122,6 @@ export default function BookPage() {
   const [step, setStep] = useState<Step>("landing");
   const [history, setHistory] = useState<Step[]>([]);
   const [patientType, setPatientType] = useState<"new" | "returning" | "group" | null>(null);
-  // Returning patient not seen in 12mo: routed through the same zip step as a
-  // new patient (patientType stays "new"), but they aren't a new patient, so
-  // the new-patient price shouldn't show on that screen.
-  const [returningLapsed, setReturningLapsed] = useState(false);
   const [policyAgreed, setPolicyAgreed] = useState(false);
 
   const [zip, setZip] = useState("");
@@ -243,11 +239,10 @@ export default function BookPage() {
     if (start === "new") {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setPatientType("new");
-      setReturningLapsed(false);
       setStep("zip");
     } else if (start === "returning") {
       setPatientType("returning");
-      setStep("returning-12mo");
+      setStep("region");
     } else if (start === "group") {
       setPatientType("group");
       setVisit("group-visit");
@@ -322,13 +317,7 @@ export default function BookPage() {
     setRegion(zipRegion);
     if (patientType === "new") {
       setVisit("new-patient");
-      // Policy copy below is new-patient intake language; a lapsed returning
-      // patient isn't a new patient, so they skip straight to scheduling.
-      if (returningLapsed) {
-        goToSchedule();
-      } else {
-        go("policy");
-      }
+      go("policy");
     } else {
       go("visit");
     }
@@ -645,26 +634,32 @@ export default function BookPage() {
         {step === "landing" && (
           <>
             <h1 className="mt-2 text-2xl font-bold text-slate-900">Schedule Your Appointment</h1>
+            <p className="mt-2 text-slate-600">Answer a few questions to see your available appointment times and fee.</p>
             <div className="mt-6 space-y-3">
               <button
                 onClick={() => {
                   setPatientType("new");
-                  setReturningLapsed(false);
                   go("zip");
                 }}
                 className="w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white hover:bg-slate-800"
               >
                 New Patient, First Visit
               </button>
-              <button
-                onClick={() => {
-                  setPatientType("returning");
-                  go("returning-12mo");
-                }}
-                className="w-full rounded-xl border border-slate-300 px-5 py-4 text-lg font-semibold text-slate-900 hover:border-slate-900"
-              >
-                Returning Patient, Follow-Up
-              </button>
+              <div>
+                <button
+                  onClick={() => {
+                    setPatientType("returning");
+                    go("region");
+                  }}
+                  className="w-full rounded-xl border border-slate-300 px-5 py-4 text-lg font-semibold text-slate-900 hover:border-slate-900"
+                >
+                  Returning Patient, Follow-Up
+                </button>
+                <p className="mt-2 text-sm text-slate-500">
+                  For patients who have been seen by Dr. DeFries within the past 12 months. If your last visit was
+                  more than 12 months ago, please schedule as a New Patient.
+                </p>
+              </div>
               <button
                 onClick={() => {
                   setPatientType("group");
@@ -679,43 +674,12 @@ export default function BookPage() {
           </>
         )}
 
-        {step === "returning-12mo" && (
-          <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Have you been seen in the last 12 months?</h1>
-
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              <button
-                onClick={() => {
-                  setReturningLapsed(false);
-                  go("region");
-                }}
-                className="rounded-xl border border-slate-300 p-4 font-semibold text-slate-900 hover:border-slate-900"
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => {
-                  setPatientType("new");
-                  setReturningLapsed(true);
-                  go("zip");
-                }}
-                className="rounded-xl border border-slate-300 p-4 font-semibold text-slate-900 hover:border-slate-900"
-              >
-                No
-              </button>
-            </div>
-          </>
-        )}
-
         {step === "region" && (
           <>
             <h1 className="mt-2 text-2xl font-bold text-slate-900">Where are you located?</h1>
-            <p className="mt-2 text-slate-600">
-              If you&apos;re in the Main Line or West Chester area, choose it below. Otherwise,
-              enter your ZIP code and we&apos;ll find it for you.
-            </p>
+            <p className="mt-2 text-slate-600">Choose your scheduling area below.</p>
 
-            <div className="mt-6 grid grid-cols-2 gap-3">
+            <div className="mt-6 space-y-3">
               {REGION_OPTIONS.map((r) => (
                 <button
                   key={r.id}
@@ -723,18 +687,19 @@ export default function BookPage() {
                     setRegion(r.id);
                     go("visit");
                   }}
-                  className={`rounded-xl border p-4 text-left font-semibold text-slate-900 ${r.className}`}
+                  className={`w-full rounded-xl border p-4 text-left font-semibold text-slate-900 ${r.className}`}
                 >
                   {r.label}
                 </button>
               ))}
             </div>
 
+            <p className="mt-6 text-sm font-semibold text-slate-700">Not sure which area you&apos;re in?</p>
             <button
               onClick={() => go("zip")}
-              className="mt-4 w-full rounded-xl border border-slate-300 px-5 py-4 text-center font-semibold text-slate-600 hover:border-slate-900"
+              className="mt-2 w-full rounded-xl border border-slate-300 px-5 py-4 text-center font-semibold text-slate-600 hover:border-slate-900"
             >
-              Enter my ZIP code instead
+              Enter my ZIP code
             </button>
           </>
         )}
@@ -760,7 +725,7 @@ export default function BookPage() {
               </div>
             )}
 
-            {zipRegion && patientType === "new" && !returningLapsed && (
+            {zipRegion && patientType === "new" && (
               <div className="mt-4 rounded-xl bg-emerald-50 p-4 text-emerald-900">
                 <span className="text-sm">New Patient, First Visit</span>
                 <span className="block text-2xl font-bold">
@@ -769,7 +734,7 @@ export default function BookPage() {
               </div>
             )}
 
-            {zipRegion && (patientType !== "new" || returningLapsed) && (
+            {zipRegion && patientType !== "new" && (
               <div className="mt-4 rounded-xl bg-emerald-50 p-4 text-sm text-emerald-900">Service area confirmed.</div>
             )}
 
@@ -1009,6 +974,7 @@ export default function BookPage() {
                 className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"
               >
                 <span className="block font-semibold text-slate-900">Maintenance / Wellness Visit</span>
+                <span className="mt-1 block text-sm text-slate-500">Requires 48-hour advance notice.</span>
                 {region && (
                   <span className="mt-1 block text-lg font-bold text-slate-900">
                     {formatPrice(priceFor(region, "maintenance"))}
@@ -1020,6 +986,7 @@ export default function BookPage() {
                 className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"
               >
                 <span className="block font-semibold text-slate-900">New Complaint / Priority Visit</span>
+                <span className="mt-1 block text-sm text-slate-500">Same-day or next-day care for an existing patient.</span>
                 <span className="mt-1 block text-sm text-slate-500">Price depends on a couple quick questions.</span>
               </button>
               <button

@@ -15,7 +15,7 @@ export default function AboutPage() {
         <Container>
           <TwoColumn
             media={
-              <ImageFrame className="aspect-[4/5]">
+              <ImageFrame className="aspect-video">
                 <Image
                   src={LAPTOP_CONSULTATION_IMAGE.src}
                   alt={LAPTOP_CONSULTATION_IMAGE.alt}
@@ -52,7 +52,7 @@ export default function AboutPage() {
           <TwoColumn
             reverse
             media={
-              <ImageFrame className="aspect-[4/5]">
+              <ImageFrame className="aspect-video">
                 <Image
                   src={IN_HOME_TREATMENT_IMAGE.src}
                   alt={IN_HOME_TREATMENT_IMAGE.alt}

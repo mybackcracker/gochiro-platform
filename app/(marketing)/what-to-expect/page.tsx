@@ -58,7 +58,7 @@ export default function WhatToExpectPage() {
             <TwoColumn
               reverse
               media={
-                <ImageFrame className="aspect-[4/5] lg:sticky lg:top-24">
+                <ImageFrame className="aspect-video lg:sticky lg:top-24">
                   <Image
                     src={HOUSE_CALL_TREATMENT_IMAGE.src}
                     alt={HOUSE_CALL_TREATMENT_IMAGE.alt}
