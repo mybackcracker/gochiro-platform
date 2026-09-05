@@ -7,7 +7,6 @@ import {
   BUSINESS_PHONE,
   VENMO_LINK,
   VENMO_LAST4,
-  INTAKE_URL,
   INTAKE_DEADLINE_HOURS,
   VISITS,
   priceFor,
@@ -54,6 +53,7 @@ interface BookingEmailData {
   arrivalEndStr: string;
   price: number | null;
   paymentLink: string;
+  intakeLink?: string;
 }
 
 function formatDate(d: Date): string {
@@ -75,7 +75,7 @@ function formatTime(d: Date): string {
   }).format(d);
 }
 
-function buildBookingEmailData(input: BookingEmailInput): BookingEmailData {
+function buildBookingEmailData(input: BookingEmailInput, intakeLink?: string): BookingEmailData {
   const arrivalStart = new Date(input.start.getTime() - 15 * 60000);
   const arrivalEnd = new Date(input.start.getTime() + 15 * 60000);
   const streetLine = input.addressLine2 ? `${input.address}, ${input.addressLine2}` : input.address;
@@ -96,6 +96,7 @@ function buildBookingEmailData(input: BookingEmailInput): BookingEmailData {
     arrivalEndStr: formatTime(arrivalEnd),
     price: priceFor(input.region, input.visit),
     paymentLink: paymentLinkFor(input.region, input.visit),
+    intakeLink,
   };
 }
 
@@ -130,7 +131,7 @@ function getPreparationLines(visit: VisitType): string[] {
   return lines;
 }
 
-function buildPatientTextEmail(b: BookingEmailData): string {
+export function buildPatientTextEmail(b: BookingEmailData): string {
   let body = "";
   body += `Hi ${b.patientFirstName},\n\n`;
   body += `Your ${b.visitLabel} has been confirmed.\n\n`;
@@ -166,9 +167,13 @@ function buildPatientTextEmail(b: BookingEmailData): string {
 
   if (b.visit === "new-patient") {
     body += "IMPORTANT INTAKE FORM POLICY\n";
-    body += `Your intake forms must be completed at least ${INTAKE_DEADLINE_HOURS} hours before your scheduled appointment. `;
-    body += "Failure to complete the forms by this deadline may result in your appointment being canceled and a missed appointment fee being applied to your account.\n\n";
-    body += `Complete your intake forms here:\n${INTAKE_URL}\n\n`;
+    if (b.intakeLink) {
+      body += "Complete your intake within three hours of booking. This secure link can be used only once.\n\n";
+      body += `Complete your intake forms here:\n${b.intakeLink}\n\n`;
+    } else {
+      body += `Your intake forms must be completed at least ${INTAKE_DEADLINE_HOURS} hours before your scheduled appointment. `;
+      body += "Failure to complete the forms by this deadline may result in your appointment being canceled and a missed appointment fee being applied to your account.\n\n";
+    }
   }
 
   body += `Questions? Call or text ${BUSINESS_PHONE}.\n\n`;
@@ -179,7 +184,7 @@ function buildPatientTextEmail(b: BookingEmailData): string {
   return body;
 }
 
-function buildPatientHtmlEmail(b: BookingEmailData): string {
+export function buildPatientHtmlEmail(b: BookingEmailData): string {
   const prepText = getPreparationLines(b.visit)
     .map((l) => `• ${escapeHtml(l)}`)
     .join("<br>");
@@ -225,8 +230,12 @@ function buildPatientHtmlEmail(b: BookingEmailData): string {
   if (b.visit === "new-patient") {
     html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
     html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#991b1b;">Important Intake Form Policy</h2>';
-    html += `<p style="margin:0 0 16px 0;color:#991b1b;"><strong><u>Your intake forms must be completed at least ${INTAKE_DEADLINE_HOURS} hours before your scheduled appointment.</u></strong> Failure to complete the forms by this deadline may result in your appointment being canceled and a missed appointment fee being applied to your account.</p>`;
-    html += `<p style="margin:16px 0;"><a href="${escapeHtml(INTAKE_URL)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Complete Intake Forms</a></p>`;
+    if (b.intakeLink) {
+      html += '<p style="margin:0 0 16px 0;color:#991b1b;"><strong>Complete your intake within three hours of booking.</strong> This secure link can be used only once.</p>';
+      html += `<p style="margin:16px 0;"><a href="${escapeHtml(b.intakeLink)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Complete Intake Forms</a></p>`;
+    } else {
+      html += `<p style="margin:0 0 16px 0;color:#991b1b;"><strong><u>Your intake forms must be completed at least ${INTAKE_DEADLINE_HOURS} hours before your scheduled appointment.</u></strong> Failure to complete the forms by this deadline may result in your appointment being canceled and a missed appointment fee being applied to your account.</p>`;
+    }
   }
 
   html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
@@ -260,8 +269,8 @@ function buildDoctorEmail(b: BookingEmailData): { subject: string; text: string;
 // Best-effort — errors are caught and logged by the caller (app/api/book),
 // never allowed to fail the booking itself. The calendar event is already
 // created by the time these run, so email delivery is a bonus, not gating.
-export async function sendPatientConfirmationEmail(input: BookingEmailInput): Promise<void> {
-  const b = buildBookingEmailData(input);
+export async function sendPatientConfirmationEmail(input: BookingEmailInput, intakeLink?: string): Promise<void> {
+  const b = buildBookingEmailData(input, intakeLink);
   await sendEmail({
     to: b.patientEmail,
     toName: b.patientName,
@@ -285,23 +294,32 @@ export async function sendDoctorNotificationEmail(input: BookingEmailInput): Pro
   });
 }
 
-export async function sendBookingEmails(input: BookingEmailInput): Promise<void> {
-  const results = await Promise.allSettled([sendPatientConfirmationEmail(input), sendDoctorNotificationEmail(input)]);
+export async function sendBookingEmails(input: BookingEmailInput, intakeLink?: string): Promise<void> {
+  const results = await Promise.allSettled([sendPatientConfirmationEmail(input, intakeLink), sendDoctorNotificationEmail(input)]);
   for (const result of results) {
     if (result.status === "rejected") {
-      console.error("Booking email failed to send:", result.reason);
+      console.error("Booking email failed to send.");
     }
   }
+}
+
+export async function sendIntakeIssuanceWarning(): Promise<void> {
+  await sendEmail({
+    to: BOOKING_NOTIFICATION_EMAIL,
+    fromName: BUSINESS_NAME,
+    subject: "Scheduler intake-link issuance warning",
+    text: "A secure intake link could not be issued for a completed booking. Review the protected intake authorization service.",
+    html: "<p>A secure intake link could not be issued for a completed booking. Review the protected intake authorization service.</p>",
+  });
 }
 
 // ---------------------------------------------------------------------------
 // Group Visit emails (GROUP_VISIT_SPECIFICATION.md, resolved 2026-08-28).
 // The host is the booking contact (firstName/lastName/phone/email/address
 // above are the host's) and the sole point of contact — individual
-// attendees are not identified during booking. If the group includes new
-// patients, the host's confirmation includes the intake link and is told to
-// share it with each new-patient attendee, who each complete their own
-// intake before receiving care. Per the V1 payment decision, there is no
+// attendees are not identified during booking. Group intake links require a
+// separate multi-patient design and are intentionally unsupported. Per the
+// V1 payment decision, there is no
 // Square link here: the total is quoted, the host is told they're
 // responsible for it, and the visit books without requiring advance
 // payment.
@@ -391,12 +409,6 @@ function buildHostTextEmail(b: GroupBookingEmailData): string {
   body += `Pay with Venmo: ${VENMO_LINK}\n`;
   body += `Last four: ${VENMO_LAST4}\n\n`;
 
-  if (b.newCount > 0) {
-    body += "NEW PATIENT INTAKE\n";
-    body += "Your group includes new patients. Please share this intake link with each new patient attending. Each new patient must complete their own intake before receiving care.\n";
-    body += `Intake link: ${INTAKE_URL}\n`;
-    body += `Each new patient must complete their intake at least ${INTAKE_DEADLINE_HOURS} hours before the visit.\n\n`;
-  }
 
   body += `Questions? Call or text ${BUSINESS_PHONE}.\n\n`;
   body += `${DOCTOR_NAME}\n`;
@@ -437,13 +449,6 @@ function buildHostHtmlEmail(b: GroupBookingEmailData): string {
   html += `<p style="margin:16px 0 6px 0;"><a href="${escapeHtml(VENMO_LINK)}" style="display:block;background:#173B57;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Pay with Venmo</a></p>`;
   html += `<p style="margin:0 0 16px 0;">Last four: ${escapeHtml(VENMO_LAST4)}</p>`;
 
-  if (b.newCount > 0) {
-    html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
-    html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#991b1b;">New Patient Intake</h2>';
-    html += '<p style="margin:0 0 16px 0;color:#991b1b;"><strong>Your group includes new patients.</strong> Please share this intake link with each new patient attending. Each new patient must complete their own intake before receiving care.</p>';
-    html += `<p style="margin:16px 0 6px 0;"><a href="${escapeHtml(INTAKE_URL)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Intake Link</a></p>`;
-    html += `<p style="margin:0 0 16px 0;color:#991b1b;">Each new patient must complete their intake at least ${INTAKE_DEADLINE_HOURS} hours before the visit.</p>`;
-  }
 
   html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
   html += `<p style="margin:0 0 16px 0;">Questions? Call or text <strong>${escapeHtml(BUSINESS_PHONE)}</strong>.</p>`;
@@ -494,7 +499,7 @@ export async function sendGroupBookingEmails(input: GroupBookingEmailInput): Pro
   const results = await Promise.allSettled(sends);
   for (const result of results) {
     if (result.status === "rejected") {
-      console.error("Group booking email failed to send:", result.reason);
+      console.error("Group booking email failed to send.");
     }
   }
 }

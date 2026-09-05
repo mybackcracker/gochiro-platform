@@ -57,8 +57,8 @@ The returning option is labeled for patients seen by Dr. DeFries within the last
 2. **Policy.** Show cancellation, travel-flexibility, intake, and payment terms in a scrollable panel. Agreement checkbox is required.
 3. **Time funnel.** Offer timing bucket, available day, time-of-day period, and slots.
 4. **Contact and appointment address.** Require first name, last name, ten-digit US phone, email, street, city, state, and five-digit address ZIP. Unit/suite is optional. Fields show inline validation errors. The address ZIP is contact/location data; the initially selected service ZIP continues to determine scheduling region and price.
-5. **Review.** Display visit, date/time, complete address, service ZIP, displayed region, and fee. The patient can confirm and open intake immediately or confirm and rely on the emailed intake link. A fixed Square payment link is also available on this screen.
-6. **Confirmation.** Display success, appointment time, Square link, and intake link.
+5. **Review.** Display visit, date/time, complete address, service ZIP, displayed region, and fee. A fixed Square payment link is also available on this screen.
+6. **Confirmation.** Display success, appointment time, and Square link. A secure intake link may be sent by email only after its authorization is stored.
 
 ## 4. Returning-patient flow
 
@@ -88,7 +88,7 @@ The 20-minute outcome requires no accident/injury, one complaint, and mild-to-mo
 4. Use the common time funnel under the 24-hour minimum. Slot duration is recomputed from the participant counts.
 5. Enter the host's required contact information and appointment address. Individual attendees are not collected.
 6. Review participant subtotals, travel fee, and total; then confirm without advance payment.
-7. The host receives the confirmation and, when the group contains new patients, an intake link to share with each new-patient participant.
+7. The host receives the confirmation without an intake link. Group intake issuance is unsupported until a separate multi-patient design exists.
 
 ## 6. Time and availability rules
 
@@ -129,17 +129,22 @@ The body contains region, visit, the selected ISO start, name, phone, email, and
 3. derives the end time from fixed visit duration or group composition;
 4. rechecks direct calendar overlap immediately before insertion;
 5. creates the Google Calendar event; and
-6. attempts patient/host and internal notification emails.
+6. for `new-patient` only, optionally stores a hashed secure intake authorization and adds its link to the patient email; and
+7. attempts patient/host and internal notification emails.
 
-A stale occupied slot returns HTTP 409. Calendar/auth failures return HTTP 500. Email sends are best-effort after calendar creation: failures are logged and do not change a successful booking response.
+A stale occupied slot returns HTTP 409. Calendar/auth failures return a generic HTTP 500 response. Success is `{ "success": true }`; Calendar IDs and links are private. Email and intake-ledger operations are best-effort after calendar creation and do not change a successful booking response. Intake failures trigger a generic, non-PHI operational warning.
 
 Calendar event locations retain a recognizable region label so later availability checks can infer travel buffers. The street address and contact details are stored in the description. Group events identify the host and participant composition.
 
 ## 8. Confirmation and payment emails
 
-Individual confirmation emails include appointment date/time, ETA range, full address, preparation notes, fee or claim-billing statement, accepted payment options, and the configured Square link when one applies. New-patient emails include the intake link and two-hour deadline. The practice receives a separate booking notification.
+Individual confirmation emails preserve appointment date/time, ETA range, full address, preparation notes, fee or claim-billing statement, accepted payment options, and the configured Square link when one applies. With secure issuance enabled and successful, new-patient email alone includes a single-use intake link and directs completion within three hours. If issuance fails or is disabled, normal confirmation still sends without that link. The practice receives a separate booking notification.
 
-Group host emails include appointment/address details, participant breakdown, travel fee, total, accepted payment methods, and (when needed) the intake link the host must share. They intentionally contain no Square link. The practice receives a group notification.
+Group host emails include appointment/address details, participant breakdown, travel fee, total, and accepted payment methods. They intentionally contain no Square or intake link. The practice receives a group notification.
+
+### Secure intake authorization lifecycle
+
+The dedicated protected Sheet setup and environment variables are documented in `README.md`. The scheduler generates 256 random bits, stores only a domain-separated SHA-256 hash and non-PHI authorization metadata, and expires the authorization at the earlier of three server-UTC hours after booking or appointment start. The intake application must still implement validation and atomic single-use consumption before production activation.
 
 ## 9. Deferred decisions and known limitations
 

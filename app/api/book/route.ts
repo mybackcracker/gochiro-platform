@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAppointment, isSlotStillFree } from "@/lib/googleCalendar";
-import { sendBookingEmails, sendGroupBookingEmails } from "@/lib/bookingEmail";
+import { completeBookedAppointment } from "@/lib/bookingCompletion";
 import {
   VISITS,
   leadDays,
@@ -154,25 +154,20 @@ export async function POST(req: NextRequest) {
     // their own per-email failures (logged, not thrown), and this catch is
     // defense-in-depth on top of that, so nothing here can turn a successful
     // booking into an error response for the patient.
-    try {
-      if (composition) {
-        await sendGroupBookingEmails({
+    await completeBookedAppointment(
+      event.id ?? undefined,
+      { ...trimmedInput, start: startTime },
+      composition
+        ? {
           ...trimmedInput,
           start: startTime,
           composition,
-        });
-      } else {
-        await sendBookingEmails({ ...trimmedInput, start: startTime });
-      }
-    } catch (err) {
-      console.error("Booking email step threw unexpectedly:", err);
-    }
-
-    return NextResponse.json({ success: true, eventId: event.id, htmlLink: event.htmlLink });
-  } catch (err) {
-    return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to create appointment." },
-      { status: 500 }
+        }
+        : undefined,
     );
+
+    return NextResponse.json({ success: true });
+  } catch {
+    return NextResponse.json({ error: "Unable to complete booking. Please try again." }, { status: 500 });
   }
 }
