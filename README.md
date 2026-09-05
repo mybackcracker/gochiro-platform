@@ -71,12 +71,18 @@ GOOGLE_SERVICE_ACCOUNT_KEY_JSON='{"client_email":"...","private_key":"..."}'
 GOCHIRO_CALENDAR_OWNER=contact@mybackcracker.com
 GOCHIRO_CALENDAR_ID=contact@mybackcracker.com
 GOCHIRO_EMAIL_SENDER=contact@mybackcracker.com
+
+# Secure intake issuance (keep disabled until the intake app validates and consumes tokens)
+GOCHIRO_INTAKE_LINKS_ENABLED=false
+GOCHIRO_INTAKE_AUTH_SPREADSHEET_ID=synthetic-staging-sheet-id
+GOCHIRO_INTAKE_BASE_URL=https://staging-intake.example.invalid/
 ```
 
 Do not commit credentials. The delegated account requires these scopes:
 
 - `https://www.googleapis.com/auth/calendar`
 - `https://www.googleapis.com/auth/gmail.send`
+- `https://www.googleapis.com/auth/spreadsheets` (only for the dedicated intake ledger)
 
 Patient mail is sent with the public GoChiroMobile address as a verified Gmail “Send mail as” alias. The authenticated mailbox, configured by `GOCHIRO_EMAIL_SENDER`, remains the delegated Workspace identity.
 
@@ -89,7 +95,25 @@ npm run build    # optimized production build
 npm run start    # serve a completed production build
 ```
 
-There is currently no automated unit or integration test suite. Run lint and a production build before review, and manually exercise scheduler changes against a safe calendar/account when credentials are available.
+Run `npm test` for the synthetic scheduler suite. It does not contact Google services.
+
+### Protected intake-authorization ledger
+
+Create a **dedicated**, access-restricted Google Sheet manually; the application never creates or repairs it. Name its tab `Intake Authorizations` and place this exact header row in columns A–G:
+
+```text
+Token Hash | Appointment Reference | Expires At UTC | Status | Created At UTC | Consumed At UTC | Revoked At UTC
+```
+
+Share only that Sheet with the existing service account's `client_email` as an editor. Grant the delegated credential the least-privilege Sheets scope `https://www.googleapis.com/auth/spreadsheets`; do not grant Drive scope. The ledger contains only a SHA-256 token hash, opaque Calendar event ID, UTC expiration, status, UTC creation time, and initially blank consumption/revocation times—never raw tokens or PHI.
+
+For synthetic staging, create a separate non-production Sheet, use the exact tab/header schema above, share it with a staging service account, point the three intake environment variables at synthetic endpoints/IDs, and book only invented patients against a non-production calendar. Verify with the flag `false` first, then set it to exactly `true`. Never commit spreadsheet IDs, deployment URLs, credentials, secrets, tokens, or patient information.
+
+Tokens are generated from 256 random bits, base64url encoded without padding, domain-separated and SHA-256 hashed before storage. New-patient links expire at the earlier of three hours after server-side booking time or appointment start and are designed for one use. Maintenance, priority, care-plan, and group visits do not receive links; group intake remains unsupported pending a multi-patient design.
+
+**Production blocker:** the separate intake application must implement server-side token validation and atomic single-use consumption before `GOCHIRO_INTAKE_LINKS_ENABLED=true` is used in production. This repository issues authorizations only.
+
+Rollback requires no code or Sheet changes: set `GOCHIRO_INTAKE_LINKS_ENABLED=false` exactly and redeploy the scheduler configuration. Existing appointments remain booked; separately revoke outstanding rows according to practice procedure if required.
 
 ## Operational behavior
 

@@ -19,7 +19,7 @@
 - `lib/gochiro.ts` is the scheduler's canonical business configuration. It contains ZIP-to-region mapping, standard/premium tiers, visit metadata, lead times, Square links, contact constants, priority triage, and group calculations.
 - `app/api/slots/route.ts` is the server authority for offered times. It enforces weekdays, Eastern business hours, calendar conflicts, travel buffers, and visit lead time.
 - `app/api/book/route.ts` is the server authority for booking. It validates required input and lead time again, checks the slot again, inserts a calendar event, and triggers best-effort email delivery.
-- `lib/googleAuth.ts`, `lib/googleCalendar.ts`, and `lib/gmail.ts` implement delegated Google Workspace access.
+- `lib/googleAuth.ts`, `lib/googleCalendar.ts`, `lib/gmail.ts`, and `lib/intakeAuthorization.ts` implement delegated Google Workspace access. Intake authorization uses a dedicated protected Sheet and never stores raw tokens or PHI.
 - `lib/bookingEmail.ts` builds patient/host and internal notifications. Individual visits can include their fixed Square link; group visits intentionally have no Square link.
 - `lib/timezone.ts` centralizes Eastern-time conversion. Avoid replacing it with server-local `Date` calculations.
 - `lib/localAreas/` is the typed content registry behind dynamic service-area pages and the service-area hub.
@@ -42,7 +42,7 @@
 
 ## Production integration checklist
 
-The application accepts the complete Google service-account JSON in `GOOGLE_SERVICE_ACCOUNT_KEY_JSON` (preferred for Vercel) or a local key path in `GOOGLE_SERVICE_ACCOUNT_KEY_PATH`. Optional overrides are `GOCHIRO_CALENDAR_OWNER`, `GOCHIRO_CALENDAR_ID`, and `GOCHIRO_EMAIL_SENDER`.
+The application accepts the complete Google service-account JSON in `GOOGLE_SERVICE_ACCOUNT_KEY_JSON` (preferred for Vercel) or a local key path in `GOOGLE_SERVICE_ACCOUNT_KEY_PATH`. Optional overrides are `GOCHIRO_CALENDAR_OWNER`, `GOCHIRO_CALENDAR_ID`, and `GOCHIRO_EMAIL_SENDER`. Secure intake issuance additionally requires `GOCHIRO_INTAKE_AUTH_SPREADSHEET_ID`, `GOCHIRO_INTAKE_BASE_URL`, and `GOCHIRO_INTAKE_LINKS_ENABLED=true`; keep the flag false until the intake application's validation and atomic single-use consumption are implemented.
 
 Before an end-to-end production check, confirm:
 
@@ -61,9 +61,10 @@ For every change, run:
 ```bash
 npm run lint
 npm run build
+npm test
 ```
 
-No automated test suite is currently configured. For scheduler behavior changes, also manually cover new, returning, and group routes; back navigation; rejected ZIPs; lead-time boundaries; empty availability; contact errors; booking conflicts; calendar event content; and email failure behavior. Use a non-production calendar for destructive tests.
+The automated suite uses synthetic mocks and does not call Google services. For scheduler behavior changes, also manually cover new, returning, and group routes; back navigation; rejected ZIPs; lead-time boundaries; empty availability; contact errors; booking conflicts; calendar event content; and email failure behavior. Use a non-production calendar for destructive tests.
 
 If a UI change is perceptible, capture a screenshot as required by the repository workflow. Documentation-only changes do not require one.
 
