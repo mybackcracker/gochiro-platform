@@ -57,8 +57,8 @@ The returning option is labeled for patients seen by Dr. DeFries within the last
 2. **Policy.** Show cancellation, travel-flexibility, intake, and payment terms in a scrollable panel. Agreement checkbox is required.
 3. **Time funnel.** Offer timing bucket, available day, time-of-day period, and slots.
 4. **Contact and appointment address.** Require first name, last name, ten-digit US phone, email, street, city, state, and five-digit address ZIP. Unit/suite is optional. Fields show inline validation errors. The address ZIP is contact/location data; the initially selected service ZIP continues to determine scheduling region and price.
-5. **Review.** Display visit, date/time, complete address, service ZIP, displayed region, and fee. A fixed Square payment link is also available on this screen.
-6. **Confirmation.** Display success, appointment time, and Square link. A secure intake link may be sent by email only after its authorization is stored.
+5. **Review.** Display visit, date/time, complete address, service ZIP, displayed region, and fee. The patient can confirm and open intake immediately or confirm and rely on the emailed intake link. A fixed Square payment link is also available on this screen.
+6. **Confirmation.** Display success, appointment time, Square link, and intake link.
 
 ## 4. Returning-patient flow
 
@@ -138,7 +138,7 @@ Calendar event locations retain a recognizable region label so later availabilit
 
 ## 8. Confirmation and payment emails
 
-Individual confirmation emails preserve appointment date/time, ETA range, full address, preparation notes, fee or claim-billing statement, accepted payment options, and the configured Square link when one applies. With secure issuance enabled and successful, new-patient email alone includes a single-use intake link and directs completion within three hours. If issuance fails or is disabled, normal confirmation still sends without that link. The practice receives a separate booking notification.
+Individual confirmation emails preserve appointment date/time, ETA range, full address, preparation notes, fee or claim-billing statement, accepted payment options, and the configured Square link when one applies. With secure issuance enabled and successful, new-patient email alone includes a single-use intake link and directs completion within three hours. If issuance fails or is disabled, the new-patient email instead falls back to the legacy intake link and two-hour deadline notice. The practice receives a separate booking notification.
 
 Group host emails include appointment/address details, participant breakdown, travel fee, total, and accepted payment methods. They intentionally contain no Square or intake link. The practice receives a group notification.
 

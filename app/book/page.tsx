@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
+  INTAKE_URL,
   VISITS,
   findRegion,
   paymentLinkFor,
@@ -490,9 +491,11 @@ export default function BookPage() {
     go("review");
   }
 
-  // Books the appointment. Secure intake links are issued server-side and
-  // delivered only by email; the public booking response never contains one.
-  async function confirmBooking() {
+  // Books the appointment. `routeToIntakeNow` only controls what happens
+  // immediately after: either way the appointment is booked and (for new
+  // patients) the intake link is emailed — that email is the safety net if
+  // the patient bails out of the "complete now" hand-off partway through.
+  async function confirmBooking(routeToIntakeNow: boolean) {
     if (!region || !visit || !selectedSlot) return;
     setBookingLoading(true);
     setBookingError(null);
@@ -532,6 +535,13 @@ export default function BookPage() {
       // The patient confirmation + doctor notification emails are sent
       // server-side inside /api/book itself (see lib/bookingEmail.ts) — that
       // covers both buttons uniformly, since both hit the same endpoint.
+
+      if (routeToIntakeNow) {
+        // Navigate directly rather than window.open — an async window.open
+        // (after the await above) gets blocked as a popup in most browsers.
+        window.location.href = INTAKE_URL;
+        return;
+      }
 
       go("confirmed");
     } catch {
@@ -1640,13 +1650,32 @@ export default function BookPage() {
               Payment isn&apos;t required to book — you can pay now or when we arrive.
             </div>
 
-            <button
-              onClick={() => confirmBooking()}
-              disabled={bookingLoading}
-              className="mt-5 w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
-            >
-              {bookingLoading ? "Booking…" : "Confirm Appointment"}
-            </button>
+            {patientType === "new" ? (
+              <>
+                <button
+                  onClick={() => confirmBooking(true)}
+                  disabled={bookingLoading}
+                  className="mt-5 w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
+                >
+                  {bookingLoading ? "Booking…" : "Confirm Appointment & Complete Intake Now"}
+                </button>
+                <button
+                  onClick={() => confirmBooking(false)}
+                  disabled={bookingLoading}
+                  className="mt-3 w-full rounded-xl border border-slate-300 px-5 py-4 text-center text-lg font-semibold text-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {bookingLoading ? "Booking…" : "Confirm Appointment & Email Intake Form"}
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => confirmBooking(false)}
+                disabled={bookingLoading}
+                className="mt-5 w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
+              >
+                {bookingLoading ? "Booking…" : "Confirm Appointment"}
+              </button>
+            )}
 
             <a
               href={paymentLink}
@@ -1739,9 +1768,14 @@ export default function BookPage() {
             </a>
 
             {patientType === "new" && (
-              <div className="mt-3 rounded-xl border border-slate-300 p-4 text-center text-sm text-slate-600">
-                Check your confirmation email for your secure, single-use intake link. Complete it within three hours.
-              </div>
+              <a
+                href={INTAKE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-3 block w-full rounded-xl border border-slate-300 px-5 py-4 text-center font-semibold text-slate-900"
+              >
+                Complete Intake
+              </a>
             )}
           </>
         )}
