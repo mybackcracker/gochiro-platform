@@ -7,6 +7,7 @@ import {
   BUSINESS_PHONE,
   VENMO_LINK,
   VENMO_LAST4,
+  INTAKE_URL,
   INTAKE_DEADLINE_HOURS,
   VISITS,
   priceFor,
@@ -173,6 +174,7 @@ export function buildPatientTextEmail(b: BookingEmailData): string {
     } else {
       body += `Your intake forms must be completed at least ${INTAKE_DEADLINE_HOURS} hours before your scheduled appointment. `;
       body += "Failure to complete the forms by this deadline may result in your appointment being canceled and a missed appointment fee being applied to your account.\n\n";
+      body += `Complete your intake forms here:\n${INTAKE_URL}\n\n`;
     }
   }
 
@@ -235,6 +237,7 @@ export function buildPatientHtmlEmail(b: BookingEmailData): string {
       html += `<p style="margin:16px 0;"><a href="${escapeHtml(b.intakeLink)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Complete Intake Forms</a></p>`;
     } else {
       html += `<p style="margin:0 0 16px 0;color:#991b1b;"><strong><u>Your intake forms must be completed at least ${INTAKE_DEADLINE_HOURS} hours before your scheduled appointment.</u></strong> Failure to complete the forms by this deadline may result in your appointment being canceled and a missed appointment fee being applied to your account.</p>`;
+      html += `<p style="margin:16px 0;"><a href="${escapeHtml(INTAKE_URL)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Complete Intake Forms</a></p>`;
     }
   }
 
