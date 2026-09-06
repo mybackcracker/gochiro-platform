@@ -27,6 +27,12 @@ export const glenolden: LocalAreaContent = {
   clinicalCareClosing:
     "Bringing that care to your home or workplace in Glenolden or Holmes means it fits around your day instead of adding to it.",
 
+  connectionHeading: "Built Along a Turnpike That Became a Trolley Line",
+  connectionParagraphs: [
+    "Glenolden sits in eastern Delaware County between Folcroft, Norwood, Ridley Township and Collingdale, and its main roads have a longer history than they look. Chester Pike began as a privately chartered turnpike in 1851, connecting Chester and Darby; rail lines followed in the 1870s and 1880s, and by the mid-1890s a trolley ran the length of it. MacDade Boulevard, which splits off from Chester Pike nearby, carries much of that same through-traffic today, and the borough's commercial and light-industrial stretches are still built up along both roads.",
+    "That corridor-driven layout — commerce and industry along Chester Pike and MacDade Boulevard, residential streets behind them — is part of why a mobile visit makes sense here. Rather than adding another stop along an already busy commercial corridor, care comes directly to a home or workplace in Glenolden, fitting into a day that's already built around getting past that traffic, not through a waiting room.",
+  ],
+
   howItWorksHeading: "How In-Home Chiropractic Care Works in Glenolden",
   howItWorksIntro: "A visit in Glenolden or Holmes follows the same three steps as every GoChiroMobile appointment:",
   howItWorksSteps: [

@@ -27,6 +27,12 @@ export const newtownSquare: LocalAreaContent = {
   clinicalCareClosing:
     "Bringing that care to your home or workplace means it fits into a spread-out day rather than adding another drive to it.",
 
+  connectionHeading: "Crossroads Communities, Spread Over Miles",
+  connectionParagraphs: [
+    "Newtown Square grew up at the intersection of Route 3 (West Chester Pike) and Route 252, and the same pattern repeats across nearby Edgmont and Gradyville: small crossroads that once anchored travelers on old country roads long before they carried car traffic. Gradyville's own general store sat at the corner of Gradyville and Middletown Roads, and a handful of former inns along those same roads — the Gradyville Inn and the Edgmont Inn among them — mark where travelers used to stop. Homes across this part of the service area are spread out along those roads rather than gathered into a single downtown.",
+    "That same spread-out, crossroads geography is where a mobile visit is most useful. Instead of asking someone in Edgmont or Gradyville to find their way into a fixed office, care travels the same roads their community was built around — arriving at a home or workplace directly, wherever along Route 3, Route 252, or the roads between them that turns out to be.",
+  ],
+
   howItWorksHeading: "How In-Home Chiropractic Care Works in Newtown Square",
   howItWorksIntro:
     "A visit anywhere across Newtown Square, Broomall, Edgmont or Gradyville follows the same three steps as every GoChiroMobile appointment:",

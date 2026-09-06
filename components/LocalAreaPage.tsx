@@ -82,14 +82,17 @@ export default function LocalAreaPage({ content }: { content: LocalAreaContent }
         </Container>
       </Section>
 
-      {/* Dr. DeFries' connection to the area — optional per page */}
+      {/* Local-area editorial section — optional per page. With an image (typically
+          Dr. DeFries' personal connection to a place) it's a two-column layout;
+          without one (a purely local/geographic angle, with no personal-history
+          claim to illustrate) it renders full-width like the Prose sections below. */}
       {content.connectionHeading && content.connectionParagraphs && (
         <Section tone="cream">
           <Container>
-            <TwoColumn
-              reverse
-              media={
-                content.connectionImage ? (
+            {content.connectionImage ? (
+              <TwoColumn
+                reverse
+                media={
                   <ImageFrame className="aspect-[4/3] mx-auto max-w-md lg:mx-0 lg:max-w-none">
                     <Image
                       src={content.connectionImage.src}
@@ -99,16 +102,21 @@ export default function LocalAreaPage({ content }: { content: LocalAreaContent }
                       className="object-cover"
                     />
                   </ImageFrame>
-                ) : (
-                  <span aria-hidden />
-                )
-              }
-            >
-              <H2>{content.connectionHeading}</H2>
-              {content.connectionParagraphs.map((paragraph) => (
-                <P key={paragraph}>{paragraph}</P>
-              ))}
-            </TwoColumn>
+                }
+              >
+                <H2>{content.connectionHeading}</H2>
+                {content.connectionParagraphs.map((paragraph) => (
+                  <P key={paragraph}>{paragraph}</P>
+                ))}
+              </TwoColumn>
+            ) : (
+              <Prose>
+                <H2>{content.connectionHeading}</H2>
+                {content.connectionParagraphs.map((paragraph) => (
+                  <P key={paragraph}>{paragraph}</P>
+                ))}
+              </Prose>
+            )}
           </Container>
         </Section>
       )}
