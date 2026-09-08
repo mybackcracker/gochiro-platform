@@ -7,6 +7,7 @@ const FOOTER_LINKS = [
   { href: "/what-to-expect", label: "What to Expect" },
   { href: "/pricing", label: "Pricing" },
   { href: "/service-areas", label: "Service Areas" },
+  { href: "/touring-production-care", label: "Touring Production Care" },
   { href: "/book-online", label: "Book Online" },
   { href: "/contact", label: "Contact" },
 ];
