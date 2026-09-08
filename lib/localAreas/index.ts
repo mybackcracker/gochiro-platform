@@ -14,6 +14,7 @@ import { westChester } from "./west-chester";
 import { chaddsFord } from "./chadds-ford";
 import { havertown } from "./havertown";
 import { mainLine } from "./main-line";
+import { glenMills } from "./glen-mills";
 
 // Keyed by URL slug — app/(marketing)/service-areas/[slug]/page.tsx renders
 // whichever entry matches. Add a new town/cluster page by writing its own
@@ -36,6 +37,7 @@ export const LOCAL_AREAS: Record<string, LocalAreaContent> = {
   [chaddsFord.slug]: chaddsFord,
   [havertown.slug]: havertown,
   [mainLine.slug]: mainLine,
+  [glenMills.slug]: glenMills,
 };
 
 export function getLocalArea(slug: string): LocalAreaContent | undefined {
