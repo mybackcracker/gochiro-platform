@@ -16,7 +16,7 @@ import { BUSINESS_PHONE } from "@/lib/gochiro";
 export const metadata: Metadata = {
   title: "Touring Production Musculoskeletal Care | Philadelphia | GoChiroMobile",
   description:
-    "On-site musculoskeletal care for touring artists, performers, cast, crew and production personnel in Philadelphia and the Greater Philadelphia region.",
+    "On-site musculoskeletal care for touring artists, performers, cast, crew and production personnel in Philadelphia and Pennsylvania's Greater Philadelphia region.",
 };
 
 const WHO_WE_HELP = [
@@ -48,6 +48,7 @@ export default function TouringProductionCarePage() {
             title="On-Site Musculoskeletal Care for Touring Productions"
             lede="Philadelphia & the Greater Philadelphia Region — professional care brought directly to the production, helping reduce off-site travel and time away from the workday or show schedule."
           />
+          <p className="mt-4 text-sm font-semibold text-muted">Currently available at Pennsylvania locations only.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <CTAButton href="/touring-production-care/request">Request Production Coverage</CTAButton>
             <CTAButton href={`tel:${BUSINESS_PHONE}`} variant="secondary">Need care today? Call / Text</CTAButton>
@@ -163,9 +164,12 @@ export default function TouringProductionCarePage() {
           <div className="max-w-3xl">
             <H2>Philadelphia Is Our Hub. Touring Coverage Goes Further.</H2>
             <P>
-              Touring-production coverage is available throughout Philadelphia, Delaware County, the Main Line,
-              King of Prussia, Chester County and surrounding areas. Productions outside GoChiroMobile&apos;s regular
-              mobile-patient service area are encouraged to inquire.
+              Touring-production coverage is currently available at Pennsylvania locations throughout Philadelphia,
+              Delaware County, the Main Line, King of Prussia, Chester County and surrounding Pennsylvania areas.
+              Productions outside GoChiroMobile&apos;s regular mobile-patient service area are encouraged to inquire.
+            </P>
+            <P>
+              At this time, touring-production care is not available in New Jersey, Delaware or New York.
             </P>
           </div>
         </Container>
