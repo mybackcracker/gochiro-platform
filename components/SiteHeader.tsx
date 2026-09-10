@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: "/what-to-expect", label: "What to Expect" },
   { href: "/pricing", label: "Pricing" },
   { href: "/service-areas", label: "Service Areas" },
+  { href: "/touring-production-care", label: "Touring & Events" },
   { href: "/contact", label: "Contact" },
 ];
 
