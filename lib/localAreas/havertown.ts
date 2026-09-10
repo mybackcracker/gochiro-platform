@@ -27,6 +27,12 @@ export const havertown: LocalAreaContent = {
   clinicalCareClosing:
     "Because that care comes to your home or workplace in Havertown, it fits into an established routine instead of interrupting it.",
 
+  connectionHeading: "A Township Assembled From Older Neighborhoods",
+  connectionParagraphs: [
+    "Havertown itself is a relatively recent name — the U.S. Post Office coined it in 1946 for postal convenience, decades after Haverford Township's older neighborhoods had already been established under their own names: Oakmont, Llanerch, Manoa, Brookline and Penfield among them. The township itself dates back much further, laid out in 1682 as one of the original townships under William Penn and incorporated in its current municipal form in 1911. Longtime residents still use those older neighborhood names for their own section of the township, built up along the West Chester Pike/Route 3 corridor between the Broomall/Newtown Square area and the Main Line.",
+    "Because Havertown is really a patchwork of older, fully built-out neighborhoods rather than one town with a single center, no single office location would be equally convenient to all of them. A mobile visit sidesteps that entirely — care travels to whichever corner of Haverford Township a patient calls home, whether that's Oakmont, Manoa, or anywhere else across the township.",
+  ],
+
   howItWorksHeading: "How In-Home Chiropractic Care Works in Havertown",
   howItWorksIntro: "A Havertown or Haverford Township visit follows the same three steps as every GoChiroMobile appointment:",
   howItWorksSteps: [

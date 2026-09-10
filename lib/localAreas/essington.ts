@@ -27,6 +27,12 @@ export const essington: LocalAreaContent = {
   clinicalCareClosing:
     "Because the visit comes to wherever you're staying, it fits around a short trip or a workday instead of requiring a search for a local office.",
 
+  connectionHeading: "An Area Shaped by the River and the Runway",
+  connectionParagraphs: [
+    "Essington and Tinicum Township occupy a stretch of land along the Delaware River immediately next to Philadelphia International Airport, and the area's history runs deeper than the runways suggest — Swedish colonists established Fort Nya Gothenburg on Tinicum Island in the 1640s, among the earliest European settlements anywhere in Pennsylvania. Today the John Heinz National Wildlife Refuge preserves a piece of that same riverfront marshland a short distance from the hotels, cargo terminals and logistics operations that have built up around the airport's edges.",
+    "That mix of round-the-clock airport operations, hospitality and industrial employers means a lot of the people here — flight crews between flights, hotel staff, warehouse and cargo workers — are working schedules that don't line up with a fixed office's hours. A mobile visit that comes to a hotel room, a home, or a workplace break room fits a schedule an office visit can't, whether that's a local resident or someone passing through for work.",
+  ],
+
   howItWorksHeading: "How Mobile Chiropractic Care Works in Essington",
   howItWorksIntro:
     "Whether you live in the area or are staying nearby for work or travel, a visit follows the same three steps as every GoChiroMobile appointment:",

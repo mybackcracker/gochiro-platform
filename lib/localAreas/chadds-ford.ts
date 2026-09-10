@@ -27,6 +27,12 @@ export const chaddsFord: LocalAreaContent = {
   clinicalCareClosing:
     "Bringing that care to your home or workplace means it fits into your day instead of adding a separate trip to it.",
 
+  connectionHeading: "A Spread-Out Corner of the Brandywine Valley",
+  connectionParagraphs: [
+    "Chadds Ford sits along the Route 202 and Route 926 corridors in southern Chester County, in the stretch of the Brandywine Valley that geographically links the West Chester area to Concordville and Glen Mills. The area is known well beyond its size for its history and art — the Brandywine Museum of Art, housed in a converted 19th-century gristmill, holds the region's best-known collection of Wyeth family paintings, and the Revolutionary War's Brandywine Battlefield sits nearby. Away from those landmarks, Chadds Ford itself is mostly larger residential lots along country roads rather than a dense town center.",
+    "That spread-out layout is exactly where a mobile visit tends to be most useful. When homes sit farther apart along winding roads instead of clustered around a single downtown, a drive to a fixed chiropractic office can end up taking longer than the appointment itself. Bringing evaluation and treatment directly to a home or workplace in Chadds Ford or Birmingham removes that drive from the equation, regardless of which side of Route 202 or Route 926 a visit falls on.",
+  ],
+
   howItWorksHeading: "How In-Home Chiropractic Care Works in Chadds Ford",
   howItWorksIntro: "A Chadds Ford or Birmingham visit follows the same three steps as every GoChiroMobile appointment:",
   howItWorksSteps: [

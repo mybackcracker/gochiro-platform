@@ -27,6 +27,12 @@ export const ridleyPark: LocalAreaContent = {
   clinicalCareClosing:
     "Bringing care directly to your home or workplace means it fits into a busy schedule instead of adding another stop to it.",
 
+  connectionHeading: "A Railroad Suburb, Planned From the Start",
+  connectionParagraphs: [
+    "Ridley Park was founded in 1871 by Isaac Hinckley, then president of the Philadelphia, Wilmington & Baltimore Railroad, who had a landscape architect lay out the town as a planned railroad suburb before the first passenger trains even stopped there in 1872. The station Hinckley built still stands and still carries SEPTA's Wilmington/Newark Line today. That planned, walkable street grid still defines the borough, and the surrounding Ridley area — Folsom, Prospect Park, Norwood and Woodlyn — shares a similar close-knit layout, all reachable quickly from I-95, MacDade Boulevard and Chester Pike.",
+    "Dr. DeFries travels to this part of Delaware County often and already works with a number of patients scattered across these communities. A mobile visit that moves easily between them — the same way the original rail line once did — fits naturally into an area that was designed from its earliest days around getting people where they needed to go.",
+  ],
+
   howItWorksHeading: "How In-Home Chiropractic Care Works in Ridley Park",
   howItWorksIntro: "A visit anywhere in the Ridley area follows the same three steps as every GoChiroMobile appointment:",
   howItWorksSteps: [

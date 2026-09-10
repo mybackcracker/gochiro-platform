@@ -27,6 +27,12 @@ export const mainLine: LocalAreaContent = {
   clinicalCareClosing:
     "Bringing that care to your home, workplace or hotel means it fits into work, family and travel instead of requiring a separate trip.",
 
+  connectionHeading: "A Corridor Named for a Railroad",
+  connectionParagraphs: [
+    "The Main Line takes its name literally from the Pennsylvania Railroad's original main line service, which began running along the Lancaster Avenue/Route 30 corridor in the 1830s and was developed by the railroad after 1850 into a string of suburban stops built explicitly as commuter communities for the era. That history is why the Main Line reads less like one town and more like a sequence of them — Ardmore, Bryn Mawr, Rosemont, Haverford, Villanova, Wayne, Radnor, Wynnewood, Berwyn and Devon — each built up around its own station along Route 30 rather than a single shared downtown.",
+    "GoChiroMobile has been expanding scheduling further into these communities, and that same station-by-station geography is why a mobile visit fits the Main Line well: rather than asking a patient in one Main Line community to drive to an office located in another, care travels the corridor to wherever the appointment actually is — home, workplace or hotel.",
+  ],
+
   howItWorksHeading: "How In-Home Chiropractic Care Works on the Main Line",
   howItWorksIntro: "A Main Line visit follows the same three steps as every GoChiroMobile appointment:",
   howItWorksSteps: [

@@ -27,6 +27,12 @@ export const westChester: LocalAreaContent = {
   clinicalCareClosing:
     "Because that care is brought to you in West Chester, it fits around a demanding schedule instead of adding another stop to it.",
 
+  connectionHeading: "A County Seat Older Than Its University",
+  connectionParagraphs: [
+    "West Chester has been the seat of Chester County since 1786, and an inn called Turk's Head anchored the settlement even earlier, as far back as 1761 — the borough's growth was actually delayed for years by a dispute with the city of Chester over where the county courthouse should permanently sit. West Chester University's own history reaches back nearly as far: it traces to an 1812 academy that became a state teacher's college in 1871 and didn't take the university name until 1983, making it a relatively recent chapter in a much older town.",
+    "As GoChiroMobile extends scheduling into West Chester, that same mix — a historic county-seat downtown, a large university community, and a wide residential and business footprint along Routes 202 and 3 — is exactly the kind of busy, spread-out area a mobile visit is built for. Care arrives directly at a home or office instead of asking someone to find time for a trip into the center of things.",
+  ],
+
   howItWorksHeading: "How In-Home Chiropractic Care Works in West Chester",
   howItWorksIntro: "A West Chester visit follows the same three steps as every GoChiroMobile appointment:",
   howItWorksSteps: [

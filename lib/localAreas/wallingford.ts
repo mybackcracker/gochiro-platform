@@ -27,6 +27,12 @@ export const wallingford: LocalAreaContent = {
   clinicalCareClosing:
     "Delivering that care to your home or workplace means it fits into family and work commitments instead of competing with them.",
 
+  connectionHeading: "Four Communities, Four Different Origins",
+  connectionParagraphs: [
+    "Swarthmore, Wallingford, Nether Providence and Rose Valley share a small footprint but arrived at their present character through very different histories. Swarthmore was originally known as Westdale until Swarthmore College — founded by Hicksite Quakers in 1864 — gave the town its name and grew up around its own train station on Route 320. Rose Valley took a different path entirely: a former mill town largely abandoned after an 1885 fire, it was refounded in 1901 by architect William Lightfoot Price as a planned Arts and Crafts community of workshops and studios, and became one of the country's oldest artist colonies.",
+    "Despite those different starting points, all four are now quiet, fully built-out residential communities without much of a commercial center of their own. That's exactly the kind of area a mobile visit fits well — rather than sending a patient out to find a stand-alone office, care arrives at the home directly, whether that's a street in Wallingford, Nether Providence, Swarthmore or Rose Valley.",
+  ],
+
   howItWorksHeading: "How In-Home Chiropractic Care Works in Wallingford",
   howItWorksIntro:
     "A visit anywhere in Wallingford, Nether Providence, Swarthmore or Rose Valley follows the same three steps as every GoChiroMobile appointment:",

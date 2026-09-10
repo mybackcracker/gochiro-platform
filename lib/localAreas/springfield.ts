@@ -27,6 +27,12 @@ export const springfield: LocalAreaContent = {
   clinicalCareClosing:
     "Because the visit is brought to you in Springfield or Morton, it fits around a workday rather than requiring a separate trip.",
 
+  connectionHeading: "Where a Colonial Road Became 'The Golden Mile'",
+  connectionParagraphs: [
+    "Baltimore Pike through Springfield traces back to a turnpike first built in 1701 — sections of the original oak-plank roadbed are said to still lie beneath the modern road. By the early 20th century, this stretch had become one of the busiest commercial corridors outside Philadelphia, known locally as 'the Golden Mile' for its run of car dealerships and retail. Route 420 crosses that same corridor and forms the boundary between Springfield Township and neighboring Morton borough, named for Sketchley Morton, son of Declaration of Independence signer John Morton.",
+    "With a heavily built-up retail and business corridor running through the middle of the community, working a routine appointment around that traffic can add real time to a day. A mobile visit skips the Pike altogether — care comes directly to a home or workplace in Springfield or Morton instead of asking a patient to fight that same commercial corridor twice.",
+  ],
+
   howItWorksHeading: "How In-Home Chiropractic Care Works in Springfield",
   howItWorksIntro: "A Springfield or Morton visit follows the same three steps as every GoChiroMobile appointment:",
   howItWorksSteps: [
