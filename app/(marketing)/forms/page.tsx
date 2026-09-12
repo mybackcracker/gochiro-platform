@@ -8,6 +8,13 @@ export const metadata: Metadata = {
 
 const FORMS = [
   {
+    title: "Tour & Event Patient Intake",
+    description:
+      "A shorter intake for patients receiving care during a tour, production or sponsored event.",
+    href: "/tour-intake",
+    cta: "Open Tour & Event Intake",
+  },
+  {
     title: "Patient Intake Form",
     description:
       "Complete your health history, current concerns, consent and required acknowledgments before your visit.",
@@ -26,7 +33,7 @@ export default function FormsPage() {
           lede="Select the form you need. Forms can be completed securely from a phone, tablet or computer."
         />
 
-        <div className="mt-10 grid max-w-xl gap-6">
+        <div className="mt-10 grid max-w-3xl gap-6 sm:grid-cols-2">
           {FORMS.map((form) => (
             <ChoiceCard
               key={form.href}
