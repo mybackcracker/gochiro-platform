@@ -19,6 +19,17 @@ test("the Forms page links Patient Intake through the stable public address", ()
   assert(!page.includes("script.google.com"));
 });
 
+test("the Forms page links the tour intake through its stable public address", () => {
+  const page = fs.readFileSync("app/(marketing)/forms/page.tsx", "utf8");
+  assert.match(page, /title: ["']Tour & Event Patient Intake["']/);
+  assert.match(page, /href: ["']\/tour-intake["']/);
+  assert(!page.includes("script.google.com"));
+
+  const config = fs.readFileSync("next.config.ts", "utf8");
+  assert.match(config, /source: ["']\/tour-intake["']/);
+  assert.match(config, /exec\?form=tour/);
+});
+
 test("the Forms page is included in the sitemap", () => {
   const sitemap = fs.readFileSync("app/sitemap.ts", "utf8");
   assert.match(sitemap, /["']\/forms["']/);
