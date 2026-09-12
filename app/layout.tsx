@@ -15,6 +15,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gochiromobile.com"),
   title: "GoChiroMobile — Chiropractic Care That Comes to You",
   description:
     "Dr. David DeFries provides one-on-one chiropractic care in your home, workplace, or other convenient location.",
