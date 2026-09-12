@@ -8,9 +8,9 @@ const NAV_LINKS = [
   { href: "/about", label: "About" },
   { href: "/philosophy", label: "Our Philosophy" },
   { href: "/what-to-expect", label: "What to Expect" },
+  { href: "/forms", label: "Forms" },
   { href: "/pricing", label: "Pricing" },
   { href: "/service-areas", label: "Service Areas" },
-  { href: "/touring-production-care", label: "Touring & Events" },
   { href: "/contact", label: "Contact" },
 ];
 
