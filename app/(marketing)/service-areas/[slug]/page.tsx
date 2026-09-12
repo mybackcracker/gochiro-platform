@@ -16,8 +16,11 @@ export async function generateMetadata({
   const content = getLocalArea(slug);
   if (!content) return {};
   return {
-    title: content.metaTitle,
+    // Put the location first so Google's compact mobile sitelinks remain
+    // distinguishable instead of all truncating to "Mobile Chiropractor…".
+    title: `${content.town}, PA Mobile Chiropractor | GoChiroMobile`,
     description: content.metaDescription,
+    alternates: { canonical: `/service-areas/${content.slug}` },
   };
 }
 
