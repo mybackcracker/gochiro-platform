@@ -13,6 +13,15 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        // Stable, reusable patient-facing address for phone and QR-code use.
+        // Keep this temporary so a future intake provider can be swapped
+        // without browsers permanently caching the external destination.
+        source: "/intake",
+        destination:
+          "https://script.google.com/macros/s/AKfycbyJJ1cbPMkBL0McMnk0Kc5jHr4q7jKoej3dk1ma5fe13DraUBP_sKEkwgWY1YH1nBAgWw/exec",
+        permanent: false,
+      },
+      {
         source: "/chiropractor-in-glen-mills-pa",
         destination: "/service-areas/glen-mills",
         permanent: true,
