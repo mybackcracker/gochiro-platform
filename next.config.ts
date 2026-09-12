@@ -22,6 +22,14 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
       {
+        // Reusable tour/event intake. The query selects the streamlined form
+        // within the same secure Apps Script deployment as the full intake.
+        source: "/tour-intake",
+        destination:
+          "https://script.google.com/macros/s/AKfycbyJJ1cbPMkBL0McMnk0Kc5jHr4q7jKoej3dk1ma5fe13DraUBP_sKEkwgWY1YH1nBAgWw/exec?form=tour",
+        permanent: false,
+      },
+      {
         source: "/chiropractor-in-glen-mills-pa",
         destination: "/service-areas/glen-mills",
         permanent: true,
