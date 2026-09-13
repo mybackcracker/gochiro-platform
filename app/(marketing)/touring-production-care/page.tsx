@@ -5,7 +5,6 @@ import {
   PageHeader,
   CTAButton,
   H2,
-  H3,
   P,
   Step,
   TagList,
@@ -137,6 +136,9 @@ export default function TouringProductionCarePage() {
             <Step number={5} title="Care takes place on site">
               Individual visits are commonly around 15–20 minutes, although time varies with individual needs. A typical two-hour block can often accommodate approximately 6–8 people.
             </Step>
+            <div className="mt-8">
+              <CTAButton href="/touring-production-care/how-it-works" variant="secondary">See How Backstage Care Works</CTAButton>
+            </div>
           </div>
         </Container>
       </Section>
