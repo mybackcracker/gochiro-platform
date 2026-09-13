@@ -187,7 +187,7 @@ export default function TouringProductionCarePage() {
             </P>
             <P>
               On-site care has been provided in Philadelphia live-production environments including The Fillmore Philadelphia,
-              The Met Philadelphia and Xfinity Mobile Arena.
+              The Met Philadelphia, Union Transfer and Xfinity Mobile Arena.
             </P>
           </div>
         </Container>
