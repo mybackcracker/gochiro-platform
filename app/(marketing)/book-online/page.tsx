@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Section, Container, PageHeader, H3, ChoiceCard, Callout } from "@/components/ui";
+import { Section, Container, PageHeader, H3, ChoiceCard } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Book Online — GoChiroMobile",
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function BookOnlinePage() {
   return (
     <div>
-      <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
+      <Section tone="white" className="pt-14 pb-12 sm:pt-20 sm:pb-16">
         <Container>
           <PageHeader
             eyebrow="Book Online"
@@ -56,21 +56,6 @@ export default function BookOnlinePage() {
               </Link>
             </div>
           </div>
-        </Container>
-      </Section>
-
-      <Section tone="cream" className="pt-8 pb-12 sm:pt-10 sm:pb-14">
-        <Container>
-          <Callout title="Cancellation & Rescheduling" tone="white" className="mx-auto max-w-3xl">
-            <p className="text-sm leading-relaxed text-muted">
-              We require at least 24 hours&apos; notice to cancel or reschedule your appointment.
-              Cancellations, no-shows, or same-day changes made with less than 24 hours&apos;
-              notice will be charged a $50 fee. You&apos;ll see this policy again, and confirm it,
-              as part of scheduling. The same 24-hour notice applies to Group Visits — if a Group
-              Visit is cancelled or rescheduled late, the $50 fee applies once to the whole
-              booking, and the host is responsible for it.
-            </p>
-          </Callout>
         </Container>
       </Section>
     </div>
