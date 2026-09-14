@@ -21,6 +21,7 @@ import { loadServiceAccountKey } from "./googleAuth";
 // `fromAddress` to sendEmail() for patient-facing sends.
 const SCOPES = ["https://www.googleapis.com/auth/gmail.send"];
 const IMPERSONATED_MAILBOX = process.env.GOCHIRO_EMAIL_SENDER || "contact@mybackcracker.com";
+const CANCELLATION_POLICY_URL = "https://gochiromobile.com/pricing#cancellation-policy";
 
 let cachedAuth: InstanceType<typeof google.auth.JWT> | null = null;
 
@@ -96,6 +97,24 @@ function buildRawMessage(opts: {
     .replace(/=+$/, "");
 }
 
+function withBookingPolicyReminder(subject: string, text: string, html: string): { text: string; html: string } {
+  if (!subject.includes(" is Confirmed — ")) return { text, html };
+
+  const reminderText =
+    `\n\nCANCELLATION & RESCHEDULING\n` +
+    `At least 24 hours' notice is required to cancel or reschedule. Cancellations, no-shows, or same-day changes made with less than 24 hours' notice will be charged a $50 fee.\n` +
+    `Full policy: ${CANCELLATION_POLICY_URL}`;
+
+  const reminderHtml =
+    '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.45;color:#222222;margin-top:20px;padding-top:16px;border-top:1px solid #dddddd;">' +
+    '<strong>Cancellation &amp; Rescheduling</strong><br>' +
+    'At least 24 hours\' notice is required to cancel or reschedule. Cancellations, no-shows, or same-day changes made with less than 24 hours\' notice will be charged a $50 fee. ' +
+    `<a href="${CANCELLATION_POLICY_URL}">View the full policy</a>.` +
+    '</div>';
+
+  return { text: text + reminderText, html: html + reminderHtml };
+}
+
 export async function sendEmail(opts: {
   to: string;
   toName?: string;
@@ -109,6 +128,12 @@ export async function sendEmail(opts: {
   html: string;
 }): Promise<void> {
   const gmail = gmailClient();
-  const raw = buildRawMessage({ ...opts, fromAddress: opts.fromAddress || IMPERSONATED_MAILBOX });
+  const content = withBookingPolicyReminder(opts.subject, opts.text, opts.html);
+  const raw = buildRawMessage({
+    ...opts,
+    text: content.text,
+    html: content.html,
+    fromAddress: opts.fromAddress || IMPERSONATED_MAILBOX,
+  });
   await gmail.users.messages.send({ userId: "me", requestBody: { raw } });
 }
