@@ -48,6 +48,9 @@ export default function BookOnlinePage() {
               <Link href="/pricing" className="hover:underline">
                 Pricing
               </Link>
+              <Link href="/pricing#cancellation-policy" className="hover:underline">
+                Cancellation &amp; Rescheduling Policy
+              </Link>
               <Link href="/service-areas" className="hover:underline">
                 Service Areas
               </Link>
