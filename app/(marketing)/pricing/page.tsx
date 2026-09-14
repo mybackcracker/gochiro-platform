@@ -140,6 +140,19 @@ export default function PricingPage() {
             </Callout>
           </div>
 
+          <div id="cancellation-policy" className="mt-8 scroll-mt-24">
+            <Callout title="Cancellation & Rescheduling">
+              <p className="text-base leading-relaxed text-muted">
+                At least 24 hours&apos; notice is required to cancel or reschedule an appointment.
+                Cancellations, no-shows, or same-day changes made with less than 24 hours&apos; notice
+                will be charged a $50 fee. For a Group Visit, the $50 fee applies once to the entire
+                booking and is the host&apos;s responsibility. If an emergency or unavoidable circumstance
+                occurs, please contact us as soon as possible; the fee may be waived at the practice&apos;s
+                discretion.
+              </p>
+            </Callout>
+          </div>
+
           <div className="mt-8">
             <CTAButton href="/book-online">Schedule a visit →</CTAButton>
           </div>
