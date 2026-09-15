@@ -35,7 +35,82 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/chiropractor-in-brookhaven-pa",
+        destination: "/service-areas/brookhaven",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-media-pa",
+        destination: "/service-areas/media",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-aston-pa",
+        destination: "/service-areas/aston",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-boothwyn-pa",
+        destination: "/service-areas/boothwyn",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-garnet-valley-pa",
+        destination: "/service-areas/garnet-valley",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-ridley-park-pa",
+        destination: "/service-areas/ridley-park",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-springfield-pa",
+        destination: "/service-areas/springfield",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-wallingford-pa",
+        destination: "/service-areas/wallingford",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-glenolden-pa",
+        destination: "/service-areas/glenolden",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-essington-pa",
+        destination: "/service-areas/essington",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-newtown-square-pa",
+        destination: "/service-areas/newtown-square",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-west-chester-pa",
+        destination: "/service-areas/west-chester",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-chadds-ford-pa",
+        destination: "/service-areas/chadds-ford",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-havertown-pa",
+        destination: "/service-areas/havertown",
+        permanent: true,
+      },
+      {
         source: "/local-chiropractic-visit-pricing",
+        destination: "/pricing",
+        permanent: true,
+      },
+      {
+        source: "/expanded-chiropractic-visit-pricing",
         destination: "/pricing",
         permanent: true,
       },
@@ -66,6 +141,16 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/policies/booking---appointment-policy",
+        destination: "/what-to-expect",
+        permanent: true,
+      },
+      {
+        source: "/booking---appointment-policy",
+        destination: "/what-to-expect",
+        permanent: true,
+      },
+      {
+        source: "/faq",
         destination: "/what-to-expect",
         permanent: true,
       },
