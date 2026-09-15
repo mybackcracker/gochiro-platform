@@ -14,6 +14,16 @@ test("legacy SEO pages permanently redirect to their closest current equivalents
     ["/chiropractor-in-brookhaven-pa", "/service-areas/brookhaven"],
     ["/chiropractor-in-media-pa", "/service-areas/media"],
     ["/chiropractor-in-west-chester-pa", "/service-areas/west-chester"],
+    ["/chiropractor-aston-pa", "/service-areas/aston"],
+    ["/chiropractor-in-chichester-pa", "/service-areas/boothwyn"],
+    ["/towns/local-chiropractor-concordville-pa-2", "/service-areas/glen-mills"],
+    ["/towns/mobile-chiropractor-in-media--pa", "/service-areas/media"],
+    ["/towns/springfield", "/service-areas/springfield"],
+    ["/blog/chiropractor-aston-pa", "/service-areas/aston"],
+    ["/the-approach", "/philosophy"],
+    ["/forms/new-patient-intake", "/forms"],
+    ["/policies/financial-policy-agreement", "/pricing"],
+    ["/chester-car-accident-treatment-2", "/contact"],
   ]);
 
   for (const [source, destination] of expectedRedirects) {
