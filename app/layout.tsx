@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Montserrat, Open_Sans } from "next/font/google";
 import "./globals.css";
+
+const GA_MEASUREMENT_ID = "G-KXH6EYL9LG";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -25,6 +28,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${montserrat.variable} ${openSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">{children}</body>
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+      </Script>
     </html>
   );
 }
