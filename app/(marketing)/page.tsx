@@ -29,6 +29,22 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div>
+      <div className="bg-navy text-white">
+        <Container>
+          <div className="flex flex-col items-center justify-center gap-2 py-3 text-center sm:flex-row sm:gap-3">
+            <p className="text-sm font-semibold sm:text-base">
+              Touring with a production in Philadelphia? Same-day and short-notice musculoskeletal care may be available for artists, performers & touring crew.
+            </p>
+            <Link
+              href="/touring-production-care"
+              className="shrink-0 text-sm font-bold text-white underline underline-offset-4 hover:no-underline sm:text-base"
+            >
+              Touring Production Care →
+            </Link>
+          </div>
+        </Container>
+      </div>
+
       <Section tone="white" className="pb-14 pt-12 sm:pb-20 sm:pt-16">
         <Container>
           <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
