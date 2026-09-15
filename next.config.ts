@@ -105,6 +105,36 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/chiropractor-aston-pa",
+        destination: "/service-areas/aston",
+        permanent: true,
+      },
+      {
+        source: "/chiropractor-in-chichester-pa",
+        destination: "/service-areas/boothwyn",
+        permanent: true,
+      },
+      {
+        source: "/towns/local-chiropractor-concordville-pa-2",
+        destination: "/service-areas/glen-mills",
+        permanent: true,
+      },
+      {
+        source: "/towns/mobile-chiropractor-in-media--pa",
+        destination: "/service-areas/media",
+        permanent: true,
+      },
+      {
+        source: "/towns/springfield",
+        destination: "/service-areas/springfield",
+        permanent: true,
+      },
+      {
+        source: "/blog/chiropractor-aston-pa",
+        destination: "/service-areas/aston",
+        permanent: true,
+      },
+      {
         source: "/local-chiropractic-visit-pricing",
         destination: "/pricing",
         permanent: true,
@@ -130,6 +160,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/the-approach",
+        destination: "/philosophy",
+        permanent: true,
+      },
+      {
         source: "/-new-patient-initial-visit",
         destination: "/what-to-expect",
         permanent: true,
@@ -152,6 +187,21 @@ const nextConfig: NextConfig = {
       {
         source: "/faq",
         destination: "/what-to-expect",
+        permanent: true,
+      },
+      {
+        source: "/forms/new-patient-intake",
+        destination: "/forms",
+        permanent: true,
+      },
+      {
+        source: "/policies/financial-policy-agreement",
+        destination: "/pricing",
+        permanent: true,
+      },
+      {
+        source: "/chester-car-accident-treatment-2",
+        destination: "/contact",
         permanent: true,
       },
       {
