@@ -34,6 +34,9 @@ export default async function ExercisePage({ params }: { params: Promise<{ slug:
   const exercise = EXERCISES[slug];
   if (!exercise) notFound();
 
+  const exerciseUrl = `https://gochiromobile.com/exercises/${slug}`;
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(exerciseUrl)}`;
+
   return (
     <Section tone="white" className="pt-8 pb-16 sm:pt-12">
       <Container>
@@ -47,6 +50,17 @@ export default async function ExercisePage({ params }: { params: Promise<{ slug:
             alt={`${exercise.title} exercise guide from GoChiroMobile`}
             className="h-auto w-full rounded-2xl border border-slate-200"
           />
+          <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-center">
+            <div className="text-lg font-bold text-slate-900">Send this exercise to your phone</div>
+            <p className="mt-1 text-sm text-slate-600">Scan this code with your phone camera to open this exercise.</p>
+            <img
+              src={qrUrl}
+              alt={`QR code for ${exercise.title}`}
+              width="240"
+              height="240"
+              className="mx-auto mt-4 h-52 w-52 sm:h-60 sm:w-60"
+            />
+          </div>
           <p className="mt-6 text-sm text-slate-600">
             Follow the exercise plan discussed during your visit. Move within a comfortable range and stop if symptoms worsen.
           </p>
