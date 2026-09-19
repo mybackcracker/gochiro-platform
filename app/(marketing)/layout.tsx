@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import SiteHeader from "@/components/SiteHeader";
+import MarketingHeader from "@/components/MarketingHeader";
 import SiteFooter from "@/components/SiteFooter";
 
 const SITE_URL = "https://gochiromobile.com";
@@ -50,7 +50,7 @@ export default function MarketingLayout({ children }: { children: ReactNode }) {
           __html: JSON.stringify(searchSignals).replace(/</g, "\\u003c"),
         }}
       />
-      <SiteHeader />
+      <MarketingHeader />
       <main className="flex-1">{children}</main>
       <SiteFooter />
     </div>
