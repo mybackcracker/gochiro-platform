@@ -8,24 +8,24 @@ export const metadata: Metadata = {
 
 const GROUPS = [
   { title: "Neck & Upper Back", items: [
-    { title: "Chin Tuck", image: "/chin-tuck.png" },
-    { title: "Scapular Retraction", image: "/scapular-retraction.png" },
+    { title: "Chin Tuck", slug: "chin-tuck", image: "/chin-tuck.png" },
+    { title: "Scapular Retraction", slug: "scapular-retraction", image: "/scapular-retraction.png" },
   ]},
   { title: "Shoulder", items: [
-    { title: "Shoulder Circumduction", image: "/shoulder-circumduction.png" },
+    { title: "Shoulder Circumduction", slug: "shoulder-circumduction", image: "/shoulder-circumduction.png" },
   ]},
   { title: "Low Back & Hip", items: [
-    { title: "Hip Hinge", image: "/hip-hinge.png" },
-    { title: "Hip Flexor Stretch", image: "/hip-flexor-stretch.png" },
-    { title: "Glute Bridge", image: "/glute-bridge.png" },
+    { title: "Hip Hinge", slug: "hip-hinge", image: "/hip-hinge.png" },
+    { title: "Hip Flexor Stretch", slug: "hip-flexor-stretch", image: "/hip-flexor-stretch.png" },
+    { title: "Glute Bridge", slug: "glute-bridge", image: "/glute-bridge.png" },
   ]},
   { title: "Elbow, Wrist & Forearm", items: [
-    { title: "Wrist & Forearm Isometrics", image: "/wrist-forearm-isometrics.png" },
-    { title: "Forearm Rotation Isometrics", image: "/forearm-rotation-isometrics.png" },
+    { title: "Wrist & Forearm Isometrics", slug: "wrist-forearm-isometrics", image: "/wrist-forearm-isometrics.png" },
+    { title: "Forearm Rotation Isometrics", slug: "forearm-rotation-isometrics", image: "/forearm-rotation-isometrics.png" },
   ]},
   { title: "Foot & Ankle", items: [
-    { title: "Calf Complex Stretch", image: "/calf-complex-stretch.png" },
-    { title: "Foot & Ankle Strength", image: "/foot-ankle-strength.png" },
+    { title: "Calf Complex Stretch", slug: "calf-complex-stretch", image: "/calf-complex-stretch.png" },
+    { title: "Foot & Ankle Strength", slug: "foot-ankle-strength", image: "/foot-ankle-strength.png" },
   ]},
 ];
 
@@ -46,7 +46,7 @@ export default function ExerciseLibraryPage() {
                 {group.items.map((item) => (
                   <a
                     key={item.title}
-                    href={item.image}
+                    href={`/exercises/${item.slug}`}
                     className="block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
                   >
                     <div className="px-5 py-4 text-lg font-semibold text-slate-900">{item.title}</div>
