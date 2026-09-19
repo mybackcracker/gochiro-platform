@@ -5,6 +5,7 @@ import QRCode from "qrcode";
 export const metadata: Metadata = {
   title: "Exercise Library — GoChiroMobile",
   description: "Simple mobile-friendly exercise instructions from GoChiroMobile.",
+  icons: { icon: "/exercise-library-icon.svg", apple: "/exercise-library-icon.svg" },
 };
 
 const GROUPS = [
