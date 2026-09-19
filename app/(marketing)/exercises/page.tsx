@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container, PageHeader, Section } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -7,11 +8,26 @@ export const metadata: Metadata = {
 };
 
 const GROUPS = [
-  { title: "Neck & Upper Back", items: ["Chin Tuck", "Scapular Retraction"] },
-  { title: "Shoulder", items: ["Shoulder Circumduction"] },
-  { title: "Low Back & Hip", items: ["Hip Hinge", "Hip Flexor Stretch", "Glute Bridge"] },
-  { title: "Elbow, Wrist & Forearm", items: ["Wrist & Forearm Isometrics", "Forearm Rotation Isometrics"] },
-  { title: "Foot & Ankle", items: ["Calf Complex Stretch", "Foot & Ankle Strength"] },
+  { title: "Neck & Upper Back", items: [
+    { title: "Chin Tuck", image: "/exercises/chin-tuck.png" },
+    { title: "Scapular Retraction", image: "/exercises/scapular-retraction.png" },
+  ]},
+  { title: "Shoulder", items: [
+    { title: "Shoulder Circumduction", image: "/exercises/shoulder-circumduction.png" },
+  ]},
+  { title: "Low Back & Hip", items: [
+    { title: "Hip Hinge", image: "/exercises/hip-hinge.png" },
+    { title: "Hip Flexor Stretch", image: "/exercises/hip-flexor-stretch.png" },
+    { title: "Glute Bridge", image: "/exercises/glute-bridge.png" },
+  ]},
+  { title: "Elbow, Wrist & Forearm", items: [
+    { title: "Wrist & Forearm Isometrics", image: "/exercises/wrist-forearm-isometrics.png" },
+    { title: "Forearm Rotation Isometrics", image: "/exercises/forearm-rotation-isometrics.png" },
+  ]},
+  { title: "Foot & Ankle", items: [
+    { title: "Calf Complex Stretch", image: "/exercises/calf-complex-stretch.png" },
+    { title: "Foot & Ankle Strength", image: "/exercises/foot-ankle-strength.png" },
+  ]},
 ];
 
 export default function ExerciseLibraryPage() {
@@ -21,18 +37,28 @@ export default function ExerciseLibraryPage() {
         <PageHeader
           eyebrow="Patient Resources"
           title="Exercise Library"
-          lede="Choose the exercise Dr. DeFries recommended for you. Move slowly, stay within a comfortable range, and do not push into pain."
+          lede="Choose the exercise Dr. DeFries recommended for you. Tap any guide to open the full-size image. Move slowly, stay within a comfortable range, and do not push into pain."
         />
-        <div className="mx-auto mt-10 max-w-3xl space-y-8">
+        <div className="mx-auto mt-10 max-w-3xl space-y-10">
           {GROUPS.map((group) => (
             <section key={group.title}>
-              <h2 className="mb-3 text-xl font-bold text-slate-900">{group.title}</h2>
-              <div className="grid gap-3">
+              <h2 className="mb-4 text-xl font-bold text-slate-900">{group.title}</h2>
+              <div className="space-y-5">
                 {group.items.map((item) => (
-                  <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-5">
-                    <div className="text-lg font-semibold text-slate-900">{item}</div>
-                    <div className="mt-1 text-sm text-slate-600">Exercise guide coming here.</div>
-                  </div>
+                  <a
+                    key={item.title}
+                    href={item.image}
+                    className="block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
+                  >
+                    <div className="px-5 py-4 text-lg font-semibold text-slate-900">{item.title}</div>
+                    <Image
+                      src={item.image}
+                      alt={`${item.title} exercise guide from GoChiroMobile`}
+                      width={1024}
+                      height={1536}
+                      className="h-auto w-full"
+                    />
+                  </a>
                 ))}
               </div>
             </section>
