@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Container, PageHeader, Section } from "@/components/ui";
+import QRCode from "qrcode";
 
 export const metadata: Metadata = {
   title: "Exercise Library — GoChiroMobile",
@@ -29,7 +30,8 @@ const GROUPS = [
   ]},
 ];
 
-export default function ExerciseLibraryPage() {
+export default async function ExerciseLibraryPage() {
+  const libraryQr = await QRCode.toDataURL("https://gochiromobile.com/exercises", { width: 320, margin: 2 });
   return (
     <Section tone="white" className="pt-14 pb-16 sm:pt-20 sm:pb-24">
       <Container>
@@ -61,6 +63,11 @@ export default function ExerciseLibraryPage() {
               </div>
             </section>
           ))}
+        </div>
+        <div className="mx-auto mt-12 max-w-3xl border-t border-slate-200 pt-10 text-center">
+          <h2 className="text-xl font-bold text-slate-900">Keep the Exercise Library on Your Phone</h2>
+          <p className="mt-2 text-sm text-slate-600">Scan this code to open the complete GoChiroMobile Exercise Library.</p>
+          <img src={libraryQr} alt="QR code for the GoChiroMobile Exercise Library" className="mx-auto mt-5 h-52 w-52" />
         </div>
         <p className="mx-auto mt-10 max-w-3xl text-sm text-slate-600">
           These instructions are educational and are intended to support the exercise plan discussed during your visit. Stop if an exercise causes pain or worsening symptoms.
