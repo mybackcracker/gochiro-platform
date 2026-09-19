@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<rect width="512" height="512" rx="96" fill="#0b2d4d"/>
+<circle cx="256" cy="238" r="150" fill="none" stroke="#fff" stroke-width="36"/>
+<path d="M336 147c-25-22-56-34-90-34-77 0-139 62-139 139s62 139 139 139c39 0 74-16 99-42V257h-99v36h60v38c-17 14-38 22-60 22-56 0-101-45-101-101s45-101 101-101c25 0 48 9 66 25z" fill="#fff"/>
+<circle cx="250" cy="201" r="18" fill="#63c7f2"/>
+<path d="M250 222l-33 55m33-55 35 47m-35-23 49-25m-49 25-47-23m47 23-27 70m27-70 52 63" fill="none" stroke="#63c7f2" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="116" y="420" width="280" height="4" rx="2" fill="#63c7f2"/>
+<text x="256" y="458" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="3" fill="#fff">EXERCISES</text>
+</svg>
