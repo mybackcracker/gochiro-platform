@@ -9,24 +9,24 @@ export const metadata: Metadata = {
 
 const GROUPS = [
   { title: "Neck & Upper Back", items: [
-    { title: "Chin Tuck", image: "/exercises/chin-tuck.png" },
-    { title: "Scapular Retraction", image: "/exercises/scapular-retraction.png" },
+    { title: "Chin Tuck", image: "/chin-tuck.png" },
+    { title: "Scapular Retraction", image: "/scapular-retraction.png" },
   ]},
   { title: "Shoulder", items: [
-    { title: "Shoulder Circumduction", image: "/exercises/shoulder-circumduction.png" },
+    { title: "Shoulder Circumduction", image: "/shoulder-circumduction.png" },
   ]},
   { title: "Low Back & Hip", items: [
-    { title: "Hip Hinge", image: "/exercises/hip-hinge.png" },
-    { title: "Hip Flexor Stretch", image: "/exercises/hip-flexor-stretch.png" },
-    { title: "Glute Bridge", image: "/exercises/glute-bridge.png" },
+    { title: "Hip Hinge", image: "/hip-hinge.png" },
+    { title: "Hip Flexor Stretch", image: "/hip-flexor-stretch.png" },
+    { title: "Glute Bridge", image: "/glute-bridge.png" },
   ]},
   { title: "Elbow, Wrist & Forearm", items: [
-    { title: "Wrist & Forearm Isometrics", image: "/exercises/wrist-forearm-isometrics.png" },
-    { title: "Forearm Rotation Isometrics", image: "/exercises/forearm-rotation-isometrics.png" },
+    { title: "Wrist & Forearm Isometrics", image: "/wrist-forearm-isometrics.png" },
+    { title: "Forearm Rotation Isometrics", image: "/forearm-rotation-isometrics.png" },
   ]},
   { title: "Foot & Ankle", items: [
-    { title: "Calf Complex Stretch", image: "/exercises/calf-complex-stretch.png" },
-    { title: "Foot & Ankle Strength", image: "/exercises/foot-ankle-strength.png" },
+    { title: "Calf Complex Stretch", image: "/calf-complex-stretch.png" },
+    { title: "Foot & Ankle Strength", image: "/foot-ankle-strength.png" },
   ]},
 ];
 
