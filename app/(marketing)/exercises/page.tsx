@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { Container, PageHeader, Section } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -51,12 +50,11 @@ export default function ExerciseLibraryPage() {
                     className="block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md"
                   >
                     <div className="px-5 py-4 text-lg font-semibold text-slate-900">{item.title}</div>
-                    <Image
+                    <img
                       src={item.image}
                       alt={`${item.title} exercise guide from GoChiroMobile`}
-                      width={1024}
-                      height={1536}
                       className="h-auto w-full"
+                      loading="lazy"
                     />
                   </a>
                 ))}
