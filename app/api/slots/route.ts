@@ -18,7 +18,7 @@ const FRIDAY_EARLY_CLOSE_REGIONS: Region[] = ["WestChester", "MainLine"];
 const PREMIUM_REGIONS: Region[] = ["Central", "MainLine", "WestChester"];
 
 function workHoursFor(region: Region, dayOfWeek: number): { start: number; end: number } {
-  if (dayOfWeek === 0) return { start: 10, end: 13 }; // Sunday Priority/New Patient only
+  if (dayOfWeek === 0) return { start: 9, end: 13 }; // Sunday Priority/New Patient only
   if (dayOfWeek === 6) return { start: 9, end: PREMIUM_REGIONS.includes(region) ? 12 : 13 };
   if (dayOfWeek === 5) return { start: 9, end: FRIDAY_EARLY_CLOSE_REGIONS.includes(region) ? 14 : 16 };
   return { start: 9, end: 18 };
