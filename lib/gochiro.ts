@@ -196,16 +196,9 @@ export function priceFor(region: Region, visit: VisitType): number | null {
 // Weekend pricing is intentionally separate from weekday pricing.
 // Saturday: NP $120/$160, Maintenance $80/$100, Priority $100/$140.
 // Sunday: NP $160/$200, Priority $140/$180; other visit types are unavailable.
-export function priceForAppointment(region: Region, visit: VisitType, appointmentDate: Date): number | null {
+export function priceForDate(region: Region, visit: VisitType, dateISO: string): number | null {
   const tier = tierForRegion(region);
-  const day = Number(
-    new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short" })
-      .formatToParts(appointmentDate)
-      .find((p) => p.type === "weekday")?.value === "Sun" ? 0 :
-    new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short" })
-      .formatToParts(appointmentDate)
-      .find((p) => p.type === "weekday")?.value === "Sat" ? 6 : 1
-  );
+  const day = new Date(`${dateISO}T12:00:00Z`).getUTCDay();
 
   if (day === 6) {
     if (visit === "new-patient") return tier === "premium" ? 160 : 120;
