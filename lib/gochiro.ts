@@ -193,6 +193,33 @@ export function priceFor(region: Region, visit: VisitType): number | null {
   return VISITS[visit][tier];
 }
 
+// Weekend pricing is intentionally separate from weekday pricing.
+// Saturday: NP $120/$160, Maintenance $80/$100, Priority $100/$140.
+// Sunday: NP $160/$200, Priority $140/$180; other visit types are unavailable.
+export function priceForAppointment(region: Region, visit: VisitType, appointmentDate: Date): number | null {
+  const tier = tierForRegion(region);
+  const day = Number(
+    new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short" })
+      .formatToParts(appointmentDate)
+      .find((p) => p.type === "weekday")?.value === "Sun" ? 0 :
+    new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short" })
+      .formatToParts(appointmentDate)
+      .find((p) => p.type === "weekday")?.value === "Sat" ? 6 : 1
+  );
+
+  if (day === 6) {
+    if (visit === "new-patient") return tier === "premium" ? 160 : 120;
+    if (visit === "maintenance") return tier === "premium" ? 100 : 80;
+    if (visit === "priority-standard" || visit === "priority-upgraded") return tier === "premium" ? 140 : 100;
+    if (visit === "care-plan") return tier === "premium" ? 140 : 100;
+  }
+  if (day === 0) {
+    if (visit === "new-patient") return tier === "premium" ? 200 : 160;
+    if (visit === "priority-standard" || visit === "priority-upgraded") return tier === "premium" ? 180 : 140;
+  }
+  return priceFor(region, visit);
+}
+
 export function paymentLinkFor(region: Region, visit: VisitType): string {
   return PAYMENT_LINKS[tierForRegion(region)][visit];
 }
@@ -205,12 +232,20 @@ export function visitTypesForLeadTime(days: number): VisitType[] {
   return (Object.keys(VISITS) as VisitType[]).filter((v) => days >= VISITS[v].minLeadDays);
 }
 
-// The business doesn't operate weekends — this has to be an explicit rule
-// rather than inferred from the calendar, since an empty Saturday on the
-// calendar is indistinguishable from a genuinely open one otherwise.
+// All seven days can be bookable. Weekend visit-type restrictions and hours
+// are enforced by the slot and booking endpoints.
 export function isBusinessDay(dateISO: string): boolean {
-  const day = new Date(`${dateISO}T00:00:00`).getDay(); // 0 = Sunday, 6 = Saturday
-  return day !== 0 && day !== 6;
+  return /^\\d{4}-\\d{2}-\\d{2}$/.test(dateISO);
+}
+
+export function isVisitAllowedOnDay(visit: VisitType, dayOfWeek: number): boolean {
+  if (dayOfWeek === 0) {
+    return visit === "new-patient" || visit === "priority-standard" || visit === "priority-upgraded" || visit === "priority-accident";
+  }
+  if (dayOfWeek === 6) {
+    return visit !== "group-visit";
+  }
+  return true;
 }
 
 // Priority Visit triage tree (Section 2 of BOOKING_FLOW_SPEC.md). Questions are
