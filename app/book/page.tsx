@@ -12,11 +12,12 @@ import {
   resolvePriorityVisit,
   isBusinessDay,
   groupVisitTotal,
-  groupVisitTravelFee,
+  groupVisitExistingPatientRate,
+  groupVisitWeekendSurcharge,
   isValidGroupVisitComposition,
   GROUP_VISIT_MIN_PARTICIPANTS,
-  GROUP_VISIT_NEW_PATIENT_PRICE,
-  GROUP_VISIT_EXISTING_PATIENT_PRICE,
+  GROUP_VISIT_MAX_PARTICIPANTS,
+  GROUP_VISIT_NEW_PATIENT_SURCHARGE,
   type VisitType,
   type Region,
 } from "@/lib/gochiro";
@@ -770,12 +771,13 @@ export default function BookPage() {
             <div className="mt-6 space-y-4">
               <div>
                 <label htmlFor="group-new-count" className="text-sm font-semibold text-slate-700">
-                  {`New patients ($${GROUP_VISIT_NEW_PATIENT_PRICE} each)`}
+                  New patients
                 </label>
                 <input
                   id="group-new-count"
                   type="number"
                   min={0}
+                  max={GROUP_VISIT_MAX_PARTICIPANTS}
                   value={groupNewCount}
                   onChange={(e) => setGroupNewCount(Math.max(0, parseInt(e.target.value, 10) || 0))}
                   className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-lg outline-none focus:border-slate-900"
@@ -783,12 +785,13 @@ export default function BookPage() {
               </div>
               <div>
                 <label htmlFor="group-existing-count" className="text-sm font-semibold text-slate-700">
-                  {`Existing patients ($${GROUP_VISIT_EXISTING_PATIENT_PRICE} each)`}
+                  Existing patients
                 </label>
                 <input
                   id="group-existing-count"
                   type="number"
                   min={0}
+                  max={GROUP_VISIT_MAX_PARTICIPANTS}
                   value={groupExistingCount}
                   onChange={(e) => setGroupExistingCount(Math.max(0, parseInt(e.target.value, 10) || 0))}
                   className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-lg outline-none focus:border-slate-900"
@@ -798,7 +801,7 @@ export default function BookPage() {
 
             {!groupCompositionValid && (
               <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
-                A Group Visit needs at least {GROUP_VISIT_MIN_PARTICIPANTS} people total.
+                A Group Visit needs {GROUP_VISIT_MIN_PARTICIPANTS}–{GROUP_VISIT_MAX_PARTICIPANTS} people total.
               </div>
             )}
 
@@ -838,11 +841,8 @@ export default function BookPage() {
                 <span className="text-sm">Group Visit total</span>
                 <span className="block text-2xl font-bold">{formatPrice(groupVisitTotal(zipRegion, groupComposition))}</span>
                 <span className="mt-1 block text-xs text-emerald-800">
-                  {groupNewCount > 0 && `${groupNewCount} new @ $${GROUP_VISIT_NEW_PATIENT_PRICE}`}
-                  {groupNewCount > 0 && groupExistingCount > 0 && " + "}
-                  {groupExistingCount > 0 && `${groupExistingCount} existing @ $${GROUP_VISIT_EXISTING_PATIENT_PRICE}`}
-                  {" + "}
-                  {`$${groupVisitTravelFee(zipRegion)} travel`}
+                  {`${groupVisitExistingPatientRate(zipRegion, groupComposition.newCount + groupComposition.existingCount)} base per person`}
+                  {groupNewCount > 0 && ` + ${GROUP_VISIT_NEW_PATIENT_SURCHARGE} for each new patient`}
                 </span>
               </div>
             )}
@@ -1127,7 +1127,7 @@ export default function BookPage() {
         {step === "time" && visit === "group-visit" && region && (
           <p className="mt-2 text-sm text-slate-600">
             Group Visit —{" "}
-            <span className="text-lg font-bold text-slate-900">{formatPrice(groupVisitTotal(region, groupComposition))}</span>
+            <span className="text-lg font-bold text-slate-900">{formatPrice(groupVisitTotal(region, groupComposition, appointmentDate))}</span>
           </p>
         )}
 
@@ -1723,20 +1723,20 @@ export default function BookPage() {
                 value={`${addressLine2 ? `${address}, ${addressLine2}` : address}, ${addressCity}, ${addressState} ${addressZip}`}
               />
               <ReviewRow label="Region" value={regionDisplayLabel(region)} />
+              <ReviewRow
+                label="Base group rate"
+                value={`$${groupVisitExistingPatientRate(region, groupComposition.newCount + groupComposition.existingCount)} per person`}
+              />
               {groupComposition.newCount > 0 && (
                 <ReviewRow
-                  label={`${groupComposition.newCount} new patient${groupComposition.newCount === 1 ? "" : "s"}`}
-                  value={formatPrice(groupComposition.newCount * GROUP_VISIT_NEW_PATIENT_PRICE)}
+                  label={`New-patient add-on × ${groupComposition.newCount}`}
+                  value={formatPrice(groupComposition.newCount * GROUP_VISIT_NEW_PATIENT_SURCHARGE)}
                 />
               )}
-              {groupComposition.existingCount > 0 && (
-                <ReviewRow
-                  label={`${groupComposition.existingCount} existing patient${groupComposition.existingCount === 1 ? "" : "s"}`}
-                  value={formatPrice(groupComposition.existingCount * GROUP_VISIT_EXISTING_PATIENT_PRICE)}
-                />
+              {groupVisitWeekendSurcharge(appointmentDate) > 0 && (
+                <ReviewRow label="Weekend group surcharge" value={formatPrice(groupVisitWeekendSurcharge(appointmentDate))} />
               )}
-              <ReviewRow label="Travel fee" value={formatPrice(groupVisitTravelFee(region))} />
-              <ReviewRow label="Group total" value={formatPrice(groupVisitTotal(region, groupComposition))} emphasize />
+              <ReviewRow label="Group total" value={formatPrice(groupVisitTotal(region, groupComposition, appointmentDate))} emphasize />
             </div>
 
             {bookingError && (
