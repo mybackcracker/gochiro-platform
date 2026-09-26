@@ -6,13 +6,14 @@ import {
   leadDays,
   visitTypesForLeadTime,
   isBusinessDay,
+  isVisitAllowedOnDay,
   groupVisitDurationMin,
   isValidGroupVisitComposition,
   type VisitType,
   type GroupVisitComposition,
 } from "@/lib/gochiro";
 import type { Region } from "@/lib/scheduling";
-import { dateStringInTimeZone } from "@/lib/timezone";
+import { dateStringInTimeZone, dayOfWeekFromDateString, parseDateOnly, zonedTimeToUtc } from "@/lib/timezone";
 
 const VALID_REGIONS: Region[] = ["East", "West", "Central", "MainLine", "WestChester"];
 
@@ -103,6 +104,25 @@ export async function POST(req: NextRequest) {
   const startDateStr = dateStringInTimeZone(startTime);
   if (!isBusinessDay(startDateStr)) {
     return NextResponse.json({ error: "That day is not available for booking." }, { status: 400 });
+  }
+
+  const dayOfWeek = dayOfWeekFromDateString(startDateStr);
+  if (!isVisitAllowedOnDay(visit, dayOfWeek)) {
+    return NextResponse.json({ error: "That visit type is not offered on this day." }, { status: 400 });
+  }
+
+  // Enforce weekend hours again at booking time so a crafted request cannot
+  // bypass the slot endpoint.
+  if (dayOfWeek === 0 || dayOfWeek === 6) {
+    const { year, month, day } = parseDateOnly(startDateStr);
+    const startHour = dayOfWeek === 0 ? 10 : 9;
+    const premium = region === "Central" || region === "MainLine" || region === "WestChester";
+    const endHour = dayOfWeek === 0 ? 13 : premium ? 12 : 13;
+    const open = zonedTimeToUtc(year, month, day, startHour, 0, 0);
+    const close = zonedTimeToUtc(year, month, day, endHour, 0, 0);
+    if (startTime < open || startTime > close) {
+      return NextResponse.json({ error: "That time is outside weekend booking hours." }, { status: 400 });
+    }
   }
 
   const days = leadDays(startTime);
