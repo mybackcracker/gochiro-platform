@@ -6,6 +6,7 @@ import {
   SAME_REGION_BUFFER_MIN,
   leadDays,
   isBusinessDay,
+  isVisitAllowedOnDay,
   groupVisitDurationMin,
   isValidGroupVisitComposition,
   type VisitType,
@@ -13,16 +14,14 @@ import {
 import { zonedTimeToUtc, parseDateOnly, dayOfWeekFromDateString } from "@/lib/timezone";
 
 const VALID_REGIONS: Region[] = ["East", "West", "Central", "MainLine", "WestChester"];
-const WORK_START_HOUR = 9;
-
-// Mon-Thu close at 6pm everywhere. Friday closes earlier: 4pm normally, but
-// 2pm for the two regions whose Friday hours run short.
 const FRIDAY_EARLY_CLOSE_REGIONS: Region[] = ["WestChester", "MainLine"];
+const PREMIUM_REGIONS: Region[] = ["Central", "MainLine", "WestChester"];
 
-function workEndHourFor(region: Region, dayOfWeek: number): number {
-  const isFriday = dayOfWeek === 5;
-  if (!isFriday) return 18;
-  return FRIDAY_EARLY_CLOSE_REGIONS.includes(region) ? 14 : 16;
+function workHoursFor(region: Region, dayOfWeek: number): { start: number; end: number } {
+  if (dayOfWeek === 0) return { start: 10, end: 13 }; // Sunday Priority/New Patient only
+  if (dayOfWeek === 6) return { start: 9, end: PREMIUM_REGIONS.includes(region) ? 12 : 13 };
+  if (dayOfWeek === 5) return { start: 9, end: FRIDAY_EARLY_CLOSE_REGIONS.includes(region) ? 14 : 16 };
+  return { start: 9, end: 18 };
 }
 
 export async function GET(req: NextRequest) {
@@ -61,23 +60,26 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Invalid date format." }, { status: 400 });
   }
 
-  // Closed weekends — this is a fixed business rule, not something inferred
-  // from the calendar (an empty Saturday would otherwise look wide open).
   if (!isBusinessDay(dateParam)) {
     return NextResponse.json({ slots: [] });
   }
 
-  // The business's actual midnight-to-midnight day and 9am/close window, in
+  const dayOfWeek = dayOfWeekFromDateString(dateParam);
+  if (!isVisitAllowedOnDay(visit, dayOfWeek)) {
+    return NextResponse.json({ slots: [] });
+  }
+
+  // The business's actual midnight-to-midnight day and work window, in
   // America/New_York — computed explicitly (lib/timezone.ts) rather than via
   // the server process's own local timezone, which may not be Eastern in
   // production. dayOfWeek is pure UTC calendar math, never derived from a
   // constructed instant's local getDay().
   const { year, month, day } = parseDateOnly(dateParam);
-  const dayOfWeek = dayOfWeekFromDateString(dateParam);
   const dayStart = zonedTimeToUtc(year, month, day, 0, 0, 0);
   const dayEnd = zonedTimeToUtc(year, month, day, 23, 59, 59);
-  const workStart = zonedTimeToUtc(year, month, day, WORK_START_HOUR, 0, 0);
-  const workEnd = zonedTimeToUtc(year, month, day, workEndHourFor(region, dayOfWeek), 0, 0);
+  const workHours = workHoursFor(region, dayOfWeek);
+  const workStart = zonedTimeToUtc(year, month, day, workHours.start, 0, 0);
+  const workEnd = zonedTimeToUtc(year, month, day, workHours.end, 0, 0);
 
   try {
     const [existingEvents, personalBusy] = await Promise.all([

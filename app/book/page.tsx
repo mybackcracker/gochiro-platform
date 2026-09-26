@@ -8,6 +8,7 @@ import {
   findRegion,
   paymentLinkFor,
   priceFor,
+  priceForDate,
   resolvePriorityVisit,
   isBusinessDay,
   groupVisitTotal,
@@ -198,8 +199,19 @@ export default function BookPage() {
   const [bookingLoading, setBookingLoading] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
 
-  const price = region && visit ? priceFor(region, visit) : 0;
-  const paymentLink = region && visit ? paymentLinkFor(region, visit) : "";
+  const appointmentDate = date || (selectedSlot ? new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit",
+  }).format(new Date(selectedSlot)) : "");
+  const price = region && visit
+    ? (appointmentDate ? priceForDate(region, visit, appointmentDate) : priceFor(region, visit))
+    : 0;
+  const appointmentDay = appointmentDate ? new Date(`${appointmentDate}T12:00:00Z`).getUTCDay() : -1;
+  // Existing Square links are weekday fixed-price links. Weekend appointments
+  // show the correct weekend fee but are paid at the visit until dedicated
+  // weekend Square links are created.
+  const paymentLink = region && visit && appointmentDay !== 0 && appointmentDay !== 6
+    ? paymentLinkFor(region, visit)
+    : "";
 
   // Business hours run 9am–6pm (9hr) — an even 3-way split (9-12 / 12-3 / 3-6)
   // gives each window the same ~3hr span, instead of a 2-way morning/afternoon
@@ -1106,7 +1118,7 @@ export default function BookPage() {
             {visit !== "priority-accident" && (
               <>
                 {" — "}
-                <span className="text-lg font-bold text-slate-900">{formatPrice(priceFor(region, visit))}</span>
+                <span className="text-lg font-bold text-slate-900">{formatPrice(date ? priceForDate(region, visit, date) : priceFor(region, visit))}</span>
               </>
             )}
           </p>
@@ -1677,14 +1689,16 @@ export default function BookPage() {
               </button>
             )}
 
-            <a
-              href={paymentLink}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-3 block w-full rounded-xl border border-slate-300 px-5 py-4 text-center font-semibold text-slate-900"
-            >
-              Pay with Square
-            </a>
+            {paymentLink && (
+              <a
+                href={paymentLink}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-3 block w-full rounded-xl border border-slate-300 px-5 py-4 text-center font-semibold text-slate-900"
+              >
+                Pay with Square
+              </a>
+            )}
           </>
         )}
 
@@ -1758,14 +1772,16 @@ export default function BookPage() {
                 })}.`}
             </div>
 
-            <a
-              href={paymentLink}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-5 block w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white"
-            >
-              Pay with Square
-            </a>
+            {paymentLink && (
+              <a
+                href={paymentLink}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-5 block w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white"
+              >
+                Pay with Square
+              </a>
+            )}
 
             {patientType === "new" && (
               <a
