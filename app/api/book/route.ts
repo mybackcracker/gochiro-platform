@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
   // bypass the slot endpoint.
   if (dayOfWeek === 0 || dayOfWeek === 6) {
     const { year, month, day } = parseDateOnly(startDateStr);
-    const startHour = dayOfWeek === 0 ? 10 : 9;
+    const startHour = 9;
     const premium = region === "Central" || region === "MainLine" || region === "WestChester";
     const endHour = dayOfWeek === 0 ? 13 : premium ? 12 : 13;
     const open = zonedTimeToUtc(year, month, day, startHour, 0, 0);
