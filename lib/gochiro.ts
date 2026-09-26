@@ -233,10 +233,10 @@ export function isBusinessDay(dateISO: string): boolean {
 
 export function isVisitAllowedOnDay(visit: VisitType, dayOfWeek: number): boolean {
   if (dayOfWeek === 0) {
-    return visit === "new-patient" || visit === "priority-standard" || visit === "priority-upgraded" || visit === "priority-accident";
+    return visit === "new-patient" || visit === "priority-standard" || visit === "priority-upgraded" || visit === "priority-accident" || visit === "group-visit";
   }
   if (dayOfWeek === 6) {
-    return visit !== "group-visit";
+    return true;
   }
   return true;
 }
@@ -257,15 +257,15 @@ export function resolvePriorityVisit(
   return severeOrRadiating ? "priority-upgraded" : "priority-standard";
 }
 
-// Group Visits (GROUP_VISIT_SPECIFICATION.md, resolved 2026-08-28). Price and
-// duration both depend on participant composition, not just region tier, so
-// they're computed here rather than stored in VISITS above.
+// Group Visits. Online bookings are limited to 2–6 participants.
+// Existing patients use the tier/headcount group rate; each new patient adds
+// $20 and receives twice the appointment time (20 vs 10 minutes).
 export const GROUP_VISIT_MIN_PARTICIPANTS = 2;
-export const GROUP_VISIT_NEW_PATIENT_PRICE = 60;
-export const GROUP_VISIT_EXISTING_PATIENT_PRICE = 40;
-export const GROUP_VISIT_TRAVEL_FEE: Record<Tier, number> = { standard: 20, premium: 40 };
-export const GROUP_VISIT_NEW_PATIENT_MIN = 20; // minutes per new-patient participant
-export const GROUP_VISIT_EXISTING_PATIENT_MIN = 10; // minutes per existing-patient participant
+export const GROUP_VISIT_MAX_PARTICIPANTS = 6;
+export const GROUP_VISIT_NEW_PATIENT_SURCHARGE = 20;
+export const GROUP_VISIT_WEEKEND_SURCHARGE = 20;
+export const GROUP_VISIT_NEW_PATIENT_MIN = 20;
+export const GROUP_VISIT_EXISTING_PATIENT_MIN = 10;
 
 export interface GroupVisitComposition {
   newCount: number;
@@ -277,12 +277,14 @@ export function groupVisitParticipantCount(c: GroupVisitComposition): number {
 }
 
 export function isValidGroupVisitComposition(c: GroupVisitComposition): boolean {
+  const count = groupVisitParticipantCount(c);
   return (
     Number.isInteger(c.newCount) &&
     Number.isInteger(c.existingCount) &&
     c.newCount >= 0 &&
     c.existingCount >= 0 &&
-    groupVisitParticipantCount(c) >= GROUP_VISIT_MIN_PARTICIPANTS
+    count >= GROUP_VISIT_MIN_PARTICIPANTS &&
+    count <= GROUP_VISIT_MAX_PARTICIPANTS
   );
 }
 
@@ -290,16 +292,22 @@ export function groupVisitDurationMin(c: GroupVisitComposition): number {
   return c.newCount * GROUP_VISIT_NEW_PATIENT_MIN + c.existingCount * GROUP_VISIT_EXISTING_PATIENT_MIN;
 }
 
-export function groupVisitTravelFee(region: Region): number {
-  return GROUP_VISIT_TRAVEL_FEE[tierForRegion(region)];
+export function groupVisitExistingPatientRate(region: Region, participantCount: number): number {
+  const tier = tierForRegion(region);
+  if (tier === "standard") return participantCount === 2 ? 50 : 40;
+  if (participantCount === 2) return 60;
+  if (participantCount === 3) return 55;
+  return 50;
 }
 
-// Per-person fees plus one travel fee for the whole booking — the host pays
-// this single total, not each participant separately (Section 5/9).
-export function groupVisitTotal(region: Region, c: GroupVisitComposition): number {
-  return (
-    c.newCount * GROUP_VISIT_NEW_PATIENT_PRICE +
-    c.existingCount * GROUP_VISIT_EXISTING_PATIENT_PRICE +
-    groupVisitTravelFee(region)
-  );
+export function groupVisitWeekendSurcharge(dateISO?: string): number {
+  if (!dateISO) return 0;
+  const day = new Date(`${dateISO}T12:00:00Z`).getUTCDay();
+  return day === 0 || day === 6 ? GROUP_VISIT_WEEKEND_SURCHARGE : 0;
+}
+
+export function groupVisitTotal(region: Region, c: GroupVisitComposition, dateISO?: string): number {
+  const count = groupVisitParticipantCount(c);
+  const baseRate = groupVisitExistingPatientRate(region, count);
+  return count * baseRate + c.newCount * GROUP_VISIT_NEW_PATIENT_SURCHARGE + groupVisitWeekendSurcharge(dateISO);
 }
