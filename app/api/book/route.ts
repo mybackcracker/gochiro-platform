@@ -120,7 +120,9 @@ export async function POST(req: NextRequest) {
     const endHour = dayOfWeek === 0 ? 13 : premium ? 12 : 13;
     const open = zonedTimeToUtc(year, month, day, startHour, 0, 0);
     const close = zonedTimeToUtc(year, month, day, endHour, 0, 0);
-    if (startTime < open || startTime > close) {
+    const durationMin = composition ? groupVisitDurationMin(composition) : VISITS[visit].durationMin;
+    const appointmentEnd = new Date(startTime.getTime() + durationMin * 60000);
+    if (startTime < open || appointmentEnd > close) {
       return NextResponse.json({ error: "That time is outside weekend booking hours." }, { status: 400 });
     }
   }
