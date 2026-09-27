@@ -137,7 +137,9 @@ export default function BookPage() {
   // Returning Patient flows below — a user is only ever in one flow per
   // session, so sharing it is safe and avoids duplicating ~9 fields. Only
   // the host's contact info is collected — individual attendees are not
-  // identified during booking. Group intake issuance remains unsupported.
+  // identified during booking. When new patients are included, the host's
+  // confirmation email receives one single-use secure intake link per new
+  // patient to forward separately.
   const [groupNewCount, setGroupNewCount] = useState(1);
   const [groupExistingCount, setGroupExistingCount] = useState(1);
   const [groupPolicyAgreed, setGroupPolicyAgreed] = useState(false);
