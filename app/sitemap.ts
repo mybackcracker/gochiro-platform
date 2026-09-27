@@ -10,6 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/book-online",
     "/contact",
     "/forms",
+    "/group-visits/standard",
+    "/group-visits/premium",
     "/philosophy",
     "/pricing",
     "/service-areas",
