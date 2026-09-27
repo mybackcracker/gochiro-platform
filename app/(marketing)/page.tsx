@@ -33,13 +33,13 @@ export default function HomePage() {
         <Container>
           <div className="flex flex-col items-center justify-center gap-2 py-3 text-center sm:flex-row sm:gap-3">
             <p className="text-sm font-semibold sm:text-base">
-              Touring with a production in Philadelphia? Same-day and short-notice musculoskeletal care may be available for artists, performers & touring crew.
+              Now available 7 days a week — including Saturday & Sunday appointments.
             </p>
             <Link
-              href="/touring-production-care"
+              href="/book-online"
               className="shrink-0 text-sm font-bold text-white underline underline-offset-4 hover:no-underline sm:text-base"
             >
-              Touring Production Care →
+              Schedule a Visit →
             </Link>
           </div>
         </Container>
@@ -70,9 +70,6 @@ export default function HomePage() {
                 Serving Delaware County, parts of Chester County and the Main Line, with special
                 visits and events available in Philadelphia and surrounding areas.
               </P>
-              <p className="mt-3 text-sm font-semibold text-muted">
-                Appointments available 7 days a week, including Saturday and Sunday. Availability varies by location and visit type.
-              </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <CTAButton href="#service-area">Check My Area</CTAButton>
                 <CTAButton href="/book-online" variant="secondary">Schedule a Visit</CTAButton>
