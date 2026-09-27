@@ -284,6 +284,13 @@ export default function BookPage() {
         setBucket(null);
         return;
       }
+      if (funnelStage === "bucket" && visit === "group-visit") {
+        if (history[history.length - 1] === "group-policy") {
+          setHistory((h) => h.slice(0, -1));
+        }
+        setStep("group-policy");
+        return;
+      }
       // funnelStage === "day" && bucketSkipped: no bucket screen to return to
       // (Maintenance) — fall through to the normal history pop below.
     }
@@ -633,8 +640,8 @@ export default function BookPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-8">
-      <section className="mx-auto w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <main className="min-h-screen bg-slate-50 px-4 py-4 sm:py-8">
+      <section className="mx-auto w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <button onClick={goBack} className="text-sm font-semibold text-slate-500 hover:text-slate-900">
           ← Back
         </button>
@@ -755,7 +762,7 @@ export default function BookPage() {
             <button
               onClick={continueFromZip}
               disabled={!zipRegion}
-              className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="mt-4 w-full rounded-xl bg-slate-900 px-5 py-3.5 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               Continue
             </button>
@@ -820,7 +827,7 @@ export default function BookPage() {
         {step === "group-zip" && (
           <>
             <h1 className="mt-2 text-2xl font-bold text-slate-900">What ZIP code will we be visiting?</h1>
-            <p className="mt-2 text-slate-600">We use your ZIP code to determine the service region and travel fee.</p>
+            <p className="mt-2 text-slate-600">We use your ZIP code to determine the service region and group pricing.</p>
 
             <input
               value={zip}
@@ -865,46 +872,38 @@ export default function BookPage() {
 
         {step === "group-policy" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Before You Book</h1>
-            <p className="mt-2 text-slate-600">Please review the following before scheduling your Group Visit:</p>
+            <h1 className="mt-1 text-2xl font-bold text-slate-900">Before You Book</h1>
 
-            <div className="mt-6 max-h-72 space-y-5 overflow-y-auto rounded-xl border border-slate-200 p-4 text-sm text-slate-700">
+            <div className="mt-4 space-y-3 rounded-xl border border-slate-200 p-3 text-sm text-slate-700">
               <div>
-                <h2 className="font-semibold text-slate-900">Who Group Visits Are For</h2>
-                <p className="mt-1">
-                  Group Visits are wellness-focused. They&apos;re not intended for an acute injury, a significant
-                  new complaint, or a chronic condition needing individualized evaluation or treatment — book an
-                  individual visit instead if that&apos;s what&apos;s going on.
+                <h2 className="font-semibold text-slate-900">Routine care only</h2>
+                <p className="mt-0.5">
+                  New, acute, significantly worsening, or complex complaints need an individual visit.
                 </p>
               </div>
               <div>
-                <h2 className="font-semibold text-slate-900">Host Responsibility</h2>
-                <p className="mt-1">
-                  As the host, you&apos;re responsible for the full quoted group total. Payment isn&apos;t required
-                  to book — pay at or before the visit.
+                <h2 className="font-semibold text-slate-900">Host responsibility</h2>
+                <p className="mt-0.5">
+                  The host is responsible for the full quoted group total. Payment is due before or at the visit.
                 </p>
               </div>
               <div>
-                <h2 className="font-semibold text-slate-900">Cancellation Policy</h2>
-                <p className="mt-1">
-                  You may reduce the reserved headcount more than 24 hours before the visit and the group total
-                  will be recalculated. Within 24 hours, the original reserved group total remains due if fewer
-                  people participate or the group cancels or reschedules. As the host, you&apos;re responsible for
-                  that total.
+                <h2 className="font-semibold text-slate-900">Changes within 24 hours</h2>
+                <p className="mt-0.5">
+                  Reduce headcount more than 24 hours ahead and we&apos;ll recalculate. Within 24 hours, the reserved
+                  group total remains due.
                 </p>
               </div>
               <div>
-                <h2 className="font-semibold text-slate-900">Intake Forms</h2>
-                <p className="mt-1">
-                  Each new patient must complete a separate intake form within 3 hours of booking. Your confirmation
-                  email will include one secure link for each new patient for you to forward. Each link is single-use.
-                  If a new patient does not complete the intake, that person cannot be treated as part of the Group Visit.
-                  Existing patients do not need a new intake form.
+                <h2 className="font-semibold text-slate-900">New-patient intake</h2>
+                <p className="mt-0.5">
+                  Each new patient gets a separate single-use intake link and must complete it within 3 hours of booking
+                  to be treated.
                 </p>
               </div>
             </div>
 
-            <label className="mt-4 flex items-start gap-3 text-sm font-medium text-slate-700">
+            <label className="mt-3 flex items-start gap-3 text-sm font-medium text-slate-700">
               <input
                 type="checkbox"
                 checked={groupPolicyAgreed}
