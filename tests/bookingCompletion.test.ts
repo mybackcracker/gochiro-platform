@@ -45,7 +45,7 @@ test("maintenance receives no intake link and Group Visits receive one secure li
     {
       intakeEnabled:"true",
       issueLink:async(ref)=>{refs.push(ref); return `https://intake.invalid/?t=${refs.length}`;},
-      sendGroup:async(_group, links)=>{groupLinks=links;},
+      sendGroup:async(_group, links = [])=>{groupLinks=links;},
     },
   );
   assert.deepEqual(refs, ["opaque:group-new-1", "opaque:group-new-2"]);
