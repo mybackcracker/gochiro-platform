@@ -65,7 +65,7 @@ export const chaddsFord: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Chadds Ford",
   workplaceParagraphs: [
     "Group Visits deliver wellness-focused chiropractic care directly to a workplace or other single location for two or more people.",
-    "Group Visits are designed for wellness-focused care rather than acute injuries or complex new complaints, with pricing calculated per participant plus one travel fee for the whole group, confirmed during scheduling.",
+    "Group Visits are designed for wellness-focused care rather than acute injuries or complex new complaints, Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
