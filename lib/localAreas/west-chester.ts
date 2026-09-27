@@ -65,7 +65,7 @@ export const westChester: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits in West Chester",
   workplaceParagraphs: [
     "Group Visits bring wellness-focused chiropractic care directly to a workplace or other single location for two or more people at once — a practical fit for West Chester's mix of businesses.",
-    "Rather than acute injuries or complex new complaints, a Group Visit is designed around wellness-focused care — priced per participant plus a single group travel fee, confirmed during scheduling.",
+    "Rather than acute injuries or complex new complaints, a Group Visit is designed around wellness-focused care. Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
