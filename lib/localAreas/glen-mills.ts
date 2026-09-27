@@ -59,7 +59,7 @@ export const glenMills: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Visits in Glen Mills",
   workplaceParagraphs: [
     "GoChiroMobile can also provide wellness-focused chiropractic care for two or more people at one Glen Mills location, including homes and workplaces when the setting is appropriate.",
-    "Group visits combine multiple participants at one location so the travel portion of the visit can be shared rather than scheduling separate mobile trips.",
+    "Group Visit pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
