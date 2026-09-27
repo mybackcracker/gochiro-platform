@@ -66,7 +66,7 @@ export const newtownSquare: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Newtown Square",
   workplaceParagraphs: [
     "For groups of two or more at a single location, Group Visits bring wellness-focused chiropractic care directly to the workplace.",
-    "Group Visits are built for wellness-focused care, not acute injuries or complex new complaints. Pricing is calculated per participant, plus one travel fee for the group, with details confirmed during scheduling.",
+    "Group Visits are built for wellness-focused care, not acute injuries or complex new complaints. Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
