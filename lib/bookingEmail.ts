@@ -459,7 +459,7 @@ function buildHostHtmlEmail(b: GroupBookingEmailData): string {
   }
   html += `<p style="margin:8px 0;font-size:18px;"><strong>Total: $${b.total}</strong></p>`;
   html +=
-    '<p style="margin:0 0 16px 0;color:#991b1b;"><strong><u>As the host, you\'re responsible for the full amount above.</u></strong> Payment isn\'t required to book — pay at or before the visit.</p>';
+    '<p style="margin:0 0 16px 0;color:#991b1b;"><strong><u>As the host, you\'re responsible for the full amount above.</u></strong> Payment is not required to book. You are welcome to pay now or at the time of the visit.</p>';
 
   html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
   html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#173B57;">Group Change Policy</h2>';
