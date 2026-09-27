@@ -13,9 +13,9 @@ import {
   priceFor,
   paymentLinkFor,
   groupVisitTotal,
-  groupVisitTravelFee,
-  GROUP_VISIT_NEW_PATIENT_PRICE,
-  GROUP_VISIT_EXISTING_PATIENT_PRICE,
+  groupVisitExistingPatientRate,
+  groupVisitWeekendSurcharge,
+  GROUP_VISIT_NEW_PATIENT_SURCHARGE,
   type VisitType,
   type Region,
   type GroupVisitComposition,
@@ -356,9 +356,10 @@ interface GroupBookingEmailData {
   arrivalEndStr: string;
   newCount: number;
   existingCount: number;
-  newSubtotal: number;
-  existingSubtotal: number;
-  travelFee: number;
+  participantCount: number;
+  baseRate: number;
+  newPatientSurcharge: number;
+  weekendSurcharge: number;
   total: number;
 }
 
@@ -381,10 +382,15 @@ function buildGroupBookingEmailData(input: GroupBookingEmailInput): GroupBooking
     arrivalEndStr: formatTime(arrivalEnd),
     newCount,
     existingCount,
-    newSubtotal: newCount * GROUP_VISIT_NEW_PATIENT_PRICE,
-    existingSubtotal: existingCount * GROUP_VISIT_EXISTING_PATIENT_PRICE,
-    travelFee: groupVisitTravelFee(input.region),
-    total: groupVisitTotal(input.region, input.composition),
+    participantCount: newCount + existingCount,
+    baseRate: groupVisitExistingPatientRate(input.region, newCount + existingCount),
+    newPatientSurcharge: newCount * GROUP_VISIT_NEW_PATIENT_SURCHARGE,
+    weekendSurcharge: groupVisitWeekendSurcharge(new Intl.DateTimeFormat("en-CA", {
+      timeZone: TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit",
+    }).format(input.start)),
+    total: groupVisitTotal(input.region, input.composition, new Intl.DateTimeFormat("en-CA", {
+      timeZone: TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit",
+    }).format(input.start)),
   };
 }
 
@@ -399,12 +405,10 @@ function buildHostTextEmail(b: GroupBookingEmailData): string {
   body += `Location:\n${b.fullAddress}\n\n`;
 
   body += "GROUP TOTAL\n";
-  if (b.newCount > 0) body += `${b.newCount} new patient(s) x $${GROUP_VISIT_NEW_PATIENT_PRICE} = $${b.newSubtotal}\n`;
-  if (b.existingCount > 0) {
-    body += `${b.existingCount} existing patient(s) x $${GROUP_VISIT_EXISTING_PATIENT_PRICE} = $${b.existingSubtotal}\n`;
-  }
-  body += `Travel fee: $${b.travelFee}\n`;
-  body += `Total: $${b.total}\n`;
+  body += `${b.participantCount} participant(s) x ${b.baseRate} base rate = ${b.participantCount * b.baseRate}\n`;
+  if (b.newCount > 0) body += `New-patient add-on: ${b.newCount} x ${GROUP_VISIT_NEW_PATIENT_SURCHARGE} = ${b.newPatientSurcharge}\n`;
+  if (b.weekendSurcharge > 0) body += `Weekend group surcharge: ${b.weekendSurcharge}\n`;
+  body += `Total: ${b.total}\n`;
   body += "As the host, you're responsible for the full amount above. Payment isn't required to book — pay at or before the visit.\n\n";
 
   body += "PAYMENT\n";
@@ -435,13 +439,13 @@ function buildHostHtmlEmail(b: GroupBookingEmailData): string {
 
   html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
   html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#173B57;">Group Total</h2>';
+  html += `<p style="margin:0 0 6px 0;">${b.participantCount} participant(s) &times; ${b.baseRate} base rate = ${b.participantCount * b.baseRate}</p>`;
   if (b.newCount > 0) {
-    html += `<p style="margin:0 0 6px 0;">${b.newCount} new patient(s) &times; $${GROUP_VISIT_NEW_PATIENT_PRICE} = $${b.newSubtotal}</p>`;
+    html += `<p style="margin:0 0 6px 0;">New-patient add-on: ${b.newCount} &times; ${GROUP_VISIT_NEW_PATIENT_SURCHARGE} = ${b.newPatientSurcharge}</p>`;
   }
-  if (b.existingCount > 0) {
-    html += `<p style="margin:0 0 6px 0;">${b.existingCount} existing patient(s) &times; $${GROUP_VISIT_EXISTING_PATIENT_PRICE} = $${b.existingSubtotal}</p>`;
+  if (b.weekendSurcharge > 0) {
+    html += `<p style="margin:0 0 6px 0;">Weekend group surcharge: ${b.weekendSurcharge}</p>`;
   }
-  html += `<p style="margin:0 0 6px 0;">Travel fee: $${b.travelFee}</p>`;
   html += `<p style="margin:8px 0;font-size:18px;"><strong>Total: $${b.total}</strong></p>`;
   html +=
     '<p style="margin:0 0 16px 0;color:#991b1b;"><strong><u>As the host, you\'re responsible for the full amount above.</u></strong> Payment isn\'t required to book — pay at or before the visit.</p>';

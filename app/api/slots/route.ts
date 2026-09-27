@@ -18,7 +18,7 @@ const FRIDAY_EARLY_CLOSE_REGIONS: Region[] = ["WestChester", "MainLine"];
 const PREMIUM_REGIONS: Region[] = ["Central", "MainLine", "WestChester"];
 
 function workHoursFor(region: Region, dayOfWeek: number): { start: number; end: number } {
-  if (dayOfWeek === 0) return { start: 10, end: 13 }; // Sunday Priority/New Patient only
+  if (dayOfWeek === 0) return { start: 9, end: 13 }; // Sunday Priority/New Patient only
   if (dayOfWeek === 6) return { start: 9, end: PREMIUM_REGIONS.includes(region) ? 12 : 13 };
   if (dayOfWeek === 5) return { start: 9, end: FRIDAY_EARLY_CLOSE_REGIONS.includes(region) ? 14 : 16 };
   return { start: 9, end: 18 };
@@ -122,7 +122,12 @@ export async function GET(req: NextRequest) {
     // just in the UI, and not at day granularity (which would wrongly reject
     // an entire day just because part of it falls inside the buffer window).
     const minLeadDays = VISITS[visit].minLeadDays;
-    const eligibleSlots = slots.filter((s) => leadDays(s) >= minLeadDays && noHiddenConflict(s));
+    const eligibleSlots = slots.filter((s) => {
+      const fitsWeekendWindow =
+        (dayOfWeek !== 0 && dayOfWeek !== 6) ||
+        s.getTime() + durationMin * 60000 <= workEnd.getTime();
+      return fitsWeekendWindow && leadDays(s) >= minLeadDays && noHiddenConflict(s);
+    });
 
     return NextResponse.json({ slots: eligibleSlots.map((s) => s.toISOString()) });
   } catch (err) {

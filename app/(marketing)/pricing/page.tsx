@@ -11,9 +11,8 @@ import {
 import {
   VISITS,
   GROUP_VISIT_MIN_PARTICIPANTS,
-  GROUP_VISIT_NEW_PATIENT_PRICE,
-  GROUP_VISIT_EXISTING_PATIENT_PRICE,
-  GROUP_VISIT_TRAVEL_FEE,
+  GROUP_VISIT_MAX_PARTICIPANTS,
+  GROUP_VISIT_NEW_PATIENT_SURCHARGE,
   type VisitType,
 } from "@/lib/gochiro";
 
@@ -91,7 +90,7 @@ export default function PricingPage() {
             <div>
               <H2>Group Visits</H2>
               <P className="max-w-md">
-                Minimum {GROUP_VISIT_MIN_PARTICIPANTS} people. Group Visits are designed for
+                Groups of {GROUP_VISIT_MIN_PARTICIPANTS}–{GROUP_VISIT_MAX_PARTICIPANTS} people. Group Visits are designed for
                 wellness-focused chiropractic care and are not intended for acute injuries,
                 significant new complaints, or chronic problems requiring individualized
                 evaluation and treatment.
@@ -106,18 +105,16 @@ export default function PricingPage() {
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
               <div className="rounded-2xl border border-line bg-white p-6">
-                <p className="font-heading text-3xl font-bold text-navy">${GROUP_VISIT_NEW_PATIENT_PRICE}</p>
-                <p className="mt-1 text-sm font-medium text-muted">per new patient</p>
+                <p className="font-heading text-3xl font-bold text-navy">$40–$60</p>
+                <p className="mt-1 text-sm font-medium text-muted">base rate per person, based on group size and location</p>
               </div>
               <div className="rounded-2xl border border-line bg-white p-6">
-                <p className="font-heading text-3xl font-bold text-navy">${GROUP_VISIT_EXISTING_PATIENT_PRICE}</p>
-                <p className="mt-1 text-sm font-medium text-muted">per existing patient</p>
+                <p className="font-heading text-3xl font-bold text-navy">+${GROUP_VISIT_NEW_PATIENT_SURCHARGE}</p>
+                <p className="mt-1 text-sm font-medium text-muted">for each new patient</p>
               </div>
               <div className="rounded-2xl border border-line bg-white p-6">
-                <p className="font-heading text-3xl font-bold text-navy">
-                  ${GROUP_VISIT_TRAVEL_FEE.standard}–${GROUP_VISIT_TRAVEL_FEE.premium}
-                </p>
-                <p className="mt-1 text-sm font-medium text-muted">travel fee per group</p>
+                <p className="font-heading text-3xl font-bold text-navy">+$20</p>
+                <p className="mt-1 text-sm font-medium text-muted">per group on Saturday or Sunday</p>
               </div>
             </div>
           </div>
