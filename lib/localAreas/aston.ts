@@ -67,7 +67,7 @@ export const aston: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits for Aston Businesses",
   workplaceParagraphs: [
     "GoChiroMobile currently provides on-site chiropractic visits at several businesses in the Aston area, bringing wellness-focused care directly to a workplace for two or more people at one location.",
-    "A Group Visit keeps the focus on wellness-focused care rather than acute injuries or complex new complaints — pricing works out to a per-participant rate plus a single travel fee for the group, confirmed in full when you schedule.",
+    "A Group Visit keeps the focus on wellness-focused care rather than acute injuries or complex new complaints — Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
