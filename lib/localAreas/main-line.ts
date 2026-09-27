@@ -65,7 +65,7 @@ export const mainLine: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits on the Main Line",
   workplaceParagraphs: [
     "Group Visits bring wellness-focused chiropractic care directly to a workplace or other single location for two or more people at once — a practical option for the Main Line's many businesses.",
-    "Group Visits are designed for wellness-focused care rather than acute injuries or complex new complaints. Each participant is priced individually, plus a single travel fee for the group, with full details confirmed during scheduling.",
+    "Group Visits are designed for wellness-focused care rather than acute injuries or complex new complaints. Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
