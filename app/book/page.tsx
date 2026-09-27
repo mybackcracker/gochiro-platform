@@ -1830,11 +1830,11 @@ export default function BookPage() {
             </div>
 
             <button
-              onClick={confirmGroupBooking}
-              disabled={bookingLoading}
-              className="mt-5 w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
+              type="button"
+              disabled
+              className="mt-5 w-full cursor-not-allowed rounded-xl bg-slate-300 px-5 py-4 text-center text-lg font-semibold text-white"
             >
-              {bookingLoading ? "Booking…" : "Confirm Group Visit"}
+              Booking disabled in Square sandbox preview
             </button>
           </>
         )}
