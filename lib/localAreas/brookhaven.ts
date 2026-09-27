@@ -66,7 +66,7 @@ export const brookhaven: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Brookhaven",
   workplaceParagraphs: [
     "Group Visits bring wellness-focused chiropractic care to a workplace or other single location for two or more people at once.",
-    "Wellness-focused care is what a Group Visit is for, not acute injuries or complex new complaints; each participant is priced individually, with one group travel fee added, confirmed at scheduling.",
+    "Wellness-focused care is what a Group Visit is for, not acute injuries or complex new complaints; Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
