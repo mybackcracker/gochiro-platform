@@ -18,6 +18,10 @@ export default function BookOnlinePage() {
             lede="Choose the option that applies to you."
           />
 
+          <p className="mt-4 text-sm font-semibold text-muted">
+            Appointments available 7 days a week, including Saturday and Sunday. Availability varies by location and visit type.
+          </p>
+
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
             <ChoiceCard
               title="New Patient"
