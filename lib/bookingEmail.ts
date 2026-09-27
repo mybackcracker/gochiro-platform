@@ -338,6 +338,7 @@ export interface GroupBookingEmailInput {
   addressState: string;
   addressZip: string;
   composition: GroupVisitComposition;
+  paymentLink?: string;
 }
 
 interface GroupBookingEmailData {
@@ -359,6 +360,7 @@ interface GroupBookingEmailData {
   weekendSurcharge: number;
   total: number;
   intakeLinks: string[];
+  paymentLink?: string;
 }
 
 function buildGroupBookingEmailData(input: GroupBookingEmailInput, intakeLinks: string[] = []): GroupBookingEmailData {
@@ -390,6 +392,7 @@ function buildGroupBookingEmailData(input: GroupBookingEmailInput, intakeLinks: 
       timeZone: TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit",
     }).format(input.start)),
     intakeLinks,
+    paymentLink: input.paymentLink,
   };
 }
 
@@ -429,6 +432,7 @@ function buildHostTextEmail(b: GroupBookingEmailData): string {
 
   body += "PAYMENT\n";
   body += "Cash, check, credit card (HSA/FSA eligible), and Venmo are all accepted.\n";
+  if (b.paymentLink) body += `Pay by Square: ${b.paymentLink}\n`;
   body += `Pay with Venmo: ${VENMO_LINK}\n`;
   body += `Last four: ${VENMO_LAST4}\n\n`;
 
@@ -485,6 +489,9 @@ function buildHostHtmlEmail(b: GroupBookingEmailData): string {
   html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
   html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#173B57;">Payment</h2>';
   html += '<p style="margin:0 0 8px 0;">Cash, check, credit card (HSA/FSA eligible), and Venmo are all accepted.</p>';
+  if (b.paymentLink) {
+    html += `<p style="margin:16px 0;"><a href="${escapeHtml(b.paymentLink)}" style="display:block;background:#173B57;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Pay Group Total with Square</a></p>`;
+  }
   html += `<p style="margin:16px 0 6px 0;"><a href="${escapeHtml(VENMO_LINK)}" style="display:block;background:#173B57;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Pay with Venmo</a></p>`;
   html += `<p style="margin:0 0 16px 0;">Last four: ${escapeHtml(VENMO_LAST4)}</p>`;
 
@@ -510,7 +517,8 @@ function buildDoctorGroupEmail(b: GroupBookingEmailData): { subject: string; tex
   text += `Address:\n${b.fullAddress}\n`;
   text += `Participants: ${b.newCount} new, ${b.existingCount} existing\n`;
   text += `Secure intake links issued: ${b.intakeLinks.length}/${b.newCount}\n`;
-  text += `Total: ${b.total} (host responsible)`;
+  text += `Total: ${b.total} (host responsible)\n`;
+  text += `Square payment link: ${b.paymentLink ? "created" : "not created"}`;
 
   const html = `<pre style="font-family:inherit;white-space:pre-wrap;">${escapeHtml(text)}</pre>`;
 
