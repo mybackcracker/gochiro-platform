@@ -65,7 +65,7 @@ export const havertown: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Havertown",
   workplaceParagraphs: [
     "A Group Visit brings wellness-focused chiropractic care directly to a workplace or other single location, for two or more people at once.",
-    "Wellness-focused care — not acute injuries or complex new complaints — is what a Group Visit is designed for. Pricing is calculated per participant plus a single group travel fee, confirmed during scheduling.",
+    "Wellness-focused care — not acute injuries or complex new complaints — is what a Group Visit is designed for. Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
