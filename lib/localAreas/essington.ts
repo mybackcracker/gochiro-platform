@@ -66,7 +66,7 @@ export const essington: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Essington",
   workplaceParagraphs: [
     "Group Visits bring wellness-focused chiropractic care directly to a workplace or other single location for two or more people at once — a practical option given the area's industrial and commercial activity.",
-    "Group Visits are built around wellness-focused care rather than acute injuries or complex new complaints, with per-participant pricing and a single group travel fee, all confirmed during scheduling.",
+    "Group Visits are built around wellness-focused care rather than acute injuries or complex new complaints, Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
