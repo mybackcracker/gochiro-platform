@@ -8,13 +8,17 @@ const SESSION_KEY = "gochiro-cancellation-policy-accepted";
 export default function BookingPolicyGate({ children }: { children: ReactNode }) {
   const [accepted, setAccepted] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (window.sessionStorage.getItem(SESSION_KEY) === "yes") {
+    const isGroupVisit = new URLSearchParams(window.location.search).get("start") === "group";
+    if (isGroupVisit || window.sessionStorage.getItem(SESSION_KEY) === "yes") {
       setAccepted(true);
     }
+    setReady(true);
   }, []);
 
+  if (!ready) return <main className="min-h-screen bg-slate-50" />;
   if (accepted) return <>{children}</>;
 
   return (
@@ -24,9 +28,9 @@ export default function BookingPolicyGate({ children }: { children: ReactNode })
         <h1 className="mt-2 text-2xl font-bold text-slate-900">Cancellation &amp; Rescheduling Policy</h1>
 
         <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-relaxed text-slate-700">
-          At least 24 hours&apos; notice is required to cancel or reschedule an appointment. Cancellations,
-          no-shows, or same-day changes made with less than 24 hours&apos; notice will be charged a $50 fee.
-          For a Group Visit, the $50 fee applies once to the entire booking and is the host&apos;s responsibility.
+          At least 24 hours&apos; notice is required to cancel or reschedule an individual appointment.
+          Cancellations, no-shows, or same-day changes made with less than 24 hours&apos; notice will be
+          charged a $50 fee. Group Visits use a separate policy shown during the Group Visit booking flow.
           If an emergency or unavoidable circumstance occurs, please contact us as soon as possible; the fee
           may be waived at the practice&apos;s discretion.
         </div>
