@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAppointment, isSlotStillFree } from "@/lib/googleCalendar";
 import { completeBookedAppointment } from "@/lib/bookingCompletion";
+import { createGroupCheckoutLink } from "@/lib/squareCheckout";
 import {
   VISITS,
   leadDays,
@@ -171,6 +172,29 @@ export async function POST(req: NextRequest) {
       groupComposition: composition ?? undefined,
     });
 
+    // Group Visit payment is optional at booking time, but when Square is
+    // configured we create one dynamic hosted checkout for the exact server-
+    // calculated total. A Square failure never invalidates an appointment
+    // that was already written to the calendar.
+    let groupPaymentLink: string | undefined;
+    if (composition) {
+      try {
+        const checkout = await createGroupCheckoutLink({
+          region,
+          dateISO: startDateStr,
+          composition,
+          buyerEmail: trimmedInput.email,
+          idempotencyKey: `group-${event.id ?? crypto.randomUUID()}`,
+        });
+        groupPaymentLink = checkout.url;
+      } catch (error) {
+        console.error(
+          "Square Group Visit checkout-link creation failed.",
+          error instanceof Error ? error.message : "Unknown Square error.",
+        );
+      }
+    }
+
     // The appointment is already booked at this point — email delivery is a
     // bonus, not a gate. sendBookingEmails/sendGroupBookingEmails swallow
     // their own per-email failures (logged, not thrown), and this catch is
@@ -184,11 +208,12 @@ export async function POST(req: NextRequest) {
           ...trimmedInput,
           start: startTime,
           composition,
+          paymentLink: groupPaymentLink,
         }
         : undefined,
     );
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, paymentLink: groupPaymentLink });
   } catch {
     return NextResponse.json({ error: "Unable to complete booking. Please try again." }, { status: 500 });
   }

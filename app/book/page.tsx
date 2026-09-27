@@ -202,6 +202,8 @@ export default function BookPage() {
   const [bookingLoading, setBookingLoading] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
 
+  const [groupPaymentLink, setGroupPaymentLink] = useState("");
+
   const appointmentDate = date || (selectedSlot ? new Intl.DateTimeFormat("en-CA", {
     timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit",
   }).format(new Date(selectedSlot)) : "");
@@ -619,7 +621,7 @@ export default function BookPage() {
           existingCount: groupComposition.existingCount,
         }),
       });
-      const data = await res.json();
+      const data = (await res.json()) as { error?: string; paymentLink?: string };
 
       if (!res.ok) {
         if (res.status === 409) {
@@ -631,6 +633,7 @@ export default function BookPage() {
         return;
       }
 
+      setGroupPaymentLink(data.paymentLink || "");
       go("confirmed");
     } catch {
       setBookingError("Couldn't reach the booking system. Check your connection and try again.");
@@ -1819,6 +1822,17 @@ export default function BookPage() {
               the reserved group total. Payment isn&apos;t required now — pay at or before the visit (cash, check,
               credit card, or Venmo).
             </div>
+
+            {groupPaymentLink && (
+              <a
+                href={groupPaymentLink}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-4 block w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white"
+              >
+                Pay Group Total with Square
+              </a>
+            )}
           </>
         )}
       </section>
