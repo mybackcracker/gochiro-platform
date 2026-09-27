@@ -885,16 +885,19 @@ export default function BookPage() {
               <div>
                 <h2 className="font-semibold text-slate-900">Cancellation Policy</h2>
                 <p className="mt-1">
-                  We require at least 24 hours&apos; notice to cancel or reschedule. Cancelling or rescheduling with
-                  less notice carries a $50 fee, charged once to the whole booking — not per participant. As the
-                  host, you&apos;re responsible for that fee.
+                  You may reduce the reserved headcount more than 24 hours before the visit and the group total
+                  will be recalculated. Within 24 hours, the original reserved group total remains due if fewer
+                  people participate or the group cancels or reschedules. As the host, you&apos;re responsible for
+                  that total.
                 </p>
               </div>
               <div>
                 <h2 className="font-semibold text-slate-900">Intake Forms</h2>
                 <p className="mt-1">
-                  Only new patients in the group need to complete an intake form, at least 2 hours before the visit.
-                  Existing patients don&apos;t need to.
+                  Each new patient must complete a separate intake form within 3 hours of booking. Your confirmation
+                  email will include one secure link for each new patient for you to forward. Each link is single-use.
+                  If a new patient does not complete the intake, that person cannot be treated as part of the Group Visit.
+                  Existing patients do not need a new intake form.
                 </p>
               </div>
             </div>
@@ -1744,8 +1747,8 @@ export default function BookPage() {
             )}
 
             <div className="mt-6 rounded-xl bg-blue-50 p-4 text-sm text-blue-900">
-              As the host, you&apos;re responsible for the full amount above. Payment isn&apos;t required to book —
-              pay at or before the visit.
+              As the host, you&apos;re responsible for the full amount above. Changes within 24 hours do not reduce
+              the reserved group total. Payment isn&apos;t required to book — pay at or before the visit.
             </div>
 
             <button
@@ -1811,8 +1814,9 @@ export default function BookPage() {
             </div>
 
             <div className="mt-3 rounded-xl border border-slate-300 p-4 text-center text-sm text-slate-600">
-              As the host, you&apos;re responsible for the full quoted amount. Payment isn&apos;t required now — pay
-              at or before the visit (cash, check, credit card, or Venmo).
+              As the host, you&apos;re responsible for the full quoted amount. Changes within 24 hours do not reduce
+              the reserved group total. Payment isn&apos;t required now — pay at or before the visit (cash, check,
+              credit card, or Venmo).
             </div>
           </>
         )}
