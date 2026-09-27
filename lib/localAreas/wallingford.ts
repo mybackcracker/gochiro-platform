@@ -66,7 +66,7 @@ export const wallingford: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Wallingford",
   workplaceParagraphs: [
     "Two or more people at one location can receive wellness-focused chiropractic care together through a Group Visit, brought directly to a workplace or similar setting.",
-    "Group Visits are designed around wellness-focused care rather than acute injuries or complex new complaints, with per-participant pricing plus a single group travel fee confirmed during scheduling.",
+    "Group Visits are designed around wellness-focused care rather than acute injuries or complex new complaints, and pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
