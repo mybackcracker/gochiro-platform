@@ -66,7 +66,7 @@ export const garnetValley: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Garnet Valley",
   workplaceParagraphs: [
     "For two or more people at one location, Group Visits bring wellness-focused chiropractic care directly to a workplace or other setting.",
-    "Rather than acute injuries or complex new complaints, Group Visits are built around wellness-focused care. Pricing is per participant plus one travel fee for the group, confirmed in full during scheduling.",
+    "Rather than acute injuries or complex new complaints, Group Visits are built around wellness-focused care. Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
