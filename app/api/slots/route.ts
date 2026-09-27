@@ -122,7 +122,12 @@ export async function GET(req: NextRequest) {
     // just in the UI, and not at day granularity (which would wrongly reject
     // an entire day just because part of it falls inside the buffer window).
     const minLeadDays = VISITS[visit].minLeadDays;
-    const eligibleSlots = slots.filter((s) => leadDays(s) >= minLeadDays && noHiddenConflict(s));
+    const eligibleSlots = slots.filter((s) => {
+      const fitsWeekendWindow =
+        (dayOfWeek !== 0 && dayOfWeek !== 6) ||
+        s.getTime() + durationMin * 60000 <= workEnd.getTime();
+      return fitsWeekendWindow && leadDays(s) >= minLeadDays && noHiddenConflict(s);
+    });
 
     return NextResponse.json({ slots: eligibleSlots.map((s) => s.toISOString()) });
   } catch (err) {
