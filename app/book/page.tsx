@@ -642,7 +642,22 @@ export default function BookPage() {
   return (
     <main className="min-h-screen bg-slate-50 px-4 py-4 sm:py-8">
       <section className="mx-auto w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-        <button onClick={goBack} className="text-sm font-semibold text-slate-500 hover:text-slate-900">
+        <button
+          type="button"
+          onClick={() => {
+            if (step === "time" && funnelStage === "bucket" && visit === "group-visit") {
+              setBucket(null);
+              setDate("");
+              setPeriod(null);
+              setAvailableDayTabs([]);
+              setDayCandidates([]);
+              setStep("group-policy");
+              return;
+            }
+            goBack();
+          }}
+          className="text-sm font-semibold text-slate-500 hover:text-slate-900"
+        >
           ← Back
         </button>
 
@@ -1148,18 +1163,21 @@ export default function BookPage() {
             <h1 className="mt-2 text-2xl font-bold text-slate-900">When would you like to be seen?</h1>
             <div className="mt-6 space-y-3">
               <button
+                type="button"
                 onClick={() => chooseBucket("asap")}
                 className="w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white hover:bg-slate-800"
               >
                 As soon as possible
               </button>
               <button
+                type="button"
                 onClick={() => chooseBucket("week")}
                 className="w-full rounded-xl border border-slate-300 px-5 py-4 text-lg font-semibold text-slate-900 hover:border-slate-900"
               >
                 This week
               </button>
               <button
+                type="button"
                 onClick={() => chooseBucket("future")}
                 className="w-full rounded-xl border border-slate-300 px-5 py-4 text-lg font-semibold text-slate-900 hover:border-slate-900"
               >
