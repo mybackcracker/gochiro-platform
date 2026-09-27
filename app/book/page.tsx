@@ -202,6 +202,11 @@ export default function BookPage() {
   const [bookingLoading, setBookingLoading] = useState(false);
   const [bookingError, setBookingError] = useState<string | null>(null);
 
+  const [squareTestLoading, setSquareTestLoading] = useState(false);
+  const [squareTestError, setSquareTestError] = useState<string | null>(null);
+  const [squareTestUrl, setSquareTestUrl] = useState("");
+  const [squareTestAmount, setSquareTestAmount] = useState<number | null>(null);
+
   const appointmentDate = date || (selectedSlot ? new Intl.DateTimeFormat("en-CA", {
     timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit",
   }).format(new Date(selectedSlot)) : "");
@@ -591,6 +596,42 @@ export default function BookPage() {
 
     if (Object.keys(errors).length > 0) return;
     go("review");
+  }
+
+  async function createSandboxGroupCheckout() {
+    if (!region || !appointmentDate) return;
+
+    setSquareTestLoading(true);
+    setSquareTestError(null);
+    setSquareTestUrl("");
+    setSquareTestAmount(null);
+
+    try {
+      const res = await fetch("/api/square/group-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          region,
+          dateISO: appointmentDate,
+          newCount: groupComposition.newCount,
+          existingCount: groupComposition.existingCount,
+          buyerEmail: email,
+        }),
+      });
+      const data = (await res.json()) as { url?: string; amount?: number; error?: string };
+
+      if (!res.ok || !data.url) {
+        setSquareTestError(data.error || "Square could not create the sandbox checkout.");
+        return;
+      }
+
+      setSquareTestUrl(data.url);
+      setSquareTestAmount(typeof data.amount === "number" ? data.amount : null);
+    } catch {
+      setSquareTestError("Couldn't reach the Square sandbox checkout service.");
+    } finally {
+      setSquareTestLoading(false);
+    }
   }
 
   async function confirmGroupBooking() {
@@ -1750,6 +1791,42 @@ export default function BookPage() {
             <div className="mt-6 rounded-xl bg-blue-50 p-4 text-sm text-blue-900">
               As the host, you&apos;re responsible for the full amount above. Changes within 24 hours do not reduce
               the reserved group total. Payment isn&apos;t required to book — pay at or before the visit.
+            </div>
+
+            <div className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
+              <p className="font-semibold">Square Sandbox Test</p>
+              <p className="mt-1">
+                This creates a test checkout for the exact group total above. It does not book the appointment or charge real money.
+              </p>
+
+              {squareTestError && (
+                <div className="mt-3 rounded-lg bg-red-50 p-3 text-red-900">{squareTestError}</div>
+              )}
+
+              {!squareTestUrl ? (
+                <button
+                  type="button"
+                  onClick={createSandboxGroupCheckout}
+                  disabled={squareTestLoading}
+                  className="mt-3 w-full rounded-xl border border-amber-500 bg-white px-5 py-3.5 text-center font-semibold text-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {squareTestLoading ? "Creating Test Checkout…" : "Generate Square Sandbox Checkout"}
+                </button>
+              ) : (
+                <>
+                  <p className="mt-3">
+                    Test checkout ready{squareTestAmount !== null ? ` for ${squareTestAmount}` : ""}.
+                  </p>
+                  <a
+                    href={squareTestUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-3 block w-full rounded-xl bg-slate-900 px-5 py-3.5 text-center font-semibold text-white"
+                  >
+                    Open Square Sandbox Checkout
+                  </a>
+                </>
+              )}
             </div>
 
             <button
