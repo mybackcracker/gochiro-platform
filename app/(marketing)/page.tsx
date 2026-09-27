@@ -63,12 +63,13 @@ export default function HomePage() {
             <div>
               <H1>Chiropractic Care That Comes to You</H1>
               <Lede className="mt-5">
-                Dr. David DeFries provides one-on-one chiropractic care in your home, workplace, or
-                other convenient location.
+                One-on-one chiropractic care brought to your home or workplace — without the drive,
+                waiting room, or another stop in your day.
               </Lede>
               <P>
-                Serving Delaware County, parts of Chester County and the Main Line, with special
-                visits and events available in Philadelphia and surrounding areas.
+                Appointments are available 7 days a week across Delaware County, parts of Chester
+                County and the Main Line. Check your area, see your price and available times, and
+                schedule online.
               </P>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <CTAButton href="#service-area">Check My Area</CTAButton>
