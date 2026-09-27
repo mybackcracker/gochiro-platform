@@ -140,12 +140,13 @@ export default function PricingPage() {
           <div id="cancellation-policy" className="mt-8 scroll-mt-24">
             <Callout title="Cancellation & Rescheduling">
               <p className="text-base leading-relaxed text-muted">
-                At least 24 hours&apos; notice is required to cancel or reschedule an appointment.
+                At least 24 hours&apos; notice is required to cancel or reschedule an individual appointment.
                 Cancellations, no-shows, or same-day changes made with less than 24 hours&apos; notice
-                will be charged a $50 fee. For a Group Visit, the $50 fee applies once to the entire
-                booking and is the host&apos;s responsibility. If an emergency or unavoidable circumstance
-                occurs, please contact us as soon as possible; the fee may be waived at the practice&apos;s
-                discretion.
+                will be charged a $50 fee. For a Group Visit, the host may reduce the reserved headcount
+                more than 24 hours before the visit and the group total will be recalculated. Within 24
+                hours, the original reserved group total remains due if fewer people participate or the
+                group cancels or reschedules. If an emergency or unavoidable circumstance occurs, please
+                contact us as soon as possible; fees may be waived at the practice&apos;s discretion.
               </p>
             </Callout>
           </div>
