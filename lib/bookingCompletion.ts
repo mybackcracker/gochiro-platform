@@ -27,7 +27,6 @@ export async function completeBookedAppointment(
   const report = dependencies.report ?? console.error;
   const intakeEnabled = (dependencies.intakeEnabled ?? process.env.GOCHIRO_INTAKE_LINKS_ENABLED) === "true";
   let intakeLink: string | undefined;
-  const groupIntakeLinks: string[] = [];
   if (visitQualifiesForIntake(input.visit) && intakeEnabled) {
     try {
       if (!appointmentReference) throw new Error("Missing appointment reference.");
@@ -42,33 +41,8 @@ export async function completeBookedAppointment(
     }
   }
 
-  if (groupInput && groupInput.composition.newCount > 0 && intakeEnabled) {
-    let groupIssuanceFailed = false;
-    for (let i = 0; i < groupInput.composition.newCount; i += 1) {
-      try {
-        if (!appointmentReference) throw new Error("Missing appointment reference.");
-        const link = await (dependencies.issueLink ?? issueIntakeLink)(
-          `${appointmentReference}:group-new-${i + 1}`,
-          input.start,
-        );
-        if (link) groupIntakeLinks.push(link);
-        else groupIssuanceFailed = true;
-      } catch {
-        groupIssuanceFailed = true;
-      }
-    }
-    if (groupIssuanceFailed) {
-      report("One or more secure Group Visit intake links could not be issued.");
-      try {
-        await (dependencies.sendWarning ?? sendIntakeIssuanceWarning)();
-      } catch {
-        report("Secure intake-link operational warning failed to send.");
-      }
-    }
-  }
-
   try {
-    if (groupInput) await (dependencies.sendGroup ?? sendGroupBookingEmails)(groupInput, groupIntakeLinks);
+    if (groupInput) await (dependencies.sendGroup ?? sendGroupBookingEmails)(groupInput);
     else await (dependencies.sendIndividual ?? sendBookingEmails)(input, intakeLink);
   } catch {
     report("Booking email step threw unexpectedly.");
