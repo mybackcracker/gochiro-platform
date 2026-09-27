@@ -887,7 +887,7 @@ export default function BookPage() {
               <div>
                 <h2 className="font-semibold text-slate-900">Host responsibility</h2>
                 <p className="mt-0.5">
-                  The host is responsible for the full quoted group total. Payment is due before or at the visit.
+                  The host is responsible for the full quoted group total. Payment is not required to book. You are welcome to pay now or at the time of the visit.
                 </p>
               </div>
               <div>
@@ -900,8 +900,7 @@ export default function BookPage() {
               <div>
                 <h2 className="font-semibold text-slate-900">New-patient intake</h2>
                 <p className="mt-0.5">
-                  Each new patient gets a separate single-use intake link and must complete it within 3 hours of booking
-                  to be treated.
+                  Each new patient must complete the intake form within 3 hours of booking to be treated as part of the Group Visit.
                 </p>
               </div>
             </div>
@@ -1752,7 +1751,7 @@ export default function BookPage() {
 
             <div className="mt-6 rounded-xl bg-blue-50 p-4 text-sm text-blue-900">
               As the host, you&apos;re responsible for the full amount above. Changes within 24 hours do not reduce
-              the reserved group total. Payment isn&apos;t required to book — pay at or before the visit.
+              the reserved group total. Payment is not required to book. You are welcome to pay now or at the time of the visit.
             </div>
 
             <button
@@ -1819,8 +1818,7 @@ export default function BookPage() {
 
             <div className="mt-3 rounded-xl border border-slate-300 p-4 text-center text-sm text-slate-600">
               As the host, you&apos;re responsible for the full quoted amount. Changes within 24 hours do not reduce
-              the reserved group total. Payment isn&apos;t required now — pay at or before the visit (cash, check,
-              credit card, or Venmo).
+              the reserved group total. Payment is not required to book. You are welcome to pay now or at the time of the visit.
             </div>
 
             {groupPaymentLink && (
