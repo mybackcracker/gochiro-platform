@@ -1182,7 +1182,7 @@ export default function BookPage() {
             )}
 
             {availableDayTabs.length > 0 && (
-              <div className={`mt-6 grid gap-2 ${bucket === "asap" ? "grid-cols-3" : "grid-cols-4"}`}>
+              <div className={`mt-6 grid grid-cols-2 gap-2 ${bucket === "asap" ? "sm:grid-cols-3" : "sm:grid-cols-4"}`}>
                 {availableDayTabs.map((d) => (
                   <button
                     key={d}
@@ -1237,22 +1237,22 @@ export default function BookPage() {
         {step === "time" && funnelStage === "period" && (
           <>
             <h1 className="mt-2 text-2xl font-bold text-slate-900">What time of day?</h1>
-            <div className="mt-6 grid grid-cols-3 gap-2">
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
               <button
                 onClick={() => choosePeriod("morning")}
-                className="rounded-xl border border-slate-300 p-3 text-center font-semibold text-slate-900 hover:border-slate-900"
+                className="rounded-xl border border-slate-300 px-4 py-4 text-center font-semibold text-slate-900 hover:border-slate-900"
               >
                 Morning
               </button>
               <button
                 onClick={() => choosePeriod("afternoon")}
-                className="rounded-xl border border-slate-300 p-3 text-center font-semibold text-slate-900 hover:border-slate-900"
+                className="rounded-xl border border-slate-300 px-4 py-4 text-center font-semibold text-slate-900 hover:border-slate-900"
               >
                 Afternoon
               </button>
               <button
                 onClick={() => choosePeriod("evening")}
-                className="rounded-xl border border-slate-300 p-3 text-center font-semibold text-slate-900 hover:border-slate-900"
+                className="rounded-xl border border-slate-300 px-4 py-4 text-center font-semibold text-slate-900 hover:border-slate-900"
               >
                 Early Evening
               </button>
@@ -1288,7 +1288,7 @@ export default function BookPage() {
                   <button
                     key={iso}
                     onClick={() => selectSlot(iso)}
-                    className="rounded-xl border border-slate-300 p-3 text-center font-semibold text-slate-900 hover:border-slate-900"
+                    className="rounded-xl border border-slate-300 px-4 py-4 text-center font-semibold text-slate-900 hover:border-slate-900"
                   >
                     {formatTime(iso)}
                   </button>
