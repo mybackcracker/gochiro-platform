@@ -26,7 +26,9 @@ export interface GroupCheckoutResult {
 }
 
 function squareEnvironment(): SquareEnvironment {
-  return process.env.SQUARE_ENVIRONMENT === "production" ? "production" : "sandbox";
+  const value = process.env.SQUARE_ENVIRONMENT;
+  if (value === "sandbox" || value === "production") return value;
+  throw new Error("Square environment is not configured.");
 }
 
 function squareBaseUrl(environment: SquareEnvironment): string {
