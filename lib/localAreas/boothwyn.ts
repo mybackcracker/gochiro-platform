@@ -67,7 +67,7 @@ export const boothwyn: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Boothwyn",
   workplaceParagraphs: [
     "Group Visits bring wellness-focused chiropractic care directly to a workplace or other single location for two or more people at once — a practical option for employers in the Boothwyn area.",
-    "Group Visits focus on wellness-focused care, not acute injuries or complex new complaints. Each participant is priced individually, plus a single travel fee for the whole group, with full details confirmed during scheduling.",
+    "Group Visits focus on wellness-focused care, not acute injuries or complex new complaints. Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
