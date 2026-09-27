@@ -8,6 +8,7 @@ import {
   VENMO_LINK,
   VENMO_LAST4,
   INTAKE_URL,
+  GROUP_INTAKE_URL,
   INTAKE_DEADLINE_HOURS,
   VISITS,
   priceFor,
@@ -318,11 +319,10 @@ export async function sendIntakeIssuanceWarning(): Promise<void> {
 
 // ---------------------------------------------------------------------------
 // Group Visit emails. The host is the booking contact and sole point of
-// contact. When the group includes new patients, booking completion issues
-// one single-use secure intake link per new patient and the host forwards one
-// different link to each person. Per the current payment decision, there is
-// no Square link here: the total is quoted, the host is responsible for it,
-// and the visit books without requiring advance payment.
+// contact. When the group includes new patients, the host receives one shared
+// intake-form link and forwards that same link to each new patient. Group
+// payment remains optional at booking time; when Square is available, the
+// confirmation includes the dynamic group-total payment link.
 // ---------------------------------------------------------------------------
 
 export interface GroupBookingEmailInput {
@@ -359,11 +359,10 @@ interface GroupBookingEmailData {
   newPatientSurcharge: number;
   weekendSurcharge: number;
   total: number;
-  intakeLinks: string[];
   paymentLink?: string;
 }
 
-function buildGroupBookingEmailData(input: GroupBookingEmailInput, intakeLinks: string[] = []): GroupBookingEmailData {
+function buildGroupBookingEmailData(input: GroupBookingEmailInput): GroupBookingEmailData {
   const arrivalStart = new Date(input.start.getTime() - 15 * 60000);
   const arrivalEnd = new Date(input.start.getTime() + 15 * 60000);
   const streetLine = input.addressLine2 ? `${input.address}, ${input.addressLine2}` : input.address;
@@ -391,7 +390,6 @@ function buildGroupBookingEmailData(input: GroupBookingEmailInput, intakeLinks: 
     total: groupVisitTotal(input.region, input.composition, new Intl.DateTimeFormat("en-CA", {
       timeZone: TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit",
     }).format(input.start)),
-    intakeLinks,
     paymentLink: input.paymentLink,
   };
 }
@@ -411,23 +409,16 @@ function buildHostTextEmail(b: GroupBookingEmailData): string {
   if (b.newCount > 0) body += `New-patient add-on: ${b.newCount} x ${GROUP_VISIT_NEW_PATIENT_SURCHARGE} = ${b.newPatientSurcharge}\n`;
   if (b.weekendSurcharge > 0) body += `Weekend group surcharge: ${b.weekendSurcharge}\n`;
   body += `Total: ${b.total}\n`;
-  body += "As the host, you're responsible for the full amount above. Payment isn't required to book — pay at or before the visit.\n\n";
+  body += "As the host, you're responsible for the full amount above. Payment is not required to book. You are welcome to pay now or at the time of the visit.\n\n";
 
   body += "GROUP CHANGE POLICY\n";
   body += "You may reduce the reserved headcount more than 24 hours before the visit and the group total will be recalculated. Within 24 hours, the original reserved group total remains due if fewer people participate or the group cancels or reschedules.\n\n";
 
   if (b.newCount > 0) {
+    const patientWord = b.newCount === 1 ? "patient" : "patients";
     body += "NEW PATIENT INTAKE\n";
-    body += `This booking includes ${b.newCount} new patient(s). Each new patient must complete a separate intake within 3 hours of booking. Forward one different secure link to each new patient. Each link is single-use. A new patient who does not complete the intake cannot be treated as part of the Group Visit.\n`;
-    if (b.intakeLinks.length > 0) {
-      b.intakeLinks.forEach((link, index) => {
-        body += `New patient ${index + 1} intake: ${link}\n`;
-      });
-    }
-    if (b.intakeLinks.length < b.newCount) {
-      body += `Only ${b.intakeLinks.length} of ${b.newCount} intake link(s) were generated automatically. Call or text ${BUSINESS_PHONE} for help.\n`;
-    }
-    body += "\n";
+    body += `This booking includes ${b.newCount} new ${patientWord}. Please send the intake form link below to each new patient in the group. Each new patient must complete the form within 3 hours of booking to be treated as part of the Group Visit.\n`;
+    body += `Complete New Patient Intake: ${GROUP_INTAKE_URL}\n\n`;
   }
 
   body += "PAYMENT\n";
@@ -475,15 +466,11 @@ function buildHostHtmlEmail(b: GroupBookingEmailData): string {
   html += '<p style="margin:0 0 16px 0;">You may reduce the reserved headcount more than 24 hours before the visit and the group total will be recalculated. Within 24 hours, the original reserved group total remains due if fewer people participate or the group cancels or reschedules.</p>';
 
   if (b.newCount > 0) {
+    const patientWord = b.newCount === 1 ? "patient" : "patients";
     html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
     html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#173B57;">New Patient Intake</h2>';
-    html += `<p style="margin:0 0 16px 0;">This booking includes <strong>${b.newCount} new patient(s)</strong>. Each new patient must complete a separate intake within 3 hours of booking. Forward one different secure link to each new patient. Each link is single-use. A new patient who does not complete the intake cannot be treated as part of the Group Visit.</p>`;
-    b.intakeLinks.forEach((link, index) => {
-      html += `<p style="margin:12px 0;"><a href="${escapeHtml(link)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">New Patient ${index + 1} — Complete Intake</a></p>`;
-    });
-    if (b.intakeLinks.length < b.newCount) {
-      html += `<p style="margin:12px 0 16px 0;color:#991b1b;"><strong>Only ${b.intakeLinks.length} of ${b.newCount} intake link(s) were generated automatically.</strong> Call or text ${escapeHtml(BUSINESS_PHONE)} for help.</p>`;
-    }
+    html += `<p style="margin:0 0 16px 0;">This booking includes <strong>${b.newCount} new ${patientWord}</strong>. Please send the intake form link below to each new patient in the group. Each new patient must complete the form within 3 hours of booking to be treated as part of the Group Visit.</p>`;
+    html += `<p style="margin:16px 0;"><a href="${escapeHtml(GROUP_INTAKE_URL)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Complete New Patient Intake</a></p>`;
   }
 
   html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
@@ -516,7 +503,7 @@ function buildDoctorGroupEmail(b: GroupBookingEmailData): { subject: string; tex
   text += `ETA: ${b.arrivalStartStr} - ${b.arrivalEndStr}\n`;
   text += `Address:\n${b.fullAddress}\n`;
   text += `Participants: ${b.newCount} new, ${b.existingCount} existing\n`;
-  text += `Secure intake links issued: ${b.intakeLinks.length}/${b.newCount}\n`;
+  text += `New-patient intake: ${b.newCount > 0 ? "shared intake form link sent to host" : "not required"}\n`;
   text += `Total: ${b.total} (host responsible)\n`;
   text += `Square payment link: ${b.paymentLink ? "created" : "not created"}`;
 
@@ -525,8 +512,8 @@ function buildDoctorGroupEmail(b: GroupBookingEmailData): { subject: string; tex
   return { subject, text, html };
 }
 
-export async function sendGroupBookingEmails(input: GroupBookingEmailInput, intakeLinks: string[] = []): Promise<void> {
-  const b = buildGroupBookingEmailData(input, intakeLinks);
+export async function sendGroupBookingEmails(input: GroupBookingEmailInput): Promise<void> {
+  const b = buildGroupBookingEmailData(input);
 
   const sends: Promise<void>[] = [
     sendEmail({
