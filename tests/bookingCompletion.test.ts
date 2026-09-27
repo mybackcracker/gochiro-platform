@@ -25,12 +25,29 @@ test("new-patient confirmation receives the single-use three-hour secure link", 
   assert.equal(link, "https://intake.invalid/?t=synthetic");
 });
 
-test("other visits and group email paths receive no intake link", async () => {
+test("maintenance receives no intake link and Group Visits receive one secure link per new patient", async () => {
   let issued = 0;
   let individualLink: string | undefined;
-  await completeBookedAppointment("opaque", {...input, visit:"maintenance"}, undefined, { intakeEnabled:"true", issueLink:async()=>{issued++; return "bad";}, sendIndividual:async(_i,v)=>{individualLink=v;} });
-  assert.equal(issued, 0); assert.equal(individualLink, undefined);
-  let groupSent = 0;
-  await completeBookedAppointment("opaque", {...input, visit:"group-visit"}, {...input, composition:{newCount:2,existingCount:0}} as GroupBookingEmailInput, { intakeEnabled:"true", issueLink:async()=>{issued++; return "bad";}, sendGroup:async()=>{groupSent++;} });
-  assert.equal(issued, 0); assert.equal(groupSent, 1);
+  await completeBookedAppointment("opaque", {...input, visit:"maintenance"}, undefined, {
+    intakeEnabled:"true",
+    issueLink:async()=>{issued++; return "bad";},
+    sendIndividual:async(_i,v)=>{individualLink=v;},
+  });
+  assert.equal(issued, 0);
+  assert.equal(individualLink, undefined);
+
+  const refs: string[] = [];
+  let groupLinks: string[] = [];
+  await completeBookedAppointment(
+    "opaque",
+    {...input, visit:"group-visit"},
+    {...input, composition:{newCount:2,existingCount:1}} as GroupBookingEmailInput,
+    {
+      intakeEnabled:"true",
+      issueLink:async(ref)=>{refs.push(ref); return `https://intake.invalid/?t=${refs.length}`;},
+      sendGroup:async(_group, links)=>{groupLinks=links;},
+    },
+  );
+  assert.deepEqual(refs, ["opaque:group-new-1", "opaque:group-new-2"]);
+  assert.deepEqual(groupLinks, ["https://intake.invalid/?t=1", "https://intake.invalid/?t=2"]);
 });
