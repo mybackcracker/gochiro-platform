@@ -878,7 +878,7 @@ export default function BookPage() {
               <div>
                 <h2 className="font-semibold text-slate-900">Routine care only</h2>
                 <p className="mt-0.5">
-                  New, acute, significantly worsening, or complex complaints need an individual visit.
+                  Acute or significantly worsening complaints — including a new complaint in an existing patient — need an individual visit.
                 </p>
               </div>
               <div>
@@ -916,7 +916,7 @@ export default function BookPage() {
             <button
               onClick={goToSchedule}
               disabled={!groupPolicyAgreed}
-              className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="mt-4 w-full rounded-xl bg-slate-900 px-5 py-3.5 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               Continue
             </button>
