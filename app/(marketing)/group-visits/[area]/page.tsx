@@ -63,7 +63,7 @@ export default async function GroupVisitsAreaPage({ params }: { params: Promise<
     <Section tone="cream">
       <Container>
         <H2>One Location. One Group Booking.</H2>
-        <P className="max-w-2xl">Group Visits can take place at a home, workplace or other appropriate single location. The person making the reservation is the group host and is responsible for the full group total.</P>
+        <P className="max-w-2xl">Group Visits can take place at a home, workplace or other appropriate single location. The person making the reservation is the group host and is responsible for the full group total. Headcount may be reduced more than 24 hours before the visit and the total will be recalculated; within 24 hours, the original reserved group total remains due.</P>
         <div className="mt-6"><CTAButton href="/book?start=group">Check Availability & Group Total</CTAButton></div>
       </Container>
     </Section>
