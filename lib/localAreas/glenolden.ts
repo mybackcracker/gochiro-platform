@@ -65,7 +65,7 @@ export const glenolden: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Glenolden",
   workplaceParagraphs: [
     "Group Visits bring wellness-focused chiropractic care to a workplace or similar single location, for two or more people at once.",
-    "The scope of a Group Visit is wellness-focused care, not acute injuries or complex new complaints — priced per participant with one travel fee covering the whole group, confirmed during scheduling.",
+    "The scope of a Group Visit is wellness-focused care, not acute injuries or complex new complaints — Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
