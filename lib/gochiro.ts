@@ -228,7 +228,7 @@ export function visitTypesForLeadTime(days: number): VisitType[] {
 // All seven days can be bookable. Weekend visit-type restrictions and hours
 // are enforced by the slot and booking endpoints.
 export function isBusinessDay(dateISO: string): boolean {
-  return /^\\d{4}-\\d{2}-\\d{2}$/.test(dateISO);
+  return /^\d{4}-\d{2}-\d{2}$/.test(dateISO);
 }
 
 export function isVisitAllowedOnDay(visit: VisitType, dayOfWeek: number): boolean {
