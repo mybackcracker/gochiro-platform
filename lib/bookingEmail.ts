@@ -317,15 +317,12 @@ export async function sendIntakeIssuanceWarning(): Promise<void> {
 }
 
 // ---------------------------------------------------------------------------
-// Group Visit emails (GROUP_VISIT_SPECIFICATION.md, resolved 2026-08-28).
-// The host is the booking contact (firstName/lastName/phone/email/address
-// above are the host's) and the sole point of contact — individual
-// attendees are not identified during booking. Group intake links require a
-// separate multi-patient design and are intentionally unsupported. Per the
-// V1 payment decision, there is no
-// Square link here: the total is quoted, the host is told they're
-// responsible for it, and the visit books without requiring advance
-// payment.
+// Group Visit emails. The host is the booking contact and sole point of
+// contact. When the group includes new patients, booking completion issues
+// one single-use secure intake link per new patient and the host forwards one
+// different link to each person. Per the current payment decision, there is
+// no Square link here: the total is quoted, the host is responsible for it,
+// and the visit books without requiring advance payment.
 // ---------------------------------------------------------------------------
 
 export interface GroupBookingEmailInput {
@@ -361,9 +358,10 @@ interface GroupBookingEmailData {
   newPatientSurcharge: number;
   weekendSurcharge: number;
   total: number;
+  intakeLinks: string[];
 }
 
-function buildGroupBookingEmailData(input: GroupBookingEmailInput): GroupBookingEmailData {
+function buildGroupBookingEmailData(input: GroupBookingEmailInput, intakeLinks: string[] = []): GroupBookingEmailData {
   const arrivalStart = new Date(input.start.getTime() - 15 * 60000);
   const arrivalEnd = new Date(input.start.getTime() + 15 * 60000);
   const streetLine = input.addressLine2 ? `${input.address}, ${input.addressLine2}` : input.address;
@@ -391,6 +389,7 @@ function buildGroupBookingEmailData(input: GroupBookingEmailInput): GroupBooking
     total: groupVisitTotal(input.region, input.composition, new Intl.DateTimeFormat("en-CA", {
       timeZone: TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit",
     }).format(input.start)),
+    intakeLinks,
   };
 }
 
@@ -410,6 +409,23 @@ function buildHostTextEmail(b: GroupBookingEmailData): string {
   if (b.weekendSurcharge > 0) body += `Weekend group surcharge: ${b.weekendSurcharge}\n`;
   body += `Total: ${b.total}\n`;
   body += "As the host, you're responsible for the full amount above. Payment isn't required to book — pay at or before the visit.\n\n";
+
+  body += "GROUP CHANGE POLICY\n";
+  body += "You may reduce the reserved headcount more than 24 hours before the visit and the group total will be recalculated. Within 24 hours, the original reserved group total remains due if fewer people participate or the group cancels or reschedules.\n\n";
+
+  if (b.newCount > 0) {
+    body += "NEW PATIENT INTAKE\n";
+    body += `This booking includes ${b.newCount} new patient(s). Each new patient must complete a separate intake within 3 hours of booking. Forward one different secure link to each new patient. Each link is single-use. A new patient who does not complete the intake cannot be treated as part of the Group Visit.\n`;
+    if (b.intakeLinks.length > 0) {
+      b.intakeLinks.forEach((link, index) => {
+        body += `New patient ${index + 1} intake: ${link}\n`;
+      });
+    }
+    if (b.intakeLinks.length < b.newCount) {
+      body += `Only ${b.intakeLinks.length} of ${b.newCount} intake link(s) were generated automatically. Call or text ${BUSINESS_PHONE} for help.\n`;
+    }
+    body += "\n";
+  }
 
   body += "PAYMENT\n";
   body += "Cash, check, credit card (HSA/FSA eligible), and Venmo are all accepted.\n";
@@ -451,6 +467,22 @@ function buildHostHtmlEmail(b: GroupBookingEmailData): string {
     '<p style="margin:0 0 16px 0;color:#991b1b;"><strong><u>As the host, you\'re responsible for the full amount above.</u></strong> Payment isn\'t required to book — pay at or before the visit.</p>';
 
   html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
+  html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#173B57;">Group Change Policy</h2>';
+  html += '<p style="margin:0 0 16px 0;">You may reduce the reserved headcount more than 24 hours before the visit and the group total will be recalculated. Within 24 hours, the original reserved group total remains due if fewer people participate or the group cancels or reschedules.</p>';
+
+  if (b.newCount > 0) {
+    html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
+    html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#173B57;">New Patient Intake</h2>';
+    html += `<p style="margin:0 0 16px 0;">This booking includes <strong>${b.newCount} new patient(s)</strong>. Each new patient must complete a separate intake within 3 hours of booking. Forward one different secure link to each new patient. Each link is single-use. A new patient who does not complete the intake cannot be treated as part of the Group Visit.</p>`;
+    b.intakeLinks.forEach((link, index) => {
+      html += `<p style="margin:12px 0;"><a href="${escapeHtml(link)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">New Patient ${index + 1} — Complete Intake</a></p>`;
+    });
+    if (b.intakeLinks.length < b.newCount) {
+      html += `<p style="margin:12px 0 16px 0;color:#991b1b;"><strong>Only ${b.intakeLinks.length} of ${b.newCount} intake link(s) were generated automatically.</strong> Call or text ${escapeHtml(BUSINESS_PHONE)} for help.</p>`;
+    }
+  }
+
+  html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
   html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#173B57;">Payment</h2>';
   html += '<p style="margin:0 0 8px 0;">Cash, check, credit card (HSA/FSA eligible), and Venmo are all accepted.</p>';
   html += `<p style="margin:16px 0 6px 0;"><a href="${escapeHtml(VENMO_LINK)}" style="display:block;background:#173B57;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Pay with Venmo</a></p>`;
@@ -477,15 +509,16 @@ function buildDoctorGroupEmail(b: GroupBookingEmailData): { subject: string; tex
   text += `ETA: ${b.arrivalStartStr} - ${b.arrivalEndStr}\n`;
   text += `Address:\n${b.fullAddress}\n`;
   text += `Participants: ${b.newCount} new, ${b.existingCount} existing\n`;
-  text += `Total: $${b.total} (host responsible)`;
+  text += `Secure intake links issued: ${b.intakeLinks.length}/${b.newCount}\n`;
+  text += `Total: ${b.total} (host responsible)`;
 
   const html = `<pre style="font-family:inherit;white-space:pre-wrap;">${escapeHtml(text)}</pre>`;
 
   return { subject, text, html };
 }
 
-export async function sendGroupBookingEmails(input: GroupBookingEmailInput): Promise<void> {
-  const b = buildGroupBookingEmailData(input);
+export async function sendGroupBookingEmails(input: GroupBookingEmailInput, intakeLinks: string[] = []): Promise<void> {
+  const b = buildGroupBookingEmailData(input, intakeLinks);
 
   const sends: Promise<void>[] = [
     sendEmail({
