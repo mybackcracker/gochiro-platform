@@ -70,6 +70,9 @@ export default function HomePage() {
                 Serving Delaware County, parts of Chester County and the Main Line, with special
                 visits and events available in Philadelphia and surrounding areas.
               </P>
+              <p className="mt-3 text-sm font-semibold text-muted">
+                Appointments available 7 days a week, including Saturday and Sunday. Availability varies by location and visit type.
+              </p>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <CTAButton href="#service-area">Check My Area</CTAButton>
                 <CTAButton href="/book-online" variant="secondary">Schedule a Visit</CTAButton>
