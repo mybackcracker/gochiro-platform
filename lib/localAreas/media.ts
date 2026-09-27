@@ -65,7 +65,7 @@ export const media: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Media",
   workplaceParagraphs: [
     "Group Visits deliver wellness-focused chiropractic care directly to a workplace or other single location, for two or more people at a time.",
-    "Wellness-focused care is the focus of a Group Visit, not acute injuries or complex new complaints. Each participant is priced individually, with one travel fee for the group, confirmed during scheduling.",
+    "Wellness-focused care is the focus of a Group Visit, not acute injuries or complex new complaints. Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
