@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 import { buildPatientTextEmail, buildPatientHtmlEmail } from "../lib/bookingEmail";
-import { INTAKE_URL, INTAKE_DEADLINE_HOURS, type VisitType } from "../lib/gochiro";
+import { INTAKE_URL, GROUP_INTAKE_URL, INTAKE_DEADLINE_HOURS, type VisitType } from "../lib/gochiro";
 import { completeBookedAppointment } from "../lib/bookingCompletion";
 import type { BookingEmailInput } from "../lib/bookingEmail";
 
@@ -62,16 +62,18 @@ test("existing-patient, maintenance, priority, care-plan, and group visit types 
   }
 });
 
-test("group confirmations remain unaffected: still no intake link in the host email", () => {
+test("group confirmations use one shared intake form link for all new patients", () => {
   const source = fs.readFileSync("lib/bookingEmail.ts", "utf8");
   const groupSection = source.slice(source.indexOf("function buildHostTextEmail"));
-  assert(!groupSection.includes("INTAKE_URL"));
-  assert(!groupSection.includes("intakeLink"));
+  assert(groupSection.includes("GROUP_INTAKE_URL"));
+  assert(groupSection.includes("Complete New Patient Intake"));
+  assert(!groupSection.includes("intakeLinks"));
+  assert.equal(GROUP_INTAKE_URL, "https://form.jotform.com/250208653078154");
 });
 
 test("booking responses still expose no Calendar identifiers or internal errors (unchanged by this hotfix)", () => {
   const source = fs.readFileSync("app/api/book/route.ts", "utf8");
-  assert.match(source, /NextResponse\.json\(\{ success: true \}\)/);
+  assert.match(source, /NextResponse\.json\(\{ success: true, paymentLink: groupPaymentLink \}\)/);
   assert(!source.includes("htmlLink:"));
   assert(!source.includes("eventId:"));
   assert(!source.includes("err instanceof Error ? err.message"));
