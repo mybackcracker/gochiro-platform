@@ -65,7 +65,7 @@ export const ridleyPark: LocalAreaContent = {
   workplaceHeading: "Workplace and Group Chiropractic Visits Near Ridley Park",
   workplaceParagraphs: [
     "A workplace or other single location can host a Group Visit — wellness-focused chiropractic care for two or more people at once.",
-    "Group Visits stay wellness-focused rather than addressing acute injuries or complex new complaints. Pricing combines a per-participant rate with a single travel fee for the group, confirmed during scheduling.",
+    "Group Visits stay wellness-focused rather than addressing acute injuries or complex new complaints. Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
