@@ -27,6 +27,9 @@ import type { LocalAreaContent } from "@/lib/localAreas/types";
 // file, and never means the page is just this file's copy with a town name
 // swapped in.
 export default function LocalAreaPage({ content }: { content: LocalAreaContent }) {
+  const premiumGroupArea = content.slug === "main-line" || content.slug === "west-chester";
+  const groupVisitHref = premiumGroupArea ? "/group-visits/premium" : "/group-visits/standard";
+
   return (
     <div>
       {/* Hero — text/CTA render before the photo in source order so mobile/tablet
@@ -165,23 +168,20 @@ export default function LocalAreaPage({ content }: { content: LocalAreaContent }
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-start">
             <div>
-              <H2>{content.workplaceHeading}</H2>
+              <H2>Share the Visit. Save on the Cost.</H2>
               {content.workplaceParagraphs.map((paragraph) => (
                 <P key={paragraph}>{paragraph}</P>
               ))}
               <div className="mt-6">
-                <CTAButton href="/book?start=group">{content.workplaceCta}</CTAButton>
+                <CTAButton href={groupVisitHref}>See Group Visit Pricing & Details</CTAButton>
               </div>
             </div>
             <Callout title="Group & Workplace Visits" tone="white">
               <p className="text-base leading-relaxed text-muted">
-                Minimum two participants. Not intended for acute injuries, significant new
-                complaints, or chronic problems requiring individualized evaluation and treatment.
-                See{" "}
-                <a href="/pricing" className="font-semibold text-navy underline">
-                  Pricing
-                </a>{" "}
-                for current per-participant rates.
+                Groups of 2–6 people can schedule together at one home or workplace. Group Visits
+                are intended for routine, wellness-focused care. An existing patient with a new
+                complaint or significant worsening of a complaint should schedule an individual
+                visit instead.
               </p>
             </Callout>
           </div>
