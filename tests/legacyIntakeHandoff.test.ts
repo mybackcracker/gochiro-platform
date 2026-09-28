@@ -68,7 +68,7 @@ test("group confirmations use one shared intake form link for all new patients",
   assert(groupSection.includes("GROUP_INTAKE_URL"));
   assert(groupSection.includes("Complete New Patient Intake"));
   assert(!groupSection.includes("intakeLinks"));
-  assert.equal(GROUP_INTAKE_URL, "https://form.jotform.com/250208653078154");
+  assert.equal(GROUP_INTAKE_URL, "https://gochiromobile.com/intake");
 });
 
 test("booking responses still expose no Calendar identifiers or internal errors (unchanged by this hotfix)", () => {
