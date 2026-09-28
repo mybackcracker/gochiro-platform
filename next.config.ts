@@ -30,6 +30,14 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
       {
+        // Each Group Visit new patient opens the same form and submits separately.
+        // Release with the Apps Script group route, not before.
+        source: "/group-intake",
+        destination:
+          "https://script.google.com/macros/s/AKfycbyJJ1cbPMkBL0McMnk0Kc5jHr4q7jKoej3dk1ma5fe13DraUBP_sKEkwgWY1YH1nBAgWw/exec?form=group",
+        permanent: false,
+      },
+      {
         source: "/chiropractor-in-glen-mills-pa",
         destination: "/service-areas/glen-mills",
         permanent: true,

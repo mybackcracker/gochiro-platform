@@ -10,7 +10,8 @@ export type VisitType =
   | "group-visit";
 
 export const INTAKE_URL = "https://script.google.com/macros/s/AKfycbyJJ1cbPMkBL0McMnk0Kc5jHr4q7jKoej3dk1ma5fe13DraUBP_sKEkwgWY1YH1nBAgWw/exec";
-export const GROUP_INTAKE_URL = "https://form.jotform.com/250208653078154";
+// Stable public address. Publish only after the Apps Script group route is live.
+export const GROUP_INTAKE_URL = "https://gochiromobile.com/group-intake";
 
 export const CALENDAR_ID =
   "c_5974b14c4f761114a9cf014cab326c136edad54ee2fc8f179de0dd222331b413@group.calendar.google.com";
