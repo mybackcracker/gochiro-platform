@@ -21,13 +21,6 @@ const FORMS = [
     href: "/intake",
     cta: "Open Patient Intake",
   },
-  {
-    title: "Group Visit New Patient Intake",
-    description:
-      "A shorter intake for each new patient joining a Group Visit. Each person completes their own form using the same link.",
-    href: "/group-intake",
-    cta: "Open Group Visit Intake",
-  },
 ];
 
 export default function FormsPage() {

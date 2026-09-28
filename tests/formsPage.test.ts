@@ -30,12 +30,12 @@ test("the Forms page links the tour intake through its stable public address", (
   assert.match(config, /exec\?form=tour/);
 });
 
-test("the Group Visit form has one stable shared address", () => {
+test("Group Visit new patients use the existing patient intake", () => {
   const page = fs.readFileSync("app/(marketing)/forms/page.tsx", "utf8");
   const config = fs.readFileSync("next.config.ts", "utf8");
-  assert.match(page, /href: ["']\/group-intake["']/);
-  assert.match(config, /source: ["']\/group-intake["']/);
-  assert.match(config, /exec\?form=group/);
+  assert.match(page, /href: ["']\/intake["']/);
+  assert.doesNotMatch(page, /\/group-intake/);
+  assert.doesNotMatch(config, /source: ["']\/group-intake["']/);
 });
 
 test("the Forms page is included in the sitemap", () => {
