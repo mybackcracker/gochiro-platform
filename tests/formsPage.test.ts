@@ -30,12 +30,13 @@ test("the Forms page links the tour intake through its stable public address", (
   assert.match(config, /exec\?form=tour/);
 });
 
-test("Group Visit new patients use the existing patient intake", () => {
+test("Group Visit guidance leads to the existing patient intake", () => {
   const page = fs.readFileSync("app/(marketing)/forms/page.tsx", "utf8");
-  const config = fs.readFileSync("next.config.ts", "utf8");
-  assert.match(page, /href: ["']\/intake["']/);
-  assert.doesNotMatch(page, /\/group-intake/);
-  assert.doesNotMatch(config, /source: ["']\/group-intake["']/);
+  const guidance = fs.readFileSync("app/(marketing)/group-intake/page.tsx", "utf8");
+  assert.match(page, /href: ["']\/group-intake["']/);
+  assert.match(guidance, /Group Visits are intended for wellness care or mild, limited complaints/);
+  assert.match(guidance, /CTAButton href="\/intake"/);
+  assert.doesNotMatch(guidance, /saveGroupPatient|<form/);
 });
 
 test("the Forms page is included in the sitemap", () => {
