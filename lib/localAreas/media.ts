@@ -6,16 +6,16 @@ export const media: LocalAreaContent = {
   slug: "media",
   town: "Media",
 
-  metaTitle: "Mobile Chiropractor in Media, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Media, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Media, Lima and Middletown Township, PA from Dr. David DeFries, brought directly to your home or workplace along the Baltimore Pike corridor.",
+    "In-home chiropractic care in Media, Lima and Middletown Township, PA from Dr. David DeFries, DC, brought directly to your home or workplace along the Baltimore Pike corridor.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Media, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in and around Media.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Media Borough and the broader surrounding service area, including Lima and Middletown Township, along the Baltimore Pike/Route 1 corridor.",
-    "Dr. David DeFries — a licensed Doctor of Chiropractic — provides every visit, bringing evaluation and treatment directly to your home or workplace instead of requiring an office trip.",
+    "Go Chiro Mobile provides mobile chiropractic care in Media Borough and the broader surrounding service area, including Lima and Middletown Township, along the Baltimore Pike/Route 1 corridor.",
+    "Dr. David DeFries, DC — a licensed Doctor of Chiropractic — provides every visit, bringing evaluation and treatment directly to your home or workplace instead of requiring an office trip.",
   ],
   heroImage: SHOULDER_EXERCISE_IMAGE,
   heroCta: "Book a Chiropractic Visit in Media",
@@ -34,7 +34,7 @@ export const media: LocalAreaContent = {
   connectionImage: DOCTOR_PORTRAIT_IMAGE,
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Media",
-  howItWorksIntro: "A visit in Media, Lima or Middletown Township follows the same three steps as every GoChiroMobile appointment:",
+  howItWorksIntro: "A visit in Media, Lima or Middletown Township follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -71,7 +71,7 @@ export const media: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to Media, Lima and Middletown Township, GoChiroMobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to Media, Lima and Middletown Township, Go Chiro Mobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Wallingford", href: "/service-areas/wallingford" },
     { label: "Newtown Square", href: "/service-areas/newtown-square" },

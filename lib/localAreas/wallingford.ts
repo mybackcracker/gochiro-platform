@@ -6,16 +6,16 @@ export const wallingford: LocalAreaContent = {
   slug: "wallingford",
   town: "Wallingford",
 
-  metaTitle: "Mobile Chiropractor in Wallingford & Swarthmore, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Wallingford & Swarthmore, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Wallingford, Nether Providence, Swarthmore and Rose Valley, PA from Dr. David DeFries, brought directly to your home or workplace.",
+    "In-home chiropractic care in Wallingford, Nether Providence, Swarthmore and Rose Valley, PA from Dr. David DeFries, DC, brought directly to your home or workplace.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Wallingford & Swarthmore, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in Wallingford, Nether Providence and Swarthmore.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Wallingford, Nether Providence, Swarthmore and Rose Valley, Pennsylvania, an area along Route 320 with considerable local history and established residential communities.",
-    "Dr. David DeFries, a licensed Doctor of Chiropractic, provides every visit and brings evaluation and treatment directly to your home or workplace in place of an office visit.",
+    "Go Chiro Mobile provides mobile chiropractic care in Wallingford, Nether Providence, Swarthmore and Rose Valley, Pennsylvania, an area along Route 320 with considerable local history and established residential communities.",
+    "Dr. David DeFries, DC, a licensed Doctor of Chiropractic, provides every visit and brings evaluation and treatment directly to your home or workplace in place of an office visit.",
   ],
   heroImage: LAPTOP_CONSULTATION_IMAGE,
   heroCta: "Book a Chiropractic Visit in Wallingford",
@@ -35,7 +35,7 @@ export const wallingford: LocalAreaContent = {
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Wallingford",
   howItWorksIntro:
-    "A visit anywhere in Wallingford, Nether Providence, Swarthmore or Rose Valley follows the same three steps as every GoChiroMobile appointment:",
+    "A visit anywhere in Wallingford, Nether Providence, Swarthmore or Rose Valley follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -72,7 +72,7 @@ export const wallingford: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to Wallingford, Nether Providence, Swarthmore and Rose Valley, GoChiroMobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to Wallingford, Nether Providence, Swarthmore and Rose Valley, Go Chiro Mobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Media", href: "/service-areas/media" },
     { label: "Springfield", href: "/service-areas/springfield" },

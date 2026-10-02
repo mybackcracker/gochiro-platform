@@ -6,16 +6,16 @@ export const aston: LocalAreaContent = {
   slug: "aston",
   town: "Aston",
 
-  metaTitle: "Mobile Chiropractor in Aston, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Aston, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Aston, PA from Dr. David DeFries, whose family has provided chiropractic care in southern Delaware County for three generations.",
+    "In-home chiropractic care in Aston, PA from Dr. David DeFries, DC, whose family has provided chiropractic care in southern Delaware County for three generations.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Aston, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in Aston.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Aston, Pennsylvania, bringing evaluation, treatment and hands-on care directly to your home or workplace instead of requiring a trip to an office.",
-    "Every visit is provided by Dr. David DeFries, a licensed Doctor of Chiropractic serving Aston and the surrounding communities of southern Delaware County.",
+    "Go Chiro Mobile provides mobile chiropractic care in Aston, Pennsylvania, bringing evaluation, treatment and hands-on care directly to your home or workplace instead of requiring a trip to an office.",
+    "Every visit is provided by Dr. David DeFries, DC, a licensed Doctor of Chiropractic serving Aston and the surrounding communities of southern Delaware County.",
   ],
   heroImage: HOME_VISIT_IMAGE,
   heroCta: "Book a Chiropractic Visit in Aston",
@@ -30,13 +30,13 @@ export const aston: LocalAreaContent = {
   connectionHeading: "A Family History of Chiropractic Care in Aston",
   connectionParagraphs: [
     "Dr. DeFries' connection to Aston goes back to the beginning of his career. After graduating from Parker College of Chiropractic in 2003, he began practicing that same year at his family's chiropractic practice on Pennell Road in Aston — part of a family history of chiropractic care in southern Delaware County that spans three generations.",
-    "He also taught anatomy at Neumann College in Aston, now Neumann University, and went on to practice through several additional offices in the surrounding area before transitioning to the mobile model that became GoChiroMobile. That local history is part of what shaped the practice: bringing the same hands-on chiropractic care directly to patients throughout the area, including Aston itself.",
+    "He also taught anatomy at Neumann College in Aston, now Neumann University, and went on to practice through several additional offices in the surrounding area before transitioning to the mobile model that became Go Chiro Mobile. That local history is part of what shaped the practice: bringing the same hands-on chiropractic care directly to patients throughout the area, including Aston itself.",
   ],
   connectionImage: DOCTOR_PORTRAIT_IMAGE,
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Aston",
   howItWorksIntro:
-    "Working with an in-home chiropractor in Aston follows the same three steps as every GoChiroMobile visit:",
+    "Working with an in-home chiropractor in Aston follows the same three steps as every Go Chiro Mobile visit:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -60,20 +60,20 @@ export const aston: LocalAreaContent = {
 
   schedulingHeading: "Scheduling Convenience in Aston",
   schedulingParagraphs: [
-    "Aston is one of the areas GoChiroMobile visits most often. Because it is regularly part of the schedule, appointment availability in Aston can sometimes extend beyond traditional office hours when scheduling permits.",
+    "Aston is one of the areas Go Chiro Mobile visits most often. Because it is regularly part of the schedule, appointment availability in Aston can sometimes extend beyond traditional office hours when scheduling permits.",
     "Exact appointment times are shown and confirmed when you schedule, based on real-time availability for your visit type and location.",
   ],
 
   workplaceHeading: "Workplace and Group Chiropractic Visits for Aston Businesses",
   workplaceParagraphs: [
-    "GoChiroMobile currently provides on-site chiropractic visits at several businesses in the Aston area, bringing wellness-focused care directly to a workplace for two or more people at one location.",
+    "Go Chiro Mobile currently provides on-site chiropractic visits at several businesses in the Aston area, bringing wellness-focused care directly to a workplace for two or more people at one location.",
     "A Group Visit keeps the focus on wellness-focused care rather than acute injuries or complex new complaints — Pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to Aston, GoChiroMobile regularly visits other communities in southern Delaware County. If you're nearby but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to Aston, Go Chiro Mobile regularly visits other communities in southern Delaware County. If you're nearby but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Brookhaven", href: "/service-areas/brookhaven" },
     "Parkside",

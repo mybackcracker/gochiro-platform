@@ -6,16 +6,16 @@ export const chaddsFord: LocalAreaContent = {
   slug: "chadds-ford",
   town: "Chadds Ford",
 
-  metaTitle: "Mobile Chiropractor in Chadds Ford, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Chadds Ford, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Chadds Ford and Birmingham, PA from Dr. David DeFries, brought directly to your home or workplace along the Route 202 and Route 926 corridors.",
+    "In-home chiropractic care in Chadds Ford and Birmingham, PA from Dr. David DeFries, DC, brought directly to your home or workplace along the Route 202 and Route 926 corridors.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Chadds Ford, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in Chadds Ford and Birmingham.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Chadds Ford and Birmingham, Pennsylvania, along the Route 202 and Route 926 corridors — an area that geographically connects the West Chester and Concordville/Glen Mills portions of the service territory.",
-    "Every visit is provided by Dr. David DeFries, a licensed Doctor of Chiropractic. Evaluation and treatment come directly to your home or workplace, with no office visit required.",
+    "Go Chiro Mobile provides mobile chiropractic care in Chadds Ford and Birmingham, Pennsylvania, along the Route 202 and Route 926 corridors — an area that geographically connects the West Chester and Concordville/Glen Mills portions of the service territory.",
+    "Every visit is provided by Dr. David DeFries, DC, a licensed Doctor of Chiropractic. Evaluation and treatment come directly to your home or workplace, with no office visit required.",
   ],
   heroImage: LAPTOP_CONSULTATION_IMAGE,
   heroCta: "Book a Chiropractic Visit in Chadds Ford",
@@ -34,7 +34,7 @@ export const chaddsFord: LocalAreaContent = {
   ],
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Chadds Ford",
-  howItWorksIntro: "A Chadds Ford or Birmingham visit follows the same three steps as every GoChiroMobile appointment:",
+  howItWorksIntro: "A Chadds Ford or Birmingham visit follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -71,7 +71,7 @@ export const chaddsFord: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to Chadds Ford and Birmingham, GoChiroMobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to Chadds Ford and Birmingham, Go Chiro Mobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Garnet Valley", href: "/service-areas/garnet-valley" },
     { label: "West Chester", href: "/service-areas/west-chester" },

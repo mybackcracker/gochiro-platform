@@ -6,16 +6,16 @@ export const garnetValley: LocalAreaContent = {
   slug: "garnet-valley",
   town: "Garnet Valley",
 
-  metaTitle: "Mobile Chiropractor in Garnet Valley & Glen Mills, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Garnet Valley & Glen Mills, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Garnet Valley, Glen Mills and Concordville, PA from Dr. David DeFries, whose family has a long history of chiropractic care in southern Delaware County.",
+    "In-home chiropractic care in Garnet Valley, Glen Mills and Concordville, PA from Dr. David DeFries, DC, whose family has a long history of chiropractic care in southern Delaware County.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Garnet Valley & Glen Mills, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in Garnet Valley and Glen Mills.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Garnet Valley, Glen Mills and Concordville, Pennsylvania, along the Route 1 and Route 202 corridors, also reaching nearby Chester Heights.",
-    "Dr. David DeFries, a licensed Doctor of Chiropractic, provides every visit — bringing evaluation and treatment directly to your home or workplace instead of a trip to an office.",
+    "Go Chiro Mobile provides mobile chiropractic care in Garnet Valley, Glen Mills and Concordville, Pennsylvania, along the Route 1 and Route 202 corridors, also reaching nearby Chester Heights.",
+    "Dr. David DeFries, DC, a licensed Doctor of Chiropractic, provides every visit — bringing evaluation and treatment directly to your home or workplace instead of a trip to an office.",
   ],
   heroImage: IN_HOME_TREATMENT_IMAGE,
   heroCta: "Book a Chiropractic Visit in Garnet Valley",
@@ -35,7 +35,7 @@ export const garnetValley: LocalAreaContent = {
   connectionImage: DOCTOR_PORTRAIT_IMAGE,
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Garnet Valley",
-  howItWorksIntro: "A Garnet Valley visit follows the same three steps as every GoChiroMobile appointment:",
+  howItWorksIntro: "A Garnet Valley visit follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -72,7 +72,7 @@ export const garnetValley: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to Garnet Valley, Glen Mills, Concordville and Chester Heights, GoChiroMobile visits other communities throughout the surrounding area. If you're nearby but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to Garnet Valley, Glen Mills, Concordville and Chester Heights, Go Chiro Mobile visits other communities throughout the surrounding area. If you're nearby but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Chadds Ford", href: "/service-areas/chadds-ford" },
     { label: "West Chester", href: "/service-areas/west-chester" },

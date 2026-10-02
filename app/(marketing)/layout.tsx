@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BUSINESS_NAME, BUSINESS_PHONE } from "@/lib/gochiro";
 import MarketingHeader from "@/components/MarketingHeader";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -11,25 +12,25 @@ const searchSignals = {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
-      name: "GoChiroMobile",
+      name: BUSINESS_NAME,
     },
     {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
-      name: "GoChiroMobile",
+      name: BUSINESS_NAME,
       url: SITE_URL,
-      telephone: "+1-610-494-0412",
+      telephone: BUSINESS_PHONE,
     },
     {
       "@type": "ItemList",
-      name: "GoChiroMobile primary pages",
+      name: "Go Chiro Mobile primary pages",
       itemListElement: [
         ["Book Online", "/book-online"],
         ["Patient Forms", "/forms"],
         ["Pricing", "/pricing"],
         ["Service Areas", "/service-areas"],
         ["Touring & Events", "/touring-production-care"],
-        ["About Dr. David DeFries", "/about"],
+        ["About Dr. David DeFries, DC", "/about"],
         ["Contact", "/contact"],
       ].map(([name, path], index) => ({
         "@type": "ListItem",

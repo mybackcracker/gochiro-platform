@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { Section, Container, Eyebrow, H2, CTAButton, Callout } from "@/components/ui";
 import ZipChecker from "@/components/ZipChecker";
 import LocalAreaLinkList from "@/components/LocalAreaLinkList";
-import { BUSINESS_PHONE } from "@/lib/gochiro";
+import { BUSINESS_PHONE, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
 import { LOCAL_AREAS } from "@/lib/localAreas";
 import type { NearbyArea } from "@/lib/localAreas/types";
 
 export const metadata: Metadata = {
-  title: "Service Areas — GoChiroMobile",
-  description: "Find out if GoChiroMobile comes to your area.",
+  title: "Service Areas — Go Chiro Mobile",
+  description: "Find out if Go Chiro Mobile comes to your area.",
 };
 
 // Same three-way grouping as the ZIP cards above, but for local-area page
@@ -51,11 +51,10 @@ export default function ServiceAreasPage() {
               Mobile Chiropractic Service Areas
             </h1>
             <p className="mt-5 text-xl font-medium text-white/90">
-              Find out if GoChiroMobile comes to your area.
+              Find out if Go Chiro Mobile comes to your area.
             </p>
             <p className="mt-4 text-lg leading-relaxed text-white/80">
-              I provide routine mobile chiropractic visits throughout Delaware County and selected
-              areas of Chester County and the Main Line.
+              Service area: {BUSINESS_SERVICE_AREA}.
             </p>
             <div className="mt-8 text-left">
               <ZipChecker />

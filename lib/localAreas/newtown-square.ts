@@ -6,15 +6,15 @@ export const newtownSquare: LocalAreaContent = {
   slug: "newtown-square",
   town: "Newtown Square",
 
-  metaTitle: "Mobile Chiropractor in Newtown Square & Broomall, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Newtown Square & Broomall, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Newtown Square, Broomall, Edgmont and Gradyville, PA from Dr. David DeFries, brought directly to your home or workplace.",
+    "In-home chiropractic care in Newtown Square, Broomall, Edgmont and Gradyville, PA from Dr. David DeFries, DC, brought directly to your home or workplace.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Newtown Square & Broomall, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace across Newtown Square, Broomall, Edgmont and Gradyville.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Newtown Square and Broomall, Pennsylvania, along the Route 3/West Chester Pike corridor, with I-476 and the Blue Route providing convenient access into Broomall.",
+    "Go Chiro Mobile provides mobile chiropractic care in Newtown Square and Broomall, Pennsylvania, along the Route 3/West Chester Pike corridor, with I-476 and the Blue Route providing convenient access into Broomall.",
     "Edgmont and Gradyville are also part of this coverage. This part of Delaware County is geographically more spread out in places, which is exactly where a mobile visit — brought to your home or workplace — tends to be most useful.",
   ],
   heroImage: HOME_VISIT_IMAGE,
@@ -35,7 +35,7 @@ export const newtownSquare: LocalAreaContent = {
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Newtown Square",
   howItWorksIntro:
-    "A visit anywhere across Newtown Square, Broomall, Edgmont or Gradyville follows the same three steps as every GoChiroMobile appointment:",
+    "A visit anywhere across Newtown Square, Broomall, Edgmont or Gradyville follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -72,7 +72,7 @@ export const newtownSquare: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to Newtown Square, Broomall, Edgmont and Gradyville, GoChiroMobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to Newtown Square, Broomall, Edgmont and Gradyville, Go Chiro Mobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "West Chester", href: "/service-areas/west-chester" },
     { label: "Havertown", href: "/service-areas/havertown" },

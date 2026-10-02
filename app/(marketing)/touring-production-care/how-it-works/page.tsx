@@ -3,8 +3,8 @@ import { Section, Container, PageHeader, CTAButton, H2, P, Callout } from "@/com
 import { BUSINESS_PHONE } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
-  title: "How Backstage Care Works | GoChiroMobile",
-  description: "See how GoChiroMobile organizes backstage musculoskeletal care for touring artists, crew and production personnel from signup through on-site care.",
+  title: "How Backstage Care Works | Go Chiro Mobile",
+  description: "See how Go Chiro Mobile organizes backstage musculoskeletal care for touring artists, crew and production personnel from signup through on-site care.",
 };
 
 const steps = [
@@ -14,7 +14,7 @@ const steps = [
   ["04", "Complete required registration", "When healthcare registration, consent or intake is required, it is completed digitally before care so there is less paperwork at the treatment table."],
   ["05", "We bring the treatment setup", "Portable treatment and assessment equipment comes with the provider. A suitable area, basic seating and access to power when needed are generally all the production has to provide."],
   ["06", "Care fits around the show day", "Scheduled appointments, drop-in availability or a hybrid flow can work around load-in, soundcheck, rehearsal, meals, call times and performance preparation."],
-  ["07", "Follow-up after the visit", "Participants may receive appropriate mobility or self-care information and a way to reach GoChiroMobile after the production moves on."],
+  ["07", "Follow-up after the visit", "Participants may receive appropriate mobility or self-care information and a way to reach Go Chiro Mobile after the production moves on."],
 ];
 
 export default function HowBackstageCareWorksPage() {
@@ -22,7 +22,7 @@ export default function HowBackstageCareWorksPage() {
     <div>
       <Section tone="navy" className="pt-14 pb-12 sm:pt-20 sm:pb-16">
         <Container>
-          <PageHeader eyebrow="Touring Productions & Live Events" title="Backstage Care Without Backstage Chaos" lede="One link. A clear schedule. Mobile registration. On-site care. GoChiroMobile manages the participant flow so production personnel do not have to." />
+          <PageHeader eyebrow="Touring Productions & Live Events" title="Backstage Care Without Backstage Chaos" lede="One link. A clear schedule. Mobile registration. On-site care. Go Chiro Mobile manages the participant flow so production personnel do not have to." />
           <div className="mt-8 flex flex-wrap gap-3">
             <CTAButton href="/touring-production-care/request" variant="inverse">Request Production Coverage</CTAButton>
             <CTAButton href="/touring-production-care" variant="inverseOutline">Touring Production Care</CTAButton>
@@ -105,7 +105,7 @@ export default function HowBackstageCareWorksPage() {
         <Container>
           <div className="max-w-3xl">
             <H2>Designed to stay out of the production&apos;s way</H2>
-            <P>The goal is not to create another backstage process for someone to supervise. Once coverage is arranged, GoChiroMobile handles the care workflow while coordinating with the production&apos;s preferred timing, location and access requirements.</P>
+            <P>The goal is not to create another backstage process for someone to supervise. Once coverage is arranged, Go Chiro Mobile handles the care workflow while coordinating with the production&apos;s preferred timing, location and access requirements.</P>
             <p className="mt-6 text-sm text-muted">Availability, services, provider mix and appointment length can vary by engagement. Touring-production care is currently available at Pennsylvania locations.</p>
           </div>
         </Container>

@@ -6,16 +6,16 @@ export const brookhaven: LocalAreaContent = {
   slug: "brookhaven",
   town: "Brookhaven",
 
-  metaTitle: "Mobile Chiropractor in Brookhaven, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Brookhaven, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Brookhaven, Parkside and Upland, PA from Dr. David DeFries, whose family has a long chiropractic history in the area.",
+    "In-home chiropractic care in Brookhaven, Parkside and Upland, PA from Dr. David DeFries, DC, whose family has a long chiropractic history in the area.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Brookhaven, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in Brookhaven.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Brookhaven, Pennsylvania, along Edgmont Avenue and throughout the surrounding Parkside and Upland communities, bringing evaluation and treatment directly to your home or workplace.",
-    "Every visit is provided by Dr. David DeFries, a licensed Doctor of Chiropractic serving Brookhaven and the surrounding communities of southern Delaware County.",
+    "Go Chiro Mobile provides mobile chiropractic care in Brookhaven, Pennsylvania, along Edgmont Avenue and throughout the surrounding Parkside and Upland communities, bringing evaluation and treatment directly to your home or workplace.",
+    "Every visit is provided by Dr. David DeFries, DC, a licensed Doctor of Chiropractic serving Brookhaven and the surrounding communities of southern Delaware County.",
   ],
   heroImage: SHOULDER_EXERCISE_IMAGE,
   heroCta: "Book a Chiropractic Visit in Brookhaven",
@@ -30,12 +30,12 @@ export const brookhaven: LocalAreaContent = {
   connectionHeading: "A Family Connection to Brookhaven",
   connectionParagraphs: [
     "Dr. DeFries has personal roots in this part of Delaware County. He lived in nearby Parkside as a young child, and his father maintained a chiropractic office in Brookhaven for many years — part of a broader DeFries family history of chiropractic care in the area.",
-    "Dr. DeFries continues to visit the Brookhaven area frequently as part of the GoChiroMobile practice, bringing that same family history of care directly to patients' homes and workplaces rather than requiring a trip to an office.",
+    "Dr. DeFries continues to visit the Brookhaven area frequently as part of the Go Chiro Mobile practice, bringing that same family history of care directly to patients' homes and workplaces rather than requiring a trip to an office.",
   ],
   connectionImage: DOCTOR_PORTRAIT_IMAGE,
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Brookhaven",
-  howItWorksIntro: "An in-home visit in Brookhaven follows the same three steps as every GoChiroMobile appointment:",
+  howItWorksIntro: "An in-home visit in Brookhaven follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -72,7 +72,7 @@ export const brookhaven: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to Brookhaven, Parkside and Upland, GoChiroMobile visits other communities in southern Delaware County. If you're nearby but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to Brookhaven, Parkside and Upland, Go Chiro Mobile visits other communities in southern Delaware County. If you're nearby but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Aston", href: "/service-areas/aston" },
     { label: "Boothwyn", href: "/service-areas/boothwyn" },

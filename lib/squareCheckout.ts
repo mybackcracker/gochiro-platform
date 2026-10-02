@@ -55,9 +55,9 @@ export async function createGroupCheckoutLink(input: GroupCheckoutInput): Promis
   const amount = groupVisitTotal(input.region, input.composition, input.dateISO);
   const squareBody: Record<string, unknown> = {
     idempotency_key: input.idempotencyKey || crypto.randomUUID(),
-    description: "GoChiroMobile Group Visit",
+    description: "Go Chiro Mobile Group Visit",
     quick_pay: {
-      name: "GoChiroMobile Group Visit",
+      name: "Go Chiro Mobile Group Visit",
       price_money: {
         amount: Math.round(amount * 100),
         currency: "USD",

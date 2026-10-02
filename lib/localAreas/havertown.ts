@@ -6,16 +6,16 @@ export const havertown: LocalAreaContent = {
   slug: "havertown",
   town: "Havertown",
 
-  metaTitle: "Mobile Chiropractor in Havertown, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Havertown, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Havertown and Haverford Township, PA from Dr. David DeFries, brought directly to your home or workplace.",
+    "In-home chiropractic care in Havertown and Haverford Township, PA from Dr. David DeFries, DC, brought directly to your home or workplace.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Havertown, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in Havertown and Haverford Township.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Havertown and throughout Haverford Township, Pennsylvania, along the West Chester Pike/Route 3 corridor.",
-    "Every visit is provided by Dr. David DeFries, a licensed Doctor of Chiropractic, bringing evaluation and treatment straight to your home or workplace rather than an office.",
+    "Go Chiro Mobile provides mobile chiropractic care in Havertown and throughout Haverford Township, Pennsylvania, along the West Chester Pike/Route 3 corridor.",
+    "Every visit is provided by Dr. David DeFries, DC, a licensed Doctor of Chiropractic, bringing evaluation and treatment straight to your home or workplace rather than an office.",
   ],
   heroImage: IN_HOME_TREATMENT_IMAGE,
   heroCta: "Book a Chiropractic Visit in Havertown",
@@ -34,7 +34,7 @@ export const havertown: LocalAreaContent = {
   ],
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Havertown",
-  howItWorksIntro: "A Havertown or Haverford Township visit follows the same three steps as every GoChiroMobile appointment:",
+  howItWorksIntro: "A Havertown or Haverford Township visit follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -71,7 +71,7 @@ export const havertown: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "Havertown and Haverford Township sit geographically between the Broomall/Newtown Square area and the Main Line, both also served by GoChiroMobile. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
+    "Havertown and Haverford Township sit geographically between the Broomall/Newtown Square area and the Main Line, both also served by Go Chiro Mobile. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Newtown Square", href: "/service-areas/newtown-square" },
     { label: "Main Line", href: "/service-areas/main-line" },

@@ -4,7 +4,7 @@ import { BUSINESS_PHONE, PUBLIC_CONTACT_EMAIL } from "@/lib/gochiro";
 import ProductionRequestForm from "./ProductionRequestForm";
 
 export const metadata: Metadata = {
-  title: "Request Touring Production Coverage | GoChiroMobile",
+  title: "Request Touring Production Coverage | Go Chiro Mobile",
   description: "Request on-site musculoskeletal care for a touring production in Philadelphia or the surrounding region.",
 };
 

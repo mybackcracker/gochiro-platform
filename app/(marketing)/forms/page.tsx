@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { ChoiceCard, Container, PageHeader, Section } from "@/components/ui";
 
 export const metadata: Metadata = {
-  title: "Patient Forms — GoChiroMobile",
-  description: "Access GoChiroMobile patient forms securely from your phone or computer.",
+  title: "Patient Forms — Go Chiro Mobile",
+  description: "Access Go Chiro Mobile patient forms securely from your phone or computer.",
 };
 
 const FORMS = [
@@ -36,7 +36,7 @@ export default function FormsPage() {
       <Container>
         <PageHeader
           eyebrow="Forms"
-          title="GoChiroMobile Patient Forms"
+          title="Go Chiro Mobile Patient Forms"
           lede="Select the form you need. Forms can be completed securely from a phone, tablet or computer."
         />
 

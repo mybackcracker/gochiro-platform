@@ -6,16 +6,16 @@ export const ridleyPark: LocalAreaContent = {
   slug: "ridley-park",
   town: "Ridley Park",
 
-  metaTitle: "Mobile Chiropractor in Ridley Park, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Ridley Park, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Ridley Park, Ridley Township, Folsom, Prospect Park, Norwood and Woodlyn, PA from Dr. David DeFries.",
+    "In-home chiropractic care in Ridley Park, Ridley Township, Folsom, Prospect Park, Norwood and Woodlyn, PA from Dr. David DeFries, DC.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Ridley Park, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in Ridley Park and the surrounding Ridley area.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Ridley Park, Ridley Township, Folsom, Prospect Park, Norwood and Woodlyn, Pennsylvania — an area with convenient access from I-95, MacDade Boulevard and Chester Pike.",
-    "Dr. David DeFries travels to this part of Delaware County frequently and currently works with numerous patients throughout the area, bringing evaluation and treatment directly to their homes and workplaces.",
+    "Go Chiro Mobile provides mobile chiropractic care in Ridley Park, Ridley Township, Folsom, Prospect Park, Norwood and Woodlyn, Pennsylvania — an area with convenient access from I-95, MacDade Boulevard and Chester Pike.",
+    "Dr. David DeFries, DC travels to this part of Delaware County frequently and currently works with numerous patients throughout the area, bringing evaluation and treatment directly to their homes and workplaces.",
   ],
   heroImage: HOUSE_CALL_TREATMENT_IMAGE,
   heroCta: "Book a Chiropractic Visit in Ridley Park",
@@ -34,7 +34,7 @@ export const ridleyPark: LocalAreaContent = {
   ],
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Ridley Park",
-  howItWorksIntro: "A visit anywhere in the Ridley area follows the same three steps as every GoChiroMobile appointment:",
+  howItWorksIntro: "A visit anywhere in the Ridley area follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -71,7 +71,7 @@ export const ridleyPark: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to Ridley Park, Folsom, Prospect Park, Norwood and Woodlyn, GoChiroMobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to Ridley Park, Folsom, Prospect Park, Norwood and Woodlyn, Go Chiro Mobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Glenolden", href: "/service-areas/glenolden" },
     { label: "Essington", href: "/service-areas/essington" },

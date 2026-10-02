@@ -4,7 +4,7 @@ import test from "node:test";
 
 test("location titles begin with the unique place name", () => {
   const route = fs.readFileSync("app/(marketing)/service-areas/[slug]/page.tsx", "utf8");
-  assert.match(route, /title: `\$\{content\.town\}, PA Mobile Chiropractor \| GoChiroMobile`/);
+  assert.match(route, /title: `\$\{content\.town\}, PA Mobile Chiropractor \| Go Chiro Mobile`/);
   assert.match(route, /alternates: \{ canonical: `\/service-areas\/\$\{content\.slug\}` \}/);
 });
 

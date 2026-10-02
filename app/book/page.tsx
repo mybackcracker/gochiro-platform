@@ -744,7 +744,7 @@ export default function BookPage() {
 
             {zip.length === 5 && !zipRegion && (
               <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
-                This ZIP code is outside the current online service-area list. Call or text 610-494-0412 and we can
+                This ZIP code is outside the current online service-area list. Call or text (610) 494-0412 and we can
                 review it.
               </div>
             )}
@@ -843,7 +843,7 @@ export default function BookPage() {
 
             {zip.length === 5 && !zipRegion && (
               <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
-                This ZIP code is outside the current online service-area list. Call or text 610-494-0412 and we can
+                This ZIP code is outside the current online service-area list. Call or text (610) 494-0412 and we can
                 review it.
               </div>
             )}
@@ -1179,7 +1179,7 @@ export default function BookPage() {
             {!checkingAvailability && availableDayTabs.length === 0 && (
               <div className="mt-6 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
                 No openings in this window. Try &quot;In the future&quot; for a later date, or call/text
-                610-494-0412.
+                (610) 494-0412.
               </div>
             )}
 
@@ -1274,7 +1274,7 @@ export default function BookPage() {
 
             {!slotsLoading && !slotsError && slots.length === 0 && (
               <div className="mt-6 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
-                No openings that day. Try another date, or call/text 610-494-0412.
+                No openings that day. Try another date, or call/text (610) 494-0412.
               </div>
             )}
 

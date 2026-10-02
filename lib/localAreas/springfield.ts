@@ -6,16 +6,16 @@ export const springfield: LocalAreaContent = {
   slug: "springfield",
   town: "Springfield",
 
-  metaTitle: "Mobile Chiropractor in Springfield, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Springfield, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home and workplace chiropractic care in Springfield and Morton, PA from Dr. David DeFries — mobile chiropractic care along the Route 420 and Route 1 corridor.",
+    "In-home and workplace chiropractic care in Springfield and Morton, PA from Dr. David DeFries, DC — mobile chiropractic care along the Route 420 and Route 1 corridor.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Springfield, PA",
   heroLede: "In-home and workplace chiropractic care, brought directly to you in Springfield and Morton.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Springfield and Morton, Pennsylvania. Route 420 connects the two communities and meets the Route 1/Baltimore Pike corridor, putting both within easy reach of a mobile visit.",
-    "Every visit is provided by Dr. David DeFries, a licensed Doctor of Chiropractic who brings evaluation and treatment to your home or workplace so an office trip isn't necessary.",
+    "Go Chiro Mobile provides mobile chiropractic care in Springfield and Morton, Pennsylvania. Route 420 connects the two communities and meets the Route 1/Baltimore Pike corridor, putting both within easy reach of a mobile visit.",
+    "Every visit is provided by Dr. David DeFries, DC, a licensed Doctor of Chiropractic who brings evaluation and treatment to your home or workplace so an office trip isn't necessary.",
   ],
   heroImage: HOME_VISIT_IMAGE,
   heroCta: "Book a Chiropractic Visit in Springfield",
@@ -34,7 +34,7 @@ export const springfield: LocalAreaContent = {
   ],
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Springfield",
-  howItWorksIntro: "A Springfield or Morton visit follows the same three steps as every GoChiroMobile appointment:",
+  howItWorksIntro: "A Springfield or Morton visit follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -71,7 +71,7 @@ export const springfield: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to Springfield and Morton, GoChiroMobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to Springfield and Morton, Go Chiro Mobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Media", href: "/service-areas/media" },
     { label: "Wallingford", href: "/service-areas/wallingford" },

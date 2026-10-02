@@ -10,10 +10,10 @@ import {
   TagList,
   Callout,
 } from "@/components/ui";
-import { BUSINESS_PHONE } from "@/lib/gochiro";
+import { BUSINESS_PHONE, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
-  title: "Touring Production Musculoskeletal Care | Philadelphia | GoChiroMobile",
+  title: "Touring Production Musculoskeletal Care | Philadelphia | Go Chiro Mobile",
   description: "Private, professional on-site musculoskeletal care for touring artists, crew and production personnel in Philadelphia and Southeastern Pennsylvania.",
 };
 
@@ -64,9 +64,9 @@ export default function TouringProductionCarePage() {
 
       <Section tone="cream"><Container><H2>Flexible Coverage</H2><div className="mt-8 grid gap-6 md:grid-cols-3"><Callout title="Production Coverage" tone="white"><p className="text-base leading-relaxed text-muted">Reserve a provider for a defined period backstage or at another production location. Two-hour coverage is a common starting point, with longer arrangements available.</p></Callout><Callout title="Private Artist / Crew Callout" tone="white"><p className="text-base leading-relaxed text-muted">On-location care for one person at a venue, hotel or another appropriate location. Same-day requests may be accommodated when availability permits.</p></Callout><Callout title="Custom & Multi-Day" tone="white"><p className="text-base leading-relaxed text-muted">Rehearsals, theatrical runs, festivals, extended coverage and other special circumstances can be arranged individually.</p></Callout></div><p className="mt-6 text-sm text-muted">Production coverage is quoted according to the requirements of the engagement.</p></Container></Section>
 
-      <Section tone="white"><Container><div className="max-w-3xl"><H2>Philadelphia Is Our Hub. Touring Coverage Goes Further.</H2><P>Touring-production coverage is currently available at Pennsylvania locations throughout Philadelphia, Delaware County, the Main Line, King of Prussia, Chester County and surrounding Pennsylvania areas. Productions outside GoChiroMobile&apos;s regular mobile-patient service area are encouraged to inquire.</P><P>At this time, touring-production care is not available in New Jersey, Delaware or New York.</P></div></Container></Section>
+      <Section tone="white"><Container><div className="max-w-3xl"><H2>Philadelphia Is Our Hub. Touring Coverage Goes Further.</H2><P>Service area: {BUSINESS_SERVICE_AREA}. Contact Go Chiro Mobile to discuss touring-production care at a Pennsylvania location.</P><P>At this time, touring-production care is not available in New Jersey, Delaware or New York.</P></div></Container></Section>
 
-      <Section tone="cream"><Container><div className="max-w-3xl"><H2>Experience in Live Production Environments</H2><P>GoChiroMobile founder David DeFries, DC, is a third-generation chiropractor who has practiced since 2003. He has experience providing on-location care to performers, cast, crew and production personnel in Philadelphia live-event environments. The service is built around a simple principle: care has to fit the production, not the other way around.</P><P>On-site care has been provided in Philadelphia live-production environments including The Fillmore Philadelphia, The Met Philadelphia, Union Transfer and Xfinity Mobile Arena.</P></div></Container></Section>
+      <Section tone="cream"><Container><div className="max-w-3xl"><H2>Experience in Live Production Environments</H2><P>Go Chiro Mobile founder Dr. David DeFries, DC, is a third-generation chiropractor who has practiced since 2003. He has experience providing on-location care to performers, cast, crew and production personnel in Philadelphia live-event environments. The service is built around a simple principle: care has to fit the production, not the other way around.</P><P>On-site care has been provided in Philadelphia live-production environments including The Fillmore Philadelphia, The Met Philadelphia, Union Transfer and Xfinity Mobile Arena.</P></div></Container></Section>
 
       <Section tone="navy"><Container><div className="max-w-3xl"><H2 onDark>Planning a Philadelphia-Area Tour Stop?</H2><p className="mt-4 text-lg leading-relaxed text-white/85">Whether one person needs care or you want musculoskeletal services available to cast and crew, send the date, location and what you know so far. Artist identity is optional at the inquiry stage.</p><div className="mt-8 flex flex-wrap gap-3"><CTAButton href="/touring-production-care/request" variant="inverse">Request Production Coverage</CTAButton><CTAButton href={`tel:${BUSINESS_PHONE}`} variant="inverseOutline">Call / Text {BUSINESS_PHONE}</CTAButton></div></div></Container></Section>
     </div>

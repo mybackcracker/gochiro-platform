@@ -3,8 +3,8 @@ import { Container, PageHeader, Section } from "@/components/ui";
 import QRCode from "qrcode";
 
 export const metadata: Metadata = {
-  title: "Exercise Library — GoChiroMobile",
-  description: "Simple mobile-friendly exercise instructions from GoChiroMobile.",
+  title: "Exercise Library — Go Chiro Mobile",
+  description: "Simple mobile-friendly exercise instructions from Go Chiro Mobile.",
   icons: { icon: "/exercise-library-icon.svg", apple: "/exercise-library-icon.svg" },
 };
 
@@ -55,7 +55,7 @@ export default async function ExerciseLibraryPage() {
                     <div className="px-5 py-4 text-lg font-semibold text-slate-900">{item.title}</div>
                     <img
                       src={item.image}
-                      alt={`${item.title} exercise guide from GoChiroMobile`}
+                      alt={`${item.title} exercise guide from Go Chiro Mobile`}
                       className="h-auto w-full"
                       loading="lazy"
                     />
@@ -67,8 +67,8 @@ export default async function ExerciseLibraryPage() {
         </div>
         <div className="mx-auto mt-12 max-w-3xl border-t border-slate-200 pt-10 text-center">
           <h2 className="text-xl font-bold text-slate-900">Keep the Exercise Library on Your Phone</h2>
-          <p className="mt-2 text-sm text-slate-600">Scan this code to open the complete GoChiroMobile Exercise Library.</p>
-          <img src={libraryQr} alt="QR code for the GoChiroMobile Exercise Library" className="mx-auto mt-5 h-52 w-52" />
+          <p className="mt-2 text-sm text-slate-600">Scan this code to open the complete Go Chiro Mobile Exercise Library.</p>
+          <img src={libraryQr} alt="QR code for the Go Chiro Mobile Exercise Library" className="mx-auto mt-5 h-52 w-52" />
         </div>
         <p className="mx-auto mt-10 max-w-3xl text-sm text-slate-600">
           These instructions are educational and are intended to support the exercise plan discussed during your visit. Stop if an exercise causes pain or worsening symptoms.

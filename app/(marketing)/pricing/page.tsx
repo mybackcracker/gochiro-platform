@@ -17,7 +17,7 @@ import {
 } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
-  title: "Pricing — GoChiroMobile",
+  title: "Pricing — Go Chiro Mobile",
   description: "Know what your visit costs before you book.",
 };
 
@@ -52,7 +52,7 @@ export default function PricingPage() {
             lede="Know what your visit costs before you book."
           />
           <P className="max-w-2xl">
-            GoChiroMobile is primarily a self-pay practice. Your exact price is shown during
+            Go Chiro Mobile is primarily a self-pay practice. Your exact price is shown during
             scheduling before you confirm your appointment.
           </P>
 

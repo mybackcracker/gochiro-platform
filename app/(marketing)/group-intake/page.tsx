@@ -3,7 +3,7 @@ import { CTAButton, Container, PageHeader, Section } from "@/components/ui";
 import { BUSINESS_PHONE } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
-  title: "Group Visit New Patient Intake — GoChiroMobile",
+  title: "Group Visit New Patient Intake — Go Chiro Mobile",
   description: "Group Visit guidance and the regular new-patient intake for each participant.",
 };
 

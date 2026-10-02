@@ -101,7 +101,7 @@ export default function ProductionRequestForm() {
       setForm(initialState);
     } catch (error) {
       setStatus("error");
-      setMessage(error instanceof Error ? error.message : "Unable to send your request. Please call or text GoChiroMobile.");
+      setMessage(error instanceof Error ? error.message : "Unable to send your request. Please call or text Go Chiro Mobile.");
     }
   }
 

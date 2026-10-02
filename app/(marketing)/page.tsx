@@ -17,13 +17,13 @@ import {
   ImageFrame,
 } from "@/components/ui";
 import ZipChecker from "@/components/ZipChecker";
-import { BUSINESS_PHONE } from "@/lib/gochiro";
+import { BUSINESS_PHONE, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
 import { HOME_VISIT_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
 
 export const metadata: Metadata = {
-  title: "GoChiroMobile — Chiropractic Care That Comes to You",
+  title: "Go Chiro Mobile — Chiropractic Care That Comes to You",
   description:
-    "Dr. David DeFries provides one-on-one chiropractic care in your home, workplace, or other convenient location.",
+    "Dr. David DeFries, DC provides one-on-one chiropractic care in your home, workplace, or other convenient location.",
 };
 
 export default function HomePage() {
@@ -67,8 +67,8 @@ export default function HomePage() {
                 waiting room, or another stop in your day.
               </Lede>
               <P>
-                Appointments are available 7 days a week across Delaware County, parts of Chester
-                County and the Main Line. Check your area, see your price and available times, and
+                Appointments are available 7 days a week. Service area: {BUSINESS_SERVICE_AREA}.
+                Check your area, see your price and available times, and
                 schedule online.
               </P>
               <div className="mt-8 flex flex-wrap items-center gap-4">
@@ -131,9 +131,9 @@ export default function HomePage() {
             }
           >
             <Eyebrow>Meet the Doctor</Eyebrow>
-            <H2 className="mt-3">Meet Dr. David DeFries</H2>
+            <H2 className="mt-3">Meet Dr. David DeFries, DC</H2>
             <P>
-              Dr. David DeFries is a third-generation chiropractor who has been practicing since
+              Dr. David DeFries, DC is a third-generation chiropractor who has been practicing since
               2003. He graduated from Parker College of Chiropractic and is a licensed Doctor of
               Chiropractic in Pennsylvania.
             </P>
@@ -148,7 +148,7 @@ export default function HomePage() {
             <Eyebrow>Touring Productions & Live Events</Eyebrow>
             <H2 className="mt-3">On-Site Care for Touring Productions</H2>
             <P>
-              GoChiroMobile provides on-site musculoskeletal care for touring artists, performers,
+              Go Chiro Mobile provides on-site musculoskeletal care for touring artists, performers,
               cast, crew and production personnel at Pennsylvania venues and production locations.
               Coverage can be arranged for one person or for multiple people during a defined production window.
             </P>

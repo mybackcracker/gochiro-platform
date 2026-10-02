@@ -6,16 +6,16 @@ export const glenMills: LocalAreaContent = {
   slug: "glen-mills",
   town: "Glen Mills",
 
-  metaTitle: "Mobile Chiropractor in Glen Mills, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Glen Mills, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Glen Mills, PA from Dr. David DeFries. Evaluation and treatment brought directly to your home or workplace.",
+    "In-home chiropractic care in Glen Mills, PA from Dr. David DeFries, DC. Evaluation and treatment brought directly to your home or workplace.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Glen Mills, PA",
   heroLede: "Chiropractic care brought directly to your home or workplace in Glen Mills.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Glen Mills, Pennsylvania, bringing evaluation, treatment and hands-on care directly to your location instead of requiring another drive to an office.",
-    "Glen Mills sits between several communities GoChiroMobile regularly serves in Delaware and Chester counties, making mobile care a practical option for patients whose work, family schedule or mobility makes an office visit less convenient.",
+    "Go Chiro Mobile provides mobile chiropractic care in Glen Mills, Pennsylvania, bringing evaluation, treatment and hands-on care directly to your location instead of requiring another drive to an office.",
+    "Glen Mills sits between several communities Go Chiro Mobile regularly serves in Delaware and Chester counties, making mobile care a practical option for patients whose work, family schedule or mobility makes an office visit less convenient.",
   ],
   heroImage: HOME_VISIT_IMAGE,
   heroCta: "Book a Chiropractic Visit in Glen Mills",
@@ -52,20 +52,20 @@ export const glenMills: LocalAreaContent = {
 
   schedulingHeading: "Scheduling Mobile Care in Glen Mills",
   schedulingParagraphs: [
-    "Glen Mills is convenient to GoChiroMobile service areas in both southern Delaware County and Chester County, including nearby Chadds Ford, Garnet Valley, Aston and West Chester-area communities.",
+    "Glen Mills is convenient to Go Chiro Mobile service areas in both southern Delaware County and Chester County, including nearby Chadds Ford, Garnet Valley, Aston and West Chester-area communities.",
     "Available appointment times are shown during online scheduling based on the visit type, location and the mobile route for that day.",
   ],
 
   workplaceHeading: "Workplace and Group Visits in Glen Mills",
   workplaceParagraphs: [
-    "GoChiroMobile can also provide wellness-focused chiropractic care for two or more people at one Glen Mills location, including homes and workplaces when the setting is appropriate.",
+    "Go Chiro Mobile can also provide wellness-focused chiropractic care for two or more people at one Glen Mills location, including homes and workplaces when the setting is appropriate.",
     "Group Visit pricing is based on group size and location, with an additional charge for each new patient and for weekend scheduling. Your complete group total is shown before booking.",
   ],
   workplaceCta: "Ask About a Group or Workplace Visit",
 
   nearbyHeading: "Also Serving Communities Near Glen Mills",
   nearbyParagraph:
-    "GoChiroMobile serves communities surrounding Glen Mills throughout southern Delaware County and parts of Chester County. Nearby service-area pages include:",
+    "Go Chiro Mobile serves communities surrounding Glen Mills throughout southern Delaware County and parts of Chester County. Nearby service-area pages include:",
   nearbyAreas: [
     { label: "Garnet Valley", href: "/service-areas/garnet-valley" },
     { label: "Chadds Ford", href: "/service-areas/chadds-ford" },

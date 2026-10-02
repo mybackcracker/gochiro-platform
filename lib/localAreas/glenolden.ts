@@ -6,16 +6,16 @@ export const glenolden: LocalAreaContent = {
   slug: "glenolden",
   town: "Glenolden",
 
-  metaTitle: "Mobile Chiropractor in Glenolden & Holmes, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Glenolden & Holmes, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Glenolden and Holmes, PA from Dr. David DeFries, brought directly to your home or workplace in eastern Delaware County.",
+    "In-home chiropractic care in Glenolden and Holmes, PA from Dr. David DeFries, DC, brought directly to your home or workplace in eastern Delaware County.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Glenolden & Holmes, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in Glenolden and Holmes.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Glenolden and Holmes, Pennsylvania — part of the eastern portion of the practice's Delaware County service territory.",
-    "Dr. David DeFries provides every visit personally. As a licensed Doctor of Chiropractic, he brings evaluation and treatment directly to your home or workplace instead of an office trip.",
+    "Go Chiro Mobile provides mobile chiropractic care in Glenolden and Holmes, Pennsylvania — part of the eastern portion of the practice's Delaware County service territory.",
+    "Dr. David DeFries, DC provides every visit personally. As a licensed Doctor of Chiropractic, he brings evaluation and treatment directly to your home or workplace instead of an office trip.",
   ],
   heroImage: IN_HOME_TREATMENT_IMAGE,
   heroCta: "Book a Chiropractic Visit in Glenolden",
@@ -34,7 +34,7 @@ export const glenolden: LocalAreaContent = {
   ],
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Glenolden",
-  howItWorksIntro: "A visit in Glenolden or Holmes follows the same three steps as every GoChiroMobile appointment:",
+  howItWorksIntro: "A visit in Glenolden or Holmes follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -71,7 +71,7 @@ export const glenolden: LocalAreaContent = {
 
   nearbyHeading: "Confirm Your Address",
   nearbyParagraph:
-    "Not every address in the Glenolden and Holmes area is necessarily within the current scheduling area, and coverage can change as the practice grows. The ZIP checker below is the fastest way to confirm your specific address, and GoChiroMobile also visits other nearby communities:",
+    "Not every address in the Glenolden and Holmes area is necessarily within the current scheduling area, and coverage can change as the practice grows. The ZIP checker below is the fastest way to confirm your specific address, and Go Chiro Mobile also visits other nearby communities:",
   nearbyAreas: [
     { label: "Ridley Park", href: "/service-areas/ridley-park" },
     { label: "Essington", href: "/service-areas/essington" },

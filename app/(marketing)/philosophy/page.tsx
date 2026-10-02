@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Section, Container, Eyebrow, H1, H2, P, Prose, CTAButton } from "@/components/ui";
 
 export const metadata: Metadata = {
-  title: "Our Philosophy — GoChiroMobile",
+  title: "Our Philosophy — Go Chiro Mobile",
   description: "My approach to chiropractic care.",
 };
 

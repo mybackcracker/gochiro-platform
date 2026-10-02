@@ -3,7 +3,7 @@ import { Section, Container, PageHeader, TagList } from "@/components/ui";
 import { BUSINESS_PHONE, PUBLIC_CONTACT_EMAIL } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
-  title: "Contact — GoChiroMobile",
+  title: "Contact — Go Chiro Mobile",
   description: "Have a question or need something outside regular online scheduling?",
 };
 
@@ -30,7 +30,7 @@ export default function ContactPage() {
         <Container>
           <PageHeader
             eyebrow="Contact"
-            title="Contact GoChiroMobile"
+            title="Contact Go Chiro Mobile"
             lede="Have a question or need something outside regular online scheduling?"
           />
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PUBLIC_CONTACT_EMAIL, BUSINESS_NAME, BUSINESS_PHONE } from "@/lib/gochiro";
+import { PUBLIC_CONTACT_EMAIL, BUSINESS_NAME, BUSINESS_PHONE, DOCTOR_NAME, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
 
 const FOOTER_LINKS = [
   { href: "/about", label: "About" },
@@ -28,6 +28,7 @@ export default function SiteFooter() {
               {PUBLIC_CONTACT_EMAIL}
             </a>
           </p>
+          <p className="mt-3 max-w-sm text-sm">Service area: {BUSINESS_SERVICE_AREA}.</p>
         </div>
         <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
           {FOOTER_LINKS.map((link) => (
@@ -38,7 +39,7 @@ export default function SiteFooter() {
         </nav>
       </div>
       <div className="border-t border-white/10 px-4 py-4 text-center text-xs text-white/60 sm:px-6">
-        Licensed Doctor of Chiropractic, Pennsylvania, DC008983. © {year} {BUSINESS_NAME}.
+        {DOCTOR_NAME} — Pennsylvania license DC008983. © {year} {BUSINESS_NAME}.
       </div>
     </footer>
   );

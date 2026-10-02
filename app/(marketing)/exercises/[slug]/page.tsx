@@ -24,8 +24,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const exercise = EXERCISES[slug];
   if (!exercise) return {};
   return {
-    title: `${exercise.title} — GoChiroMobile`,
-    description: `${exercise.title} exercise instructions from GoChiroMobile.`,
+    title: `${exercise.title} — Go Chiro Mobile`,
+    description: `${exercise.title} exercise instructions from Go Chiro Mobile.`,
   };
 }
 
@@ -47,7 +47,7 @@ export default async function ExercisePage({ params }: { params: Promise<{ slug:
           <h1 className="mb-5 text-2xl font-bold text-slate-900 sm:text-3xl">{exercise.title}</h1>
           <img
             src={exercise.image}
-            alt={`${exercise.title} exercise guide from GoChiroMobile`}
+            alt={`${exercise.title} exercise guide from Go Chiro Mobile`}
             className="h-auto w-full rounded-2xl border border-slate-200"
           />
           <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 text-center">

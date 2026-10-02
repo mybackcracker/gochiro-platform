@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ area: str
   const { area } = await params;
   const data = AREAS[area as keyof typeof AREAS];
   if (!data) return {};
-  return { title: `${data.title} — GoChiroMobile`, description: data.description };
+  return { title: `${data.title} — Go Chiro Mobile`, description: data.description };
 }
 
 export default async function GroupVisitsAreaPage({ params }: { params: Promise<{ area: string }> }) {

@@ -66,6 +66,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Production request email delivery failed.", error);
-    return NextResponse.json({ error: "Unable to send your request right now. Please call or text GoChiroMobile." }, { status: 500 });
+    return NextResponse.json({ error: "Unable to send your request right now. Please call or text Go Chiro Mobile." }, { status: 500 });
   }
 }

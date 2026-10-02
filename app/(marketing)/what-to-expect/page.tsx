@@ -4,7 +4,7 @@ import { Section, Container, PageHeader, Step, CTAButton, Callout, ImageFrame, T
 import { HOUSE_CALL_TREATMENT_IMAGE } from "@/lib/images";
 
 export const metadata: Metadata = {
-  title: "What to Expect — GoChiroMobile",
+  title: "What to Expect — Go Chiro Mobile",
   description: "What happens before, during and after a mobile chiropractic visit.",
 };
 

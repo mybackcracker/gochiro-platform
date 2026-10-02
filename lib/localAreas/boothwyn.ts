@@ -6,16 +6,16 @@ export const boothwyn: LocalAreaContent = {
   slug: "boothwyn",
   town: "Boothwyn",
 
-  metaTitle: "Mobile Chiropractor in Boothwyn, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Boothwyn, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Boothwyn and Upper Chichester, PA from Dr. David DeFries, a longtime resident of the area, also serving Lower Chichester, Trainer and Marcus Hook.",
+    "In-home chiropractic care in Boothwyn and Upper Chichester, PA from Dr. David DeFries, DC, a longtime resident of the area, also serving Lower Chichester, Trainer and Marcus Hook.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Boothwyn, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in Boothwyn and Upper Chichester.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Boothwyn and Upper Chichester, Pennsylvania, along Chichester Avenue and Route 322, also reaching Lower Chichester, Trainer and Marcus Hook.",
-    "Every visit is provided by Dr. David DeFries, a licensed Doctor of Chiropractic, who brings evaluation and treatment directly to your home or workplace rather than requiring a trip to an office.",
+    "Go Chiro Mobile provides mobile chiropractic care in Boothwyn and Upper Chichester, Pennsylvania, along Chichester Avenue and Route 322, also reaching Lower Chichester, Trainer and Marcus Hook.",
+    "Every visit is provided by Dr. David DeFries, DC, a licensed Doctor of Chiropractic, who brings evaluation and treatment directly to your home or workplace rather than requiring a trip to an office.",
   ],
   heroImage: LAPTOP_CONSULTATION_IMAGE,
   heroCta: "Book a Chiropractic Visit in Boothwyn",
@@ -29,14 +29,14 @@ export const boothwyn: LocalAreaContent = {
 
   connectionHeading: "A Longtime Resident of the Boothwyn Area",
   connectionParagraphs: [
-    "Dr. DeFries is a longtime resident of the Boothwyn/Upper Chichester area. Before moving to the mobile model that became GoChiroMobile, he practiced in Boothwyn for approximately 15 years.",
+    "Dr. DeFries is a longtime resident of the Boothwyn/Upper Chichester area. Before moving to the mobile model that became Go Chiro Mobile, he practiced in Boothwyn for approximately 15 years.",
     "That local familiarity carries directly into the mobile practice — care built around the same community he has lived and practiced in, now brought to the patient's own home or workplace.",
   ],
   connectionImage: DOCTOR_PORTRAIT_IMAGE,
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in Boothwyn",
   howItWorksIntro:
-    "Practical, mobile convenience is central to how a Boothwyn visit works — the same three steps as every GoChiroMobile appointment:",
+    "Practical, mobile convenience is central to how a Boothwyn visit works — the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -73,7 +73,7 @@ export const boothwyn: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to Boothwyn and Upper Chichester, GoChiroMobile visits Lower Chichester, Trainer, Marcus Hook and other nearby communities. If you're nearby but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to Boothwyn and Upper Chichester, Go Chiro Mobile visits Lower Chichester, Trainer, Marcus Hook and other nearby communities. If you're nearby but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Aston", href: "/service-areas/aston" },
     { label: "Brookhaven", href: "/service-areas/brookhaven" },

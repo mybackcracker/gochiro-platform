@@ -6,16 +6,16 @@ export const mainLine: LocalAreaContent = {
   slug: "main-line",
   town: "Main Line",
 
-  metaTitle: "Mobile Chiropractor on the Main Line, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor on the Main Line, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care across the Main Line, PA from Dr. David DeFries, brought directly to your home, workplace or hotel along the Route 30/Lancaster Avenue corridor.",
+    "In-home chiropractic care across the Main Line, PA from Dr. David DeFries, DC, brought directly to your home, workplace or hotel along the Route 30/Lancaster Avenue corridor.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor on the Main Line, PA",
   heroLede: "In-home chiropractic care, brought directly to you across the Main Line.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care across the Main Line, the corridor of established communities along Route 30/Lancaster Avenue that includes Ardmore, Bryn Mawr, Rosemont, Haverford, Villanova, Wayne, Radnor, Wynnewood, Berwyn and Devon.",
-    "The Main Line is home to established residential communities, businesses, and colleges and universities. GoChiroMobile has no relationship with any of those institutions — the mobile model simply brings evaluation and treatment directly to a patient's home, workplace, hotel or other appropriate location, wherever they happen to be in the area.",
+    "Go Chiro Mobile provides mobile chiropractic care across the Main Line, the corridor of established communities along Route 30/Lancaster Avenue that includes Ardmore, Bryn Mawr, Rosemont, Haverford, Villanova, Wayne, Radnor, Wynnewood, Berwyn and Devon.",
+    "The Main Line is home to established residential communities, businesses, and colleges and universities. Go Chiro Mobile has no relationship with any of those institutions — the mobile model simply brings evaluation and treatment directly to a patient's home, workplace, hotel or other appropriate location, wherever they happen to be in the area.",
   ],
   heroImage: HOUSE_CALL_TREATMENT_IMAGE,
   heroCta: "Book a Chiropractic Visit on the Main Line",
@@ -30,11 +30,11 @@ export const mainLine: LocalAreaContent = {
   connectionHeading: "A Corridor Named for a Railroad",
   connectionParagraphs: [
     "The Main Line takes its name literally from the Pennsylvania Railroad's original main line service, which began running along the Lancaster Avenue/Route 30 corridor in the 1830s and was developed by the railroad after 1850 into a string of suburban stops built explicitly as commuter communities for the era. That history is why the Main Line reads less like one town and more like a sequence of them — Ardmore, Bryn Mawr, Rosemont, Haverford, Villanova, Wayne, Radnor, Wynnewood, Berwyn and Devon — each built up around its own station along Route 30 rather than a single shared downtown.",
-    "GoChiroMobile has been expanding scheduling further into these communities, and that same station-by-station geography is why a mobile visit fits the Main Line well: rather than asking a patient in one Main Line community to drive to an office located in another, care travels the corridor to wherever the appointment actually is — home, workplace or hotel.",
+    "Go Chiro Mobile has been expanding scheduling further into these communities, and that same station-by-station geography is why a mobile visit fits the Main Line well: rather than asking a patient in one Main Line community to drive to an office located in another, care travels the corridor to wherever the appointment actually is — home, workplace or hotel.",
   ],
 
   howItWorksHeading: "How In-Home Chiropractic Care Works on the Main Line",
-  howItWorksIntro: "A Main Line visit follows the same three steps as every GoChiroMobile appointment:",
+  howItWorksIntro: "A Main Line visit follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -71,7 +71,7 @@ export const mainLine: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to the Main Line, GoChiroMobile visits other nearby communities. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to the Main Line, Go Chiro Mobile visits other nearby communities. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Havertown", href: "/service-areas/havertown" },
     "Ardmore",

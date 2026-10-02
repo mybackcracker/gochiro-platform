@@ -23,15 +23,26 @@ export const CALENDAR_ID =
 // PUBLIC_CONTACT_EMAIL and BOOKING_NOTIFICATION_EMAIL are deliberately
 // separate constants (2026-08-28 decision), even though they happen to share
 // a value history: PUBLIC_CONTACT_EMAIL is shown anywhere a patient/visitor
-// sees "the GoChiroMobile email address" (site footer, etc.).
+// sees "the Go Chiro Mobile email address" (site footer, etc.).
 // BOOKING_NOTIFICATION_EMAIL is the internal/doctor recipient for booking
 // notifications — an operational/backend address, intentionally not tied to
 // the public-facing value.
 export const PUBLIC_CONTACT_EMAIL = "contact@gochiromobile.com";
 export const BOOKING_NOTIFICATION_EMAIL = "contact@mybackcracker.com";
-export const BUSINESS_NAME = "GoChiroMobile";
-export const DOCTOR_NAME = "Dr. David DeFries";
+export const BUSINESS_NAME = "Go Chiro Mobile";
+export const DOCTOR_NAME = "Dr. David DeFries, DC";
 export const BUSINESS_PHONE = "(610) 494-0412";
+export const BUSINESS_SERVICE_AREA = "Delaware County, parts of Chester County, and the Main Line, PA (Pennsylvania only)";
+// Confirmed October 2, 2026. Service-area business; no public street address.
+export const BUSINESS_HOURS = [
+  { day: "Monday", hours: "9 a.m.–6 p.m." },
+  { day: "Tuesday", hours: "9 a.m.–6 p.m." },
+  { day: "Wednesday", hours: "9 a.m.–6 p.m." },
+  { day: "Thursday", hours: "9 a.m.–6 p.m." },
+  { day: "Friday", hours: "9 a.m.–4 p.m.; Main Line and West Chester until 2 p.m." },
+  { day: "Saturday", hours: "9 a.m.–1 p.m.; premium areas until noon" },
+  { day: "Sunday", hours: "9 a.m.–1 p.m." },
+] as const;
 export const VENMO_LINK = "https://venmo.com/u/mybackcracker";
 export const VENMO_LAST4 = "7752";
 export const INTAKE_DEADLINE_HOURS = 2;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Section, Container, PageHeader, H3, ChoiceCard } from "@/components/ui";
 
 export const metadata: Metadata = {
-  title: "Book Online — GoChiroMobile",
+  title: "Book Online — Go Chiro Mobile",
   description: "Choose the option that applies to you.",
 };
 

@@ -6,15 +6,15 @@ export const essington: LocalAreaContent = {
   slug: "essington",
   town: "Essington",
 
-  metaTitle: "Mobile Chiropractor in Essington & Tinicum, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in Essington & Tinicum, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home and hotel-based chiropractic care in Essington and Tinicum, PA near Philadelphia International Airport, from Dr. David DeFries.",
+    "In-home and hotel-based chiropractic care in Essington and Tinicum, PA near Philadelphia International Airport, from Dr. David DeFries, DC.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Essington & Tinicum, PA",
   heroLede: "In-home chiropractic care in Essington and Tinicum — including care that can meet travelers where they're staying.",
   heroParagraphs: [
-    "GoChiroMobile provides mobile chiropractic care in Essington and Tinicum, Pennsylvania, an area with substantial industrial activity that sits immediately next to Philadelphia International Airport.",
+    "Go Chiro Mobile provides mobile chiropractic care in Essington and Tinicum, Pennsylvania, an area with substantial industrial activity that sits immediately next to Philadelphia International Airport.",
     "That location makes a mobile visit especially practical for travelers, hotel guests and other traveling professionals — pilots, flight attendants and airline staff among them — who are staying in the area and would rather not search for a local office on a short trip.",
   ],
   heroImage: HOUSE_CALL_TREATMENT_IMAGE,
@@ -35,7 +35,7 @@ export const essington: LocalAreaContent = {
 
   howItWorksHeading: "How Mobile Chiropractic Care Works in Essington",
   howItWorksIntro:
-    "Whether you live in the area or are staying nearby for work or travel, a visit follows the same three steps as every GoChiroMobile appointment:",
+    "Whether you live in the area or are staying nearby for work or travel, a visit follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -54,7 +54,7 @@ export const essington: LocalAreaContent = {
   careHeading: "Care for New and Returning Patients",
   careParagraphs: [
     "New patients — whether local residents or travelers staying nearby — begin with a full evaluation, so care is based on what's actually found rather than a fixed routine. Returning patients continue treatment shaped by their history and progress.",
-    "Pricing depends on your location, since travel is part of a mobile visit — your exact price is shown during scheduling, before you confirm. GoChiroMobile is not affiliated with any airport, airline, hotel or employer in the area; a mobile visit is simply available to anyone within the current service area, including those staying there temporarily.",
+    "Pricing depends on your location, since travel is part of a mobile visit — your exact price is shown during scheduling, before you confirm. Go Chiro Mobile is not affiliated with any airport, airline, hotel or employer in the area; a mobile visit is simply available to anyone within the current service area, including those staying there temporarily.",
   ],
 
   schedulingHeading: "Scheduling for Travelers and Local Employers",
@@ -72,7 +72,7 @@ export const essington: LocalAreaContent = {
 
   nearbyHeading: "Confirm Your Address",
   nearbyParagraph:
-    "Coverage in the Essington and Tinicum area is determined by the current scheduling area, not by this page — use the ZIP checker below to confirm whether your specific address, or the hotel you're staying at, is currently reachable. GoChiroMobile also visits other nearby communities:",
+    "Coverage in the Essington and Tinicum area is determined by the current scheduling area, not by this page — use the ZIP checker below to confirm whether your specific address, or the hotel you're staying at, is currently reachable. Go Chiro Mobile also visits other nearby communities:",
   nearbyAreas: [
     { label: "Glenolden", href: "/service-areas/glenolden" },
     { label: "Ridley Park", href: "/service-areas/ridley-park" },

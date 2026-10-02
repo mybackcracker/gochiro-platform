@@ -3,9 +3,9 @@ import { Section, Container, PageHeader, CTAButton, H2, P, Callout } from "@/com
 import { BUSINESS_PHONE } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
-  title: "Touring Care Approach | GoChiroMobile",
+  title: "Touring Care Approach | Go Chiro Mobile",
   description:
-    "Learn how GoChiroMobile approaches acute complaints, corrective musculoskeletal care and education for touring artists, crew and production personnel.",
+    "Learn how Go Chiro Mobile approaches acute complaints, corrective musculoskeletal care and education for touring artists, crew and production personnel.",
 };
 
 export default function TouringCareApproachPage() {

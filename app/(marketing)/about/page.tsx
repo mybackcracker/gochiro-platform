@@ -4,7 +4,7 @@ import { Section, Container, Eyebrow, H1, H2, Lede, P, Prose, CTAButton, Credent
 import { LAPTOP_CONSULTATION_IMAGE, IN_HOME_TREATMENT_IMAGE } from "@/lib/images";
 
 export const metadata: Metadata = {
-  title: "About Dr. David DeFries — GoChiroMobile",
+  title: "About Dr. David DeFries, DC — Go Chiro Mobile",
   description: "Third-generation chiropractor. Practicing since 2003.",
 };
 
@@ -28,7 +28,7 @@ export default function AboutPage() {
             }
           >
             <Eyebrow>About</Eyebrow>
-            <H1 className="mt-3">Meet Dr. David DeFries</H1>
+            <H1 className="mt-3">Meet Dr. David DeFries, DC</H1>
             <Lede className="mt-4">Third-generation chiropractor. Practicing since 2003.</Lede>
             <P>
               I grew up around chiropractic care. My father was a chiropractor, and long before I
@@ -63,9 +63,9 @@ export default function AboutPage() {
               </ImageFrame>
             }
           >
-            <H2>Why I Started GoChiroMobile</H2>
+            <H2>Why I Started Go Chiro Mobile</H2>
             <P>
-              The idea for GoChiroMobile developed during COVID, when the traditional office model
+              The idea for Go Chiro Mobile developed during COVID, when the traditional office model
               suddenly changed.
             </P>
             <P>
@@ -75,7 +75,7 @@ export default function AboutPage() {
               to.
             </P>
             <P>
-              That became GoChiroMobile: chiropractic care built around bringing the visit to the
+              That became Go Chiro Mobile: chiropractic care built around bringing the visit to the
               patient.
             </P>
           </TwoColumn>
@@ -105,7 +105,7 @@ export default function AboutPage() {
           <div className="mt-12 max-w-xl">
             <CredentialsPanel
               rows={[
-                { label: "Name", value: "David DeFries, DC" },
+                { label: "Name", value: "Dr. David DeFries, DC" },
                 { label: "Education", value: "Parker College of Chiropractic, 2003" },
                 { label: "Practicing", value: "Since 2003" },
                 { label: "License", value: "Licensed Doctor of Chiropractic — Pennsylvania, DC008983" },

@@ -6,16 +6,16 @@ export const westChester: LocalAreaContent = {
   slug: "west-chester",
   town: "West Chester",
 
-  metaTitle: "Mobile Chiropractor in West Chester, PA — GoChiroMobile",
+  metaTitle: "Mobile Chiropractor in West Chester, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in West Chester, PA from Dr. David DeFries, brought directly to your home or workplace instead of requiring a trip to an office.",
+    "In-home chiropractic care in West Chester, PA from Dr. David DeFries, DC, brought directly to your home or workplace instead of requiring a trip to an office.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in West Chester, PA",
   heroLede: "In-home chiropractic care, brought directly to your home or workplace in West Chester.",
   heroParagraphs: [
-    "GoChiroMobile brings mobile chiropractic care to West Chester, Pennsylvania, a major center for Chester County along the Route 202 and Route 3/West Chester Pike corridors, home to West Chester University and a substantial mix of businesses and residential communities.",
-    "Rather than requiring a trip to a chiropractic office, care is brought directly to your home or workplace, provided by Dr. David DeFries, a licensed Doctor of Chiropractic.",
+    "Go Chiro Mobile brings mobile chiropractic care to West Chester, Pennsylvania, a major center for Chester County along the Route 202 and Route 3/West Chester Pike corridors, home to West Chester University and a substantial mix of businesses and residential communities.",
+    "Rather than requiring a trip to a chiropractic office, care is brought directly to your home or workplace, provided by Dr. David DeFries, DC, a licensed Doctor of Chiropractic.",
   ],
   heroImage: SHOULDER_EXERCISE_IMAGE,
   heroCta: "Book a Chiropractic Visit in West Chester",
@@ -30,11 +30,11 @@ export const westChester: LocalAreaContent = {
   connectionHeading: "A County Seat Older Than Its University",
   connectionParagraphs: [
     "West Chester has been the seat of Chester County since 1786, and an inn called Turk's Head anchored the settlement even earlier, as far back as 1761 — the borough's growth was actually delayed for years by a dispute with the city of Chester over where the county courthouse should permanently sit. West Chester University's own history reaches back nearly as far: it traces to an 1812 academy that became a state teacher's college in 1871 and didn't take the university name until 1983, making it a relatively recent chapter in a much older town.",
-    "As GoChiroMobile extends scheduling into West Chester, that same mix — a historic county-seat downtown, a large university community, and a wide residential and business footprint along Routes 202 and 3 — is exactly the kind of busy, spread-out area a mobile visit is built for. Care arrives directly at a home or office instead of asking someone to find time for a trip into the center of things.",
+    "As Go Chiro Mobile extends scheduling into West Chester, that same mix — a historic county-seat downtown, a large university community, and a wide residential and business footprint along Routes 202 and 3 — is exactly the kind of busy, spread-out area a mobile visit is built for. Care arrives directly at a home or office instead of asking someone to find time for a trip into the center of things.",
   ],
 
   howItWorksHeading: "How In-Home Chiropractic Care Works in West Chester",
-  howItWorksIntro: "A West Chester visit follows the same three steps as every GoChiroMobile appointment:",
+  howItWorksIntro: "A West Chester visit follows the same three steps as every Go Chiro Mobile appointment:",
   howItWorksSteps: [
     {
       title: "Schedule online",
@@ -71,7 +71,7 @@ export const westChester: LocalAreaContent = {
 
   nearbyHeading: "Also Serving Nearby Communities",
   nearbyParagraph:
-    "In addition to West Chester, GoChiroMobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
+    "In addition to West Chester, Go Chiro Mobile visits other communities nearby. If you're close by but not sure your address is covered, enter your ZIP code to check availability:",
   nearbyAreas: [
     { label: "Chadds Ford", href: "/service-areas/chadds-ford" },
     { label: "Newtown Square", href: "/service-areas/newtown-square" },
