@@ -1,5 +1,5 @@
 import type { LocalAreaContent } from "./types";
-import { insurancePaymentAnswer, availabilityAnswer } from "@/lib/faqs";
+import { insurancePaymentAnswer, westAvailabilityAnswer, standardWeekdayPricingAnswer } from "@/lib/faqs";
 import { LAPTOP_CONSULTATION_IMAGE } from "@/lib/images";
 import { CLINICAL_CARE_CATEGORIES } from "./clinicalCare";
 
@@ -87,8 +87,13 @@ export const chaddsFord: LocalAreaContent = {
       links: [{"label": "About Dr. David DeFries", "href": "/about"}],
     },
     {
+      question: "How much does a mobile chiropractor cost in Chadds Ford?",
+      answer: standardWeekdayPricingAnswer,
+      links: [{ label: "Full visit pricing", href: "/pricing" }],
+    },
+    {
       question: "How soon can I get an appointment in Chadds Ford?",
-      answer: availabilityAnswer,
+      answer: westAvailabilityAnswer,
       links: [{"label": "Check available appointments", "href": "/book-online"}],
     },
     {

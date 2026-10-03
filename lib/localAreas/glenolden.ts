@@ -1,5 +1,5 @@
 import type { LocalAreaContent } from "./types";
-import { insurancePaymentAnswer, availabilityAnswer } from "@/lib/faqs";
+import { insurancePaymentAnswer, westAvailabilityAnswer, standardWeekdayPricingAnswer } from "@/lib/faqs";
 import { IN_HOME_TREATMENT_IMAGE } from "@/lib/images";
 import { CLINICAL_CARE_CATEGORIES } from "./clinicalCare";
 
@@ -88,8 +88,13 @@ export const glenolden: LocalAreaContent = {
       links: [{"label": "About Dr. David DeFries", "href": "/about"}],
     },
     {
+      question: "How much does a mobile chiropractor cost in Glenolden?",
+      answer: standardWeekdayPricingAnswer,
+      links: [{ label: "Full visit pricing", href: "/pricing" }],
+    },
+    {
       question: "How soon can I get an appointment in Glenolden?",
-      answer: availabilityAnswer,
+      answer: westAvailabilityAnswer,
       links: [{"label": "Check available appointments", "href": "/book-online"}],
     },
     {

@@ -34,5 +34,3 @@ export const centralAvailabilityAnswer =
 export const premiumAvailabilityAnswer =
   "Check online booking for the next available appointment. Appointment hours are Monday–Thursday, 9 a.m.–6 p.m.; Friday, 9 a.m.–2 p.m.; Saturday, 9 a.m.–noon; and Sunday, 9 a.m.–1 p.m. Availability depends on the schedule and visit type.";
 
-export const availabilityAnswer =
-  "Check online booking for the next available appointment. Published hours and regional exceptions are listed in the Visit Hours & Pricing section above. Availability depends on the schedule and visit type.";

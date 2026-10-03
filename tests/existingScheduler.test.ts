@@ -1,7 +1,19 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { VISITS, groupVisitDurationMin, groupVisitTotal, isValidGroupVisitComposition, priceFor, priceForDate, resolvePriorityVisit, visitTypesForLeadTime } from "../lib/gochiro";
+import { VISITS, findRegion, groupVisitDurationMin, groupVisitTotal, isValidGroupVisitComposition, priceFor, priceForDate, resolvePriorityVisit, visitTypesForLeadTime } from "../lib/gochiro";
 import { computeAvailableSlots } from "../lib/scheduling";
+
+test("Glenolden and Chadds Ford ZIP bookings use their approved Standard regions", () => {
+  for (const [zip, expectedRegion] of [["19036", "East"], ["19317", "West"]] as const) {
+    const region = findRegion(zip);
+    assert.equal(region, expectedRegion);
+    assert.ok(region);
+    assert.equal(priceFor(region, "new-patient"), 100);
+    assert.equal(priceFor(region, "maintenance"), 60);
+    assert.equal(priceForDate(region, "new-patient", "2026-10-03"), 120);
+    assert.equal(priceForDate(region, "new-patient", "2026-10-04"), 140);
+  }
+});
 
 test("existing pricing, lead-time, priority, and group rules remain intact", () => {
   assert.equal(priceFor("East", "new-patient"), 100);
