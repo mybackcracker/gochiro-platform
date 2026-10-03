@@ -19,6 +19,9 @@ import {
 import ZipChecker from "@/components/ZipChecker";
 import { BUSINESS_PHONE, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
 import { HOME_VISIT_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
+import JsonLd from "@/components/JsonLd";
+import { localBusinessSchema } from "@/lib/businessSchema";
+import { LOCAL_AREAS } from "@/lib/localAreas";
 
 export const metadata: Metadata = {
   title: "Go Chiro Mobile — Chiropractic Care That Comes to You",
@@ -29,6 +32,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div>
+      <JsonLd data={localBusinessSchema(Object.values(LOCAL_AREAS))} />
       <div className="bg-navy text-white">
         <Container>
           <div className="flex flex-col items-center justify-center gap-2 py-3 text-center sm:flex-row sm:gap-3">

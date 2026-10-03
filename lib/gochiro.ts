@@ -40,7 +40,7 @@ export const BUSINESS_HOURS = [
   { day: "Wednesday", hours: "9 a.m.–6 p.m." },
   { day: "Thursday", hours: "9 a.m.–6 p.m." },
   { day: "Friday", hours: "9 a.m.–4 p.m.; Main Line and West Chester until 2 p.m." },
-  { day: "Saturday", hours: "9 a.m.–1 p.m.; premium areas until noon" },
+  { day: "Saturday", hours: "9 a.m.–1 p.m.; Central, Main Line and West Chester until noon" },
   { day: "Sunday", hours: "9 a.m.–1 p.m." },
 ] as const;
 export const VENMO_LINK = "https://venmo.com/u/mybackcracker";

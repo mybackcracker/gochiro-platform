@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getLocalArea, getLocalAreaSlugs } from "@/lib/localAreas";
 import LocalAreaPage from "@/components/LocalAreaPage";
+import JsonLd from "@/components/JsonLd";
+import { townServiceSchema } from "@/lib/businessSchema";
 
 export function generateStaticParams() {
   return getLocalAreaSlugs().map((slug) => ({ slug }));
@@ -32,5 +34,10 @@ export default async function LocalAreaRoute({
   const { slug } = await params;
   const content = getLocalArea(slug);
   if (!content) notFound();
-  return <LocalAreaPage content={content} />;
+  return (
+    <>
+      <JsonLd data={townServiceSchema(content)} />
+      <LocalAreaPage content={content} />
+    </>
+  );
 }

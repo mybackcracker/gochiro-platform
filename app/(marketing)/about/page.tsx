@@ -2,6 +2,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { Section, Container, Eyebrow, H1, H2, Lede, P, Prose, CTAButton, CredentialsPanel, ImageFrame, TwoColumn } from "@/components/ui";
 import { LAPTOP_CONSULTATION_IMAGE, IN_HOME_TREATMENT_IMAGE } from "@/lib/images";
+import JsonLd from "@/components/JsonLd";
+import { doctorPersonSchema } from "@/lib/businessSchema";
 
 export const metadata: Metadata = {
   title: "About Dr. David DeFries, DC — Go Chiro Mobile",
@@ -11,6 +13,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div>
+      <JsonLd data={doctorPersonSchema()} />
       <Section tone="white" className="pb-14 pt-14 sm:pt-20">
         <Container>
           <TwoColumn

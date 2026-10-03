@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import { BUSINESS_NAME, BUSINESS_PHONE } from "@/lib/gochiro";
+import { SCHEMA_SITE_URL } from "@/lib/businessSchema";
 import MarketingHeader from "@/components/MarketingHeader";
 import SiteFooter from "@/components/SiteFooter";
 
-const SITE_URL = "https://gochiromobile.com";
+const SITE_URL = SCHEMA_SITE_URL;
 
 const searchSignals = {
   "@context": "https://schema.org",
