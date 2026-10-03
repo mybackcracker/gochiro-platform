@@ -11,7 +11,7 @@ import {
   GROUP_INTAKE_URL,
   INTAKE_DEADLINE_HOURS,
   VISITS,
-  priceFor,
+  priceForDate,
   paymentLinkFor,
   groupVisitTotal,
   groupVisitExistingPatientRate,
@@ -81,6 +81,13 @@ function buildBookingEmailData(input: BookingEmailInput, intakeLink?: string): B
   const arrivalStart = new Date(input.start.getTime() - 15 * 60000);
   const arrivalEnd = new Date(input.start.getTime() + 15 * 60000);
   const streetLine = input.addressLine2 ? `${input.address}, ${input.addressLine2}` : input.address;
+  const appointmentDate = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(input.start);
+  const appointmentDay = new Date(`${appointmentDate}T12:00:00Z`).getUTCDay();
 
   return {
     patientName: `${input.firstName} ${input.lastName}`,
@@ -96,8 +103,8 @@ function buildBookingEmailData(input: BookingEmailInput, intakeLink?: string): B
     timeStr: formatTime(input.start),
     arrivalStartStr: formatTime(arrivalStart),
     arrivalEndStr: formatTime(arrivalEnd),
-    price: priceFor(input.region, input.visit),
-    paymentLink: paymentLinkFor(input.region, input.visit),
+    price: priceForDate(input.region, input.visit, appointmentDate),
+    paymentLink: appointmentDay === 0 || appointmentDay === 6 ? "" : paymentLinkFor(input.region, input.visit),
     intakeLink,
   };
 }
