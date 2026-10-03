@@ -1,11 +1,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { VISITS, groupVisitDurationMin, groupVisitTotal, isValidGroupVisitComposition, priceFor, resolvePriorityVisit, visitTypesForLeadTime } from "../lib/gochiro";
+import { VISITS, groupVisitDurationMin, groupVisitTotal, isValidGroupVisitComposition, priceFor, priceForDate, resolvePriorityVisit, visitTypesForLeadTime } from "../lib/gochiro";
 import { computeAvailableSlots } from "../lib/scheduling";
 
 test("existing pricing, lead-time, priority, and group rules remain intact", () => {
   assert.equal(priceFor("East", "new-patient"), 100);
-  assert.equal(priceFor("Central", "new-patient"), 160);
+  assert.equal(priceFor("Central", "new-patient"), 100);
+  assert.equal(priceFor("MainLine", "new-patient"), 160);
+  assert.equal(priceForDate("West", "new-patient", "2026-10-03"), 120);
+  assert.equal(priceForDate("MainLine", "new-patient", "2026-10-03"), 160);
+  assert.equal(priceForDate("West", "new-patient", "2026-10-04"), 140);
+  assert.equal(priceForDate("MainLine", "new-patient", "2026-10-04"), 180);
   assert(!visitTypesForLeadTime(1).includes("maintenance"));
   assert(visitTypesForLeadTime(2).includes("maintenance"));
   assert.equal(VISITS["care-plan"].minLeadDays, 8 / 24);
