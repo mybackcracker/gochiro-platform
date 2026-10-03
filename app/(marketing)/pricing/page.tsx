@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import FAQs from "@/components/FAQs";
+import type { FAQItem } from "@/lib/faqs";
 import {
   Section,
   Container,
@@ -13,6 +15,7 @@ import {
   GROUP_VISIT_MIN_PARTICIPANTS,
   GROUP_VISIT_MAX_PARTICIPANTS,
   GROUP_VISIT_NEW_PATIENT_SURCHARGE,
+  GROUP_VISIT_WEEKEND_SURCHARGE,
   type VisitType,
 } from "@/lib/gochiro";
 
@@ -40,6 +43,37 @@ function priceRange(v: VisitType): string {
   if (standard === null || premium === null) return "—";
   return standard === premium ? `$${standard}` : `$${standard}–$${premium}`;
 }
+
+const PRICING_FAQS: FAQItem[] = [
+  {
+    question: "How much is my first chiropractic visit?",
+    answer: `Weekday new patient visits range from ${priceRange("new-patient")}, depending on the visit location. Weekend pricing differs. Your exact price is shown during booking for your location and selected date, before you confirm.`,
+    links: [{ label: "Explore service areas", href: "/service-areas" }, { label: "Check your visit price", href: "/book-online" }],
+  },
+  {
+    question: "How much are visits for existing patients?",
+    answer: `Weekday maintenance visits range from ${priceRange("maintenance")}, priority visits from ${priceRange("priority-standard")}, upgraded priority visits from ${priceRange("priority-upgraded")}, and care plan visits from ${priceRange("care-plan")}. The price depends on your service area and visit type.`,
+    links: [{ label: "Explore service areas", href: "/service-areas" }],
+  },
+  {
+    question: "Do weekend appointments cost more?",
+    answer: "Weekend prices differ by visit type and service area. Choose your visit and date during booking to see the exact price before confirming.",
+    links: [{ label: "See available appointments", href: "/book-online" }],
+  },
+  {
+    question: "Do you take insurance, and how can I pay?",
+    answer: "Routine visits are self-pay and are not billed to insurance. Cash, check, credit card, HSA/FSA and Venmo are accepted. Motor vehicle accident and work-injury visits may be billed through applicable insurance or claims.",
+  },
+  {
+    question: "How much does a group chiropractic visit cost?",
+    answer: `For groups of ${GROUP_VISIT_MIN_PARTICIPANTS}–${GROUP_VISIT_MAX_PARTICIPANTS} people, the base rate is $40–$60 per person, depending on group size and location. Each new patient adds $${GROUP_VISIT_NEW_PATIENT_SURCHARGE}. Saturday or Sunday adds $${GROUP_VISIT_WEEKEND_SURCHARGE} to the total group fee. The complete total is shown before booking.`,
+    links: [{ label: "Group visit details and booking", href: "/book?start=group" }],
+  },
+  {
+    question: "Can I get paperwork to submit to my health insurance?",
+    answer: "Yes. Go Chiro Mobile can provide billing paperwork for you to submit to your health insurance for possible reimbursement. We do not submit routine health insurance claims on your behalf. Reimbursement depends on your plan and is not guaranteed.",
+  },
+];
 
 export default function PricingPage() {
   return (
@@ -156,6 +190,7 @@ export default function PricingPage() {
           </div>
         </Container>
       </Section>
+      <FAQs items={PRICING_FAQS} path="/pricing" title="Frequently Asked Questions About Visit Pricing" />
     </div>
   );
 }
