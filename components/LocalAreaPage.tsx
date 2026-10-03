@@ -18,6 +18,7 @@ import {
 import LocalAreaLinkList from "@/components/LocalAreaLinkList";
 import { BUSINESS_PHONE } from "@/lib/gochiro";
 import type { LocalAreaContent } from "@/lib/localAreas/types";
+import VisitHoursPricing from "@/components/VisitHoursPricing";
 
 // Shared structural template for every local service-area page. Section
 // order, layout and the visual system (Section/Container/TwoColumn/Step/
@@ -160,6 +161,7 @@ export default function LocalAreaPage({ content }: { content: LocalAreaContent }
               <P key={paragraph}>{paragraph}</P>
             ))}
           </Prose>
+          <VisitHoursPricing />
         </Container>
       </Section>
 

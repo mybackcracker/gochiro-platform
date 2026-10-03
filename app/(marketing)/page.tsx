@@ -22,6 +22,7 @@ import { HOME_VISIT_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
 import JsonLd from "@/components/JsonLd";
 import { localBusinessSchema } from "@/lib/businessSchema";
 import { LOCAL_AREAS } from "@/lib/localAreas";
+import VisitHoursPricing from "@/components/VisitHoursPricing";
 
 export const metadata: Metadata = {
   title: "Go Chiro Mobile — Chiropractic Care That Comes to You",
@@ -92,6 +93,7 @@ export default function HomePage() {
             <ChoiceCard title="Returning Patient" description="Already a patient and have been seen within the past year." href="/book?start=returning" cta="Schedule a Visit" />
             <ChoiceCard title="Group Visit" description="Wellness-focused chiropractic care for two or more people at one location." href="/book?start=group" cta="Schedule a Group Visit" />
           </div>
+          <VisitHoursPricing />
         </Container>
       </Section>
 
