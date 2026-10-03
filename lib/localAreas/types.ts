@@ -1,3 +1,5 @@
+import type { FAQItem } from "../faqs";
+
 export interface LocalAreaImage {
   src: string;
   alt: string;
@@ -79,4 +81,5 @@ export interface LocalAreaContent {
   nearbyAreas: NearbyArea[];
 
   closingHeading: string;
+  faqs?: FAQItem[];
 }

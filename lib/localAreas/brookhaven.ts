@@ -1,4 +1,5 @@
 import type { LocalAreaContent } from "./types";
+import { standardWeekdayPricingAnswer, insurancePaymentAnswer, westAvailabilityAnswer } from "@/lib/faqs";
 import { SHOULDER_EXERCISE_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
 import { CLINICAL_CARE_CATEGORIES } from "./clinicalCare";
 
@@ -81,4 +82,36 @@ export const brookhaven: LocalAreaContent = {
   ],
 
   closingHeading: "Looking for chiropractic care in Brookhaven or a surrounding area?",
+
+  faqs: [
+    {
+      question: "Do you come to my location in Brookhaven?",
+      answer: "Yes. Go Chiro Mobile provides mobile chiropractic care at homes and workplaces in Brookhaven, PA. Dr. David DeFries, DC brings the table and equipment to you.",
+      links: [{"label": "About Dr. David DeFries", "href": "/about"}],
+    },
+    {
+      question: "How much does a mobile chiropractor cost in Brookhaven?",
+      answer: standardWeekdayPricingAnswer,
+      links: [{"label": "Full visit pricing", "href": "/pricing"}],
+    },
+    {
+      question: "How soon can I get an appointment in Brookhaven?",
+      answer: westAvailabilityAnswer,
+      links: [{"label": "Check available appointments", "href": "/book-online"}],
+    },
+    {
+      question: "What conditions do you evaluate during a mobile chiropractic visit in Brookhaven?",
+      answer: "Dr. DeFries evaluates concerns such as low back pain, sciatica, neck pain, headaches, shoulder and upper-body discomfort, foot and heel pain, stiffness and mobility limitations. Visits are also available for wellness and maintenance care. The evaluation determines whether chiropractic care is appropriate.",
+    },
+    {
+      question: "Do you take insurance, and how can I pay?",
+      answer: insurancePaymentAnswer,
+      links: [{"label": "Payment and insurance information", "href": "/pricing"}],
+    },
+    {
+      question: "What treatments might my chiropractic visit in Brookhaven include?",
+      answer: "Depending on the evaluation, care may include chiropractic manipulation, soft-tissue techniques, mobility work and guidance for between visits. Treatment is based on your findings; not every visit includes every therapy. High-intensity laser therapy may be available by advance request and requires at least one week of notice.",
+      links: [{"label": "What to expect during your visit", "href": "/what-to-expect"}, {"label": "High-intensity laser therapy availability", "href": "/high-intensity-laser-therapy"}],
+    },
+  ],
 };

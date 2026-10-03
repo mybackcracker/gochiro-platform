@@ -19,6 +19,7 @@ import LocalAreaLinkList from "@/components/LocalAreaLinkList";
 import { BUSINESS_PHONE } from "@/lib/gochiro";
 import type { LocalAreaContent } from "@/lib/localAreas/types";
 import VisitHoursPricing from "@/components/VisitHoursPricing";
+import FAQs from "@/components/FAQs";
 
 // Shared structural template for every local service-area page. Section
 // order, layout and the visual system (Section/Container/TwoColumn/Step/
@@ -198,6 +199,10 @@ export default function LocalAreaPage({ content }: { content: LocalAreaContent }
           <LocalAreaLinkList items={content.nearbyAreas} />
         </Container>
       </Section>
+
+      {content.faqs && (
+        <FAQs items={content.faqs} path={`/service-areas/${content.slug}`} title={`Frequently Asked Questions About Chiropractic Visits in ${content.town}`} />
+      )}
 
       {/* Closing CTA */}
       <Section tone="navy">
