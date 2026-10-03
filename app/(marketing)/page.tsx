@@ -12,13 +12,13 @@ import {
   CTAButton,
   ChoiceCard,
   Step,
-  TagList,
   TwoColumn,
   ImageFrame,
 } from "@/components/ui";
 import ZipChecker from "@/components/ZipChecker";
 import { BUSINESS_PHONE, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
 import { HOME_VISIT_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
+import { conditions } from "@/lib/conditions";
 
 export const metadata: Metadata = {
   title: "Go Chiro Mobile — Chiropractic Care That Comes to You",
@@ -106,7 +106,21 @@ export default function HomePage() {
       <Section tone="cream" id="conditions" className="scroll-mt-20">
         <Container>
           <H2>Common problems we help with</H2>
-          <TagList items={["Back pain", "Neck pain", "Headaches", "Sciatica", "Joint pain", "Sports injuries"]} />
+          <div className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+            {conditions.map((condition) => (
+              <Link key={condition.slug} href={`/conditions/${condition.slug}`} className="flex items-center gap-3 border-b border-line py-2 font-medium text-ink hover:text-navy hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-navy" aria-hidden />
+                {condition.name} <span aria-hidden>→</span>
+              </Link>
+            ))}
+            {["Back pain", "Headaches", "Sciatica", "Joint pain", "Sports injuries"].map((name) => (
+              <div key={name} className="flex items-center gap-3 border-b border-line py-2 font-medium text-ink">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-navy" aria-hidden />
+                {name}
+              </div>
+            ))}
+          </div>
+          <Link href="/conditions" className="mt-7 inline-flex font-semibold text-navy underline underline-offset-4">Explore common concerns</Link>
         </Container>
       </Section>
 
