@@ -9,7 +9,7 @@ export const media: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Media, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Media, Lima and Middletown Township, PA from Dr. David DeFries, DC, brought directly to your home or workplace along the Baltimore Pike corridor.",
+    "Mobile chiropractic care at your home or workplace in Media, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Media, PA",

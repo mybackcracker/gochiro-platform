@@ -9,7 +9,7 @@ export const wallingford: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Wallingford & Swarthmore, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Wallingford, Nether Providence, Swarthmore and Rose Valley, PA from Dr. David DeFries, DC, brought directly to your home or workplace.",
+    "Mobile chiropractic care at your home or workplace in Wallingford, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Wallingford & Swarthmore, PA",

@@ -9,7 +9,7 @@ export const glenMills: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Glen Mills, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Glen Mills, PA from Dr. David DeFries, DC. Evaluation and treatment brought directly to your home or workplace.",
+    "Mobile chiropractic care at your home or workplace in Glen Mills, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Glen Mills, PA",

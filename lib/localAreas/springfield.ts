@@ -9,7 +9,7 @@ export const springfield: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Springfield, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home and workplace chiropractic care in Springfield and Morton, PA from Dr. David DeFries, DC — mobile chiropractic care along the Route 420 and Route 1 corridor.",
+    "Mobile chiropractic care at your home or workplace in Springfield, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Springfield, PA",

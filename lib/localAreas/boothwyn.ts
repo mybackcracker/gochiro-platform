@@ -9,7 +9,7 @@ export const boothwyn: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Boothwyn, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Boothwyn and Upper Chichester, PA from Dr. David DeFries, DC, a longtime resident of the area, also serving Lower Chichester, Trainer and Marcus Hook.",
+    "Mobile chiropractic care at your home or workplace in Boothwyn, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Boothwyn, PA",

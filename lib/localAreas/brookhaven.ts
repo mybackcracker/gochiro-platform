@@ -9,7 +9,7 @@ export const brookhaven: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Brookhaven, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Brookhaven, Parkside and Upland, PA from Dr. David DeFries, DC, whose family has a long chiropractic history in the area.",
+    "Mobile chiropractic care at your home or workplace in Brookhaven, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Brookhaven, PA",

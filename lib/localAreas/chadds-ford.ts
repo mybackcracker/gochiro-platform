@@ -9,7 +9,7 @@ export const chaddsFord: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Chadds Ford, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Chadds Ford and Birmingham, PA from Dr. David DeFries, DC, brought directly to your home or workplace along the Route 202 and Route 926 corridors.",
+    "Mobile chiropractic care at your home or workplace in Chadds Ford, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Chadds Ford, PA",

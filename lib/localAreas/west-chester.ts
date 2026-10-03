@@ -9,7 +9,7 @@ export const westChester: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in West Chester, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in West Chester, PA from Dr. David DeFries, DC, brought directly to your home or workplace instead of requiring a trip to an office.",
+    "Mobile chiropractic care at your home or workplace in West Chester, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in West Chester, PA",

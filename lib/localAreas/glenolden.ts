@@ -9,7 +9,7 @@ export const glenolden: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Glenolden & Holmes, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Glenolden and Holmes, PA from Dr. David DeFries, DC, brought directly to your home or workplace in eastern Delaware County.",
+    "Mobile chiropractic care at your home or workplace in Glenolden, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Glenolden & Holmes, PA",

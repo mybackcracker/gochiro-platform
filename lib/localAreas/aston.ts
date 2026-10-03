@@ -9,7 +9,7 @@ export const aston: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Aston, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Aston, PA from Dr. David DeFries, DC, whose family has provided chiropractic care in southern Delaware County for three generations.",
+    "Mobile chiropractic care at your home or workplace in Aston, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Aston, PA",

@@ -9,7 +9,7 @@ export const garnetValley: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Garnet Valley & Glen Mills, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Garnet Valley, Glen Mills and Concordville, PA from Dr. David DeFries, DC, whose family has a long history of chiropractic care in southern Delaware County.",
+    "Mobile chiropractic care at your home or workplace in Garnet Valley, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Garnet Valley & Glen Mills, PA",

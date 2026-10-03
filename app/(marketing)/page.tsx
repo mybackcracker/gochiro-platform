@@ -25,9 +25,9 @@ import { LOCAL_AREAS } from "@/lib/localAreas";
 import VisitHoursPricing from "@/components/VisitHoursPricing";
 
 export const metadata: Metadata = {
-  title: "Go Chiro Mobile — Chiropractic Care That Comes to You",
+  title: "Mobile Chiropractor in the Greater Philadelphia Region",
   description:
-    "Dr. David DeFries, DC provides one-on-one chiropractic care in your home, workplace, or other convenient location.",
+    "Go Chiro Mobile brings chiropractic care to your home or workplace in Delaware County, parts of Chester County and the Main Line, PA.",
 };
 
 export default function HomePage() {

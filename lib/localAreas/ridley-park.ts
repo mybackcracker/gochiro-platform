@@ -9,7 +9,7 @@ export const ridleyPark: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Ridley Park, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home chiropractic care in Ridley Park, Ridley Township, Folsom, Prospect Park, Norwood and Woodlyn, PA from Dr. David DeFries, DC.",
+    "Mobile chiropractic care at your home or workplace in Ridley Park, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Ridley Park, PA",

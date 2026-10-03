@@ -9,7 +9,7 @@ export const essington: LocalAreaContent = {
 
   metaTitle: "Mobile Chiropractor in Essington & Tinicum, PA — Go Chiro Mobile",
   metaDescription:
-    "In-home and hotel-based chiropractic care in Essington and Tinicum, PA near Philadelphia International Airport, from Dr. David DeFries, DC.",
+    "Mobile chiropractic care at your home or workplace in Essington, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Essington & Tinicum, PA",
