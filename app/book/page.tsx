@@ -751,10 +751,11 @@ export default function BookPage() {
 
             {zipRegion && patientType === "new" && (
               <div className="mt-4 rounded-xl bg-emerald-50 p-4 text-emerald-900">
-                <span className="text-sm">New Patient, First Visit</span>
-                <span className="block text-2xl font-bold">
-                  {formatPrice(priceFor(zipRegion, "new-patient"))}
+                <span className="text-sm font-semibold">New Patient, First Visit</span>
+                <span className="mt-1 block text-sm">
+                  Weekday {formatPrice(priceFor(zipRegion, "new-patient"))} · Saturday {formatPrice(priceForDate(zipRegion, "new-patient", "2026-10-03"))} · Sunday {formatPrice(priceForDate(zipRegion, "new-patient", "2026-10-04"))}
                 </span>
+                <span className="mt-1 block text-xs">Your exact fee is shown after you select a date.</span>
               </div>
             )}
 
@@ -1124,7 +1125,15 @@ export default function BookPage() {
             {visit !== "priority-accident" && (
               <>
                 {" — "}
-                <span className="text-lg font-bold text-slate-900">{formatPrice(date ? priceForDate(region, visit, date) : priceFor(region, visit))}</span>
+                {date ? (
+                  <span className="text-lg font-bold text-slate-900">{formatPrice(priceForDate(region, visit, date))}</span>
+                ) : visit === "new-patient" ? (
+                  <span className="font-semibold text-slate-900">
+                    Weekday {formatPrice(priceFor(region, visit))} · Saturday {formatPrice(priceForDate(region, visit, "2026-10-03"))} · Sunday {formatPrice(priceForDate(region, visit, "2026-10-04"))}
+                  </span>
+                ) : (
+                  <span className="text-lg font-bold text-slate-900">{formatPrice(priceFor(region, visit))}</span>
+                )}
               </>
             )}
           </p>
