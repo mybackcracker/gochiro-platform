@@ -1,4 +1,5 @@
 import type { LocalAreaContent } from "./types";
+import { insurancePaymentAnswer, availabilityAnswer } from "@/lib/faqs";
 import { LAPTOP_CONSULTATION_IMAGE } from "@/lib/images";
 import { CLINICAL_CARE_CATEGORIES } from "./clinicalCare";
 
@@ -78,4 +79,31 @@ export const chaddsFord: LocalAreaContent = {
   ],
 
   closingHeading: "Looking for chiropractic care in Chadds Ford or a surrounding area?",
+
+  faqs: [
+    {
+      question: "Do you come to my location in Chadds Ford?",
+      answer: "Yes. Go Chiro Mobile provides mobile chiropractic care at homes and workplaces in Chadds Ford, PA. Dr. David DeFries, DC brings the table and equipment to you.",
+      links: [{"label": "About Dr. David DeFries", "href": "/about"}],
+    },
+    {
+      question: "How soon can I get an appointment in Chadds Ford?",
+      answer: availabilityAnswer,
+      links: [{"label": "Check available appointments", "href": "/book-online"}],
+    },
+    {
+      question: "What conditions do you evaluate during a mobile chiropractic visit in Chadds Ford?",
+      answer: "Dr. DeFries evaluates concerns such as low back pain, sciatica, neck pain, headaches, shoulder and upper-body discomfort, foot and heel pain, stiffness and mobility limitations. Visits are also available for wellness and maintenance care. The evaluation determines whether chiropractic care is appropriate.",
+    },
+    {
+      question: "Do you take insurance, and how can I pay?",
+      answer: insurancePaymentAnswer,
+      links: [{"label": "Payment and insurance information", "href": "/pricing"}],
+    },
+    {
+      question: "What treatments might my chiropractic visit in Chadds Ford include?",
+      answer: "Depending on the evaluation, care may include chiropractic manipulation, soft-tissue techniques, mobility work and guidance for between visits. Treatment is based on your findings; not every visit includes every therapy. High-intensity laser therapy may be available by advance request and requires at least one week of notice.",
+      links: [{"label": "What to expect during your visit", "href": "/what-to-expect"}, {"label": "High-intensity laser therapy availability", "href": "/high-intensity-laser-therapy"}],
+    },
+  ],
 };

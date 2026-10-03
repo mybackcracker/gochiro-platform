@@ -19,3 +19,20 @@ export const insurancePaymentAnswer =
 
 export const westAvailabilityAnswer =
   "Check online booking for the next available appointment. Appointment hours are Monday–Thursday, 9 a.m.–6 p.m.; Friday, 9 a.m.–4 p.m.; and Saturday–Sunday, 9 a.m.–1 p.m. Availability depends on the schedule and visit type.";
+
+export const premiumWeekdayPricingAnswer =
+  `A weekday first visit costs $${VISITS["new-patient"].premium}. ` +
+  `Weekday maintenance visits cost $${VISITS.maintenance.premium}, ` +
+  `priority visits $${VISITS["priority-standard"].premium}, ` +
+  `upgraded priority visits $${VISITS["priority-upgraded"].premium}, ` +
+  `and care plan visits $${VISITS["care-plan"].premium}. ` +
+  "Weekend pricing differs; your exact price is shown before booking.";
+
+export const centralAvailabilityAnswer =
+  "Check online booking for the next available appointment. Appointment hours are Monday–Thursday, 9 a.m.–6 p.m.; Friday, 9 a.m.–4 p.m.; Saturday, 9 a.m.–noon; and Sunday, 9 a.m.–1 p.m. Availability depends on the schedule and visit type.";
+
+export const premiumAvailabilityAnswer =
+  "Check online booking for the next available appointment. Appointment hours are Monday–Thursday, 9 a.m.–6 p.m.; Friday, 9 a.m.–2 p.m.; Saturday, 9 a.m.–noon; and Sunday, 9 a.m.–1 p.m. Availability depends on the schedule and visit type.";
+
+export const availabilityAnswer =
+  "Check online booking for the next available appointment. Published hours and regional exceptions are listed in the Visit Hours & Pricing section above. Availability depends on the schedule and visit type.";
