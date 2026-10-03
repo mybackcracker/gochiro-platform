@@ -55,7 +55,7 @@ export const ZIPS: Record<Region, string[]> = {
   WestChester: ["19319", "19373", "19380", "19382", "19383", "19395"],
 };
 
-export const PREMIUM_REGIONS: Region[] = ["Central", "MainLine", "WestChester"];
+export const PREMIUM_REGIONS: Region[] = ["MainLine", "WestChester"];
 
 // New Patient, First Visit is priced per-tier directly (not standard + flat
 // surcharge like every other visit type) — $100 standard / $160 premium.
@@ -208,7 +208,7 @@ export function priceFor(region: Region, visit: VisitType): number | null {
 
 // Weekend pricing is intentionally separate from weekday pricing.
 // Saturday: NP $120/$160, Maintenance $80/$100, Priority $100/$140.
-// Sunday: NP $160/$200, Priority $140/$180; other visit types are unavailable.
+// Sunday: NP $140/$180, Priority $100/$140; other visit types are unavailable.
 export function priceForDate(region: Region, visit: VisitType, dateISO: string): number | null {
   const tier = tierForRegion(region);
   const day = new Date(`${dateISO}T12:00:00Z`).getUTCDay();
@@ -220,8 +220,8 @@ export function priceForDate(region: Region, visit: VisitType, dateISO: string):
     if (visit === "care-plan") return tier === "premium" ? 140 : 100;
   }
   if (day === 0) {
-    if (visit === "new-patient") return tier === "premium" ? 200 : 160;
-    if (visit === "priority-standard" || visit === "priority-upgraded") return tier === "premium" ? 180 : 140;
+    if (visit === "new-patient") return tier === "premium" ? 180 : 140;
+    if (visit === "priority-standard" || visit === "priority-upgraded") return tier === "premium" ? 140 : 100;
   }
   return priceFor(region, visit);
 }
