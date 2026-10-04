@@ -6,6 +6,8 @@ import { BUSINESS_NAME, BUSINESS_PHONE } from "@/lib/gochiro";
 
 const NAV_LINKS = [
   { href: "/about", label: "About" },
+  { href: "/conditions", label: "Conditions" },
+  { href: "/treatments", label: "Treatments" },
   { href: "/philosophy", label: "Our Philosophy" },
   { href: "/what-to-expect", label: "What to Expect" },
   { href: "/forms", label: "Forms" },
@@ -41,7 +43,7 @@ export default function SiteHeader() {
           <span className="font-heading text-lg font-bold tracking-tight text-ink">{BUSINESS_NAME}</span>
         </Link>
 
-        <nav className="hidden items-center gap-x-5 gap-y-2 text-sm font-medium text-muted sm:flex">
+        <nav aria-label="Primary" className="order-3 hidden w-full flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium text-muted xl:flex">
           {NAV_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className="transition-colors hover:text-navy">
               {link.label}
@@ -52,7 +54,7 @@ export default function SiteHeader() {
         <div className="flex items-center gap-3">
           <a
             href={`tel:${BUSINESS_PHONE}`}
-            className="hidden text-sm font-medium text-muted transition-colors hover:text-navy sm:inline"
+            className="hidden text-sm font-medium text-muted transition-colors hover:text-navy xl:inline"
           >
             {BUSINESS_PHONE}
           </a>
@@ -62,7 +64,7 @@ export default function SiteHeader() {
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label={menuOpen ? "Close menu" : "Menu"}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-line text-ink transition-colors hover:border-navy/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 sm:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-lg border border-line text-ink transition-colors hover:border-navy/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 xl:hidden"
           >
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" className="h-4.5 w-4.5" aria-hidden>
               {menuOpen ? (
@@ -82,7 +84,7 @@ export default function SiteHeader() {
       </div>
 
       {menuOpen && (
-        <nav id="mobile-nav" aria-label="Site" className="border-t border-line bg-white sm:hidden">
+        <nav id="mobile-nav" aria-label="Site" className="border-t border-line bg-white xl:hidden">
           <div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-2 sm:px-6">
             {NAV_LINKS.map((link) => (
               <Link

@@ -27,6 +27,8 @@ const searchSignals = {
       name: "Go Chiro Mobile primary pages",
       itemListElement: [
         ["Book Online", "/book-online"],
+        ["Conditions", "/conditions"],
+        ["Treatments & Care", "/treatments"],
         ["Patient Forms", "/forms"],
         ["Pricing", "/pricing"],
         ["Service Areas", "/service-areas"],
