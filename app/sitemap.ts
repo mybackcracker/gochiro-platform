@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { CONDITIONS } from "@/lib/conditions";
 import { getLocalAreaSlugs } from "@/lib/localAreas";
 
 const BASE_URL = "https://gochiromobile.com";
@@ -7,6 +8,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/about",
+    "/conditions",
+    "/treatments",
+    "/whole-person-approach",
     "/book-online",
     "/contact",
     "/forms",
@@ -32,5 +36,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...localAreaPages];
+  const conditionPages: MetadataRoute.Sitemap = CONDITIONS.map(({ slug }) => ({
+    url: `${BASE_URL}/conditions/${slug}`,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...staticPages, ...localAreaPages, ...conditionPages];
 }

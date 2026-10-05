@@ -3,6 +3,8 @@ import { PUBLIC_CONTACT_EMAIL, BUSINESS_NAME, BUSINESS_PHONE, DOCTOR_NAME, BUSIN
 
 const FOOTER_LINKS = [
   { href: "/about", label: "About" },
+  { href: "/conditions", label: "Conditions" },
+  { href: "/treatments", label: "Treatments" },
   { href: "/philosophy", label: "Our Philosophy" },
   { href: "/what-to-expect", label: "What to Expect" },
   { href: "/pricing", label: "Pricing" },

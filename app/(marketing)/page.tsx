@@ -12,7 +12,6 @@ import {
   CTAButton,
   ChoiceCard,
   Step,
-  TagList,
   TwoColumn,
   ImageFrame,
 } from "@/components/ui";
@@ -112,7 +111,10 @@ export default function HomePage() {
       <Section tone="cream" id="conditions" className="scroll-mt-20">
         <Container>
           <H2>Common problems we help with</H2>
-          <TagList items={["Back pain", "Neck pain", "Headaches", "Sciatica", "Joint pain", "Sports injuries"]} />
+          <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
+            {[["Low back pain", "low-back-pain"], ["Neck pain", "neck-pain"], ["Headaches", "headaches"], ["Sciatica", "sciatica"], ["Shoulder pain", "shoulder-pain"], ["Knee pain", "knee-pain"]].map(([label, slug]) => <li key={slug}><Link href={`/conditions/${slug}`} className="flex min-h-12 items-center justify-between gap-3 border-b border-line py-2 font-semibold text-navy hover:underline">{label}<span aria-hidden>→</span></Link></li>)}
+          </ul>
+          <Link href="/conditions" className="mt-7 inline-flex min-h-11 items-center font-semibold text-navy hover:underline">Explore all conditions &amp; concerns →</Link>
         </Container>
       </Section>
 
