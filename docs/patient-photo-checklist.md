@@ -39,3 +39,7 @@ Only photograph an activity already appropriate for the patient. Obtain permissi
 ## Label files for easy placement
 
 Use descriptive names such as neck-movement-home-visit-01.jpg. Keep patient names and dates of care out of filenames. Retain the original image. When uploaded for the site, verify subject, alt text, image size, and the relevant page before publication.
+
+## Photos added October 5, 2026
+
+Publication permission confirmed by Dr. DeFries. Added house-call neck care to neck pain, shoulder soft tissue care to shoulder pain, instrument-assisted upper-back care to upper back pain, and consultation to the whole-person page. Existing low-back and soft-tissue treatment photos remain in place. Leg-length assessment photo is held for explanatory context.

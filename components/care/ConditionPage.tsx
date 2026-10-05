@@ -6,7 +6,14 @@ import CareGoals from "./GoalIcons";
 import WholePersonBanner from "./WholePersonBanner";
 
 export default function ConditionPage({ content }: { content: ConditionContent }) {
-  const hasPhoto = content.slug === "low-back-pain";
+  const photos: Record<string, { src: string; alt: string; width: number; height: number }> = {
+    "low-back-pain": { src: "/images/care/home-low-back-adjustment.jpg", alt: "Dr. David DeFries performing a chiropractic adjustment on a portable table in a home", width: 360, height: 480 },
+    "neck-pain": { src: "/images/care/neck-care.jpg", alt: "Dr. David DeFries providing hands-on neck care during a house call", width: 1400, height: 1050 },
+    "shoulder-pain": { src: "/images/care/shoulder-soft-tissue.jpg", alt: "Targeted hands-on soft tissue care around the shoulder", width: 1050, height: 1400 },
+    "upper-back-pain": { src: "/images/care/upper-back-soft-tissue.jpg", alt: "Dr. David DeFries providing instrument-assisted soft tissue care around the upper back", width: 1050, height: 1400 },
+  };
+  const photo = photos[content.slug];
+  const hasPhoto = Boolean(photo);
   return <article className="py-10 sm:py-16"><Container>
     <Link href="/conditions" className="inline-flex min-h-11 items-center text-sm font-semibold text-navy hover:underline">← All conditions & concerns</Link>
     <header className={`mt-5 grid items-center gap-8 ${hasPhoto ? "lg:grid-cols-[1.15fr_.85fr] lg:gap-14" : "max-w-3xl"}`}>
@@ -16,8 +23,8 @@ export default function ConditionPage({ content }: { content: ConditionContent }
         <p className="mt-4 text-base leading-relaxed text-muted">Chiropractic evaluation and care at your home or workplace in Delaware County and surrounding service areas.</p>
         <div className="mt-7"><CTAButton href="/book-online">Book Online →</CTAButton></div>
       </div>
-      {hasPhoto && <figure className="mx-auto w-full max-w-sm lg:max-w-none">
-        <Image src="/images/care/home-low-back-adjustment.jpg" alt="Dr. David DeFries performing a chiropractic adjustment on a portable table in a home" width={360} height={480} preload sizes="(min-width: 1024px) 440px, (min-width: 640px) 384px, 100vw" className="h-auto w-full rounded-2xl"/>
+      {photo && <figure className="mx-auto w-full max-w-sm lg:max-w-none">
+        <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} preload sizes="(min-width: 1024px) 440px, (min-width: 640px) 384px, 100vw" className="h-auto w-full rounded-2xl"/>
         <figcaption className="mt-3 text-sm text-muted">Chiropractic care brought to your location.</figcaption>
       </figure>}
     </header>
