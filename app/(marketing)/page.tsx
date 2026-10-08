@@ -53,7 +53,7 @@ export default function HomePage() {
       <Section tone="white" className="pb-14 pt-12 sm:pb-20 sm:pt-16">
         <Container>
           <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
-            <div>
+            <div className="order-2 lg:order-1">
               <ImageFrame className="aspect-video">
                 <Image
                   src={HOME_VISIT_IMAGE.src}
@@ -65,21 +65,22 @@ export default function HomePage() {
                 />
               </ImageFrame>
             </div>
-            <div>
-              <H1>Chiropractic Care That Comes to You</H1>
+            <div className="order-1 lg:order-2">
+              <H1>Personalized Chiropractic Care, Brought to You</H1>
               <Lede className="mt-5">
-                One-on-one chiropractic care brought to your home or workplace — without the drive,
-                waiting room, or another stop in your day.
+                Whether you’re considering chiropractic for the first time or looking for a more
+                individualized approach, Dr. David DeFries, DC provides one-on-one care focused on
+                your symptoms, movement and personal goals.
               </Lede>
               <P>
-                Appointments are available 7 days a week. Service area: {BUSINESS_SERVICE_AREA}.
-                Check your area, see your price and available times, and
-                schedule online.
+                Visits take place at your home or workplace. Service area: {BUSINESS_SERVICE_AREA}.
+                Appointments are available 7 days a week.
               </P>
               <div className="mt-8 flex flex-wrap items-center gap-4">
-                <CTAButton href="#service-area">Check My Area</CTAButton>
-                <CTAButton href="/book-online" variant="secondary">Schedule a Visit</CTAButton>
+                <CTAButton href="/what-to-expect">What to Expect</CTAButton>
+                <CTAButton href="/book?start=new" variant="secondary">Schedule a First Visit</CTAButton>
               </div>
+              <Link href="#service-area" className="mt-5 inline-flex font-semibold text-navy hover:underline">Check your service area</Link>
             </div>
           </div>
         </Container>
@@ -87,41 +88,26 @@ export default function HomePage() {
 
       <Section tone="cream">
         <Container>
-          <div className="text-center"><H2>Ready to Schedule?</H2></div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
-            <ChoiceCard title="New Patient" description="First visit — or haven't been seen in more than a year." href="/book?start=new" cta="Schedule a First Visit" />
-            <ChoiceCard title="Returning Patient" description="Already a patient and have been seen within the past year." href="/book?start=returning" cta="Schedule a Visit" />
-            <ChoiceCard title="Group Visit" description="Wellness-focused chiropractic care for two or more people at one location." href="/book?start=group" cta="Schedule a Group Visit" />
-          </div>
-          <VisitHoursPricing />
-        </Container>
-      </Section>
-
-      <Section tone="white" id="how-it-works" className="scroll-mt-20">
-        <Container>
-          <H2>Chiropractic Care Without the Trip</H2>
-          <div className="mt-10 grid gap-10 sm:grid-cols-3 sm:gap-8">
-            <Step number={1} title="Schedule online" orientation="horizontal">Choose your visit and an available appointment time.</Step>
-            <Step number={2} title="I come to you" orientation="horizontal">I bring the table and equipment needed for your visit.</Step>
-            <Step number={3} title="Get evaluated and treated at your location" orientation="horizontal">Your visit includes appropriate evaluation and treatment without the drive or waiting room.</Step>
-          </div>
-          <Link href="/what-to-expect" className="mt-10 inline-flex items-center gap-1.5 font-semibold text-navy hover:underline">What to Expect <span aria-hidden>→</span></Link>
-        </Container>
-      </Section>
-
-      <Section tone="cream" id="conditions" className="scroll-mt-20">
-        <Container>
-          <H2>Common problems we help with</H2>
-          <TagList items={["Back pain", "Neck pain", "Headaches", "Sciatica", "Joint pain", "Sports injuries"]} />
-        </Container>
-      </Section>
-
-      <Section tone="navy" id="service-area" className="scroll-mt-20">
-        <Container>
-          <div className="mx-auto max-w-xl text-center">
-            <Eyebrow onDark>Service Area</Eyebrow>
-            <H2 onDark className="mt-3">Do we come to you?</H2>
-            <div className="mt-8 text-left"><ZipChecker /></div>
+          <div className="mx-auto max-w-3xl">
+            <H2>Who Is This Approach For?</H2>
+            <ul className="mt-8 divide-y divide-line">
+              {[
+                { title: "Pain or difficulty moving", body: "People who want an evaluation and an explanation of their care options." },
+                { title: "Busy schedules", body: "People who find it difficult to fit an office visit into their day." },
+                { title: "Difficulty traveling", body: "People who are homebound or have difficulty traveling and need care brought to them." },
+                { title: "Personalized care", body: "People seeking a more individualized experience, whether they’re new to chiropractic or have received care before." },
+                { title: "Function and ongoing wellness", body: "People working toward better function and ongoing wellness, with care guided by their individual goals." },
+              ].map(({ title, body }) => (
+                <li key={title} className="grid gap-2 py-5 first:pt-0 last:pb-0 sm:grid-cols-[14rem_1fr] sm:gap-8">
+                  <h3 className="text-lg font-semibold text-ink">{title}</h3>
+                  <p className="text-base leading-relaxed text-muted">{body}</p>
+                </li>
+              ))}
+            </ul>
+            <P>
+              Results-focused care starts with understanding what you want to improve, choosing
+              appropriate care and reviewing your progress.
+            </P>
           </div>
         </Container>
       </Section>
@@ -148,6 +134,49 @@ export default function HomePage() {
         </Container>
       </Section>
 
+      <Section tone="white" id="how-it-works" className="scroll-mt-20">
+        <Container>
+          <H2>What Happens at Your First Visit?</H2>
+          <div className="mt-10 grid gap-10 sm:grid-cols-3 sm:gap-8">
+            <Step number={1} title="Discuss your concerns and goals" orientation="horizontal">We’ll talk about your symptoms and what you want to improve, then evaluate the problem and how you’re moving.</Step>
+            <Step number={2} title="Care based on your evaluation" orientation="horizontal">Treatment begins during the same visit when appropriate. Your care is based on the examination findings and your situation.</Step>
+            <Step number={3} title="Understand what comes next" orientation="horizontal">We’ll discuss the findings, what you can do between visits and whether additional care makes sense.</Step>
+          </div>
+          <P>I bring the treatment table and equipment needed for your visit to your home or workplace.</P>
+          <Link href="/what-to-expect" className="mt-10 inline-flex items-center gap-1.5 font-semibold text-navy hover:underline">What to Expect <span aria-hidden>→</span></Link>
+        </Container>
+      </Section>
+
+      <Section tone="cream">
+        <Container>
+          <div className="text-center"><H2>Plan Your Visit</H2></div>
+          <div className="mt-10 grid gap-6 sm:grid-cols-3">
+            <ChoiceCard title="New Patient" description="First visit — or haven't been seen in more than a year." href="/book?start=new" cta="Schedule a First Visit" />
+            <ChoiceCard title="Returning Patient" description="Already a patient and have been seen within the past year." href="/book?start=returning" cta="Schedule a Visit" />
+            <ChoiceCard title="Group Visit" description="Wellness-focused chiropractic care for two or more people at one location." href="/book?start=group" cta="Schedule a Group Visit" />
+          </div>
+          <VisitHoursPricing />
+        </Container>
+      </Section>
+
+      <Section tone="cream" id="conditions" className="scroll-mt-20">
+        <Container>
+          <H2>Common problems we help with</H2>
+          <TagList items={["Back pain", "Neck pain", "Headaches", "Sciatica", "Joint pain", "Sports injuries"]} />
+        </Container>
+      </Section>
+
+      <Section tone="navy" id="service-area" className="scroll-mt-20">
+        <Container>
+          <div className="mx-auto max-w-xl text-center">
+            <Eyebrow onDark>Service Area</Eyebrow>
+            <H2 onDark className="mt-3">Do we come to you?</H2>
+            <div className="mt-8 text-left"><ZipChecker /></div>
+          </div>
+        </Container>
+      </Section>
+
+
       <Section tone="cream">
         <Container>
           <div className="mx-auto max-w-3xl text-center">
@@ -169,7 +198,7 @@ export default function HomePage() {
       <Section tone="navy">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <H2 onDark>Chiropractic Care, Without the Trip to Get It.</H2>
+            <H2 onDark>Personalized Chiropractic Care, at Your Location.</H2>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
               <CTAButton href="/book-online" variant="inverse">Schedule a Visit</CTAButton>
               <a href={`tel:${BUSINESS_PHONE}`} className="text-base font-semibold text-white hover:underline">Call or text {BUSINESS_PHONE}</a>
