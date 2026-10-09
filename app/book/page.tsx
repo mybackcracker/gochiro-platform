@@ -1,4 +1,5 @@
 "use client";
+import LocationRequestCTA from "@/components/LocationRequestCTA";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -744,8 +745,8 @@ export default function BookPage() {
 
             {zip.length === 5 && !zipRegion && (
               <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
-                This ZIP code is outside the current online service-area list. Call or text (610) 494-0412 and we can
-                review it.
+                <p className="mb-3 font-semibold">This ZIP code is outside our regular online service area.</p>
+                <LocationRequestCTA />
               </div>
             )}
 
@@ -844,8 +845,8 @@ export default function BookPage() {
 
             {zip.length === 5 && !zipRegion && (
               <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
-                This ZIP code is outside the current online service-area list. Call or text (610) 494-0412 and we can
-                review it.
+                <p className="mb-3 font-semibold">This ZIP code is outside our regular online service area.</p>
+                <LocationRequestCTA />
               </div>
             )}
 
