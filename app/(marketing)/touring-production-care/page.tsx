@@ -1,3 +1,4 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import {
   Section,
@@ -13,6 +14,7 @@ import {
 import { BUSINESS_PHONE, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/touring-production-care" },
   title: "Touring Production Musculoskeletal Care | Philadelphia | Go Chiro Mobile",
   description: "Private, professional on-site musculoskeletal care for touring artists, crew and production personnel in Philadelphia and Southeastern Pennsylvania.",
 };
@@ -22,7 +24,7 @@ const COMMON_NEEDS = ["Neck and shoulder discomfort", "Upper- and low-back disco
 
 export default function TouringProductionCarePage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/touring-production-care"} name={"Touring Production Musculoskeletal Care | Philadelphia | Go Chiro Mobile"} description={"Private, professional on-site musculoskeletal care for touring artists, crew and production personnel in Philadelphia and Southeastern Pennsylvania."} service={{"name":"On-site musculoskeletal care for touring productions","description":"Discreet musculoskeletal care for artists, touring crew and production personnel at Pennsylvania venues and production locations, by arrangement.","areas":["Philadelphia, Pennsylvania","Southeastern Pennsylvania"]}} /><div>
       <Section tone="white" className="pt-14 pb-12 sm:pt-20 sm:pb-16">
         <Container>
           <PageHeader eyebrow="Touring Productions & Live Events" title="On-Site Musculoskeletal Care for Touring Productions" lede="Professional, discreet care for artists, touring crew and production personnel in Philadelphia and Southeastern Pennsylvania — brought directly to the production and structured around the realities of the day." />
@@ -69,6 +71,6 @@ export default function TouringProductionCarePage() {
       <Section tone="cream"><Container><div className="max-w-3xl"><H2>Experience in Live Production Environments</H2><P>Go Chiro Mobile founder Dr. David DeFries, DC, is a third-generation chiropractor who has practiced since 2003. He has experience providing on-location care to performers, cast, crew and production personnel in Philadelphia live-event environments. The service is built around a simple principle: care has to fit the production, not the other way around.</P><P>On-site care has been provided in Philadelphia live-production environments including The Fillmore Philadelphia, The Met Philadelphia, Union Transfer and Xfinity Mobile Arena.</P></div></Container></Section>
 
       <Section tone="navy"><Container><div className="max-w-3xl"><H2 onDark>Planning a Philadelphia-Area Tour Stop?</H2><p className="mt-4 text-lg leading-relaxed text-white/85">Whether one person needs care or you want musculoskeletal services available to cast and crew, send the date, location and what you know so far. Artist identity is optional at the inquiry stage.</p><div className="mt-8 flex flex-wrap gap-3"><CTAButton href="/touring-production-care/request" variant="inverse">Request Production Coverage</CTAButton><CTAButton href={`tel:${BUSINESS_PHONE}`} variant="inverseOutline">Call / Text {BUSINESS_PHONE}</CTAButton></div></div></Container></Section>
-    </div>
+    </div></>
   );
 }

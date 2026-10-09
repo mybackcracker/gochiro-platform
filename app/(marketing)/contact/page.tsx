@@ -1,9 +1,11 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Section, Container, PageHeader, TagList } from "@/components/ui";
 import { BUSINESS_PHONE, PUBLIC_CONTACT_EMAIL } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact — Go Chiro Mobile",
   description: "Have a question or need something outside regular online scheduling?",
 };
@@ -20,7 +22,7 @@ const CONTACT_REASONS = [
 
 export default function ContactPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/contact"} name={"Contact — Go Chiro Mobile"} description={"Have a question or need something outside regular online scheduling?"} type="ContactPage" /><div>
       <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
         <Container>
           <PageHeader
@@ -59,6 +61,6 @@ export default function ContactPage() {
           <TagList items={CONTACT_REASONS} />
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

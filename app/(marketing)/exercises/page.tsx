@@ -1,8 +1,10 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { Container, PageHeader, Section } from "@/components/ui";
 import QRCode from "qrcode";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/exercises" },
   title: "Exercise Library — Go Chiro Mobile",
   description: "Simple mobile-friendly exercise instructions from Go Chiro Mobile.",
   icons: { icon: "/exercise-library-icon.svg", apple: "/exercise-library-icon.svg" },
@@ -34,7 +36,7 @@ const GROUPS = [
 export default async function ExerciseLibraryPage() {
   const libraryQr = await QRCode.toDataURL("https://gochiromobile.com/exercises", { width: 320, margin: 2 });
   return (
-    <Section tone="white" className="pt-14 pb-16 sm:pt-20 sm:pb-24">
+    <><PageSearchSchema path={"/exercises"} name={"Exercise Library — Go Chiro Mobile"} description={"Simple mobile-friendly exercise instructions from Go Chiro Mobile."} type="CollectionPage" /><Section tone="white" className="pt-14 pb-16 sm:pt-20 sm:pb-24">
       <Container>
         <PageHeader
           eyebrow="Patient Resources"
@@ -74,6 +76,6 @@ export default async function ExerciseLibraryPage() {
           These instructions are educational and are intended to support the exercise plan discussed during your visit. Stop if an exercise causes pain or worsening symptoms.
         </p>
       </Container>
-    </Section>
+    </Section></>
   );
 }

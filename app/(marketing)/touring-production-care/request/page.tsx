@@ -1,16 +1,18 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { Section, Container, PageHeader, Callout } from "@/components/ui";
 import { BUSINESS_PHONE, PUBLIC_CONTACT_EMAIL } from "@/lib/gochiro";
 import ProductionRequestForm from "./ProductionRequestForm";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/touring-production-care/request" },
   title: "Request Touring Production Coverage | Go Chiro Mobile",
   description: "Request on-site musculoskeletal care for a touring production in Philadelphia or the surrounding region.",
 };
 
 export default function ProductionRequestPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/touring-production-care/request"} name={"Request Touring Production Coverage | Go Chiro Mobile"} description={"Request on-site musculoskeletal care for a touring production in Philadelphia or the surrounding region."} /><div>
       <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
         <Container>
           <PageHeader
@@ -38,6 +40,6 @@ export default function ProductionRequestPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

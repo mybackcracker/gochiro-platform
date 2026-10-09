@@ -1,3 +1,4 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
@@ -25,11 +26,11 @@ function VisitActions() {
 }
 
 export default function Page() {
-  return <>
+  return <><PageSearchSchema path={"/philadelphia/hotel-visits"} name={"Mobile Chiropractor for Philadelphia Hotel Guests & Travelers"} description={"Mobile musculoskeletal and chiropractic care brought to your Philadelphia hotel. Personalized care for pain and mobility, with visits by arrangement."} /><>
     <Section tone="white">
       <Container>
         <div className="space-y-8">
-          <JsonLd data={{ "@context": "https://schema.org", "@type": "Service", name: "Mobile chiropractic care for Philadelphia hotel guests", serviceType: "Mobile musculoskeletal and chiropractic care", areaServed: { "@type": "City", name: "Philadelphia" }, provider: { "@type": "Organization", name: "Go Chiro Mobile", url: "https://www.gochiromobile.com" }, url }} />
+          <JsonLd data={{ "@context": "https://schema.org", "@type": "Service", name: "Mobile chiropractic care for Philadelphia hotel guests", serviceType: "Mobile musculoskeletal and chiropractic care", areaServed: { "@type": "City", name: "Philadelphia" }, provider: { "@id": "https://www.gochiromobile.com/#organization" }, url }} />
           <PageHeader eyebrow="Philadelphia hotel guests & travelers" title="Musculoskeletal Care Brought to Your Hotel" lede="Focused care for pain relief and improved movement, without a trip to an unfamiliar office. Go Chiro Mobile brings personalized evaluation and treatment directly to your Philadelphia hotel, with visits available by arrangement." />
           <VisitActions />
           <p className="max-w-3xl leading-relaxed text-muted">Dr. David DeFries is one of the few exclusively mobile chiropractic providers in the Philadelphia region. His experience includes on-site care for performers and touring crews at Philadelphia venues, as well as care in homes and workplaces, with discretion and privacy respected.</p>
@@ -68,5 +69,5 @@ export default function Page() {
         <Link href="/philadelphia" className="mt-10 inline-block font-semibold underline">Explore Philadelphia care</Link>
       </Container>
     </Section>
-  </>;
+  </></>;
 }

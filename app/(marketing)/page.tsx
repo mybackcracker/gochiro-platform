@@ -1,3 +1,4 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -25,6 +26,7 @@ import { LOCAL_AREAS } from "@/lib/localAreas";
 import VisitHoursPricing from "@/components/VisitHoursPricing";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/" },
   title: "Mobile Chiropractor in the Greater Philadelphia Region",
   description:
     "Go Chiro Mobile brings chiropractic care to your home or workplace in Delaware County, parts of Chester County and the Main Line, PA.",
@@ -32,7 +34,7 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/"} name={"Mobile Chiropractor in the Greater Philadelphia Region"} description={"Go Chiro Mobile brings chiropractic care to your home or workplace in Delaware County, parts of Chester County and the Main Line, PA."} /><div>
       <JsonLd data={localBusinessSchema(Object.values(LOCAL_AREAS))} />
       <div className="bg-navy text-white">
         <Container>
@@ -207,6 +209,6 @@ export default function HomePage() {
         </Container>
       </Section>
       <Section tone="cream"><Container><H2>Care in Philadelphia</H2><p className="mt-4 text-lg text-muted">On-site care for workplaces, touring teams and individuals is available by arrangement.</p><Link href="/philadelphia" className="mt-4 inline-block font-semibold text-navy underline">Explore Philadelphia care</Link></Container></Section>
-    </div>
+    </div></>
   );
 }

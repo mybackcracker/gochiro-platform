@@ -1,7 +1,9 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { ChoiceCard, Container, PageHeader, Section } from "@/components/ui";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/forms" },
   title: "Patient Forms — Go Chiro Mobile",
   description: "Access Go Chiro Mobile patient forms securely from your phone or computer.",
 };
@@ -32,7 +34,7 @@ const FORMS = [
 
 export default function FormsPage() {
   return (
-    <Section tone="white" className="pt-14 pb-16 sm:pt-20 sm:pb-24">
+    <><PageSearchSchema path={"/forms"} name={"Patient Forms — Go Chiro Mobile"} description={"Access Go Chiro Mobile patient forms securely from your phone or computer."} type="CollectionPage" /><Section tone="white" className="pt-14 pb-16 sm:pt-20 sm:pb-24">
       <Container>
         <PageHeader
           eyebrow="Forms"
@@ -53,6 +55,6 @@ export default function FormsPage() {
           ))}
         </div>
       </Container>
-    </Section>
+    </Section></>
   );
 }

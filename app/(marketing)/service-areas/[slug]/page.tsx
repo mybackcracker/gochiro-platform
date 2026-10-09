@@ -1,3 +1,4 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getLocalArea, getLocalAreaSlugs } from "@/lib/localAreas";
@@ -36,6 +37,7 @@ export default async function LocalAreaRoute({
   if (!content) notFound();
   return (
     <>
+      <PageSearchSchema path={`/service-areas/${content.slug}`} name={`Mobile chiropractic care in ${content.town}, PA`} description={content.metaDescription} />
       <JsonLd data={townServiceSchema(content)} />
       <LocalAreaPage content={content} />
     </>
