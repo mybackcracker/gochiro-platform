@@ -15,7 +15,7 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
-export default function SiteHeader() {
+export default function SiteHeader({ locationRequest = false }: { locationRequest?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Lets keyboard/screen-reader users dismiss the menu without tabbing to a close control.
@@ -73,10 +73,10 @@ export default function SiteHeader() {
             </svg>
           </button>
           <Link
-            href="/book-online"
+            href={locationRequest ? "/check-your-location" : "/book-online"}
             className="rounded-full bg-navy px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
           >
-            Schedule a Visit
+            {locationRequest ? "Check Your Location" : "Schedule a Visit"}
           </Link>
         </div>
       </div>

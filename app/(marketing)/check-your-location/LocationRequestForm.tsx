@@ -1,7 +1,8 @@
 "use client";
 import { FormEvent, useState } from "react";
 import { LOCATION_CONTACTS, LOCATION_TIMING, PRIVATE_PARKING_OPTIONS, STAIRS_OPTIONS, ELEVATOR_OPTIONS } from "@/lib/locationRequest";
-export default function LocationRequestForm() {
+export default function LocationRequestForm({ initialZip = "" }: { initialZip?: string }) {
+  const [zip,setZip] = useState(initialZip);
   const [method,setMethod] = useState("Text");
   const [status,setStatus] = useState("idle");
   const [message,setMessage] = useState("");
@@ -26,7 +27,7 @@ export default function LocationRequestForm() {
       <label className="block font-semibold">Preferred reply method<select name="contactMethod" value={method} onChange={e=>setMethod(e.target.value)} className={field}>{LOCATION_CONTACTS.map(x=><option key={x}>{x}</option>)}</select></label>
       <label className="block font-semibold">{method === "Email" ? "Email address" : "Phone number"}<input key={method === "Email" ? "email" : "tel"} name="contact" type={method === "Email" ? "email" : "tel"} autoComplete={method === "Email" ? "email" : "tel"} required maxLength={160} className={field}/></label>
       <label className="block font-semibold">Visit street address<input name="address" autoComplete="street-address" required maxLength={200} className={field}/></label>
-      <div className="grid gap-5 sm:grid-cols-2"><label className="block font-semibold">City<input name="city" autoComplete="address-level2" required maxLength={100} className={field}/></label><label className="block font-semibold">ZIP code<input name="zip" autoComplete="postal-code" inputMode="numeric" pattern="[0-9]{5}" required maxLength={5} className={field}/></label></div>
+      <div className="grid gap-5 sm:grid-cols-2"><label className="block font-semibold">City<input name="city" autoComplete="address-level2" required maxLength={100} className={field}/></label><label className="block font-semibold">ZIP code<input name="zip" value={zip} onChange={e=>setZip(e.target.value.replace(/\D/g, "").slice(0,5))} autoComplete="postal-code" inputMode="numeric" pattern="[0-9]{5}" required maxLength={5} className={field}/></label></div>
       <p>Service is available in Pennsylvania only.</p><input type="hidden" name="state" value="PA"/>
       <label className="block font-semibold">Is private or reserved parking available?<select name="privateParking" required defaultValue="" className={field}><option value="" disabled>Select parking</option>{PRIVATE_PARKING_OPTIONS.map(x=><option key={x}>{x}</option>)}</select></label>
       <label className="block font-semibold">Are there stairs to reach the treatment space?<select name="stairs" required defaultValue="" className={field}><option value="" disabled>Select stairs</option>{STAIRS_OPTIONS.map(x=><option key={x}>{x}</option>)}</select></label>
