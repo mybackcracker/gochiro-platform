@@ -1,6 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
-import { LOCATION_CONTACTS, LOCATION_TIMING } from "@/lib/locationRequest";
+import { LOCATION_CONTACTS, LOCATION_TIMING, PRIVATE_PARKING_OPTIONS, STAIRS_OPTIONS, ELEVATOR_OPTIONS } from "@/lib/locationRequest";
 export default function LocationRequestForm() {
   const [method,setMethod] = useState("Text");
   const [status,setStatus] = useState("idle");
@@ -28,7 +28,9 @@ export default function LocationRequestForm() {
       <label className="block font-semibold">Visit street address<input name="address" autoComplete="street-address" required maxLength={200} className={field}/></label>
       <div className="grid gap-5 sm:grid-cols-2"><label className="block font-semibold">City<input name="city" autoComplete="address-level2" required maxLength={100} className={field}/></label><label className="block font-semibold">ZIP code<input name="zip" autoComplete="postal-code" inputMode="numeric" pattern="[0-9]{5}" required maxLength={5} className={field}/></label></div>
       <p>Service is available in Pennsylvania only.</p><input type="hidden" name="state" value="PA"/>
-      <label className="block font-semibold">Parking and building access<textarea name="access" required maxLength={800} rows={3} aria-describedby="access-help" className={field}/></label><p id="access-help" className="text-sm text-muted">Include parking, stairs or elevator details. “Unsure” is fine. Please leave medical details for your clinical intake.</p>
+      <label className="block font-semibold">Is private or reserved parking available?<select name="privateParking" required defaultValue="" className={field}><option value="" disabled>Select parking</option>{PRIVATE_PARKING_OPTIONS.map(x=><option key={x}>{x}</option>)}</select></label>
+      <label className="block font-semibold">Are there stairs to reach the treatment space?<select name="stairs" required defaultValue="" className={field}><option value="" disabled>Select stairs</option>{STAIRS_OPTIONS.map(x=><option key={x}>{x}</option>)}</select></label>
+      <label className="block font-semibold">Is an elevator available?<select name="elevator" required defaultValue="" className={field}><option value="" disabled>Select elevator access</option>{ELEVATOR_OPTIONS.map(x=><option key={x}>{x}</option>)}</select></label>
       <label className="block font-semibold">How soon are you hoping to be seen?<select name="timing" required defaultValue="" className={field}><option value="" disabled>Select timing</option>{LOCATION_TIMING.map(x=><option key={x}>{x}</option>)}</select></label>
       <div hidden aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off"/></label></div>
       <label className="flex items-start gap-3"><input name="acknowledged" type="checkbox" required className="mt-1 h-5 w-5 shrink-0"/><span>I understand that pricing includes care and travel, and a deposit of at least 50% is required to confirm an accepted appointment. I have read the cancellation terms above.</span></label>
