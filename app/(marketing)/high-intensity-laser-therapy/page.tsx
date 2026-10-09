@@ -1,3 +1,4 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import {
   Section,
@@ -12,6 +13,7 @@ import {
 import { BUSINESS_PHONE } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/high-intensity-laser-therapy" },
   title: "High-Intensity Laser Therapy | Mobile Care | Go Chiro Mobile",
   description:
     "High-intensity therapeutic laser may be available with at least one week advance notice as part of mobile musculoskeletal care and touring-production coverage in Pennsylvania.",
@@ -27,7 +29,7 @@ const COMMON_GOALS = [
 
 export default function HighIntensityLaserTherapyPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/high-intensity-laser-therapy"} name={"High-Intensity Laser Therapy | Mobile Care | Go Chiro Mobile"} description={"High-intensity therapeutic laser may be available with at least one week advance notice as part of mobile musculoskeletal care and touring-production coverage in Pennsylvania."} service={{"name":"High-intensity laser therapy by advance request","description":"Optional high-intensity therapeutic laser within mobile musculoskeletal care in Pennsylvania, requiring at least one week of advance notice.","areas":["Pennsylvania"]}} /><div>
       <Section tone="white" className="pt-14 pb-12 sm:pt-20 sm:pb-16">
         <Container>
           <PageHeader
@@ -119,6 +121,6 @@ export default function HighIntensityLaserTherapyPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

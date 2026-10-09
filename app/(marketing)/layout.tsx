@@ -30,6 +30,8 @@ const searchSignals = {
         ["Patient Forms", "/forms"],
         ["Pricing", "/pricing"],
         ["Service Areas", "/service-areas"],
+        ["Philadelphia Care", "/philadelphia"],
+        ["Hotel & Traveler Care", "/philadelphia/hotel-visits"],
         ["Touring & Events", "/touring-production-care"],
         ["About Dr. David DeFries, DC", "/about"],
         ["Contact", "/contact"],

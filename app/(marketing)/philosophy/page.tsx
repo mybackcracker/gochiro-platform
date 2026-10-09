@@ -1,7 +1,9 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { Section, Container, Eyebrow, H1, H2, P, Prose, CTAButton } from "@/components/ui";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/philosophy" },
   title: "Our Philosophy — Go Chiro Mobile",
   description: "My approach to chiropractic care.",
 };
@@ -43,7 +45,7 @@ const PRINCIPLES: { title: string; paragraphs: string[] }[] = [
 
 export default function PhilosophyPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/philosophy"} name={"Our Philosophy — Go Chiro Mobile"} description={"My approach to chiropractic care."} /><div>
       <Section tone="white">
         <Container>
           <Eyebrow>Our Philosophy</Eyebrow>
@@ -76,6 +78,6 @@ export default function PhilosophyPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

@@ -1,3 +1,4 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Section, Container, PageHeader, H2, P, CTAButton, Callout } from "@/components/ui";
@@ -24,14 +25,14 @@ export async function generateMetadata({ params }: { params: Promise<{ area: str
   const { area } = await params;
   const data = AREAS[area as keyof typeof AREAS];
   if (!data) return {};
-  return { title: `${data.title} — Go Chiro Mobile`, description: data.description };
+  return { alternates: { canonical: `/group-visits/${area}` }, title: `${data.title} — Go Chiro Mobile`, description: data.description };
 }
 
 export default async function GroupVisitsAreaPage({ params }: { params: Promise<{ area: string }> }) {
   const { area } = await params;
   const data = AREAS[area as keyof typeof AREAS];
   if (!data) notFound();
-  return <div>
+  return <div><PageSearchSchema path={`/group-visits/${area}`} name={data.title} description={data.description} service={{ name: data.title, description: data.description, areas: [area === "standard" ? "Delaware County, Pennsylvania" : "Main Line and West Chester, Pennsylvania"] }} />
     <Section tone="white" className="pt-14 pb-10 sm:pt-20">
       <Container>
         <PageHeader eyebrow="Group Visits" title={data.title} lede="Share the visit. Save on the cost." />

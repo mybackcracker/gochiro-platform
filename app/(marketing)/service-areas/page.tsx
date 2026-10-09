@@ -1,3 +1,4 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import LocationRequestCTA from "@/components/LocationRequestCTA";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -9,6 +10,7 @@ import { LOCAL_AREAS } from "@/lib/localAreas";
 import type { NearbyArea } from "@/lib/localAreas/types";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/service-areas" },
   title: "Service Areas — Go Chiro Mobile",
   description: "Find out if Go Chiro Mobile comes to your area.",
 };
@@ -44,7 +46,7 @@ const WEST_CHESTER_AREA_SLUGS = ["west-chester"];
 
 export default function ServiceAreasPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/service-areas"} name={"Service Areas — Go Chiro Mobile"} description={"Find out if Go Chiro Mobile comes to your area."} type="CollectionPage" /><div>
       <Section tone="navy" className="pb-14 pt-14 sm:pt-20">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
@@ -113,6 +115,6 @@ export default function ServiceAreasPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

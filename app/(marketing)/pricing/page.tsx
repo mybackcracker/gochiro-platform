@@ -1,3 +1,4 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import FAQs from "@/components/FAQs";
 import type { FAQItem } from "@/lib/faqs";
@@ -20,6 +21,7 @@ import {
 } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/pricing" },
   title: "Pricing — Go Chiro Mobile",
   description: "Know what your visit costs before you book.",
 };
@@ -77,7 +79,7 @@ const PRICING_FAQS: FAQItem[] = [
 
 export default function PricingPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/pricing"} name={"Pricing — Go Chiro Mobile"} description={"Know what your visit costs before you book."} /><div>
       <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
         <Container>
           <PageHeader
@@ -191,6 +193,6 @@ export default function PricingPage() {
         </Container>
       </Section>
       <FAQs items={PRICING_FAQS} path="/pricing" title="Frequently Asked Questions About Visit Pricing" />
-    </div>
+    </div></>
   );
 }
