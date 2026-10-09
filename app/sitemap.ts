@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contact",
     "/philadelphia",
     "/philadelphia/workplace",
+    "/philadelphia/hotel-visits",
     "/check-your-location",
     "/forms",
     "/group-visits/standard",
