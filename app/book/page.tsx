@@ -1,5 +1,5 @@
 "use client";
-import LocationRequestCTA from "@/components/LocationRequestCTA";
+import { zipRoute, locationRequestPath } from "@/lib/zipRouting";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -128,6 +128,7 @@ export default function BookPage() {
   const [policyAgreed, setPolicyAgreed] = useState(false);
 
   const [zip, setZip] = useState("");
+  const zipDestination = zipRoute(zip);
   const zipRegion = useMemo<Region | null>(() => findRegion(zip), [zip]);
   const [region, setRegion] = useState<Region | null>(null);
 
@@ -337,6 +338,7 @@ export default function BookPage() {
   }
 
   function continueFromZip() {
+    if (zipDestination === "request") { router.push(locationRequestPath(zip)); return; }
     if (!zipRegion) return;
     setRegion(zipRegion);
     if (patientType === "new") {
@@ -745,8 +747,11 @@ export default function BookPage() {
 
             {zip.length === 5 && !zipRegion && (
               <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
-                <p className="mb-3 font-semibold">This ZIP code is outside our regular online service area.</p>
-                <LocationRequestCTA />
+                {zipDestination === "request" ? (
+                  <p>This Pennsylvania location is available by arrangement. Check your location to request a quote before booking.</p>
+                ) : (
+                  <p>Care is available in Pennsylvania only. This ZIP is not listed as a Pennsylvania location. Please check your ZIP code.</p>
+                )}
               </div>
             )}
 
@@ -766,10 +771,10 @@ export default function BookPage() {
 
             <button
               onClick={continueFromZip}
-              disabled={!zipRegion}
+              disabled={zipDestination !== "booking" && zipDestination !== "request"}
               className="mt-4 w-full rounded-xl bg-slate-900 px-5 py-3.5 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
-              Continue
+              {zipDestination === "request" ? "Check Your Location" : "Continue"}
             </button>
           </>
         )}
@@ -845,8 +850,11 @@ export default function BookPage() {
 
             {zip.length === 5 && !zipRegion && (
               <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
-                <p className="mb-3 font-semibold">This ZIP code is outside our regular online service area.</p>
-                <LocationRequestCTA />
+                {zipDestination === "request" ? (
+                  <p>This Pennsylvania location is available by arrangement. Check your location to request a quote before booking.</p>
+                ) : (
+                  <p>Care is available in Pennsylvania only. This ZIP is not listed as a Pennsylvania location. Please check your ZIP code.</p>
+                )}
               </div>
             )}
 
@@ -863,14 +871,15 @@ export default function BookPage() {
 
             <button
               onClick={() => {
+                if (zipDestination === "request") { router.push(locationRequestPath(zip)); return; }
                 if (!zipRegion) return;
                 setRegion(zipRegion);
                 go("group-policy");
               }}
-              disabled={!zipRegion}
+              disabled={zipDestination !== "booking" && zipDestination !== "request"}
               className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
-              Continue
+              {zipDestination === "request" ? "Check Your Location" : "Continue"}
             </button>
           </>
         )}

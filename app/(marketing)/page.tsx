@@ -17,7 +17,7 @@ import {
   ImageFrame,
 } from "@/components/ui";
 import ZipChecker from "@/components/ZipChecker";
-import { BUSINESS_PHONE, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
+import { BUSINESS_PHONE } from "@/lib/gochiro";
 import { HOME_VISIT_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
 import JsonLd from "@/components/JsonLd";
 import { localBusinessSchema } from "@/lib/businessSchema";
@@ -73,8 +73,8 @@ export default function HomePage() {
                 your symptoms, movement and personal goals.
               </Lede>
               <P>
-                Visits take place at your home or workplace. Service area: {BUSINESS_SERVICE_AREA}.
-                Appointments are available 7 days a week.
+                Mobile chiropractic care throughout Delaware County and the Main Line, with visits
+                to Chester County and Philadelphia by arrangement.
               </P>
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <CTAButton href="/what-to-expect">What to Expect</CTAButton>
