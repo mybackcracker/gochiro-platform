@@ -1,8 +1,10 @@
+import LocationRequestCTA from "@/components/LocationRequestCTA";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { Section, Container, Eyebrow, H2, CTAButton, Callout } from "@/components/ui";
 import ZipChecker from "@/components/ZipChecker";
 import LocalAreaLinkList from "@/components/LocalAreaLinkList";
-import { BUSINESS_PHONE, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
+import { BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
 import { LOCAL_AREAS } from "@/lib/localAreas";
 import type { NearbyArea } from "@/lib/localAreas/types";
 
@@ -80,21 +82,8 @@ export default function ServiceAreasPage() {
             </Callout>
 
             <Callout title="Outside My Regular Service Area?" tone="white">
-              <p className="text-base leading-relaxed text-muted">
-                The ZIP checker reflects where I routinely schedule individual visits. These areas are
-                not necessarily the limit of where I can provide care.
-              </p>
-              <p className="mt-3 text-base leading-relaxed text-muted">
-                Group Visits, workplace wellness visits, special events and other arrangements may
-                be available outside the regular service area, including Philadelphia.
-              </p>
-              <p className="mt-4 text-lg font-semibold text-ink">
-                Call or text{" "}
-                <a href={`tel:${BUSINESS_PHONE}`} className="text-navy underline">
-                  {BUSINESS_PHONE}
-                </a>{" "}
-                to ask about availability.
-              </p>
+              <LocationRequestCTA />
+              <Link href="/philadelphia" className="mt-5 block font-semibold underline">Explore Philadelphia workplace, touring and individual care</Link>
             </Callout>
           </div>
         </Container>

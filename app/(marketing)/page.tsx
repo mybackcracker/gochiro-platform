@@ -206,6 +206,7 @@ export default function HomePage() {
           </div>
         </Container>
       </Section>
+      <Section tone="cream"><Container><H2>Care in Philadelphia</H2><p className="mt-4 text-lg text-muted">On-site care for workplaces, touring teams and individuals is available by arrangement.</p><Link href="/philadelphia" className="mt-4 inline-block font-semibold text-navy underline">Explore Philadelphia care</Link></Container></Section>
     </div>
   );
 }

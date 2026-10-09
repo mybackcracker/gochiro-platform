@@ -1,7 +1,8 @@
 "use client";
 
+import LocationRequestCTA from "@/components/LocationRequestCTA";
 import { useState } from "react";
-import { findRegion, BUSINESS_PHONE } from "@/lib/gochiro";
+import { findRegion } from "@/lib/gochiro";
 import { CTAButton } from "@/components/ui";
 
 export default function ZipChecker() {
@@ -40,15 +41,7 @@ export default function ZipChecker() {
       )}
       {checked && zip.length === 5 && !region && (
         <div className="mt-5 rounded-xl bg-cream p-4">
-          <p className="text-base font-medium text-ink">
-            Your ZIP isn&apos;t currently within my regular individual-visit area, but other
-            arrangements may be possible. Group Visits, events and some Philadelphia-area visits
-            are considered separately. Call or text{" "}
-            <a href={`tel:${BUSINESS_PHONE}`} className="font-semibold text-navy underline">
-              {BUSINESS_PHONE}
-            </a>
-            .
-          </p>
+          <LocationRequestCTA />
         </div>
       )}
     </div>
