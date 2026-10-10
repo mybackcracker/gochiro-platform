@@ -30,7 +30,7 @@ export default function SiteHeader({ locationRequest = false }: { locationReques
 
   return (
     <header className="sticky top-0 z-10 border-b border-line bg-white/95 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
+      <div className="mx-auto flex w-full flex-wrap sm:flex-nowrap max-w-[1400px] items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setMenuOpen(false)}>
           <span
             aria-hidden
