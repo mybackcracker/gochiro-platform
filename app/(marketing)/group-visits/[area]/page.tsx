@@ -1,3 +1,4 @@
+import Image from "next/image";
 import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -36,10 +37,15 @@ export default async function GroupVisitsAreaPage({ params }: { params: Promise<
     <Section tone="white" className="pt-14 pb-10 sm:pt-20">
       <Container>
         <PageHeader eyebrow="Group Visits" title={data.title} lede="Share the visit. Save on the cost." />
+        <div className="mt-8 grid items-center gap-8 lg:grid-cols-2">
+          <Image src="/images/family-group-visit.webp" alt="A family sitting together at home" width={1080} height={1080} sizes="(min-width: 1024px) 560px, 100vw" className="aspect-[4/3] w-full rounded-xl object-cover object-[center_75%]" />
+          <div>
         <P className="max-w-2xl">
           Schedule {GROUP_VISIT_MIN_PARTICIPANTS}–{GROUP_VISIT_MAX_PARTICIPANTS} people together at one home or workplace. Group Visits are designed for routine, wellness-focused care and make mobile chiropractic care more economical when several people are seen at the same location.
         </P>
         <div className="mt-8"><CTAButton href="/book?start=group">Book a Group Visit</CTAButton></div>
+          </div>
+        </div>
       </Container>
     </Section>
     <Section tone="cream">

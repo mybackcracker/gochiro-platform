@@ -258,18 +258,26 @@ export default function BookPage() {
   // (unlike go()), so Back returns to "/" — the same behavior as arriving
   // fresh, since there's no landing-screen step to go back to.
   useEffect(() => {
-    const start = new URLSearchParams(window.location.search).get("start");
+    const params = new URLSearchParams(window.location.search);
+    const start = params.get("start");
+    const initialZip = params.get("zip") || "";
+    const initialRegion = /^\d{5}$/.test(initialZip) ? findRegion(initialZip) : null;
     // Reading a one-time deep-link param from the URL at mount and syncing it
     // into state is exactly the "external system" case this rule's own docs
     // carve out — there's no render-phase alternative that avoids a
     // server/client hydration mismatch (see comment above).
-    if (start === "new") {
+    if (initialRegion) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
+      setZip(initialZip);
+      setRegion(initialRegion);
+    }
+    if (start === "new") {
       setPatientType("new");
-      setStep("zip");
+      if (initialRegion) setVisit("new-patient");
+      setStep(initialRegion ? "policy" : "zip");
     } else if (start === "returning") {
       setPatientType("returning");
-      setStep("region");
+      setStep(initialRegion ? "visit" : "region");
     } else if (start === "group") {
       setPatientType("group");
       setVisit("group-visit");
@@ -834,6 +842,10 @@ export default function BookPage() {
               </div>
             </div>
 
+            {region && zipRegion === region && groupCompositionValid && (
+              <p className="mt-4 rounded-xl bg-cream p-4 text-sm text-ink">Visit ZIP: {zip}. Weekday group total: <strong>{formatPrice(groupVisitTotal(region, groupComposition))}</strong>. Saturday or Sunday adds $20 to the group total. Your final total is shown for your selected date.</p>
+            )}
+
             {!groupCompositionValid && (
               <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
                 A Group Visit needs {GROUP_VISIT_MIN_PARTICIPANTS}–{GROUP_VISIT_MAX_PARTICIPANTS} people total.
@@ -841,7 +853,7 @@ export default function BookPage() {
             )}
 
             <button
-              onClick={() => go("group-zip")}
+              onClick={() => go(region && zipRegion === region ? "group-policy" : "group-zip")}
               disabled={!groupCompositionValid}
               className="mt-6 w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
