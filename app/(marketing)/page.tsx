@@ -2,213 +2,82 @@ import PageSearchSchema from "@/components/PageSearchSchema";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  Section,
-  Container,
-  Eyebrow,
-  H1,
-  H2,
-  Lede,
-  P,
-  CTAButton,
-  ChoiceCard,
-  Step,
-  TagList,
-  TwoColumn,
-  ImageFrame,
-} from "@/components/ui";
 import ZipChecker from "@/components/ZipChecker";
-import { BUSINESS_PHONE } from "@/lib/gochiro";
+import { BUSINESS_HOURS } from "@/lib/gochiro";
 import { HOME_VISIT_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
 import JsonLd from "@/components/JsonLd";
 import { localBusinessSchema } from "@/lib/businessSchema";
 import { LOCAL_AREAS } from "@/lib/localAreas";
-import VisitHoursPricing from "@/components/VisitHoursPricing";
+import styles from "./home.module.css";
 
+const description = "Personalized mobile chiropractic care in Delaware County and the Main Line, with Chester County and Philadelphia visits by arrangement.";
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   title: "Mobile Chiropractor in the Greater Philadelphia Region",
-  description:
-    "Go Chiro Mobile brings chiropractic care to your home or workplace in Delaware County, parts of Chester County and the Main Line, PA.",
+  description,
 };
+const people = [
+  ["Pain or trouble moving", "An evaluation, clear explanations, and care based on what we find."],
+  ["Busy schedules", "When the drive and waiting room don’t fit your day."],
+  ["Difficulty traveling", "Care at home for people who are homebound or have limited mobility."],
+  ["Personal attention", "One-on-one care, whether you’re new to chiropractic or looking for a different approach."],
+  ["Function & wellness", "Support for better movement and ongoing wellness, guided by your goals."],
+];
+const steps = [
+  ["Start with your goals", "We discuss your concerns, evaluate the problem, and assess how you’re moving."],
+  ["Care that fits your findings", "Treatment begins during the same visit when appropriate, based on your examination."],
+  ["Leave with a clear next step", "Understand the findings, what you can do between visits, and whether further care makes sense."],
+];
+function Arrow() { return <span aria-hidden="true">↗</span>; }
 
 export default function HomePage() {
-  return (
-    <><PageSearchSchema path={"/"} name={"Mobile Chiropractor in the Greater Philadelphia Region"} description={"Go Chiro Mobile brings chiropractic care to your home or workplace in Delaware County, parts of Chester County and the Main Line, PA."} /><div>
-      <JsonLd data={localBusinessSchema(Object.values(LOCAL_AREAS))} />
-      <div className="bg-navy text-white">
-        <Container>
-          <div className="flex flex-col items-center justify-center gap-2 py-3 text-center sm:flex-row sm:gap-3">
-            <p className="text-sm font-semibold sm:text-base">
-              Now available 7 days a week — including Saturday & Sunday appointments.
-            </p>
-            <Link
-              href="/book-online"
-              className="shrink-0 text-sm font-bold text-white underline underline-offset-4 hover:no-underline sm:text-base"
-            >
-              Schedule a Visit →
-            </Link>
-          </div>
-        </Container>
-      </div>
-
-      <Section tone="white" className="pb-14 pt-12 sm:pb-20 sm:pt-16">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
-            <div className="order-2 lg:order-1">
-              <ImageFrame className="aspect-video">
-                <Image
-                  src={HOME_VISIT_IMAGE.src}
-                  alt={HOME_VISIT_IMAGE.alt}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 40vw, 100vw"
-                  className="object-cover"
-                />
-              </ImageFrame>
+  return <>
+    <PageSearchSchema path="/" name="Mobile Chiropractor in the Greater Philadelphia Region" description={description} />
+    <JsonLd data={localBusinessSchema(Object.values(LOCAL_AREAS))} />
+    <div className={styles.home}>
+      <div className={styles.notice}><span><i aria-hidden="true" />Appointments available 7 days a week</span><a href="sms:+16104940412">Need care today? Text 610-494-0412 <Arrow /></a></div>
+      <section className={styles.hero}>
+        <div className={styles.wrap}>
+          <div className={styles.heroGrid}>
+            <div className={styles.heroCopy}>
+              <p className={styles.eyebrow}>Mobile chiropractic · Since 2003</p>
+              <h1>Personal care.<br /><span>Your place.</span></h1>
+              <p className={styles.lead}>One-on-one chiropractic care with Dr. David DeFries, DC, at your home or workplace. The table, the equipment, and the attention come to you.</p>
+              <p className={styles.area}>Delaware County &amp; the Main Line. Chester County and Philadelphia by arrangement.</p>
+              <div className={styles.actions}><Link className={styles.primary} href="#service-area">Check your availability <Arrow /></Link><Link className={styles.outline} href="/what-to-expect">What to expect</Link></div>
             </div>
-            <div className="order-1 lg:order-2">
-              <H1>Personalized Chiropractic Care, Brought to You</H1>
-              <Lede className="mt-5">
-                Whether you’re considering chiropractic for the first time or looking for a more
-                individualized approach, Dr. David DeFries, DC provides one-on-one care focused on
-                your symptoms, movement and personal goals.
-              </Lede>
-              <P>
-                Mobile chiropractic care throughout Delaware County and the Main Line, with visits
-                to Chester County and Philadelphia by arrangement.
-              </P>
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <CTAButton href="/what-to-expect">What to Expect</CTAButton>
-                <CTAButton href="/book?start=new" variant="secondary">Schedule a First Visit</CTAButton>
-              </div>
-              <Link href="#service-area" className="mt-5 inline-flex font-semibold text-navy hover:underline">Check your service area</Link>
-            </div>
+            <div className={styles.heroPhoto}><Image src={HOME_VISIT_IMAGE.src} alt={HOME_VISIT_IMAGE.alt} fill priority sizes="(min-width: 900px) 48vw, 100vw" className={styles.photo} /><div className={styles.photoNote}>Less travel for you.<br /><strong>More time for your care.</strong></div></div>
           </div>
-        </Container>
-      </Section>
-
-      <Section tone="cream">
-        <Container>
-          <div className="mx-auto max-w-3xl">
-            <H2>Who Is This Approach For?</H2>
-            <ul className="mt-8 divide-y divide-line">
-              {[
-                { title: "Pain or difficulty moving", body: "People who want an evaluation and an explanation of their care options." },
-                { title: "Busy schedules", body: "People who find it difficult to fit an office visit into their day." },
-                { title: "Difficulty traveling", body: "People who are homebound or have difficulty traveling and need care brought to them." },
-                { title: "Personalized care", body: "People seeking a more individualized experience, whether they’re new to chiropractic or have received care before." },
-                { title: "Function and ongoing wellness", body: "People working toward better function and ongoing wellness, with care guided by their individual goals." },
-              ].map(({ title, body }) => (
-                <li key={title} className="grid gap-2 py-5 first:pt-0 last:pb-0 sm:grid-cols-[14rem_1fr] sm:gap-8">
-                  <h3 className="text-lg font-semibold text-ink">{title}</h3>
-                  <p className="text-base leading-relaxed text-muted">{body}</p>
-                </li>
-              ))}
-            </ul>
-            <P>
-              Results-focused care starts with understanding what you want to improve, choosing
-              appropriate care and reviewing your progress.
-            </P>
-          </div>
-        </Container>
-      </Section>
-
-      <Section tone="white" className="pt-10 pb-14 sm:pt-14 sm:pb-20">
-        <Container>
-          <TwoColumn
-            reverse
-            media={
-              <ImageFrame className="aspect-[4/3] mx-auto max-w-md lg:mx-0 lg:max-w-none">
-                <Image src={DOCTOR_PORTRAIT_IMAGE.src} alt={DOCTOR_PORTRAIT_IMAGE.alt} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
-              </ImageFrame>
-            }
-          >
-            <Eyebrow>Meet the Doctor</Eyebrow>
-            <H2 className="mt-3">Meet Dr. David DeFries, DC</H2>
-            <P>
-              Dr. David DeFries, DC is a third-generation chiropractor who has been practicing since
-              2003. He graduated from Parker College of Chiropractic and is a licensed Doctor of
-              Chiropractic in Pennsylvania.
-            </P>
-            <Link href="/about" className="mt-5 inline-flex items-center gap-1.5 font-semibold text-navy hover:underline">Meet Dr. DeFries <span aria-hidden>→</span></Link>
-          </TwoColumn>
-        </Container>
-      </Section>
-
-      <Section tone="white" id="how-it-works" className="scroll-mt-20">
-        <Container>
-          <H2>What Happens at Your First Visit?</H2>
-          <div className="mt-10 grid gap-10 sm:grid-cols-3 sm:gap-8">
-            <Step number={1} title="Discuss your concerns and goals" orientation="horizontal">We’ll talk about your symptoms and what you want to improve, then evaluate the problem and how you’re moving.</Step>
-            <Step number={2} title="Care based on your evaluation" orientation="horizontal">Treatment begins during the same visit when appropriate. Your care is based on the examination findings and your situation.</Step>
-            <Step number={3} title="Understand what comes next" orientation="horizontal">We’ll discuss the findings, what you can do between visits and whether additional care makes sense.</Step>
-          </div>
-          <P>I bring the treatment table and equipment needed for your visit to your home or workplace.</P>
-          <Link href="/what-to-expect" className="mt-10 inline-flex items-center gap-1.5 font-semibold text-navy hover:underline">What to Expect <span aria-hidden>→</span></Link>
-        </Container>
-      </Section>
-
-      <Section tone="cream">
-        <Container>
-          <div className="text-center"><H2>Plan Your Visit</H2></div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-3">
-            <ChoiceCard title="New Patient" description="First visit — or haven't been seen in more than a year." href="/book?start=new" cta="Schedule a First Visit" />
-            <ChoiceCard title="Returning Patient" description="Already a patient and have been seen within the past year." href="/book?start=returning" cta="Schedule a Visit" />
-            <ChoiceCard title="Group Visit" description="Wellness-focused chiropractic care for two or more people at one location." href="/book?start=group" cta="Schedule a Group Visit" />
-          </div>
-          <VisitHoursPricing />
-        </Container>
-      </Section>
-
-      <Section tone="cream" id="conditions" className="scroll-mt-20">
-        <Container>
-          <H2>Common problems we help with</H2>
-          <TagList items={["Back pain", "Neck pain", "Headaches", "Sciatica", "Joint pain", "Sports injuries"]} />
-        </Container>
-      </Section>
-
-      <Section tone="navy" id="service-area" className="scroll-mt-20">
-        <Container>
-          <div className="mx-auto max-w-xl text-center">
-            <Eyebrow onDark>Service Area</Eyebrow>
-            <H2 onDark className="mt-3">Do we come to you?</H2>
-            <div className="mt-8 text-left"><ZipChecker /></div>
-          </div>
-        </Container>
-      </Section>
-
-
-      <Section tone="cream">
-        <Container>
-          <div className="mx-auto max-w-3xl text-center">
-            <Eyebrow>Touring Productions & Live Events</Eyebrow>
-            <H2 className="mt-3">On-Site Care for Touring Productions</H2>
-            <P>
-              Go Chiro Mobile provides on-site musculoskeletal care for touring artists, performers,
-              cast, crew and production personnel at Pennsylvania venues and production locations.
-              Coverage can be arranged for one person or for multiple people during a defined production window.
-            </P>
-            <p className="mt-3 text-sm font-semibold text-muted">Currently available at Pennsylvania locations only.</p>
-            <div className="mt-7">
-              <CTAButton href="/touring-production-care" variant="secondary">Explore Touring Production Care</CTAButton>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      <Section tone="navy">
-        <Container>
-          <div className="mx-auto max-w-2xl text-center">
-            <H2 onDark>Personalized Chiropractic Care, at Your Location.</H2>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-6">
-              <CTAButton href="/book-online" variant="inverse">Schedule a Visit</CTAButton>
-              <a href={`tel:${BUSINESS_PHONE}`} className="text-base font-semibold text-white hover:underline">Call or text {BUSINESS_PHONE}</a>
-            </div>
-          </div>
-        </Container>
-      </Section>
-      <Section tone="cream"><Container><H2>Care in Philadelphia</H2><p className="mt-4 text-lg text-muted">On-site care for workplaces, touring teams and individuals is available by arrangement.</p><Link href="/philadelphia" className="mt-4 inline-block font-semibold text-navy underline">Explore Philadelphia care</Link></Container></Section>
-    </div></>
-  );
+        </div>
+      </section>
+      <div className={styles.concerns}><div className={styles.wrap}><span className={styles.eyebrow}>Common concerns</span>{["Back pain", "Neck pain", "Headaches", "Sciatica", "Joint pain"].map(x => <span key={x}>{x}</span>)}</div></div>
+      <section className={`${styles.wrap} ${styles.section}`}>
+        <div className={styles.sectionHeading}><h2>Care built around<br />how you live.</h2><p>Relief, better movement, and ongoing wellness. We start with what matters to you and review your progress together.</p></div>
+        <div className={styles.people}>{people.map(([title, text], i) => <div className={styles.person} key={title}><span className={styles.number}>0{i + 1}</span><h3>{title}</h3><p>{text}</p></div>)}</div>
+      </section>
+      <section className={`${styles.wrap} ${styles.careGrid}`}>
+        <div className={styles.carePhoto}><Image src="/images/home-shoulder-care.jpg" alt="Dr. David DeFries assisting a patient with shoulder movement during a home visit" fill sizes="(min-width: 900px) 48vw, 100vw" className={styles.shoulderPhoto} /></div>
+        <div className={styles.careCopy}><p className={styles.eyebrow}>More than a quick adjustment</p><h2>Your concerns.<br />Your goals.<br /><span>Your care.</span></h2><p>Chiropractic manipulation or mobilization, soft tissue therapy, electrotherapy, and guided movement may be included when appropriate. Your examination helps determine what fits.</p><Link href="/what-to-expect" className={styles.textLink}>See what a visit includes <Arrow /></Link></div>
+      </section>
+      <section className={styles.darkSection}><div className={styles.wrap}><div className={styles.sectionHeading}><h2>Your first visit,<br />made clear.</h2><p>I bring the treatment table and equipment to your home or workplace.</p></div><div className={styles.steps}>{steps.map(([title, text], i) => <div key={title}><span className={styles.stepNumber}>0{i + 1}</span><h3>{title}</h3><p>{text}</p></div>)}</div></div></section>
+      <section className={`${styles.wrap} ${styles.doctor}`}>
+        <div className={styles.doctorPhoto}><Image src={DOCTOR_PORTRAIT_IMAGE.src} alt={DOCTOR_PORTRAIT_IMAGE.alt} fill sizes="(min-width: 900px) 35vw, 100vw" className={styles.photo} /></div>
+        <div><p className={styles.eyebrow}>Meet your doctor</p><h2>Dr. David<br />DeFries, DC</h2><p>A third-generation chiropractor practicing since 2003. A Parker College of Chiropractic graduate providing personalized mobile care in Pennsylvania.</p><Link href="/about" className={styles.textLink}>Meet Dr. DeFries <Arrow /></Link><div className={styles.credentials}><div><strong>2003</strong><span>In practice since</span></div><div><strong>3rd</strong><span>Generation chiropractor</span></div></div></div>
+      </section>
+      <section className={`${styles.wrap} ${styles.section}`} id="service-area">
+        <div className={styles.availability}><div><p className={styles.eyebrow}>Start with your location</p><h2>Do we come<br /><span>to you?</span></h2><p>Enter your ZIP to see regular booking options or request a visit by arrangement.</p><Link href="/service-areas" className={styles.textLink}>Explore service areas <Arrow /></Link></div><div className={styles.zip}><ZipChecker /></div></div>
+      </section>
+      <section className={`${styles.wrap} ${styles.planning}`}>
+        <div className={styles.sectionHeading}><h2>Plan your visit.</h2><p>Choose the care that fits where you are now.</p></div>
+        <div className={styles.visits}>{[
+          ["New patient", "First visit, or haven’t been seen in over a year.", "/book?start=new"],
+          ["Returning patient", "Seen within the past year? Find your next visit.", "/book?start=returning"],
+          ["Group visit", "Wellness care for 2–6 people at one location.", "/book?start=group"],
+        ].map(([title, text, href]) => <Link key={title} href={href}><h3>{title} <Arrow /></h3><p>{text}</p></Link>)}</div>
+        <div className={styles.details}><div><h3>Appointment hours</h3><dl>{[{day:"Monday–Thursday", hours:BUSINESS_HOURS[0].hours}, ...BUSINESS_HOURS.slice(4)].map(x => <div key={x.day}><dt>{x.day}</dt><dd>{x.hours}</dd></div>)}</dl></div><div className={styles.pricing}><p className={styles.eyebrow}>Clear costs before you commit</p><h3>Know your price<br />before booking.</h3><p>Regular online booking shows your exact price before you confirm. Visits by arrangement are individually quoted for care and travel and require a deposit to confirm.</p><p>No payment is required to request a visit.</p><Link href="/pricing" className={styles.textLink}>View regular booking prices <Arrow /></Link></div></div>
+      </section>
+      <section className={`${styles.wrap} ${styles.beyond}`}><div><p className={styles.eyebrow}>Care beyond the everyday</p><h2>Philadelphia.<br />Backstage.<br />On location.</h2></div><div><p>Visits for individuals, hotel guests, workplaces, performers, and touring crews are available by arrangement at Pennsylvania locations.</p><div className={styles.beyondLinks}><Link href="/philadelphia">Explore Philadelphia care <Arrow /></Link><Link href="/philadelphia/hotel-visits">Hotel &amp; traveler visits <Arrow /></Link><Link href="/touring-production-care">Touring &amp; production care <Arrow /></Link></div></div></section>
+      <section className={styles.last}><div className={styles.wrap}><h2>Stay where you are.<br /><span>We’ll come to you.</span></h2><div className={styles.actions}><Link className={styles.primary} href="#service-area">Check your availability <Arrow /></Link><a href="sms:+16104940412" className={styles.outline}>Text 610-494-0412</a></div></div></section>
+    </div>
+  </>;
 }
