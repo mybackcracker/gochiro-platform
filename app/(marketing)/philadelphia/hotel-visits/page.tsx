@@ -1,3 +1,4 @@
+import Image from "next/image";
 import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -32,6 +33,7 @@ export default function Page() {
         <div className="space-y-8">
           <JsonLd data={{ "@context": "https://schema.org", "@type": "Service", name: "Mobile chiropractic care for Philadelphia hotel guests", serviceType: "Mobile musculoskeletal and chiropractic care", areaServed: { "@type": "City", name: "Philadelphia" }, provider: { "@id": "https://www.gochiromobile.com/#organization" }, url }} />
           <PageHeader eyebrow="Philadelphia hotel guests & travelers" title="Musculoskeletal Care Brought to Your Hotel" lede="Focused care for pain relief and improved movement, without a trip to an unfamiliar office. Go Chiro Mobile brings personalized evaluation and treatment directly to your Philadelphia hotel, with visits available by arrangement." />
+          <figure><Image src="/images/philadelphia-hotel-care.webp" alt="Illustrative portable chiropractic treatment table set up in a hotel room overlooking Philadelphia" width={1536} height={1024} sizes="(min-width: 1200px) 1200px, 100vw" className="w-full rounded-xl" /><figcaption className="mt-2 text-sm text-muted">Illustration of a mobile care setup in a Philadelphia hotel room.</figcaption></figure>
           <VisitActions />
           <p className="max-w-3xl leading-relaxed text-muted">Dr. David DeFries is one of the few exclusively mobile chiropractic providers in the Philadelphia region. His experience includes on-site care for performers and touring crews at Philadelphia venues, as well as care in homes and workplaces, with discretion and privacy respected.</p>
         </div>

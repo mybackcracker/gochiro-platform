@@ -68,12 +68,6 @@ export default function HomePage() {
         <div className={styles.availability}><div><p className={styles.eyebrow}>Start with your location</p><h2>Do we come<br /><span>to you?</span></h2><p>Enter your ZIP to see regular booking options or request a visit by arrangement.</p><Link href="/service-areas" className={styles.textLink}>Explore service areas <Arrow /></Link></div><div className={styles.zip}><ZipChecker /></div></div>
       </section>
       <section className={`${styles.wrap} ${styles.planning}`}>
-        <div className={styles.sectionHeading}><h2>Plan your visit.</h2><p>Choose the care that fits where you are now.</p></div>
-        <div className={styles.visits}>{[
-          ["New patient", "First visit, or haven’t been seen in over a year.", "/book?start=new"],
-          ["Returning patient", "Seen within the past year? Find your next visit.", "/book?start=returning"],
-          ["Group visit", "Wellness care for 2–6 people at one location.", "/book?start=group"],
-        ].map(([title, text, href]) => <Link key={title} href={href}><h3>{title} <Arrow /></h3><p>{text}</p></Link>)}</div>
         <div className={styles.details}><div><h3>Appointment hours</h3><dl>{[{day:"Monday–Thursday", hours:BUSINESS_HOURS[0].hours}, ...BUSINESS_HOURS.slice(4)].map(x => <div key={x.day}><dt>{x.day}</dt><dd>{x.hours}</dd></div>)}</dl></div><div className={styles.pricing}><p className={styles.eyebrow}>Clear costs before you commit</p><h3>Know your price<br />before booking.</h3><p>Regular online booking shows your exact price before you confirm. Visits by arrangement are individually quoted for care and travel and require a deposit to confirm.</p><p>No payment is required to request a visit.</p><Link href="/pricing" className={styles.textLink}>View regular booking prices <Arrow /></Link></div></div>
       </section>
       <section className={`${styles.wrap} ${styles.beyond}`}><div><p className={styles.eyebrow}>Care beyond the everyday</p><h2>Philadelphia.<br />Backstage.<br />On location.</h2></div><div><p>Visits for individuals, hotel guests, workplaces, performers, and touring crews are available by arrangement at Pennsylvania locations.</p><div className={styles.beyondLinks}><Link href="/philadelphia">Explore Philadelphia care <Arrow /></Link><Link href="/philadelphia/hotel-visits">Hotel &amp; traveler visits <Arrow /></Link><Link href="/touring-production-care">Touring &amp; production care <Arrow /></Link></div></div></section>

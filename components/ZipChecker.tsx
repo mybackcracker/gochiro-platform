@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { zipRoute, locationRequestPath } from "@/lib/zipRouting";
+import Link from "next/link";
 import { useState } from "react";
 import { findRegion } from "@/lib/gochiro";
 import { CTAButton } from "@/components/ui";
@@ -40,12 +41,15 @@ export default function ZipChecker() {
       </div>
       {checked && zip.length === 5 && region && (
         <div className="mt-5">
-          <p className="text-base font-medium text-ink">Good news — we serve your area. Ready to book?</p>
-          <div className="mt-3">
-            <CTAButton href="/book-online">Schedule a Visit</CTAButton>
+          <p className="text-base font-medium text-ink">Good news — we serve your area. Choose your visit:</p>
+          <div className="mt-3 flex flex-col gap-3">
+            <CTAButton href={`/book?start=new&zip=${zip}`}>New Patient</CTAButton>
+            <CTAButton href={`/book?start=returning&zip=${zip}`} variant="secondary">Existing Patient</CTAButton>
+            <CTAButton href={`/book?start=group&zip=${zip}`} variant="secondary">Group Visit</CTAButton>
           </div>
         </div>
       )}
+      <p className="mt-5 text-sm text-muted">Learn about group visits: <Link href="/group-visits/standard" className="font-semibold text-navy underline">Delaware County</Link> · <Link href="/group-visits/premium" className="font-semibold text-navy underline">Main Line &amp; West Chester</Link></p>
       {checked && zip.length === 5 && !region && (
         <div className="mt-5 rounded-xl bg-cream p-4">
           <p>Care is available in Pennsylvania only. This ZIP is not listed as a Pennsylvania location. Please check your ZIP code.</p>
