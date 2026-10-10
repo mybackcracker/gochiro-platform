@@ -1,5 +1,6 @@
 import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
+import ExtendedAreaTerms from "@/components/ExtendedAreaTerms";
 import FAQs from "@/components/FAQs";
 import type { FAQItem } from "@/lib/faqs";
 import {
@@ -49,12 +50,12 @@ function priceRange(v: VisitType): string {
 const PRICING_FAQS: FAQItem[] = [
   {
     question: "How much is my first chiropractic visit?",
-    answer: `Weekday new patient visits range from ${priceRange("new-patient")}, depending on the visit location. Weekend pricing differs. Your exact price is shown during booking for your location and selected date, before you confirm.`,
+    answer: `Within the regular online booking area, weekday new patient visits range from ${priceRange("new-patient")}, depending on the visit location. Weekend pricing differs. Your exact price is shown during booking for your location and selected date, before you confirm.`,
     links: [{ label: "Explore service areas", href: "/service-areas" }, { label: "Check your visit price", href: "/book-online" }],
   },
   {
     question: "How much are visits for existing patients?",
-    answer: `Weekday maintenance visits range from ${priceRange("maintenance")}, priority visits from ${priceRange("priority-standard")}, upgraded priority visits from ${priceRange("priority-upgraded")}, and care plan visits from ${priceRange("care-plan")}. The price depends on your service area and visit type.`,
+    answer: `Within the regular online booking area, weekday maintenance visits range from ${priceRange("maintenance")}, priority visits from ${priceRange("priority-standard")}, upgraded priority visits from ${priceRange("priority-upgraded")}, and care plan visits from ${priceRange("care-plan")}. The price depends on your service area and visit type.`,
     links: [{ label: "Explore service areas", href: "/service-areas" }],
   },
   {
@@ -68,7 +69,7 @@ const PRICING_FAQS: FAQItem[] = [
   },
   {
     question: "How much does a group chiropractic visit cost?",
-    answer: `For groups of ${GROUP_VISIT_MIN_PARTICIPANTS}–${GROUP_VISIT_MAX_PARTICIPANTS} people, the base rate is $40–$60 per person, depending on group size and location. Each new patient adds $${GROUP_VISIT_NEW_PATIENT_SURCHARGE}. Saturday or Sunday adds $${GROUP_VISIT_WEEKEND_SURCHARGE} to the total group fee. The complete total is shown before booking.`,
+    answer: `For groups in the regular online booking area of ${GROUP_VISIT_MIN_PARTICIPANTS}–${GROUP_VISIT_MAX_PARTICIPANTS} people, the base rate is $40–$60 per person, depending on group size and location. Each new patient adds $${GROUP_VISIT_NEW_PATIENT_SURCHARGE}. Saturday or Sunday adds $${GROUP_VISIT_WEEKEND_SURCHARGE} to the total group fee. The complete total is shown before booking.`,
     links: [{ label: "Group visit details and booking", href: "/book?start=group" }],
   },
   {
@@ -88,11 +89,11 @@ export default function PricingPage() {
             lede="Know what your visit costs before you book."
           />
           <P className="max-w-2xl">
-            Go Chiro Mobile is primarily a self-pay practice. Your exact price is shown during
-            scheduling before you confirm your appointment.
+            Go Chiro Mobile is primarily a self-pay practice. The prices below apply to the regular online booking area. Your exact price is shown during scheduling before you confirm. Visits by arrangement are quoted individually for care and travel.
           </P>
 
-          <div className="mt-10 overflow-hidden rounded-2xl border border-line">
+          <H2 className="mt-8">Regular Online Booking Prices</H2>
+          <div className="mt-6 overflow-hidden rounded-2xl border border-line">
             <table className="w-full border-collapse text-left">
               <thead>
                 <tr className="bg-cream">
@@ -174,7 +175,7 @@ export default function PricingPage() {
           </div>
 
           <div id="cancellation-policy" className="mt-8 scroll-mt-24">
-            <Callout title="Cancellation & Rescheduling">
+            <Callout title="Regular Booking: Cancellation & Rescheduling">
               <p className="text-base leading-relaxed text-muted">
                 At least 24 hours&apos; notice is required to cancel or reschedule an individual appointment.
                 Cancellations, no-shows, or same-day changes made with less than 24 hours&apos; notice
@@ -192,6 +193,7 @@ export default function PricingPage() {
           </div>
         </Container>
       </Section>
+      <Section tone="cream"><Container><div className="max-w-3xl"><H2>Visits by Arrangement</H2><div className="mt-6"><ExtendedAreaTerms /></div><div className="mt-6"><CTAButton href="/check-your-location">Request a Visit</CTAButton></div></div></Container></Section>
       <FAQs items={PRICING_FAQS} path="/pricing" title="Frequently Asked Questions About Visit Pricing" />
     </div></>
   );

@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
 type Tone = "white" | "cream" | "navy";
 
 const TONE_CLASSES: Record<Tone, string> = {
-  white: "bg-white text-ink",
+  white: "bg-[#fffdf8] text-ink",
   cream: "bg-cream text-ink",
   navy: "bg-navy text-white",
 };
@@ -27,7 +27,7 @@ export function Section({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className={`${TONE_CLASSES[tone]} py-16 sm:py-24 ${className}`}>
+    <section id={id} className={`${TONE_CLASSES[tone]} py-14 sm:py-20 ${className}`}>
       {children}
     </section>
   );
@@ -44,7 +44,7 @@ export function Container({
   children: ReactNode;
 }) {
   return (
-    <div className={`mx-auto w-full ${narrow ? "max-w-3xl" : "max-w-6xl"} px-4 sm:px-6 ${className}`}>
+    <div className={`mx-auto w-full ${narrow ? "max-w-3xl" : "max-w-[1200px]"} px-4 sm:px-6 ${className}`}>
       {children}
     </div>
   );
@@ -59,10 +59,10 @@ export function Eyebrow({ children, onDark = false }: { children: ReactNode; onD
   return (
     <p
       className={`flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] ${
-        onDark ? "text-white/70" : "text-navy"
+        onDark ? "text-white/70" : "text-accent"
       }`}
     >
-      <span className={`h-px w-6 ${onDark ? "bg-white/50" : "bg-navy/50"}`} aria-hidden />
+      <span className={`h-px w-6 ${onDark ? "bg-white/50" : "bg-accent"}`} aria-hidden />
       {children}
     </p>
   );
@@ -71,7 +71,7 @@ export function Eyebrow({ children, onDark = false }: { children: ReactNode; onD
 export function H1({ onDark = false, className = "", children }: { onDark?: boolean; className?: string; children: ReactNode }) {
   return (
     <h1
-      className={`text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl ${
+      className={`text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl ${
         onDark ? "text-white" : "text-ink"
       } ${className}`}
     >
@@ -82,7 +82,7 @@ export function H1({ onDark = false, className = "", children }: { onDark?: bool
 
 export function H2({ onDark = false, className = "", children }: { onDark?: boolean; className?: string; children: ReactNode }) {
   return (
-    <h2 className={`text-2xl font-bold sm:text-3xl ${onDark ? "text-white" : "text-ink"} ${className}`}>
+    <h2 className={`text-3xl font-extrabold leading-tight sm:text-4xl ${onDark ? "text-white" : "text-ink"} ${className}`}>
       {children}
     </h2>
   );
@@ -121,7 +121,7 @@ export function PageHeader({
   lede?: string;
 }) {
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-3xl border-b border-line pb-8">
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
       <H1 className="mt-3">{title}</H1>
       {lede && <Lede className="mt-5">{lede}</Lede>}
@@ -139,12 +139,12 @@ export function CTAButton({
   variant?: "primary" | "secondary" | "inverse" | "inverseOutline";
 }) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
+    "inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
   const variants: Record<typeof variant, string> = {
-    primary: "bg-navy text-white hover:bg-navy-dark focus-visible:ring-navy",
+    primary: "bg-apricot text-navy hover:bg-apricot-light focus-visible:ring-accent",
     secondary:
       "border border-navy/30 text-navy hover:border-navy hover:bg-navy/5 focus-visible:ring-navy",
-    inverse: "bg-white text-navy hover:bg-cream focus-visible:ring-white focus-visible:ring-offset-navy",
+    inverse: "bg-apricot text-navy hover:bg-apricot-light focus-visible:ring-apricot focus-visible:ring-offset-navy",
     inverseOutline:
       "border border-white/50 text-white hover:bg-white/10 focus-visible:ring-white focus-visible:ring-offset-navy",
   };
@@ -175,7 +175,7 @@ export function ChoiceCard({
   return (
     <Link
       href={href}
-      className="group flex h-full flex-col rounded-2xl border border-line bg-white p-7 transition-all hover:-translate-y-0.5 hover:border-navy/40 hover:shadow-[0_12px_32px_-16px_rgba(24,50,74,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
+      className="group flex h-full flex-col rounded-2xl border border-line bg-white p-7 transition-all hover:-translate-y-0.5 hover:border-accent hover:shadow-[0_12px_32px_-16px_rgba(24,50,74,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
     >
       {accent && <div className="mb-4">{accent}</div>}
       <H3>{title}</H3>
@@ -233,7 +233,7 @@ export function Step({
   if (orientation === "horizontal") {
     return (
       <div>
-        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-navy font-heading text-lg font-bold text-white">
+        <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-apricot font-heading text-lg font-bold text-navy">
           {number}
         </span>
         <H3 className="mt-4">{title}</H3>
@@ -244,7 +244,7 @@ export function Step({
   return (
     <div className="relative flex gap-6 pb-10 last:pb-0">
       <div className="flex flex-col items-center">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy font-heading text-lg font-bold text-white">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-apricot font-heading text-lg font-bold text-navy">
           {number}
         </span>
         <span className="mt-2 w-px flex-1 bg-line last:hidden" aria-hidden />
@@ -263,7 +263,7 @@ export function TagList({ items }: { items: string[] }) {
     <ul className="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((item) => (
         <li key={item} className="flex items-center gap-3 border-b border-line py-2 text-base font-medium text-ink">
-          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-navy" aria-hidden />
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
           {item}
         </li>
       ))}
@@ -294,7 +294,7 @@ export function TwoColumn({
 /** Consistent image framing — one rounded/overflow treatment reused everywhere a photo appears. */
 export function ImageFrame({ className = "", children }: { className?: string; children: ReactNode }) {
   return (
-    <div className={`relative overflow-hidden rounded-3xl border border-line bg-cream ${className}`}>
+    <div className={`relative overflow-hidden rounded-xl border border-line bg-cream ${className}`}>
       {children}
     </div>
   );

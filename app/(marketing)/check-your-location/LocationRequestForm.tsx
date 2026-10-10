@@ -35,7 +35,7 @@ export default function LocationRequestForm({ initialZip = "" }: { initialZip?: 
       <label className="block font-semibold">How soon are you hoping to be seen?<select name="timing" required defaultValue="" className={field}><option value="" disabled>Select timing</option>{LOCATION_TIMING.map(x=><option key={x}>{x}</option>)}</select></label>
       <div hidden aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off"/></label></div>
       <label className="flex items-start gap-3"><input name="acknowledged" type="checkbox" required className="mt-1 h-5 w-5 shrink-0"/><span>I understand that pricing includes care and travel, and a deposit of at least 50% is required to confirm an accepted appointment. I have read the cancellation terms above.</span></label>
-      <button type="submit" className="rounded-xl bg-navy px-6 py-3 font-semibold text-white disabled:opacity-60">{status === "sending" ? "Sending…" : "Check My Location"}</button>
+      <button type="submit" className="rounded-lg bg-apricot px-6 py-3 font-semibold text-navy hover:bg-apricot-light disabled:opacity-60">{status === "sending" ? "Sending…" : "Request a Visit"}</button>
     </fieldset>
     {status === "error" && <p role="alert" className="text-red-800">{message}</p>}
   </form>;

@@ -661,9 +661,9 @@ export default function BookPage() {
   }
 
   return (
-    <main className="min-h-screen bg-slate-50 px-4 py-4 sm:py-8">
+    <main className="min-h-screen bg-cream px-4 py-4 sm:py-8">
       <section className="mx-auto w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-        <button onClick={goBack} className="text-sm font-semibold text-slate-500 hover:text-slate-900">
+        <button onClick={goBack} className="text-sm font-semibold text-slate-500 hover:text-ink">
           ← Back
         </button>
 
@@ -675,15 +675,15 @@ export default function BookPage() {
 
         {step === "landing" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Schedule Your Appointment</h1>
-            <p className="mt-2 text-slate-600">Answer a few questions to see your available appointment times and fee.</p>
+            <h1 className="mt-2 text-2xl font-bold text-ink">Schedule Your Appointment</h1>
+            <p className="mt-2 text-muted">Answer a few questions to see your available appointment times and fee.</p>
             <div className="mt-6 space-y-3">
               <button
                 onClick={() => {
                   setPatientType("new");
                   go("zip");
                 }}
-                className="w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white hover:bg-slate-800"
+                className="w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white hover:bg-navy-dark"
               >
                 New Patient, First Visit
               </button>
@@ -693,7 +693,7 @@ export default function BookPage() {
                     setPatientType("returning");
                     go("region");
                   }}
-                  className="w-full rounded-xl border border-slate-300 px-5 py-4 text-lg font-semibold text-slate-900 hover:border-slate-900"
+                  className="w-full rounded-xl border border-line px-5 py-4 text-lg font-semibold text-ink hover:border-accent"
                 >
                   Returning Patient, Follow-Up
                 </button>
@@ -708,7 +708,7 @@ export default function BookPage() {
                   setVisit("group-visit");
                   go("group-count");
                 }}
-                className="w-full rounded-xl border border-slate-300 px-5 py-4 text-lg font-semibold text-slate-900 hover:border-slate-900"
+                className="w-full rounded-xl border border-line px-5 py-4 text-lg font-semibold text-ink hover:border-accent"
               >
                 Group Visit, 2+ People
               </button>
@@ -718,8 +718,8 @@ export default function BookPage() {
 
         {step === "region" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Where are you located?</h1>
-            <p className="mt-2 text-slate-600">Choose your scheduling area below.</p>
+            <h1 className="mt-2 text-2xl font-bold text-ink">Where are you located?</h1>
+            <p className="mt-2 text-muted">Choose your scheduling area below.</p>
 
             <div className="mt-6 space-y-3">
               {REGION_OPTIONS.map((r) => (
@@ -730,7 +730,7 @@ export default function BookPage() {
                     setWeekendDay(null);
                     go("visit");
                   }}
-                  className={`w-full rounded-xl border p-4 text-left font-semibold text-slate-900 ${r.className}`}
+                  className={`w-full rounded-xl border p-4 text-left font-semibold text-ink ${r.className}`}
                 >
                   {r.label}
                 </button>
@@ -740,7 +740,7 @@ export default function BookPage() {
             <p className="mt-6 text-sm font-semibold text-slate-700">Not sure which area you&apos;re in?</p>
             <button
               onClick={() => go("zip")}
-              className="mt-2 w-full rounded-xl border border-slate-300 px-5 py-4 text-center font-semibold text-slate-600 hover:border-slate-900"
+              className="mt-2 w-full rounded-xl border border-line px-5 py-4 text-center font-semibold text-muted hover:border-accent"
             >
               Enter my ZIP code
             </button>
@@ -749,8 +749,8 @@ export default function BookPage() {
 
         {step === "zip" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">What ZIP code will we be visiting?</h1>
-            <p className="mt-2 text-slate-600">We use your ZIP code to determine the service region and visit fee.</p>
+            <h1 className="mt-2 text-2xl font-bold text-ink">What ZIP code will we be visiting?</h1>
+            <p className="mt-2 text-muted">We use your ZIP code to determine the service region and visit fee.</p>
 
             <input
               value={zip}
@@ -758,7 +758,7 @@ export default function BookPage() {
               inputMode="numeric"
               placeholder="ZIP code"
               aria-label="ZIP code of the appointment"
-              className="mt-6 w-full rounded-xl border border-slate-300 px-4 py-4 text-lg outline-none focus:border-slate-900"
+              className="mt-6 w-full rounded-xl border border-line px-4 py-4 text-lg outline-none focus:border-slate-900"
             />
 
             {zip.length === 5 && !zipRegion && (
@@ -788,7 +788,7 @@ export default function BookPage() {
             <button
               onClick={continueFromZip}
               disabled={zipDestination !== "booking" && zipDestination !== "request"}
-              className="mt-4 w-full rounded-xl bg-slate-900 px-5 py-3.5 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="mt-4 w-full rounded-xl bg-navy px-5 py-3.5 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               {zipDestination === "request" ? "Check Your Location" : "Continue"}
             </button>
@@ -797,8 +797,8 @@ export default function BookPage() {
 
         {step === "group-count" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Who&apos;s coming?</h1>
-            <p className="mt-2 text-slate-600">
+            <h1 className="mt-2 text-2xl font-bold text-ink">Who&apos;s coming?</h1>
+            <p className="mt-2 text-muted">
               Group Visits need at least {GROUP_VISIT_MIN_PARTICIPANTS} people, and new and existing patients can
               mix freely.
             </p>
@@ -815,7 +815,7 @@ export default function BookPage() {
                   max={GROUP_VISIT_MAX_PARTICIPANTS}
                   value={groupNewCount}
                   onChange={(e) => setGroupNewCount(Math.max(0, parseInt(e.target.value, 10) || 0))}
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-lg outline-none focus:border-slate-900"
+                  className="mt-2 w-full rounded-xl border border-line px-4 py-3 text-lg outline-none focus:border-slate-900"
                 />
               </div>
               <div>
@@ -829,7 +829,7 @@ export default function BookPage() {
                   max={GROUP_VISIT_MAX_PARTICIPANTS}
                   value={groupExistingCount}
                   onChange={(e) => setGroupExistingCount(Math.max(0, parseInt(e.target.value, 10) || 0))}
-                  className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-lg outline-none focus:border-slate-900"
+                  className="mt-2 w-full rounded-xl border border-line px-4 py-3 text-lg outline-none focus:border-slate-900"
                 />
               </div>
             </div>
@@ -843,7 +843,7 @@ export default function BookPage() {
             <button
               onClick={() => go("group-zip")}
               disabled={!groupCompositionValid}
-              className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="mt-6 w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               Continue
             </button>
@@ -852,8 +852,8 @@ export default function BookPage() {
 
         {step === "group-zip" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">What ZIP code will we be visiting?</h1>
-            <p className="mt-2 text-slate-600">We use your ZIP code to determine the service region and group pricing.</p>
+            <h1 className="mt-2 text-2xl font-bold text-ink">What ZIP code will we be visiting?</h1>
+            <p className="mt-2 text-muted">We use your ZIP code to determine the service region and group pricing.</p>
 
             <input
               value={zip}
@@ -861,7 +861,7 @@ export default function BookPage() {
               inputMode="numeric"
               placeholder="ZIP code"
               aria-label="ZIP code of the appointment"
-              className="mt-6 w-full rounded-xl border border-slate-300 px-4 py-4 text-lg outline-none focus:border-slate-900"
+              className="mt-6 w-full rounded-xl border border-line px-4 py-4 text-lg outline-none focus:border-slate-900"
             />
 
             {zip.length === 5 && !zipRegion && (
@@ -893,7 +893,7 @@ export default function BookPage() {
                 go("group-policy");
               }}
               disabled={zipDestination !== "booking" && zipDestination !== "request"}
-              className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="mt-6 w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               {zipDestination === "request" ? "Check Your Location" : "Continue"}
             </button>
@@ -902,30 +902,30 @@ export default function BookPage() {
 
         {step === "group-policy" && (
           <>
-            <h1 className="mt-1 text-2xl font-bold text-slate-900">Before You Book</h1>
+            <h1 className="mt-1 text-2xl font-bold text-ink">Before You Book</h1>
 
             <div className="mt-4 space-y-3 rounded-xl border border-slate-200 p-3 text-sm text-slate-700">
               <div>
-                <h2 className="font-semibold text-slate-900">Routine care only</h2>
+                <h2 className="font-semibold text-ink">Routine care only</h2>
                 <p className="mt-0.5">
                   Acute or significantly worsening complaints — including a new complaint in an existing patient — need an individual visit.
                 </p>
               </div>
               <div>
-                <h2 className="font-semibold text-slate-900">Host responsibility</h2>
+                <h2 className="font-semibold text-ink">Host responsibility</h2>
                 <p className="mt-0.5">
                   The host is responsible for the full quoted group total. Payment is not required to book. You are welcome to pay now or at the time of the visit.
                 </p>
               </div>
               <div>
-                <h2 className="font-semibold text-slate-900">Changes within 24 hours</h2>
+                <h2 className="font-semibold text-ink">Changes within 24 hours</h2>
                 <p className="mt-0.5">
                   Reduce headcount more than 24 hours ahead and we&apos;ll recalculate. Within 24 hours, the reserved
                   group total remains due.
                 </p>
               </div>
               <div>
-                <h2 className="font-semibold text-slate-900">New-patient intake</h2>
+                <h2 className="font-semibold text-ink">New-patient intake</h2>
                 <p className="mt-0.5">
                   Each new patient must complete the intake form within 3 hours of booking to be treated as part of the Group Visit.
                 </p>
@@ -937,7 +937,7 @@ export default function BookPage() {
                 type="checkbox"
                 checked={groupPolicyAgreed}
                 onChange={(e) => setGroupPolicyAgreed(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-slate-300"
+                className="mt-0.5 h-4 w-4 rounded border-line"
               />
               I have read and agree to the policies above
             </label>
@@ -945,7 +945,7 @@ export default function BookPage() {
             <button
               onClick={goToSchedule}
               disabled={!groupPolicyAgreed}
-              className="mt-4 w-full rounded-xl bg-slate-900 px-5 py-3.5 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="mt-4 w-full rounded-xl bg-navy px-5 py-3.5 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               Continue
             </button>
@@ -954,26 +954,26 @@ export default function BookPage() {
 
         {step === "policy" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Before You Book</h1>
-            <p className="mt-2 text-slate-600">Please review the following before scheduling your visit:</p>
+            <h1 className="mt-2 text-2xl font-bold text-ink">Before You Book</h1>
+            <p className="mt-2 text-muted">Please review the following before scheduling your visit:</p>
 
             <div className="mt-6 max-h-72 space-y-5 overflow-y-auto rounded-xl border border-slate-200 p-4 text-sm text-slate-700">
               <div>
-                <h2 className="font-semibold text-slate-900">Cancellation Policy</h2>
+                <h2 className="font-semibold text-ink">Cancellation Policy</h2>
                 <p className="mt-1">
                   We require at least 24 hours&apos; notice to cancel or reschedule your appointment. Cancellations,
                   no-shows, or same-day changes made with less than 24 hours&apos; notice will be charged a $50 fee.
                 </p>
               </div>
               <div>
-                <h2 className="font-semibold text-slate-900">Arrival Window</h2>
+                <h2 className="font-semibold text-ink">Arrival Window</h2>
                 <p className="mt-1">
                   Dr. DeFries travels between appointments, so please allow about 15 minutes of flexibility before
                   and after your scheduled time.
                 </p>
               </div>
               <div>
-                <h2 className="font-semibold text-slate-900">Intake Forms</h2>
+                <h2 className="font-semibold text-ink">Intake Forms</h2>
                 <p className="mt-1">
                   New patient intake forms must be completed at least 2 hours before your appointment. If they
                   aren&apos;t completed in time, your appointment will be canceled and a missed-appointment fee will
@@ -981,7 +981,7 @@ export default function BookPage() {
                 </p>
               </div>
               <div>
-                <h2 className="font-semibold text-slate-900">Payment</h2>
+                <h2 className="font-semibold text-ink">Payment</h2>
                 <p className="mt-1">
                   Payment is due at or before your visit. We accept cash, check, credit card (HSA/FSA eligible), and
                   Venmo.
@@ -994,7 +994,7 @@ export default function BookPage() {
                 type="checkbox"
                 checked={policyAgreed}
                 onChange={(e) => setPolicyAgreed(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-slate-300"
+                className="mt-0.5 h-4 w-4 rounded border-line"
               />
               I have read and agree to the policies above
             </label>
@@ -1002,7 +1002,7 @@ export default function BookPage() {
             <button
               onClick={goToSchedule}
               disabled={!policyAgreed}
-              className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="mt-6 w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               Continue
             </button>
@@ -1011,53 +1011,53 @@ export default function BookPage() {
 
         {step === "weekend" && region && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Saturday / Sunday Appointments</h1>
-            <p className="mt-3 text-slate-600">Choose a day to see the appropriate visits and prices for {REGION_OPTIONS.find(r => r.id === region)?.label}. Openings and advance-notice requirements still apply.</p>
+            <h1 className="mt-2 text-2xl font-bold text-ink">Saturday / Sunday Appointments</h1>
+            <p className="mt-3 text-muted">Choose a day to see the appropriate visits and prices for {REGION_OPTIONS.find(r => r.id === region)?.label}. Openings and advance-notice requirements still apply.</p>
             <div className="mt-6 space-y-3">
-              <button onClick={() => { setWeekendDay(6); go("visit"); }} className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"><strong className="block">Saturday · 9 a.m.–{["Central", "MainLine", "WestChester"].includes(region) ? "noon" : "1 p.m."}</strong><span className="mt-2 block text-sm text-slate-600">Priority, Care Plan, and Maintenance / Wellness. Maintenance requires 48 hours’ notice.</span></button>
-              <button onClick={() => { setWeekendDay(0); go("visit"); }} className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"><strong className="block">Sunday · 9 a.m.–1 p.m.</strong><span className="mt-2 block text-sm text-slate-600">Priority visits for returning patients, with at least two hours’ notice. Maintenance and Care Plan visits are not offered Sundays.</span></button>
+              <button onClick={() => { setWeekendDay(6); go("visit"); }} className="w-full rounded-xl border border-line p-4 text-left hover:border-accent"><strong className="block">Saturday · 9 a.m.–{["Central", "MainLine", "WestChester"].includes(region) ? "noon" : "1 p.m."}</strong><span className="mt-2 block text-sm text-muted">Priority, Care Plan, and Maintenance / Wellness. Maintenance requires 48 hours’ notice.</span></button>
+              <button onClick={() => { setWeekendDay(0); go("visit"); }} className="w-full rounded-xl border border-line p-4 text-left hover:border-accent"><strong className="block">Sunday · 9 a.m.–1 p.m.</strong><span className="mt-2 block text-sm text-muted">Priority visits for returning patients, with at least two hours’ notice. Maintenance and Care Plan visits are not offered Sundays.</span></button>
             </div>
           </>
         )}
 
         {step === "visit" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">{weekendDay === null ? "What type of visit do you need?" : `${weekendDay === 6 ? "Saturday" : "Sunday"}: What type of visit do you need?`}</h1>
-            <p className="mt-3 text-sm text-slate-600">Saturday appointments are available{region ? ` from 9 a.m. to ${["Central", "MainLine", "WestChester"].includes(region) ? "noon" : "1 p.m."}` : ""}, subject to openings and advance-notice requirements. Sunday appointments are available for Priority Visits; Maintenance and Care Plan visits are not offered Sundays.</p>
+            <h1 className="mt-2 text-2xl font-bold text-ink">{weekendDay === null ? "What type of visit do you need?" : `${weekendDay === 6 ? "Saturday" : "Sunday"}: What type of visit do you need?`}</h1>
+            <p className="mt-3 text-sm text-muted">Saturday appointments are available{region ? ` from 9 a.m. to ${["Central", "MainLine", "WestChester"].includes(region) ? "noon" : "1 p.m."}` : ""}, subject to openings and advance-notice requirements. Sunday appointments are available for Priority Visits; Maintenance and Care Plan visits are not offered Sundays.</p>
             <div className="mt-6 space-y-3">
               {weekendDay === null && <button onClick={() => go("weekend")} className="w-full rounded-xl border-2 border-navy bg-cream p-4 text-left font-semibold text-navy">Saturday / Sunday Appointments<span className="mt-1 block text-sm font-normal">See weekend visit options, prices, and available dates.</span></button>}
               {weekendDay !== 0 && <button
                 onClick={() => go("maintenance-warning")}
-                className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"
+                className="w-full rounded-xl border border-line p-4 text-left hover:border-accent"
               >
-                <span className="block font-semibold text-slate-900">Maintenance / Wellness Visit</span>
+                <span className="block font-semibold text-ink">Maintenance / Wellness Visit</span>
                 <span className="mt-1 block text-sm text-slate-500">Requires 48-hour advance notice.</span>
                 {region && (
-                  <span className="mt-1 block text-lg font-bold text-slate-900">
+                  <span className="mt-1 block text-lg font-bold text-ink">
                     <VisitPriceSummary region={region} visit="maintenance" day={weekendDay} />
                   </span>
                 )}
               </button>}
               <button
                 onClick={choosePriority}
-                className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"
+                className="w-full rounded-xl border border-line p-4 text-left hover:border-accent"
               >
-                <span className="block font-semibold text-slate-900">New Complaint / Priority Visit</span>
+                <span className="block font-semibold text-ink">New Complaint / Priority Visit</span>
                 <span className="mt-1 block text-sm text-slate-500">For a new or worsening complaint, including Saturday or Sunday care. At least two hours’ notice is required.</span>
-                {region && weekendDay !== null && <span className="mt-1 block text-lg font-bold text-slate-900"><VisitPriceSummary region={region} visit="priority-standard" day={weekendDay} /></span>}
+                {region && weekendDay !== null && <span className="mt-1 block text-lg font-bold text-ink"><VisitPriceSummary region={region} visit="priority-standard" day={weekendDay} /></span>}
                 <span className="mt-1 block text-sm text-slate-500">A couple quick questions will confirm the appropriate visit. Accident or work-injury visits may bill to insurance or a claim.</span>
               </button>
               {weekendDay !== 0 && <button
                 onClick={() => chooseDirectVisit("care-plan")}
-                className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"
+                className="w-full rounded-xl border border-line p-4 text-left hover:border-accent"
               >
-                <span className="block font-semibold text-slate-900">Care Plan Visit</span>
+                <span className="block font-semibold text-ink">Care Plan Visit</span>
                 {region && (
-                  <span className="mt-1 block text-lg font-bold text-slate-900">
+                  <span className="mt-1 block text-lg font-bold text-ink">
                     <VisitPriceSummary region={region} visit="care-plan" day={weekendDay} />
                   </span>
                 )}
-                <span className="mt-1 block text-sm text-slate-600">
+                <span className="mt-1 block text-sm text-muted">
                   For patients currently enrolled in an active treatment plan.
                 </span>
               </button>}
@@ -1067,20 +1067,20 @@ export default function BookPage() {
 
         {step === "maintenance-warning" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Maintenance / Wellness Visit</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">Maintenance / Wellness Visit</h1>
             <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
               Maintenance visits require 48 hours’ advance notice and are not offered Sundays. For a new or worsening complaint needing earlier care—including Saturday or Sunday—choose New Complaint / Priority Visit.
             </div>
             <div className="mt-6 space-y-3">
               <button
                 onClick={choosePriority}
-                className="w-full rounded-xl border border-slate-300 p-4 text-left font-semibold text-slate-900 hover:border-slate-900"
+                className="w-full rounded-xl border border-line p-4 text-left font-semibold text-ink hover:border-accent"
               >
                 Choose New Complaint / Priority Visit
               </button>
               <button
                 onClick={() => chooseDirectVisit("maintenance")}
-                className="w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white hover:bg-slate-800"
+                className="w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white hover:bg-navy-dark"
               >
                 Continue with Maintenance Visit
               </button>
@@ -1092,19 +1092,19 @@ export default function BookPage() {
           <>
             {triageStep === 1 && (
               <>
-                <h1 className="mt-2 text-2xl font-bold text-slate-900">
+                <h1 className="mt-2 text-2xl font-bold text-ink">
                   Was this related to an accident or work-related injury?
                 </h1>
                 <div className="mt-6 grid grid-cols-2 gap-3">
                   <button
                     onClick={() => answerAccident(true)}
-                    className="rounded-xl border border-slate-300 p-4 font-semibold text-slate-900 hover:border-slate-900"
+                    className="rounded-xl border border-line p-4 font-semibold text-ink hover:border-accent"
                   >
                     Yes
                   </button>
                   <button
                     onClick={() => answerAccident(false)}
-                    className="rounded-xl border border-slate-300 p-4 font-semibold text-slate-900 hover:border-slate-900"
+                    className="rounded-xl border border-line p-4 font-semibold text-ink hover:border-accent"
                   >
                     No
                   </button>
@@ -1114,19 +1114,19 @@ export default function BookPage() {
 
             {triageStep === 2 && (
               <>
-                <h1 className="mt-2 text-2xl font-bold text-slate-900">
+                <h1 className="mt-2 text-2xl font-bold text-ink">
                   Is this one complaint, or multiple complaints?
                 </h1>
                 <div className="mt-6 grid grid-cols-2 gap-3">
                   <button
                     onClick={() => answerComplaints(false)}
-                    className="rounded-xl border border-slate-300 p-4 font-semibold text-slate-900 hover:border-slate-900"
+                    className="rounded-xl border border-line p-4 font-semibold text-ink hover:border-accent"
                   >
                     One complaint
                   </button>
                   <button
                     onClick={() => answerComplaints(true)}
-                    className="rounded-xl border border-slate-300 p-4 font-semibold text-slate-900 hover:border-slate-900"
+                    className="rounded-xl border border-line p-4 font-semibold text-ink hover:border-accent"
                   >
                     Multiple
                   </button>
@@ -1136,19 +1136,19 @@ export default function BookPage() {
 
             {triageStep === 3 && (
               <>
-                <h1 className="mt-2 text-2xl font-bold text-slate-900">
+                <h1 className="mt-2 text-2xl font-bold text-ink">
                   Is your pain mild-to-moderate, or severe/radiating?
                 </h1>
                 <div className="mt-6 grid grid-cols-2 gap-3">
                   <button
                     onClick={() => answerSeverity(false)}
-                    className="rounded-xl border border-slate-300 p-4 font-semibold text-slate-900 hover:border-slate-900"
+                    className="rounded-xl border border-line p-4 font-semibold text-ink hover:border-accent"
                   >
                     Mild-to-moderate
                   </button>
                   <button
                     onClick={() => answerSeverity(true)}
-                    className="rounded-xl border border-slate-300 p-4 font-semibold text-slate-900 hover:border-slate-900"
+                    className="rounded-xl border border-line p-4 font-semibold text-ink hover:border-accent"
                   >
                     Severe / radiating
                   </button>
@@ -1159,15 +1159,15 @@ export default function BookPage() {
         )}
 
         {step === "time" && visit && visit !== "group-visit" && region && (
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="mt-2 text-sm text-muted">
             {VISITS[visit].label}
             {visit !== "priority-accident" && (
               <>
                 {" — "}
                 {date ? (
-                  <span className="text-lg font-bold text-slate-900">{formatPrice(priceForDate(region, visit, date))}</span>
+                  <span className="text-lg font-bold text-ink">{formatPrice(priceForDate(region, visit, date))}</span>
                 ) : (
-                  <span className="font-semibold text-slate-900"><VisitPriceSummary region={region} visit={visit} day={weekendDay} /></span>
+                  <span className="font-semibold text-ink"><VisitPriceSummary region={region} visit={visit} day={weekendDay} /></span>
                 )}
               </>
             )}
@@ -1175,9 +1175,9 @@ export default function BookPage() {
         )}
 
         {step === "time" && visit === "group-visit" && region && (
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="mt-2 text-sm text-muted">
             Group Visit —{" "}
-            <span className="text-lg font-bold text-slate-900">{formatPrice(groupVisitTotal(region, groupComposition, appointmentDate))}</span>
+            <span className="text-lg font-bold text-ink">{formatPrice(groupVisitTotal(region, groupComposition, appointmentDate))}</span>
           </p>
         )}
 
@@ -1191,23 +1191,23 @@ export default function BookPage() {
 
         {step === "time" && funnelStage === "bucket" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">When would you like to be seen?</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">When would you like to be seen?</h1>
             <div className="mt-6 space-y-3">
               <button
                 onClick={() => chooseBucket("asap")}
-                className="w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white hover:bg-slate-800"
+                className="w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white hover:bg-navy-dark"
               >
                 As soon as possible
               </button>
               <button
                 onClick={() => chooseBucket("week")}
-                className="w-full rounded-xl border border-slate-300 px-5 py-4 text-lg font-semibold text-slate-900 hover:border-slate-900"
+                className="w-full rounded-xl border border-line px-5 py-4 text-lg font-semibold text-ink hover:border-accent"
               >
                 This week
               </button>
               <button
                 onClick={() => chooseBucket("future")}
-                className="w-full rounded-xl border border-slate-300 px-5 py-4 text-lg font-semibold text-slate-900 hover:border-slate-900"
+                className="w-full rounded-xl border border-line px-5 py-4 text-lg font-semibold text-ink hover:border-accent"
               >
                 In the future
               </button>
@@ -1217,7 +1217,7 @@ export default function BookPage() {
 
         {step === "time" && funnelStage === "day" && bucket !== "future" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">{weekendDay === null ? "Which day?" : `Choose a ${weekendDay === 6 ? "Saturday" : "Sunday"}`}</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">{weekendDay === null ? "Which day?" : `Choose a ${weekendDay === 6 ? "Saturday" : "Sunday"}`}</h1>
             {checkingAvailability && <p className="mt-2 text-slate-500">Checking availability…</p>}
 
             {!checkingAvailability && availableDayTabs.length === 0 && (
@@ -1234,7 +1234,7 @@ export default function BookPage() {
                     key={d}
                     onClick={() => chooseDay(d)}
                     className={`rounded-xl border p-3 text-center text-sm font-semibold ${
-                      date === d ? "border-slate-900 bg-slate-900 text-white" : "border-slate-300 text-slate-900"
+                      date === d ? "border-slate-900 bg-navy text-white" : "border-line text-ink"
                     }`}
                   >
                     {dayTabLabel(d)}
@@ -1249,7 +1249,7 @@ export default function BookPage() {
                   setBucket("future");
                   setDate("");
                 }}
-                className="mt-4 w-full rounded-xl border border-slate-300 px-5 py-4 text-center font-semibold text-slate-600 hover:border-slate-900"
+                className="mt-4 w-full rounded-xl border border-line px-5 py-4 text-center font-semibold text-muted hover:border-accent"
               >
                 Choose a later date
               </button>
@@ -1259,7 +1259,7 @@ export default function BookPage() {
 
         {step === "time" && funnelStage === "day" && bucket === "future" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Pick a date</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">Pick a date</h1>
 
             <input
               type="date"
@@ -1267,14 +1267,14 @@ export default function BookPage() {
               min={todayISO()}
               onChange={(e) => setDate(e.target.value)}
               aria-label="Appointment date"
-              className="mt-6 w-full rounded-xl border border-slate-300 px-4 py-4 text-lg outline-none focus:border-slate-900"
+              className="mt-6 w-full rounded-xl border border-line px-4 py-4 text-lg outline-none focus:border-slate-900"
             />
 
-            {weekendDay !== null && <p className="mt-3 text-sm text-slate-600">Select a {weekendDay === 6 ? "Saturday" : "Sunday"}. {date && !matchesWeekendDay(date, weekendDay) ? "This date is a different day of the week." : ""}</p>}
+            {weekendDay !== null && <p className="mt-3 text-sm text-muted">Select a {weekendDay === 6 ? "Saturday" : "Sunday"}. {date && !matchesWeekendDay(date, weekendDay) ? "This date is a different day of the week." : ""}</p>}
             <button
               onClick={() => setFunnelStage("period")}
               disabled={!date || (weekendDay !== null && !matchesWeekendDay(date, weekendDay))}
-              className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
+              className="mt-6 w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               Continue
             </button>
@@ -1283,23 +1283,23 @@ export default function BookPage() {
 
         {step === "time" && funnelStage === "period" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">What time of day?</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">What time of day?</h1>
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
               <button
                 onClick={() => choosePeriod("morning")}
-                className="rounded-xl border border-slate-300 px-4 py-4 text-center font-semibold text-slate-900 hover:border-slate-900"
+                className="rounded-xl border border-line px-4 py-4 text-center font-semibold text-ink hover:border-accent"
               >
                 Morning
               </button>
               <button
                 onClick={() => choosePeriod("afternoon")}
-                className="rounded-xl border border-slate-300 px-4 py-4 text-center font-semibold text-slate-900 hover:border-slate-900"
+                className="rounded-xl border border-line px-4 py-4 text-center font-semibold text-ink hover:border-accent"
               >
                 Afternoon
               </button>
               <button
                 onClick={() => choosePeriod("evening")}
-                className="rounded-xl border border-slate-300 px-4 py-4 text-center font-semibold text-slate-900 hover:border-slate-900"
+                className="rounded-xl border border-line px-4 py-4 text-center font-semibold text-ink hover:border-accent"
               >
                 Early Evening
               </button>
@@ -1309,7 +1309,7 @@ export default function BookPage() {
 
         {step === "time" && funnelStage === "slots" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Choose a time</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">Choose a time</h1>
 
             {slotsLoading && <p className="mt-6 text-slate-500">Loading availability…</p>}
 
@@ -1335,7 +1335,7 @@ export default function BookPage() {
                   <button
                     key={iso}
                     onClick={() => selectSlot(iso)}
-                    className="rounded-xl border border-slate-300 px-4 py-4 text-center font-semibold text-slate-900 hover:border-slate-900"
+                    className="rounded-xl border border-line px-4 py-4 text-center font-semibold text-ink hover:border-accent"
                   >
                     {formatTime(iso)}
                   </button>
@@ -1347,7 +1347,7 @@ export default function BookPage() {
 
         {step === "contact" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Address of the Appointment</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">Address of the Appointment</h1>
             <div className="mt-6 grid gap-4">
               <div>
                 <input
@@ -1360,7 +1360,7 @@ export default function BookPage() {
                   aria-label="First name"
                   autoComplete="given-name"
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.firstName ? "border-red-400" : "border-slate-300"
+                    contactErrors.firstName ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.firstName && (
@@ -1379,7 +1379,7 @@ export default function BookPage() {
                   aria-label="Last name"
                   autoComplete="family-name"
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.lastName ? "border-red-400" : "border-slate-300"
+                    contactErrors.lastName ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.lastName && <p className="mt-1 text-sm text-red-600">{contactErrors.lastName}</p>}
@@ -1398,7 +1398,7 @@ export default function BookPage() {
                   autoComplete="tel"
                   maxLength={14}
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.phone ? "border-red-400" : "border-slate-300"
+                    contactErrors.phone ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.phone && <p className="mt-1 text-sm text-red-600">{contactErrors.phone}</p>}
@@ -1416,7 +1416,7 @@ export default function BookPage() {
                   inputMode="email"
                   autoComplete="email"
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.email ? "border-red-400" : "border-slate-300"
+                    contactErrors.email ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.email && <p className="mt-1 text-sm text-red-600">{contactErrors.email}</p>}
@@ -1433,7 +1433,7 @@ export default function BookPage() {
                   aria-label="Street address of the appointment"
                   autoComplete="street-address"
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.address ? "border-red-400" : "border-slate-300"
+                    contactErrors.address ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.address && <p className="mt-1 text-sm text-red-600">{contactErrors.address}</p>}
@@ -1445,7 +1445,7 @@ export default function BookPage() {
                 placeholder="Apt / unit (optional)"
                 aria-label="Apartment or unit number (optional)"
                 autoComplete="address-line2"
-                className="w-full rounded-xl border border-slate-300 px-4 py-3"
+                className="w-full rounded-xl border border-line px-4 py-3"
               />
 
               <div>
@@ -1459,7 +1459,7 @@ export default function BookPage() {
                   aria-label="City"
                   autoComplete="address-level2"
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.addressCity ? "border-red-400" : "border-slate-300"
+                    contactErrors.addressCity ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.addressCity && (
@@ -1479,7 +1479,7 @@ export default function BookPage() {
                     aria-label="State"
                     autoComplete="address-level1"
                     className={`w-full rounded-xl border px-4 py-3 ${
-                      contactErrors.addressState ? "border-red-400" : "border-slate-300"
+                      contactErrors.addressState ? "border-red-400" : "border-line"
                     }`}
                   />
                   {contactErrors.addressState && (
@@ -1499,7 +1499,7 @@ export default function BookPage() {
                     inputMode="numeric"
                     autoComplete="postal-code"
                     className={`w-full rounded-xl border px-4 py-3 ${
-                      contactErrors.addressZip ? "border-red-400" : "border-slate-300"
+                      contactErrors.addressZip ? "border-red-400" : "border-line"
                     }`}
                   />
                   {contactErrors.addressZip && (
@@ -1510,7 +1510,7 @@ export default function BookPage() {
             </div>
             <button
               onClick={contactComplete}
-              className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white"
+              className="mt-6 w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white"
             >
               Continue
             </button>
@@ -1519,8 +1519,8 @@ export default function BookPage() {
 
         {step === "group-contact" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Host Contact &amp; Address</h1>
-            <p className="mt-2 text-slate-600">
+            <h1 className="mt-2 text-2xl font-bold text-ink">Host Contact &amp; Address</h1>
+            <p className="mt-2 text-muted">
               You&apos;re booking as the host — this is where we&apos;ll send the group confirmation.
             </p>
             <div className="mt-6 grid gap-4">
@@ -1535,7 +1535,7 @@ export default function BookPage() {
                   aria-label="Host first name"
                   autoComplete="given-name"
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.firstName ? "border-red-400" : "border-slate-300"
+                    contactErrors.firstName ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.firstName && <p className="mt-1 text-sm text-red-600">{contactErrors.firstName}</p>}
@@ -1551,7 +1551,7 @@ export default function BookPage() {
                   aria-label="Host last name"
                   autoComplete="family-name"
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.lastName ? "border-red-400" : "border-slate-300"
+                    contactErrors.lastName ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.lastName && <p className="mt-1 text-sm text-red-600">{contactErrors.lastName}</p>}
@@ -1569,7 +1569,7 @@ export default function BookPage() {
                   autoComplete="tel"
                   maxLength={14}
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.phone ? "border-red-400" : "border-slate-300"
+                    contactErrors.phone ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.phone && <p className="mt-1 text-sm text-red-600">{contactErrors.phone}</p>}
@@ -1586,7 +1586,7 @@ export default function BookPage() {
                   inputMode="email"
                   autoComplete="email"
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.email ? "border-red-400" : "border-slate-300"
+                    contactErrors.email ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.email && <p className="mt-1 text-sm text-red-600">{contactErrors.email}</p>}
@@ -1602,7 +1602,7 @@ export default function BookPage() {
                   aria-label="Street address of the appointment"
                   autoComplete="street-address"
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.address ? "border-red-400" : "border-slate-300"
+                    contactErrors.address ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.address && <p className="mt-1 text-sm text-red-600">{contactErrors.address}</p>}
@@ -1613,7 +1613,7 @@ export default function BookPage() {
                 placeholder="Apt / unit (optional)"
                 aria-label="Apartment or unit number (optional)"
                 autoComplete="address-line2"
-                className="w-full rounded-xl border border-slate-300 px-4 py-3"
+                className="w-full rounded-xl border border-line px-4 py-3"
               />
               <div>
                 <input
@@ -1626,7 +1626,7 @@ export default function BookPage() {
                   aria-label="City"
                   autoComplete="address-level2"
                   className={`w-full rounded-xl border px-4 py-3 ${
-                    contactErrors.addressCity ? "border-red-400" : "border-slate-300"
+                    contactErrors.addressCity ? "border-red-400" : "border-line"
                   }`}
                 />
                 {contactErrors.addressCity && (
@@ -1645,7 +1645,7 @@ export default function BookPage() {
                     aria-label="State"
                     autoComplete="address-level1"
                     className={`w-full rounded-xl border px-4 py-3 ${
-                      contactErrors.addressState ? "border-red-400" : "border-slate-300"
+                      contactErrors.addressState ? "border-red-400" : "border-line"
                     }`}
                   />
                   {contactErrors.addressState && (
@@ -1664,7 +1664,7 @@ export default function BookPage() {
                     inputMode="numeric"
                     autoComplete="postal-code"
                     className={`w-full rounded-xl border px-4 py-3 ${
-                      contactErrors.addressZip ? "border-red-400" : "border-slate-300"
+                      contactErrors.addressZip ? "border-red-400" : "border-line"
                     }`}
                   />
                   {contactErrors.addressZip && (
@@ -1674,7 +1674,7 @@ export default function BookPage() {
               </div>
             </div>
 
-            <button onClick={groupContactComplete} className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white">
+            <button onClick={groupContactComplete} className="mt-6 w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white">
               Continue
             </button>
           </>
@@ -1682,7 +1682,7 @@ export default function BookPage() {
 
         {step === "review" && region && visit && visit !== "group-visit" && selectedSlot && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Review</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">Review</h1>
 
             <div className="mt-6 divide-y divide-slate-200 rounded-xl border border-slate-200">
               <ReviewRow label="Visit" value={VISITS[visit].label} />
@@ -1718,14 +1718,14 @@ export default function BookPage() {
                 <button
                   onClick={() => confirmBooking(true)}
                   disabled={bookingLoading}
-                  className="mt-5 w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
+                  className="mt-5 w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
                 >
                   {bookingLoading ? "Booking…" : "Confirm Appointment & Complete Intake Now"}
                 </button>
                 <button
                   onClick={() => confirmBooking(false)}
                   disabled={bookingLoading}
-                  className="mt-3 w-full rounded-xl border border-slate-300 px-5 py-4 text-center text-lg font-semibold text-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="mt-3 w-full rounded-xl border border-line px-5 py-4 text-center text-lg font-semibold text-ink disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {bookingLoading ? "Booking…" : "Confirm Appointment & Email Intake Form"}
                 </button>
@@ -1734,7 +1734,7 @@ export default function BookPage() {
               <button
                 onClick={() => confirmBooking(false)}
                 disabled={bookingLoading}
-                className="mt-5 w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
+                className="mt-5 w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
               >
                 {bookingLoading ? "Booking…" : "Confirm Appointment"}
               </button>
@@ -1745,7 +1745,7 @@ export default function BookPage() {
                 href={paymentLink}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 block w-full rounded-xl border border-slate-300 px-5 py-4 text-center font-semibold text-slate-900"
+                className="mt-3 block w-full rounded-xl border border-line px-5 py-4 text-center font-semibold text-ink"
               >
                 Pay with Square
               </a>
@@ -1755,7 +1755,7 @@ export default function BookPage() {
 
         {step === "review" && region && visit === "group-visit" && selectedSlot && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Review</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">Review</h1>
 
             <div className="mt-6 divide-y divide-slate-200 rounded-xl border border-slate-200">
               <ReviewRow label="Visit" value="Group Visit" />
@@ -1802,7 +1802,7 @@ export default function BookPage() {
             <button
               onClick={confirmGroupBooking}
               disabled={bookingLoading}
-              className="mt-5 w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
+              className="mt-5 w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
             >
               {bookingLoading ? "Booking…" : "Confirm Group Visit"}
             </button>
@@ -1811,7 +1811,7 @@ export default function BookPage() {
 
         {step === "confirmed" && visit !== "group-visit" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">You&apos;re booked!</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">You&apos;re booked!</h1>
             <div className="mt-4 rounded-xl bg-emerald-50 p-4 text-sm text-emerald-900">
               {selectedSlot &&
                 `See you ${new Date(selectedSlot).toLocaleString([], {
@@ -1828,7 +1828,7 @@ export default function BookPage() {
                 href={paymentLink}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-5 block w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white"
+                className="mt-5 block w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white"
               >
                 Pay with Square
               </a>
@@ -1839,7 +1839,7 @@ export default function BookPage() {
                 href={INTAKE_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-3 block w-full rounded-xl border border-slate-300 px-5 py-4 text-center font-semibold text-slate-900"
+                className="mt-3 block w-full rounded-xl border border-line px-5 py-4 text-center font-semibold text-ink"
               >
                 Complete Intake
               </a>
@@ -1849,7 +1849,7 @@ export default function BookPage() {
 
         {step === "confirmed" && visit === "group-visit" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">You&apos;re booked!</h1>
+            <h1 className="mt-2 text-2xl font-bold text-ink">You&apos;re booked!</h1>
             <div className="mt-4 rounded-xl bg-emerald-50 p-4 text-sm text-emerald-900">
               {selectedSlot &&
                 `See you ${new Date(selectedSlot).toLocaleString([], {
@@ -1861,7 +1861,7 @@ export default function BookPage() {
                 })}.`}
             </div>
 
-            <div className="mt-3 rounded-xl border border-slate-300 p-4 text-center text-sm text-slate-600">
+            <div className="mt-3 rounded-xl border border-line p-4 text-center text-sm text-muted">
               As the host, you&apos;re responsible for the full quoted amount. Changes within 24 hours do not reduce
               the reserved group total. Payment is not required to book. You are welcome to pay now or at the time of the visit.
             </div>
@@ -1871,7 +1871,7 @@ export default function BookPage() {
                 href={groupPaymentLink}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 block w-full rounded-xl bg-slate-900 px-5 py-4 text-center text-lg font-semibold text-white"
+                className="mt-4 block w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white"
               >
                 Pay Group Total with Square
               </a>
@@ -1887,7 +1887,7 @@ function ReviewRow({ label, value, emphasize }: { label: string; value: string; 
   return (
     <div className="flex items-start justify-between gap-4 px-4 py-3">
       <span className="text-sm text-slate-500">{label}</span>
-      <span className={emphasize ? "text-right text-xl font-bold text-slate-900" : "text-right font-medium text-slate-900"}>
+      <span className={emphasize ? "text-right text-xl font-bold text-ink" : "text-right font-medium text-ink"}>
         {value}
       </span>
     </div>

@@ -110,7 +110,7 @@ export default function ProductionRequestForm() {
       <div className="max-w-3xl rounded-2xl border border-line bg-white p-6 sm:p-8" role="status">
         <h2 className="text-2xl font-semibold text-ink">Production request received</h2>
         <p className="mt-3 text-base leading-relaxed text-muted">{message}</p>
-        <button type="button" onClick={() => setStatus("idle")} className="mt-6 rounded-full bg-navy px-6 py-3 text-base font-semibold text-white">
+        <button type="button" onClick={() => setStatus("idle")} className="mt-6 rounded-lg bg-apricot px-6 py-3 text-base font-semibold text-navy">
           Send another request
         </button>
       </div>
@@ -166,7 +166,7 @@ export default function ProductionRequestForm() {
       </div>
 
       {status === "error" && <p className="mt-5 rounded-xl bg-red-50 p-4 text-sm text-red-800" role="alert">{message}</p>}
-      <button type="submit" disabled={status === "sending"} className="mt-7 rounded-full bg-navy px-6 py-3.5 text-base font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60">{status === "sending" ? "Sending…" : "Request Production Coverage"}</button>
+      <button type="submit" disabled={status === "sending"} className="mt-7 rounded-lg bg-apricot px-6 py-3.5 text-base font-semibold text-navy disabled:cursor-not-allowed disabled:opacity-60">{status === "sending" ? "Sending…" : "Request Production Coverage"}</button>
       <p className="mt-3 text-sm text-muted">Submitting this form does not obligate you to book. We’ll review your production needs and contact you about availability and the most appropriate coverage arrangement.</p>
     </form>
   );

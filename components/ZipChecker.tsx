@@ -25,7 +25,7 @@ export default function ZipChecker() {
           inputMode="numeric"
           placeholder="Enter your zip code"
           aria-label="Visit ZIP code"
-          className="w-full rounded-full border border-line px-5 py-3.5 text-base text-ink outline-none focus-visible:border-navy focus-visible:ring-2 focus-visible:ring-navy/30"
+          className="w-full rounded-lg border border-line px-5 py-3.5 text-base text-ink outline-none focus-visible:border-navy focus-visible:ring-2 focus-visible:ring-navy/30"
         />
         <button
           onClick={() => {
@@ -33,7 +33,7 @@ export default function ZipChecker() {
             else setChecked(true);
           }}
           disabled={zip.length !== 5}
-          className="rounded-full bg-navy px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-navy-dark disabled:cursor-not-allowed disabled:bg-line disabled:text-muted"
+          className="rounded-lg bg-apricot px-6 py-3.5 text-base font-bold text-navy transition-colors hover:bg-apricot-light disabled:cursor-not-allowed disabled:bg-line disabled:text-muted"
         >
           Check Availability
         </button>
