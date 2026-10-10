@@ -12,6 +12,7 @@ import {
   priceForDate,
   resolvePriorityVisit,
   isBusinessDay,
+  isVisitAllowedOnDay,
   groupVisitTotal,
   groupVisitExistingPatientRate,
   groupVisitWeekendSurcharge,
@@ -87,6 +88,10 @@ function formatTime(iso: string): string {
 
 function formatPrice(p: number | null): string {
   return p === null ? "Bills to insurance/claim" : `$${p}`;
+}
+
+function VisitPriceSummary({ region, visit }: { region: Region; visit: VisitType }) {
+  return <>Weekday {formatPrice(priceFor(region, visit))} · Saturday {formatPrice(priceForDate(region, visit, "2026-10-03"))}{isVisitAllowedOnDay(visit, 0) ? <> · Sunday {formatPrice(priceForDate(region, visit, "2026-10-04"))}</> : <> · Not available Sundays</>}</>;
 }
 
 // East/West/Central are internal scheduling regions with no separate
@@ -996,6 +1001,7 @@ export default function BookPage() {
         {step === "visit" && (
           <>
             <h1 className="mt-2 text-2xl font-bold text-slate-900">What type of visit do you need?</h1>
+            <p className="mt-3 text-sm text-slate-600">Saturday appointments are available{region ? ` from 9 a.m. to ${["Central", "MainLine", "WestChester"].includes(region) ? "noon" : "1 p.m."}` : ""}, subject to openings and advance-notice requirements. Sunday appointments are available for Priority Visits; Maintenance and Care Plan visits are not offered Sundays.</p>
             <div className="mt-6 space-y-3">
               <button
                 onClick={() => go("maintenance-warning")}
@@ -1005,7 +1011,7 @@ export default function BookPage() {
                 <span className="mt-1 block text-sm text-slate-500">Requires 48-hour advance notice.</span>
                 {region && (
                   <span className="mt-1 block text-lg font-bold text-slate-900">
-                    {formatPrice(priceFor(region, "maintenance"))}
+                    <VisitPriceSummary region={region} visit="maintenance" />
                   </span>
                 )}
               </button>
@@ -1024,7 +1030,7 @@ export default function BookPage() {
                 <span className="block font-semibold text-slate-900">Care Plan Visit</span>
                 {region && (
                   <span className="mt-1 block text-lg font-bold text-slate-900">
-                    {formatPrice(priceFor(region, "care-plan"))}
+                    <VisitPriceSummary region={region} visit="care-plan" />
                   </span>
                 )}
                 <span className="mt-1 block text-sm text-slate-600">
@@ -1137,12 +1143,8 @@ export default function BookPage() {
                 {" — "}
                 {date ? (
                   <span className="text-lg font-bold text-slate-900">{formatPrice(priceForDate(region, visit, date))}</span>
-                ) : visit === "new-patient" ? (
-                  <span className="font-semibold text-slate-900">
-                    Weekday {formatPrice(priceFor(region, visit))} · Saturday {formatPrice(priceForDate(region, visit, "2026-10-03"))} · Sunday {formatPrice(priceForDate(region, visit, "2026-10-04"))}
-                  </span>
                 ) : (
-                  <span className="text-lg font-bold text-slate-900">{formatPrice(priceFor(region, visit))}</span>
+                  <span className="font-semibold text-slate-900"><VisitPriceSummary region={region} visit={visit} /></span>
                 )}
               </>
             )}
