@@ -1,4 +1,5 @@
 "use client";
+import { matchesWeekendDay, weekendDates, type WeekendDay } from "@/lib/weekendBooking";
 import { zipRoute, locationRequestPath } from "@/lib/zipRouting";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -29,6 +30,7 @@ type Step =
   | "region"
   | "zip"
   | "policy"
+  | "weekend"
   | "visit"
   | "maintenance-warning"
   | "triage"
@@ -90,7 +92,8 @@ function formatPrice(p: number | null): string {
   return p === null ? "Bills to insurance/claim" : `$${p}`;
 }
 
-function VisitPriceSummary({ region, visit }: { region: Region; visit: VisitType }) {
+function VisitPriceSummary({ region, visit, day = null }: { region: Region; visit: VisitType; day?: WeekendDay | null }) {
+  if (day !== null) return <>{day === 6 ? "Saturday" : "Sunday"} {formatPrice(priceForDate(region, visit, day === 6 ? "2026-10-03" : "2026-10-04"))}</>;
   return <>Weekday {formatPrice(priceFor(region, visit))} · Saturday {formatPrice(priceForDate(region, visit, "2026-10-03"))}{isVisitAllowedOnDay(visit, 0) ? <> · Sunday {formatPrice(priceForDate(region, visit, "2026-10-04"))}</> : <> · Not available Sundays</>}</>;
 }
 
@@ -137,6 +140,7 @@ export default function BookPage() {
   const zipRegion = useMemo<Region | null>(() => findRegion(zip), [zip]);
   const [region, setRegion] = useState<Region | null>(null);
 
+  const [weekendDay, setWeekendDay] = useState<WeekendDay | null>(null);
   const [visit, setVisit] = useState<VisitType | null>(null);
 
   // Group Visit composition. The host's own contact info reuses the same
@@ -275,6 +279,7 @@ export default function BookPage() {
 
   // Steps back one screen without touching any already-entered field state.
   function goBack() {
+    if (step === "weekend") setWeekendDay(null);
     if (step === "triage" && triageStep > 1) {
       setTriageStep((s) => (s - 1) as 1 | 2 | 3);
       return;
@@ -319,6 +324,10 @@ export default function BookPage() {
 
   // Resets the funnel and enters the "time" step fresh.
   function goToSchedule() {
+    if (weekendDay !== null) {
+      goToMaintenanceSchedule();
+      return;
+    }
     setBucket(null);
     setBucketSkipped(false);
     setFunnelStage("bucket");
@@ -338,7 +347,7 @@ export default function BookPage() {
     setAvailableDayTabs([]);
     setPeriod(null);
     setDate("");
-    setDayCandidates(nextBusinessDays(7));
+    setDayCandidates(weekendDay === null ? nextBusinessDays(7) : weekendDates(todayISO(), weekendDay));
     go("time");
   }
 
@@ -346,6 +355,7 @@ export default function BookPage() {
     if (zipDestination === "request") { router.push(locationRequestPath(zip)); return; }
     if (!zipRegion) return;
     setRegion(zipRegion);
+    setWeekendDay(null);
     if (patientType === "new") {
       setVisit("new-patient");
       go("policy");
@@ -717,6 +727,7 @@ export default function BookPage() {
                   key={r.id}
                   onClick={() => {
                     setRegion(r.id);
+                    setWeekendDay(null);
                     go("visit");
                   }}
                   className={`w-full rounded-xl border p-4 text-left font-semibold text-slate-900 ${r.className}`}
@@ -998,12 +1009,24 @@ export default function BookPage() {
           </>
         )}
 
+        {step === "weekend" && region && (
+          <>
+            <h1 className="mt-2 text-2xl font-bold text-slate-900">Saturday / Sunday Appointments</h1>
+            <p className="mt-3 text-slate-600">Choose a day to see the appropriate visits and prices for {REGION_OPTIONS.find(r => r.id === region)?.label}. Openings and advance-notice requirements still apply.</p>
+            <div className="mt-6 space-y-3">
+              <button onClick={() => { setWeekendDay(6); go("visit"); }} className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"><strong className="block">Saturday · 9 a.m.–{["Central", "MainLine", "WestChester"].includes(region) ? "noon" : "1 p.m."}</strong><span className="mt-2 block text-sm text-slate-600">Priority, Care Plan, and Maintenance / Wellness. Maintenance requires 48 hours’ notice.</span></button>
+              <button onClick={() => { setWeekendDay(0); go("visit"); }} className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"><strong className="block">Sunday · 9 a.m.–1 p.m.</strong><span className="mt-2 block text-sm text-slate-600">Priority visits for returning patients, with at least two hours’ notice. Maintenance and Care Plan visits are not offered Sundays.</span></button>
+            </div>
+          </>
+        )}
+
         {step === "visit" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">What type of visit do you need?</h1>
+            <h1 className="mt-2 text-2xl font-bold text-slate-900">{weekendDay === null ? "What type of visit do you need?" : `${weekendDay === 6 ? "Saturday" : "Sunday"}: What type of visit do you need?`}</h1>
             <p className="mt-3 text-sm text-slate-600">Saturday appointments are available{region ? ` from 9 a.m. to ${["Central", "MainLine", "WestChester"].includes(region) ? "noon" : "1 p.m."}` : ""}, subject to openings and advance-notice requirements. Sunday appointments are available for Priority Visits; Maintenance and Care Plan visits are not offered Sundays.</p>
             <div className="mt-6 space-y-3">
-              <button
+              {weekendDay === null && <button onClick={() => go("weekend")} className="w-full rounded-xl border-2 border-navy bg-cream p-4 text-left font-semibold text-navy">Saturday / Sunday Appointments<span className="mt-1 block text-sm font-normal">See weekend visit options, prices, and available dates.</span></button>}
+              {weekendDay !== 0 && <button
                 onClick={() => go("maintenance-warning")}
                 className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"
               >
@@ -1011,32 +1034,33 @@ export default function BookPage() {
                 <span className="mt-1 block text-sm text-slate-500">Requires 48-hour advance notice.</span>
                 {region && (
                   <span className="mt-1 block text-lg font-bold text-slate-900">
-                    <VisitPriceSummary region={region} visit="maintenance" />
+                    <VisitPriceSummary region={region} visit="maintenance" day={weekendDay} />
                   </span>
                 )}
-              </button>
+              </button>}
               <button
                 onClick={choosePriority}
                 className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"
               >
                 <span className="block font-semibold text-slate-900">New Complaint / Priority Visit</span>
-                <span className="mt-1 block text-sm text-slate-500">Same-day or next-day care for an existing patient.</span>
-                <span className="mt-1 block text-sm text-slate-500">Price depends on a couple quick questions.</span>
+                <span className="mt-1 block text-sm text-slate-500">For a new or worsening complaint, including Saturday or Sunday care. At least two hours’ notice is required.</span>
+                {region && weekendDay !== null && <span className="mt-1 block text-lg font-bold text-slate-900"><VisitPriceSummary region={region} visit="priority-standard" day={weekendDay} /></span>}
+                <span className="mt-1 block text-sm text-slate-500">A couple quick questions will confirm the appropriate visit. Accident or work-injury visits may bill to insurance or a claim.</span>
               </button>
-              <button
+              {weekendDay !== 0 && <button
                 onClick={() => chooseDirectVisit("care-plan")}
                 className="w-full rounded-xl border border-slate-300 p-4 text-left hover:border-slate-900"
               >
                 <span className="block font-semibold text-slate-900">Care Plan Visit</span>
                 {region && (
                   <span className="mt-1 block text-lg font-bold text-slate-900">
-                    <VisitPriceSummary region={region} visit="care-plan" />
+                    <VisitPriceSummary region={region} visit="care-plan" day={weekendDay} />
                   </span>
                 )}
                 <span className="mt-1 block text-sm text-slate-600">
                   For patients currently enrolled in an active treatment plan.
                 </span>
-              </button>
+              </button>}
             </div>
           </>
         )}
@@ -1045,15 +1069,14 @@ export default function BookPage() {
           <>
             <h1 className="mt-2 text-2xl font-bold text-slate-900">Maintenance / Wellness Visit</h1>
             <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
-              Maintenance visits must be scheduled 48 hours in advance and are not intended to treat painful
-              conditions. If you need care sooner, please select Priority Visit.
+              Maintenance visits require 48 hours’ advance notice and are not offered Sundays. For a new or worsening complaint needing earlier care—including Saturday or Sunday—choose New Complaint / Priority Visit.
             </div>
             <div className="mt-6 space-y-3">
               <button
                 onClick={choosePriority}
                 className="w-full rounded-xl border border-slate-300 p-4 text-left font-semibold text-slate-900 hover:border-slate-900"
               >
-                I need to be seen sooner
+                Choose New Complaint / Priority Visit
               </button>
               <button
                 onClick={() => chooseDirectVisit("maintenance")}
@@ -1144,7 +1167,7 @@ export default function BookPage() {
                 {date ? (
                   <span className="text-lg font-bold text-slate-900">{formatPrice(priceForDate(region, visit, date))}</span>
                 ) : (
-                  <span className="font-semibold text-slate-900"><VisitPriceSummary region={region} visit={visit} /></span>
+                  <span className="font-semibold text-slate-900"><VisitPriceSummary region={region} visit={visit} day={weekendDay} /></span>
                 )}
               </>
             )}
@@ -1194,7 +1217,7 @@ export default function BookPage() {
 
         {step === "time" && funnelStage === "day" && bucket !== "future" && (
           <>
-            <h1 className="mt-2 text-2xl font-bold text-slate-900">Which day?</h1>
+            <h1 className="mt-2 text-2xl font-bold text-slate-900">{weekendDay === null ? "Which day?" : `Choose a ${weekendDay === 6 ? "Saturday" : "Sunday"}`}</h1>
             {checkingAvailability && <p className="mt-2 text-slate-500">Checking availability…</p>}
 
             {!checkingAvailability && availableDayTabs.length === 0 && (
@@ -1247,9 +1270,10 @@ export default function BookPage() {
               className="mt-6 w-full rounded-xl border border-slate-300 px-4 py-4 text-lg outline-none focus:border-slate-900"
             />
 
+            {weekendDay !== null && <p className="mt-3 text-sm text-slate-600">Select a {weekendDay === 6 ? "Saturday" : "Sunday"}. {date && !matchesWeekendDay(date, weekendDay) ? "This date is a different day of the week." : ""}</p>}
             <button
               onClick={() => setFunnelStage("period")}
-              disabled={!date}
+              disabled={!date || (weekendDay !== null && !matchesWeekendDay(date, weekendDay))}
               className="mt-6 w-full rounded-xl bg-slate-900 px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               Continue
