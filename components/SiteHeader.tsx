@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BUSINESS_NAME, BUSINESS_PHONE } from "@/lib/gochiro";
+import { BUSINESS_NAME } from "@/lib/gochiro";
 
 const NAV_LINKS = [
   { href: "/about", label: "About" },
-  { href: "/philosophy", label: "Our Philosophy" },
+  { href: "/philosophy", label: "Philosophy" },
   { href: "/what-to-expect", label: "What to Expect" },
   { href: "/forms", label: "Forms" },
   { href: "/pricing", label: "Pricing" },
@@ -30,18 +30,18 @@ export default function SiteHeader({ locationRequest = false }: { locationReques
 
   return (
     <header className="sticky top-0 z-10 border-b border-line bg-white/95 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
+      <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between gap-3 px-4 py-3.5 sm:px-6">
         <Link href="/" className="flex items-center gap-2.5" onClick={() => setMenuOpen(false)}>
           <span
             aria-hidden
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-navy font-heading text-sm font-bold text-white"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent font-heading text-sm font-bold text-white"
           >
             G
           </span>
           <span className="font-heading text-lg font-bold tracking-tight text-ink">{BUSINESS_NAME}</span>
         </Link>
 
-        <nav className="hidden items-center gap-x-5 gap-y-2 text-sm font-medium text-muted sm:flex">
+        <nav className="hidden items-center gap-x-4 gap-y-2 text-[13px] font-semibold text-muted xl:flex">
           {NAV_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className="transition-colors hover:text-navy">
               {link.label}
@@ -50,19 +50,13 @@ export default function SiteHeader({ locationRequest = false }: { locationReques
         </nav>
 
         <div className="flex items-center gap-3">
-          <a
-            href={`tel:${BUSINESS_PHONE}`}
-            className="hidden text-sm font-medium text-muted transition-colors hover:text-navy sm:inline"
-          >
-            {BUSINESS_PHONE}
-          </a>
           <button
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label={menuOpen ? "Close menu" : "Menu"}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-line text-ink transition-colors hover:border-navy/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 sm:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-line text-ink transition-colors hover:border-navy/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 xl:hidden"
           >
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" className="h-4.5 w-4.5" aria-hidden>
               {menuOpen ? (
@@ -74,15 +68,15 @@ export default function SiteHeader({ locationRequest = false }: { locationReques
           </button>
           <Link
             href={locationRequest ? "/check-your-location" : "/book-online"}
-            className="rounded-full bg-navy px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-navy-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
+            className="rounded-lg bg-apricot px-4 py-2.5 text-sm font-bold text-navy transition-colors hover:bg-apricot-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2"
           >
-            {locationRequest ? "Check Your Location" : "Schedule a Visit"}
+            {locationRequest ? "Request a Visit" : "Schedule a Visit"}
           </Link>
         </div>
       </div>
 
       {menuOpen && (
-        <nav id="mobile-nav" aria-label="Site" className="border-t border-line bg-white sm:hidden">
+        <nav id="mobile-nav" aria-label="Site" className="border-t border-line bg-white xl:hidden">
           <div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-2 sm:px-6">
             {NAV_LINKS.map((link) => (
               <Link

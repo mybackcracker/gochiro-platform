@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PUBLIC_CONTACT_EMAIL, BUSINESS_NAME, BUSINESS_PHONE, DOCTOR_NAME, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
+import { PUBLIC_CONTACT_EMAIL, BUSINESS_NAME, BUSINESS_PHONE, DOCTOR_NAME } from "@/lib/gochiro";
 
 const FOOTER_LINKS = [
   { href: "/about", label: "About" },
@@ -18,9 +18,9 @@ export default function SiteFooter() {
   const year = new Date().getFullYear();
   return (
     <footer className="bg-navy-dark text-white/80">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-12 sm:flex-row sm:items-start sm:justify-between sm:px-6">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-10 px-4 py-14 sm:flex-row sm:items-start sm:justify-between sm:px-6">
         <div>
-          <p className="font-heading text-lg font-bold text-white">{BUSINESS_NAME}</p>
+          <p className="font-heading text-2xl font-extrabold text-white">{BUSINESS_NAME}</p>
           <p className="mt-3 text-sm">
             <a href={`tel:${BUSINESS_PHONE}`} className="transition-colors hover:text-white">
               {BUSINESS_PHONE}
@@ -30,9 +30,9 @@ export default function SiteFooter() {
               {PUBLIC_CONTACT_EMAIL}
             </a>
           </p>
-          <p className="mt-3 max-w-sm text-sm">Service area: {BUSINESS_SERVICE_AREA}.</p>
+          <p className="mt-3 max-w-sm text-sm">Delaware County and the Main Line, with Chester County and Philadelphia visits by arrangement. Pennsylvania only.</p>
         </div>
-        <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        <nav className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
           {FOOTER_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className="transition-colors hover:text-white">
               {link.label}

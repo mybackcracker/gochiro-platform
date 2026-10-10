@@ -35,10 +35,11 @@ export default function VisitHoursPricing() {
         <div>
           <h3 className="font-heading text-lg font-bold text-ink">Visit Pricing</h3>
           <p className="mt-3 text-base leading-relaxed text-muted">
-            Weekday individual visits range from ${Math.min(...weekdayPrices)}–${Math.max(...weekdayPrices)}.
+            Within our regular online booking area, weekday individual visits range from ${Math.min(...weekdayPrices)}–${Math.max(...weekdayPrices)}.
             {" "}New patient visits range from ${VISITS["new-patient"].standard}–${VISITS["new-patient"].premium}.
             {" "}Weekend pricing differs; your exact price is shown before booking.
           </p>
+          <p className="mt-3 text-base leading-relaxed text-muted">Visits outside the regular online booking area are quoted individually for care and travel. A deposit is required to confirm an accepted appointment.</p>
           <Link href="/pricing" className="mt-4 inline-block font-semibold text-navy underline underline-offset-4">
             See pricing by visit type
           </Link>
