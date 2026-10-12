@@ -4,6 +4,7 @@ import { Container, CTAButton } from "@/components/ui";
 import { getCondition, type ConditionContent } from "@/lib/conditions";
 import CareGoals from "./GoalIcons";
 import WholePersonBanner from "./WholePersonBanner";
+import { NeckSummary, NeckDetails, NeckFAQs } from "./NeckContent";
 
 export default function ConditionPage({ content }: { content: ConditionContent }) {
   const photos: Record<string, { src: string; alt: string; width: number; height: number }> = {
@@ -21,13 +22,15 @@ export default function ConditionPage({ content }: { content: ConditionContent }
         <h1 className="font-heading text-4xl font-bold leading-[1.1] tracking-tight text-navy sm:text-5xl">{content.heroTitle}</h1>
         <p className="mt-6 text-lg leading-relaxed text-ink">{content.intro}</p>
         <p className="mt-4 text-base leading-relaxed text-muted">Chiropractic evaluation and care at your home or workplace in Delaware County and surrounding service areas.</p>
-        <div className="mt-7"><CTAButton href="/book-online">Book Online →</CTAButton></div>
+        {content.slug === "neck-pain" && <NeckSummary/>}
+        <div className="mt-7"><CTAButton href="/book-online">{content.slug === "neck-pain" ? "Book Now →" : "Book Online →"}</CTAButton></div>
       </div>
       {photo && <figure className="mx-auto w-full max-w-sm lg:max-w-none">
         <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} preload sizes="(min-width: 1024px) 440px, (min-width: 640px) 384px, 100vw" className="h-auto w-full rounded-2xl"/>
         <figcaption className="mt-3 text-sm text-muted">Chiropractic care brought to your location.</figcaption>
       </figure>}
     </header>
+    {content.slug === "neck-pain" && <NeckDetails/>}
     <CareGoals mobilityLabel={content.mobilityLabel} mobilityIcon={content.mobilityIcon} activity={content.activity}/>
     <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
       <section><h2 className="font-heading text-2xl font-bold text-navy">What may contribute to {content.title.toLowerCase()}?</h2><p className="mt-4 text-base leading-relaxed text-ink">{content.contributing}</p></section>
@@ -41,6 +44,7 @@ export default function ConditionPage({ content }: { content: ConditionContent }
       <p className="mt-5 max-w-3xl text-base leading-relaxed text-ink">{content.care}</p>
       <p className="mt-3 text-sm text-muted">This information describes care options. An examination is needed to determine what is appropriate for you.</p>
     </section>
+    {content.slug === "neck-pain" && <NeckFAQs/>}
     <WholePersonBanner/>
     <section><h2 className="font-heading text-2xl font-bold text-navy">Practical guidance at your location</h2><p className="mt-4 max-w-3xl text-base leading-relaxed text-ink">{content.home}</p></section>
     <section className="mt-10 border-t border-line pt-8" aria-labelledby="safety"><h2 id="safety" className="font-heading text-xl font-bold text-navy">Symptoms that need urgent medical attention</h2>
