@@ -1,19 +1,11 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import { PRODUCTION_TYPES, PRODUCTION_ROLES, PRODUCTION_AUDIENCES as AUDIENCES } from "@/lib/productionRequestOptions";
 
 const inputClass = "mt-2 w-full rounded-xl border border-line bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-navy focus:ring-2 focus:ring-navy/15";
 const labelClass = "block text-sm font-semibold text-ink";
 const checkboxClass = "h-4 w-4 rounded border-line text-navy focus:ring-navy";
-
-const AUDIENCES = [
-  "Artists / Musicians",
-  "Dancers / Performers",
-  "Cast",
-  "Touring Crew",
-  "Production Staff",
-  "Other",
-];
 
 interface FormState {
   name: string;
@@ -21,6 +13,7 @@ interface FormState {
   preferredContact: string;
   mobile: string;
   email: string;
+  productionType: string;
   productionName: string;
   productionDate: string;
   multipleDates: boolean;
@@ -44,6 +37,7 @@ const initialState: FormState = {
   preferredContact: "",
   mobile: "",
   email: "",
+  productionType: "",
   productionName: "",
   productionDate: "",
   multipleDates: false,
@@ -121,13 +115,15 @@ export default function ProductionRequestForm() {
     <form onSubmit={handleSubmit} className="max-w-3xl rounded-2xl border border-line bg-white p-6 sm:p-8">
       <div className="grid gap-6 sm:grid-cols-2">
         <label className={labelClass}>Your name<input className={inputClass} name="name" value={form.name} onChange={(e) => update("name", e.target.value)} maxLength={100} required /></label>
-        <label className={labelClass}>Your role<select className={inputClass} name="role" value={form.role} onChange={(e) => update("role", e.target.value)} required><option value="">Select</option><option>Tour Manager</option><option>Production Manager</option><option>Artist Management</option><option>Venue</option><option>Promoter</option><option>Artist / Performer</option><option>Other</option></select></label>
+        <label className={labelClass}>Your role<select className={inputClass} name="role" value={form.role} onChange={(e) => update("role", e.target.value)} required><option value="">Select</option>{PRODUCTION_ROLES.map((role) => <option key={role}>{role}</option>)}</select></label>
 
         <label className={labelClass}>Preferred contact method<select className={inputClass} name="preferredContact" value={form.preferredContact} onChange={(e) => update("preferredContact", e.target.value)} required><option value="">Select</option><option>Text</option><option>Email</option><option>Phone call</option><option>No preference</option></select></label>
         <div className="grid gap-4 sm:grid-cols-2">
-          <label className={labelClass}>Mobile number<input className={inputClass} type="tel" name="mobile" value={form.mobile} onChange={(e) => update("mobile", e.target.value)} maxLength={40} required={needsMobile || form.preferredContact === "No preference"} /></label>
-          <label className={labelClass}>Email<input className={inputClass} type="email" name="email" value={form.email} onChange={(e) => update("email", e.target.value)} maxLength={160} required={needsEmail} /></label>
+          <label className={labelClass}>Mobile number<input className={inputClass} type="tel" name="mobile" value={form.mobile} onChange={(e) => update("mobile", e.target.value)} maxLength={40} required={needsMobile || (form.preferredContact === "No preference" && !form.email.trim())} /></label>
+          <label className={labelClass}>Email<input className={inputClass} type="email" name="email" value={form.email} onChange={(e) => update("email", e.target.value)} maxLength={160} required={needsEmail || (form.preferredContact === "No preference" && !form.mobile.trim())} /></label>
         </div>
+
+        <label className={`${labelClass} sm:col-span-2`}>Production type<select className={inputClass} name="productionType" value={form.productionType} onChange={(e) => update("productionType", e.target.value)} required><option value="">Select</option>{PRODUCTION_TYPES.map((type) => <option key={type}>{type}</option>)}</select></label>
 
         <label className={`${labelClass} sm:col-span-2`}>Production / tour / artist name <span className="font-normal text-muted">(optional)</span><input className={inputClass} name="productionName" value={form.productionName} onChange={(e) => update("productionName", e.target.value)} maxLength={160} /><span className="mt-1 block text-xs font-normal text-muted">For privacy, you may leave this blank or provide a tour/production name instead.</span></label>
 
@@ -137,10 +133,10 @@ export default function ProductionRequestForm() {
           {form.multipleDates && <input className={inputClass} value={form.additionalDates} onChange={(e) => update("additionalDates", e.target.value)} placeholder="Additional dates or date range" maxLength={200} required />}
         </div>
 
-        <label className={labelClass}>Venue / location<input className={inputClass} name="venue" value={form.venue} onChange={(e) => update("venue", e.target.value)} maxLength={160} disabled={form.venueNotConfirmed} required={!form.venueNotConfirmed} /></label>
+        <label className={labelClass}>Venue, studio or filming location<input className={inputClass} name="venue" value={form.venue} onChange={(e) => update("venue", e.target.value)} maxLength={160} disabled={form.venueNotConfirmed} required={!form.venueNotConfirmed} /></label>
         <div>
           <label className={labelClass}>City<input className={inputClass} name="city" value={form.city} onChange={(e) => update("city", e.target.value)} maxLength={100} required /></label>
-          <label className="mt-3 flex items-center gap-2 text-sm text-muted"><input className={checkboxClass} type="checkbox" checked={form.venueNotConfirmed} onChange={(e) => update("venueNotConfirmed", e.target.checked)} />Venue not confirmed yet</label>
+          <label className="mt-3 flex items-center gap-2 text-sm text-muted"><input className={checkboxClass} type="checkbox" checked={form.venueNotConfirmed} onChange={(e) => update("venueNotConfirmed", e.target.checked)} />Location not confirmed yet</label>
         </div>
 
         <label className={labelClass}>What are you looking for?<select className={inputClass} name="coverageType" value={form.coverageType} onChange={(e) => update("coverageType", e.target.value)} required><option value="">Select</option><option>Care for one person</option><option>On-site care available to multiple people</option><option>Not sure — help me determine the best arrangement</option></select></label>
