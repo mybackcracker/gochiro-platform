@@ -1,4 +1,5 @@
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
 
 export function NeckSummary() {
   return <section aria-labelledby="neck-summary" className="mt-6 rounded-xl bg-cream p-5 sm:p-6">
@@ -37,11 +38,11 @@ const faqs = [
 ];
 
 export function NeckFAQs() {
-  return <section aria-labelledby="neck-faqs" className="mt-10 border-t border-line pt-9">
+  return <><JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(([question, answer]) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: answer } })) }}/><section aria-labelledby="neck-faqs" className="mt-10 border-t border-line pt-9">
     <h2 id="neck-faqs" className="font-heading text-2xl font-bold text-navy">Common Questions About Neck Pain</h2>
     <div className="mt-5 max-w-3xl divide-y divide-line">{faqs.map(([question, answer]) => <details key={question} className="group py-4">
       <summary className="cursor-pointer py-2 font-semibold text-navy focus-visible:outline-2 focus-visible:outline-offset-4">{question}</summary>
       <p className="mt-3 text-base leading-relaxed text-ink">{answer}</p>
     </details>)}</div>
-  </section>;
+  </section></>;
 }

@@ -1,12 +1,16 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
+import LocationRequestCTA from "@/components/LocationRequestCTA";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { Section, Container, Eyebrow, H2, CTAButton, Callout } from "@/components/ui";
 import ZipChecker from "@/components/ZipChecker";
 import LocalAreaLinkList from "@/components/LocalAreaLinkList";
-import { BUSINESS_PHONE, BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
+import { BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
 import { LOCAL_AREAS } from "@/lib/localAreas";
 import type { NearbyArea } from "@/lib/localAreas/types";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/service-areas" },
   title: "Service Areas — Go Chiro Mobile",
   description: "Find out if Go Chiro Mobile comes to your area.",
 };
@@ -42,7 +46,7 @@ const WEST_CHESTER_AREA_SLUGS = ["west-chester"];
 
 export default function ServiceAreasPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/service-areas"} name={"Service Areas — Go Chiro Mobile"} description={"Find out if Go Chiro Mobile comes to your area."} type="CollectionPage" /><div>
       <Section tone="navy" className="pb-14 pt-14 sm:pt-20">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
@@ -80,21 +84,8 @@ export default function ServiceAreasPage() {
             </Callout>
 
             <Callout title="Outside My Regular Service Area?" tone="white">
-              <p className="text-base leading-relaxed text-muted">
-                The ZIP checker reflects where I routinely schedule individual visits. These areas are
-                not necessarily the limit of where I can provide care.
-              </p>
-              <p className="mt-3 text-base leading-relaxed text-muted">
-                Group Visits, workplace wellness visits, special events and other arrangements may
-                be available outside the regular service area, including Philadelphia.
-              </p>
-              <p className="mt-4 text-lg font-semibold text-ink">
-                Call or text{" "}
-                <a href={`tel:${BUSINESS_PHONE}`} className="text-navy underline">
-                  {BUSINESS_PHONE}
-                </a>{" "}
-                to ask about availability.
-              </p>
+              <LocationRequestCTA />
+              <Link href="/philadelphia" className="mt-5 block font-semibold underline">Explore Philadelphia workplace, touring and individual care</Link>
             </Callout>
           </div>
         </Container>
@@ -124,6 +115,6 @@ export default function ServiceAreasPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

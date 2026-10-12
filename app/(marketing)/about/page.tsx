@@ -1,3 +1,4 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Section, Container, Eyebrow, H1, H2, Lede, P, Prose, CTAButton, CredentialsPanel, ImageFrame, TwoColumn } from "@/components/ui";
@@ -6,13 +7,14 @@ import JsonLd from "@/components/JsonLd";
 import { doctorPersonSchema } from "@/lib/businessSchema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About Dr. David DeFries, DC — Go Chiro Mobile",
   description: "Third-generation chiropractor. Practicing since 2003.",
 };
 
 export default function AboutPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/about"} name={"About Dr. David DeFries, DC — Go Chiro Mobile"} description={"Third-generation chiropractor. Practicing since 2003."} type="AboutPage" /><div>
       <JsonLd data={doctorPersonSchema()} />
       <Section tone="white" className="pb-14 pt-14 sm:pt-20">
         <Container>
@@ -121,6 +123,6 @@ export default function AboutPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

@@ -1,25 +1,37 @@
-import type { MetadataRoute } from "next";
 import { CONDITIONS } from "@/lib/conditions";
+import { EXERCISES } from "@/lib/exercises";
+import type { MetadataRoute } from "next";
 import { getLocalAreaSlugs } from "@/lib/localAreas";
 
-const BASE_URL = "https://gochiromobile.com";
+import { SCHEMA_SITE_URL as BASE_URL } from "@/lib/businessSchema";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/about",
+    "/book-online",
+    "/contact",
     "/conditions",
     "/treatments",
     "/whole-person-approach",
-    "/book-online",
-    "/contact",
+    "/philadelphia",
+    "/philadelphia/workplace",
+    "/philadelphia/hotel-visits",
+    "/check-your-location",
     "/forms",
+    "/group-intake",
+    "/exercises",
+    "/high-intensity-laser-therapy",
     "/group-visits/standard",
     "/group-visits/premium",
     "/philosophy",
     "/pricing",
     "/service-areas",
     "/touring-production-care",
+    "/film-tv-production-care",
+    "/touring-production-care/care-approach",
+    "/touring-production-care/how-it-works",
+    "/touring-production-care/request",
     "/what-to-expect",
   ];
 
@@ -36,11 +48,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  const conditionPages: MetadataRoute.Sitemap = CONDITIONS.map(({ slug }) => ({
-    url: `${BASE_URL}/conditions/${slug}`,
+  const exercisePages: MetadataRoute.Sitemap = Object.keys(EXERCISES).map(slug => ({
+    url: `${BASE_URL}/exercises/${slug}`,
     changeFrequency: "monthly",
-    priority: 0.8,
+    priority: 0.5,
   }));
 
-  return [...staticPages, ...localAreaPages, ...conditionPages];
+  const conditionPages: MetadataRoute.Sitemap = CONDITIONS.map(({ slug }) => ({
+    url: `${BASE_URL}/conditions/${slug}`, changeFrequency: "monthly", priority: 0.8,
+  }));
+  return [...staticPages, ...localAreaPages, ...exercisePages, ...conditionPages];
 }

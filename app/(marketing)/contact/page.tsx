@@ -1,18 +1,15 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { Section, Container, PageHeader, TagList } from "@/components/ui";
 import { BUSINESS_PHONE, PUBLIC_CONTACT_EMAIL } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact — Go Chiro Mobile",
   description: "Have a question or need something outside regular online scheduling?",
 };
 
-// No contact-form submission mechanism exists in this codebase yet (no
-// /api/contact route, no lead-storage backend) — per the same rule that
-// took the old Notify Me stub off the homepage, this page offers only real,
-// working contact paths (call/text/email) rather than a form that would
-// silently go nowhere. See IMPLEMENTATION_NOTES.md for tracking a real
-// contact-form backend as future work.
 const CONTACT_REASONS = [
   "Locations outside the regular service area",
   "Philadelphia visits",
@@ -25,7 +22,7 @@ const CONTACT_REASONS = [
 
 export default function ContactPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/contact"} name={"Contact — Go Chiro Mobile"} description={"Have a question or need something outside regular online scheduling?"} type="ContactPage" /><div>
       <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
         <Container>
           <PageHeader
@@ -34,6 +31,7 @@ export default function ContactPage() {
             lede="Have a question or need something outside regular online scheduling?"
           />
 
+          <p className="mt-6 text-lg">Outside the regular service area? <Link href="/check-your-location" className="font-semibold underline">Check your location</Link> before arranging an appointment. For same-day requests, <a href="sms:+16104940412" className="font-semibold underline">text 610-494-0412</a>.</p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             <a
               href={`tel:${BUSINESS_PHONE}`}
@@ -63,6 +61,6 @@ export default function ContactPage() {
           <TagList items={CONTACT_REASONS} />
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

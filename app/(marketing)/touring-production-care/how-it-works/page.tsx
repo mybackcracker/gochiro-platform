@@ -1,8 +1,10 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { Section, Container, PageHeader, CTAButton, H2, P, Callout } from "@/components/ui";
 import { BUSINESS_PHONE } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/touring-production-care/how-it-works" },
   title: "How Backstage Care Works | Go Chiro Mobile",
   description: "See how Go Chiro Mobile organizes backstage musculoskeletal care for touring artists, crew and production personnel from signup through on-site care.",
 };
@@ -19,7 +21,7 @@ const steps = [
 
 export default function HowBackstageCareWorksPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/touring-production-care/how-it-works"} name={"How Backstage Care Works | Go Chiro Mobile"} description={"See how Go Chiro Mobile organizes backstage musculoskeletal care for touring artists, crew and production personnel from signup through on-site care."} /><div>
       <Section tone="navy" className="pt-14 pb-12 sm:pt-20 sm:pb-16">
         <Container>
           <PageHeader eyebrow="Touring Productions & Live Events" title="Backstage Care Without Backstage Chaos" lede="One link. A clear schedule. Mobile registration. On-site care. Go Chiro Mobile manages the participant flow so production personnel do not have to." />
@@ -123,6 +125,6 @@ export default function HowBackstageCareWorksPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

@@ -1,15 +1,17 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { CTAButton, Container, PageHeader, Section } from "@/components/ui";
 import { BUSINESS_PHONE } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/group-intake" },
   title: "Group Visit New Patient Intake — Go Chiro Mobile",
   description: "Group Visit guidance and the regular new-patient intake for each participant.",
 };
 
 export default function GroupIntakePage() {
   return (
-    <Section tone="white" className="pt-14 pb-20 sm:pt-20">
+    <><PageSearchSchema path={"/group-intake"} name={"Group Visit New Patient Intake — Go Chiro Mobile"} description={"Group Visit guidance and the regular new-patient intake for each participant."} /><Section tone="white" className="pt-14 pb-20 sm:pt-20">
       <Container narrow>
         <PageHeader
           eyebrow="Group Visits"
@@ -38,6 +40,6 @@ export default function GroupIntakePage() {
           <CTAButton href="/intake">Continue to Patient Intake</CTAButton>
         </div>
       </Container>
-    </Section>
+    </Section></>
   );
 }

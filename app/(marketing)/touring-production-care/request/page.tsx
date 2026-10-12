@@ -1,22 +1,24 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { Section, Container, PageHeader, Callout } from "@/components/ui";
 import { BUSINESS_PHONE, PUBLIC_CONTACT_EMAIL } from "@/lib/gochiro";
 import ProductionRequestForm from "./ProductionRequestForm";
 
 export const metadata: Metadata = {
-  title: "Request Touring Production Coverage | Go Chiro Mobile",
-  description: "Request on-site musculoskeletal care for a touring production in Philadelphia or the surrounding region.",
+  alternates: { canonical: "/touring-production-care/request" },
+  title: "Request Production Coverage | Go Chiro Mobile",
+  description: "Request touring, film and TV production care in Philadelphia and Southeastern Pennsylvania.",
 };
 
 export default function ProductionRequestPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/touring-production-care/request"} name={"Request Production Coverage | Go Chiro Mobile"} description={"Request touring, film and TV production care in Philadelphia and Southeastern Pennsylvania."} /><div>
       <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
         <Container>
           <PageHeader
-            eyebrow="Touring Productions"
+            eyebrow="Touring, Film & TV Production Coverage"
             title="Request Production Coverage"
-            lede="Tell us what you know so far. You do not need to know exactly what type of coverage you need, and artist identity is optional at this stage."
+            lede="Tell us what you know so far. You do not need to know exactly what type of coverage you need, and artist or production identity is optional at this stage."
           />
         </Container>
       </Section>
@@ -38,6 +40,6 @@ export default function ProductionRequestPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

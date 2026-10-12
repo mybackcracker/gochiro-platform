@@ -1,15 +1,17 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Section, Container, PageHeader, H3, ChoiceCard } from "@/components/ui";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/book-online" },
   title: "Book Online — Go Chiro Mobile",
   description: "Choose the option that applies to you.",
 };
 
 export default function BookOnlinePage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/book-online"} name={"Book Online — Go Chiro Mobile"} description={"Choose the option that applies to you."} type="CollectionPage" /><div>
       <Section tone="white" className="pt-14 pb-12 sm:pt-20 sm:pb-16">
         <Container>
           <PageHeader
@@ -65,6 +67,6 @@ export default function BookOnlinePage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

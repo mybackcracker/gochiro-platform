@@ -1,8 +1,10 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { Section, Container, PageHeader, CTAButton, H2, P, Callout } from "@/components/ui";
 import { BUSINESS_PHONE } from "@/lib/gochiro";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/touring-production-care/care-approach" },
   title: "Touring Care Approach | Go Chiro Mobile",
   description:
     "Learn how Go Chiro Mobile approaches acute complaints, corrective musculoskeletal care and education for touring artists, crew and production personnel.",
@@ -10,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function TouringCareApproachPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/touring-production-care/care-approach"} name={"Touring Care Approach | Go Chiro Mobile"} description={"Learn how Go Chiro Mobile approaches acute complaints, corrective musculoskeletal care and education for touring artists, crew and production personnel."} /><div>
       <Section tone="white" className="pt-14 pb-12 sm:pt-20 sm:pb-16">
         <Container>
           <PageHeader
@@ -112,6 +114,6 @@ export default function TouringCareApproachPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

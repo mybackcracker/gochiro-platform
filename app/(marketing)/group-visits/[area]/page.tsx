@@ -1,3 +1,5 @@
+import Image from "next/image";
+import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Section, Container, PageHeader, H2, P, CTAButton, Callout } from "@/components/ui";
@@ -24,21 +26,26 @@ export async function generateMetadata({ params }: { params: Promise<{ area: str
   const { area } = await params;
   const data = AREAS[area as keyof typeof AREAS];
   if (!data) return {};
-  return { title: `${data.title} — Go Chiro Mobile`, description: data.description };
+  return { alternates: { canonical: `/group-visits/${area}` }, title: `${data.title} — Go Chiro Mobile`, description: data.description };
 }
 
 export default async function GroupVisitsAreaPage({ params }: { params: Promise<{ area: string }> }) {
   const { area } = await params;
   const data = AREAS[area as keyof typeof AREAS];
   if (!data) notFound();
-  return <div>
+  return <div><PageSearchSchema path={`/group-visits/${area}`} name={data.title} description={data.description} service={{ name: data.title, description: data.description, areas: [area === "standard" ? "Delaware County, Pennsylvania" : "Main Line and West Chester, Pennsylvania"] }} />
     <Section tone="white" className="pt-14 pb-10 sm:pt-20">
       <Container>
         <PageHeader eyebrow="Group Visits" title={data.title} lede="Share the visit. Save on the cost." />
+        <div className="mt-8 grid items-center gap-8 lg:grid-cols-2">
+          <Image src="/images/family-group-visit.webp" alt="A family sitting together at home" width={1080} height={1080} sizes="(min-width: 1024px) 560px, 100vw" className="aspect-[4/3] w-full rounded-xl object-cover object-[center_75%]" />
+          <div>
         <P className="max-w-2xl">
           Schedule {GROUP_VISIT_MIN_PARTICIPANTS}–{GROUP_VISIT_MAX_PARTICIPANTS} people together at one home or workplace. Group Visits are designed for routine, wellness-focused care and make mobile chiropractic care more economical when several people are seen at the same location.
         </P>
         <div className="mt-8"><CTAButton href="/book?start=group">Book a Group Visit</CTAButton></div>
+          </div>
+        </div>
       </Container>
     </Section>
     <Section tone="cream">

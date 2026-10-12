@@ -1,9 +1,11 @@
+import PageSearchSchema from "@/components/PageSearchSchema";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { Section, Container, PageHeader, Step, CTAButton, Callout, ImageFrame, TwoColumn } from "@/components/ui";
 import { HOUSE_CALL_TREATMENT_IMAGE } from "@/lib/images";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/what-to-expect" },
   title: "What to Expect — Go Chiro Mobile",
   description: "What happens before, during and after a mobile chiropractic visit.",
 };
@@ -45,7 +47,7 @@ const PREPARATION = [
 
 export default function WhatToExpectPage() {
   return (
-    <div>
+    <><PageSearchSchema path={"/what-to-expect"} name={"What to Expect — Go Chiro Mobile"} description={"What happens before, during and after a mobile chiropractic visit."} /><div>
       <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
         <Container>
           <PageHeader
@@ -99,6 +101,6 @@ export default function WhatToExpectPage() {
           </div>
         </Container>
       </Section>
-    </div>
+    </div></>
   );
 }

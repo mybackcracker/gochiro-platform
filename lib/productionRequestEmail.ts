@@ -9,6 +9,7 @@ export interface ProductionRequestInput {
   preferredContact: string;
   mobile: string;
   email: string;
+  productionType?: string;
   productionName: string;
   productionDate: string;
   multipleDates: boolean;
@@ -41,7 +42,7 @@ export async function sendProductionRequestEmails(input: ProductionRequestInput)
   const dates = input.multipleDates ? `${input.productionDate}; ${display(input.additionalDates)}` : input.productionDate;
 
   const doctorText = [
-    "NEW TOURING PRODUCTION REQUEST",
+    "NEW PRODUCTION COVERAGE REQUEST",
     "",
     `Contact: ${input.name}`,
     `Role: ${input.role}`,
@@ -49,9 +50,10 @@ export async function sendProductionRequestEmails(input: ProductionRequestInput)
     `Mobile: ${display(input.mobile)}`,
     `Email: ${display(input.email)}`,
     "",
+    `Production type: ${display(input.productionType || "")}`,
     `Production / tour / artist: ${production}`,
     `Date(s): ${dates}`,
-    `Venue: ${venue}`,
+    `Location: ${venue}`,
     `City: ${input.city}`,
     `Coverage requested: ${input.coverageType}`,
     `Approximate people: ${input.approximatePeople}`,
@@ -76,6 +78,7 @@ export async function sendProductionRequestEmails(input: ProductionRequestInput)
       "",
       "Your production coverage request has been received.",
       "",
+      `Production type: ${display(input.productionType || "")}`,
       `Date: ${dates}`,
       `Location: ${venue}, ${input.city}`,
       `Requested coverage: ${input.coverageType}`,
@@ -96,7 +99,7 @@ export async function sendProductionRequestEmails(input: ProductionRequestInput)
       fromAddress: PUBLIC_CONTACT_EMAIL,
       subject: `Production Coverage Request Received — ${BUSINESS_NAME}`,
       text: contactText,
-      html: `<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#222;"><p>Hi ${esc(input.name)},</p><p>Your production coverage request has been received.</p><p><strong>Date:</strong> ${esc(dates)}<br><strong>Location:</strong> ${esc(venue)}, ${esc(input.city)}<br><strong>Requested coverage:</strong> ${esc(input.coverageType)}</p><p>We’ll review the production needs and follow up regarding availability and the most appropriate coverage arrangement.</p><p><strong>This request is not a confirmed booking</strong> until arrangements are accepted by both parties.</p><p>Questions? Call or text ${esc(BUSINESS_PHONE)}.</p><p>${esc(BUSINESS_NAME)}</p></div>`,
+      html: `<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#222;"><p>Hi ${esc(input.name)},</p><p>Your production coverage request has been received.</p><p><strong>Production type:</strong> ${esc(display(input.productionType || ""))}<br><strong>Date:</strong> ${esc(dates)}<br><strong>Location:</strong> ${esc(venue)}, ${esc(input.city)}<br><strong>Requested coverage:</strong> ${esc(input.coverageType)}</p><p>We’ll review the production needs and follow up regarding availability and the most appropriate coverage arrangement.</p><p><strong>This request is not a confirmed booking</strong> until arrangements are accepted by both parties.</p><p>Questions? Call or text ${esc(BUSINESS_PHONE)}.</p><p>${esc(BUSINESS_NAME)}</p></div>`,
     });
   }
 }

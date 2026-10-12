@@ -8,12 +8,15 @@
  * to avoid awkward/colliding utility classes; the values are unchanged).
  */
 @theme {
-  --color-navy: #18324a;
-  --color-navy-dark: #102638;
-  --color-cream: #f5f1ed;
-  --color-ink: #26343d;
+  --color-navy: #142a3c;
+  --color-navy-dark: #102333;
+  --color-cream: #f5f1e9;
+  --color-apricot: #f3915c;
+  --color-apricot-light: #ffac7b;
+  --color-accent: #bc491d;
+  --color-ink: #142a3c;
   --color-muted: #5d6970;
-  --color-line: #dedbd6;
+  --color-line: #ded6c9;
 
   --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
@@ -31,3 +34,9 @@ h3,
 h4 {
   font-family: var(--font-heading);
 }
+
+html { scroll-padding-top: 100px; }
+h1, h2, h3 { letter-spacing: -.035em; }
+a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }

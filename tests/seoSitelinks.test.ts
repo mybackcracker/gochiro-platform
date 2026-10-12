@@ -30,6 +30,10 @@ test("primary sitelink candidates have direct navigation and structured signals"
 test("the canonical host is consistent across metadata and sitemap", () => {
   const rootLayout = fs.readFileSync("app/layout.tsx", "utf8");
   const sitemap = fs.readFileSync("app/sitemap.ts", "utf8");
-  assert(rootLayout.includes('metadataBase: new URL("https://gochiromobile.com")'));
-  assert(sitemap.includes('const BASE_URL = "https://gochiromobile.com"'));
+  assert(rootLayout.includes('metadataBase: new URL("https://www.gochiromobile.com")'));
+  assert(sitemap.includes('SCHEMA_SITE_URL as BASE_URL'));
+  const robots = fs.readFileSync("app/robots.ts", "utf8");
+  assert(robots.includes('SCHEMA_SITE_URL as BASE_URL'));
+  const schema = fs.readFileSync("lib/businessSchema.ts", "utf8");
+  assert(schema.includes('SCHEMA_SITE_URL = "https://www.gochiromobile.com"'));
 });
