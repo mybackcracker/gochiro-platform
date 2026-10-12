@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/pricing",
     "/service-areas",
     "/touring-production-care",
+    "/film-tv-production-care",
     "/touring-production-care/care-approach",
     "/touring-production-care/how-it-works",
     "/touring-production-care/request",

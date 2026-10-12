@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendProductionRequestEmails, type ProductionRequestInput } from "@/lib/productionRequestEmail";
 
-const ROLES = ["Tour Manager", "Production Manager", "Artist Management", "Venue", "Promoter", "Artist / Performer", "Other"];
+import { PRODUCTION_TYPES, PRODUCTION_ROLES as ROLES, PRODUCTION_AUDIENCES as AUDIENCES } from "@/lib/productionRequestOptions";
+
 const CONTACTS = ["Text", "Email", "Phone call", "No preference"];
 const COVERAGE_TYPES = ["Care for one person", "On-site care available to multiple people", "Not sure — help me determine the best arrangement"];
 const PEOPLE = ["1–4", "5–8", "9–12", "13+", "Not sure"];
 const SERVICES = ["Massage therapy", "Possibly — tell me what’s available", "No"];
-const AUDIENCES = ["Artists / Musicians", "Dancers / Performers", "Cast", "Touring Crew", "Production Staff", "Other"];
 
 function clean(value: unknown, max = 200): string {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
@@ -34,6 +34,7 @@ export async function POST(req: NextRequest) {
     preferredContact: clean(raw.preferredContact, 40),
     mobile: clean(raw.mobile, 40),
     email: clean(raw.email, 160),
+    productionType: clean(raw.productionType, 60),
     productionName: clean(raw.productionName, 160),
     productionDate: clean(raw.productionDate, 20),
     multipleDates: raw.multipleDates === true,
@@ -50,10 +51,14 @@ export async function POST(req: NextRequest) {
     notes: clean(raw.notes, 1500),
   };
 
+  // Accept older cached forms without this new field; reject unrecognized values.
+  if (input.productionType && !PRODUCTION_TYPES.includes(input.productionType)) {
+    return NextResponse.json({ error: "Please select a valid production type." }, { status: 400 });
+  }
   if (!input.name || !ROLES.includes(input.role) || !CONTACTS.includes(input.preferredContact) || !input.productionDate || !input.city || !COVERAGE_TYPES.includes(input.coverageType) || !PEOPLE.includes(input.approximatePeople) || !SERVICES.includes(input.additionalServices)) {
     return NextResponse.json({ error: "Please complete all required fields." }, { status: 400 });
   }
-  if (!input.venueNotConfirmed && !input.venue) return NextResponse.json({ error: "Please enter the venue or mark it as not confirmed." }, { status: 400 });
+  if (!input.venueNotConfirmed && !input.venue) return NextResponse.json({ error: "Please enter the location or mark it as not confirmed." }, { status: 400 });
   if (input.multipleDates && !input.additionalDates) return NextResponse.json({ error: "Please enter the additional dates or date range." }, { status: 400 });
   if (input.coverageTimeKnown && !input.coverageTime) return NextResponse.json({ error: "Please enter the approximate coverage time." }, { status: 400 });
   if (!validEmail(input.email)) return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
