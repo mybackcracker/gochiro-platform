@@ -1,4 +1,4 @@
-import { SERVICE_AREA_STATEMENT, SERVICE_AREA_META_DESCRIPTION } from "@/lib/serviceArea";
+import { SERVICE_AREA_STATEMENT } from "@/lib/serviceArea";
 import PageSearchSchema from "@/components/PageSearchSchema";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,10 +12,11 @@ import { LOCAL_AREAS } from "@/lib/localAreas";
 import Testimonials from "@/components/Testimonials";
 import styles from "./home.module.css";
 
-const description = SERVICE_AREA_META_DESCRIPTION;
+const title = "Mobile Chiropractor in Delaware County | Go Chiro Mobile";
+const description = "House-call chiropractic care with Dr. David DeFries, DC, in Delaware County and surrounding communities. Additional locations available by arrangement.";
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
-  title: "Mobile Chiropractor in the Greater Philadelphia Region",
+  title,
   description,
 };
 const people = [
@@ -34,7 +35,7 @@ function Arrow() { return <span aria-hidden="true">↗</span>; }
 
 export default function HomePage() {
   return <>
-    <PageSearchSchema path="/" name="Mobile Chiropractor in the Greater Philadelphia Region" description={description} />
+    <PageSearchSchema path="/" name={title} description={description} />
     <JsonLd data={localBusinessSchema(Object.values(LOCAL_AREAS))} />
     <div className={styles.home}>
       <div className={styles.notice}><span><i aria-hidden="true" />Appointments available 7 days a week</span><a href="sms:+16104940412">Need care today? Text 610-494-0412 <Arrow /></a></div>
@@ -42,8 +43,8 @@ export default function HomePage() {
         <div className={styles.wrap}>
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
-              <p className={styles.eyebrow}>Mobile chiropractic · Since 2003</p>
-              <h1>Personal care.<br /><span>Your place.</span></h1>
+              <p className={styles.eyebrow}>Personal care. Your place.</p>
+              <h1>Mobile Chiropractic Care <span>in Delaware County</span></h1>
               <p className={styles.lead}>One-on-one chiropractic care with Dr. David DeFries, DC, at your home or workplace. The table, the equipment, and the attention come to you.</p>
               <p className={styles.area}>{SERVICE_AREA_STATEMENT}</p>
               <div className={styles.actions}><Link className={styles.primary} href="#service-area">Check your availability <Arrow /></Link><Link className={styles.outline} href="/what-to-expect">What to expect</Link></div>
