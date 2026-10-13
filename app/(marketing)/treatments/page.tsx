@@ -2,17 +2,49 @@ import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Container, H1, H2, CTAButton } from "@/components/ui";
+import { H2, CTAButton } from "@/components/ui";
 import { TREATMENTS } from "@/lib/treatments";
 import { GoalIcon } from "@/components/care/GoalIcons";
+import styles from "@/components/care/careEditorial.module.css";
 import WholePersonBanner from "@/components/care/WholePersonBanner";
 
 export const metadata: Metadata = { title: "Chiropractic Treatments & Care | Go Chiro Mobile", description: "Learn about chiropractic adjustments, soft tissue therapies, postural retraining, exercise, and electrotherapy provided at your location.", alternates: { canonical: "/treatments" } };
 export default function Page() {
-  return <><PageSearchSchema path="/treatments" name="Chiropractic Treatments & Care | Go Chiro Mobile" description="Learn about chiropractic adjustments, soft tissue therapies, postural retraining, exercise, and electrotherapy provided at your location." /><article className="py-12 sm:py-16"><Container narrow><H1>Treatments &amp; Care</H1><p className="mt-6 text-base leading-relaxed text-ink">Many common muscle and joint conditions can be effectively managed with chiropractic manipulation, soft tissue therapies, and education about proper movement. Dr. DeFries selects care based on your examination findings, individual needs, and goals, with an emphasis on decreasing pain, improving function, and supporting ongoing mobility and wellness.</p>
-    <nav aria-label="Treatment sections" className="mt-10 flex flex-wrap gap-3">{TREATMENTS.map((t) => <Link key={t.id} href={`#${t.id}`} className="inline-flex min-h-11 items-center rounded-lg bg-cream px-4 py-3 text-sm font-semibold text-navy hover:bg-navy/10">{t.title}</Link>)}</nav>
-    <section className="mt-12 rounded-2xl bg-cream p-7"><H2>What are we working toward?</H2><p className="mt-4 text-base leading-relaxed text-ink">Your care starts with understanding what is affecting you and what you want to do more comfortably. The overall goals are to decrease pain and improve function.</p><ul className="mt-5 grid gap-3 sm:grid-cols-2"><li>Improve joint mobility</li><li>Reduce muscle spasm and tension</li><li>Restore strength, endurance, and coordination</li><li>Improve posture and movement habits</li><li>Address nerve irritation when appropriate for conservative care</li></ul><p className="mt-5 text-base leading-relaxed text-ink">Within Dr. DeFries’s chiropractic approach, care also aims to support healthy nervous system function and overall well-being. Progress is assessed through your symptoms, examination findings, and everyday activities.</p></section>
-    {TREATMENTS.map((t) => <section key={t.id} id={t.id} className="scroll-mt-28 border-b border-line py-10 sm:py-14"><div><div><H2>{t.title}</H2>{t.paragraphs.map((p) => <p key={p} className="mt-4 text-base leading-relaxed text-ink">{p}</p>)}<div className="mt-6 flex items-center gap-4 text-navy"><GoalIcon kind={t.id === "exercise" ? "strength" : t.id === "posture" ? "reach" : "pain"}/><p className="text-sm font-semibold">{t.id === "exercise" ? "Strength, movement control, and everyday function" : t.id === "posture" ? "Movement habits, muscle control, and function" : t.id === "electrotherapy" ? "Goals vary with the type of stimulation used" : "Pain relief and more comfortable movement"}</p></div></div>{(t.id === "soft-tissue" || t.id === "adjustment") && <figure className="mt-8 w-full max-w-sm"><Image src={t.id === "adjustment" ? "/images/care/home-low-back-adjustment.jpg" : "/images/care/soft-tissue-care.jpg"} alt={t.id === "adjustment" ? "Dr. David DeFries performing a chiropractic adjustment during a home visit" : "Dr. David DeFries providing instrument-assisted soft tissue care during a home visit"} width={t.id === "adjustment" ? 360 : 1200} height={t.id === "adjustment" ? 480 : 1600} sizes="(min-width: 1024px) 384px, 100vw" className="h-auto w-full rounded-2xl"/></figure>}</div></section>)}
-    <WholePersonBanner/><div className="mt-8"><CTAButton href="/book-online">Book Online →</CTAButton></div>
-  </Container></article></>;
+  return <>
+    <PageSearchSchema path="/treatments" name="Chiropractic Treatments & Care | Go Chiro Mobile" description="Learn about chiropractic adjustments, soft tissue therapies, postural retraining, exercise, and electrotherapy provided at your location." />
+    <article className={styles.treatmentsPage}>
+      <header className={styles.treatmentHero}>
+        <div className={styles.readingWidth}>
+          <p className={styles.eyebrow}>Care guided by your goals</p>
+          <h1>Treatments<br /><span>&amp; Care</span></h1>
+          <p>Many common muscle and joint conditions can be effectively managed with chiropractic manipulation, soft tissue therapies, and education about proper movement. Dr. DeFries selects care based on your examination findings, individual needs, and goals, with an emphasis on decreasing pain, improving function, and supporting ongoing mobility and wellness.</p>
+        </div>
+      </header>
+      <div className={styles.readingWidth}>
+        <nav aria-label="Treatment sections" className={styles.treatmentNav}>
+          {TREATMENTS.map((t, i) => <Link key={t.id} href={`#${t.id}`}><span><small aria-hidden="true">0{i + 1}</small>{t.title}</span><span aria-hidden="true">↓</span></Link>)}
+        </nav>
+        <section className={styles.goals}>
+          <H2>What are we working toward?</H2>
+          <p className="mt-4">Your care starts with understanding what is affecting you and what you want to do more comfortably. The overall goals are to decrease pain and improve function.</p>
+          <ul><li>Improve joint mobility</li><li>Reduce muscle spasm and tension</li><li>Restore strength, endurance, and coordination</li><li>Improve posture and movement habits</li><li>Address nerve irritation when appropriate for conservative care</li></ul>
+          <p>Within Dr. DeFries’s chiropractic approach, care also aims to support healthy nervous system function and overall well-being. Progress is assessed through your symptoms, examination findings, and everyday activities.</p>
+        </section>
+        {TREATMENTS.map((t, i) => <section key={t.id} id={t.id} className={styles.treatmentSection}>
+          <span className={styles.sectionNumber} aria-hidden="true">0{i + 1}</span>
+          <H2>{t.title}</H2>
+          {t.paragraphs.map((p) => <p key={p}>{p}</p>)}
+          <div className={styles.treatmentGoal}>
+            <GoalIcon kind={t.id === "exercise" ? "strength" : t.id === "posture" ? "reach" : "pain"}/>
+            <p>{t.id === "exercise" ? "Strength, movement control, and everyday function" : t.id === "posture" ? "Movement habits, muscle control, and function" : t.id === "electrotherapy" ? "Goals vary with the type of stimulation used" : "Pain relief and more comfortable movement"}</p>
+          </div>
+          {(t.id === "soft-tissue" || t.id === "adjustment") && <figure className={styles.treatmentPhoto}>
+            <Image src={t.id === "adjustment" ? "/images/care/home-low-back-adjustment.jpg" : "/images/care/soft-tissue-care.jpg"} alt={t.id === "adjustment" ? "Dr. David DeFries performing a chiropractic adjustment during a home visit" : "Dr. David DeFries providing instrument-assisted soft tissue care during a home visit"} width={t.id === "adjustment" ? 360 : 1200} height={t.id === "adjustment" ? 480 : 1600} sizes="(min-width: 700px) 440px, 100vw" />
+          </figure>}
+        </section>)}
+        <WholePersonBanner/>
+        <div className={styles.bottomCTA}><CTAButton href="/book-online">Book Online →</CTAButton></div>
+      </div>
+    </article>
+  </>;
 }

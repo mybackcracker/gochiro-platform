@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container, CTAButton } from "@/components/ui";
 import { getCondition, type ConditionContent } from "@/lib/conditions";
 import CareGoals from "./GoalIcons";
+import styles from "./careEditorial.module.css";
 import WholePersonBanner from "./WholePersonBanner";
 import { NeckSummary, NeckDetails, NeckFAQs } from "./NeckContent";
 
@@ -15,10 +16,11 @@ export default function ConditionPage({ content }: { content: ConditionContent }
   };
   const photo = photos[content.slug];
   const hasPhoto = Boolean(photo);
-  return <article className="py-10 sm:py-16"><Container>
+  return <article className={content.slug === "neck-pain" ? styles.neckPage : "py-10 sm:py-16"}><Container>
     <Link href="/conditions" className="inline-flex min-h-11 items-center text-sm font-semibold text-navy hover:underline">← All conditions & concerns</Link>
     <header className={`mt-5 grid items-center gap-8 ${hasPhoto ? "lg:grid-cols-[1.15fr_.85fr] lg:gap-14" : "max-w-3xl"}`}>
       <div>
+        {content.slug === "neck-pain" && <p>Care at your location</p>}
         <h1 className="font-heading text-4xl font-bold leading-[1.1] tracking-tight text-navy sm:text-5xl">{content.heroTitle}</h1>
         <p className="mt-6 text-lg leading-relaxed text-ink">{content.intro}</p>
         <p className="mt-4 text-base leading-relaxed text-muted">Chiropractic evaluation and care at your home or workplace in Delaware County and surrounding service areas.</p>
@@ -32,7 +34,7 @@ export default function ConditionPage({ content }: { content: ConditionContent }
     </header>
     {content.slug === "neck-pain" && <NeckDetails/>}
     <CareGoals mobilityLabel={content.mobilityLabel} mobilityIcon={content.mobilityIcon} activity={content.activity}/>
-    <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
+    <div className={`mt-12 grid gap-10 lg:grid-cols-[1.2fr_1fr] ${content.slug === "neck-pain" ? styles.contentGrid : ""}`}>
       <section><h2 className="font-heading text-2xl font-bold text-navy">What may contribute to {content.title.toLowerCase()}?</h2><p className="mt-4 text-base leading-relaxed text-ink">{content.contributing}</p></section>
       <section aria-labelledby="related-conditions"><h2 id="related-conditions" className="font-heading text-2xl font-bold text-navy">Conditions often seen with {content.title.toLowerCase()}</h2>
         <ul className="mt-5 grid gap-3 sm:grid-cols-2">{content.related.map((slug) => { const related = getCondition(slug); return related && <li key={slug}><Link href={`/conditions/${slug}`} className="flex min-h-12 items-center justify-between gap-3 rounded-xl bg-cream px-4 py-3 font-semibold text-navy hover:bg-navy/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy">{related.title}<span aria-hidden="true">→</span></Link></li>; })}</ul>
