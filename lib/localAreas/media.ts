@@ -8,8 +8,7 @@ export const media: LocalAreaContent = {
   town: "Media",
 
   metaTitle: "Mobile Chiropractor in Media, PA — Go Chiro Mobile",
-  metaDescription:
-    "Mobile chiropractic care at your home or workplace in Media, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
+  metaDescription: "Mobile, house-call chiropractic care in Media and surrounding communities. Additional locations available by arrangement.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Media, PA",

@@ -8,8 +8,7 @@ export const garnetValley: LocalAreaContent = {
   town: "Garnet Valley",
 
   metaTitle: "Mobile Chiropractor in Garnet Valley & Glen Mills, PA — Go Chiro Mobile",
-  metaDescription:
-    "Mobile chiropractic care at your home or workplace in Garnet Valley, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
+  metaDescription: "Mobile, house-call chiropractic care in Garnet Valley and surrounding communities. Additional locations available by arrangement.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Garnet Valley & Glen Mills, PA",

@@ -9,7 +9,7 @@ function searchText(content: ConditionContent) {
   const topic = shortNames[content.slug] || content.title;
   return {
     title: `${topic} Care in Delaware County | Go Chiro Mobile`,
-    description: `Mobile chiropractic evaluation and care for ${topic.toLowerCase()} at your home or workplace in Delaware County, PA.`,
+    description: `Mobile chiropractic evaluation and care for ${topic.toLowerCase()} in Delaware County and nearby communities; other locations by arrangement.`,
   };
 }
 

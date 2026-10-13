@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/high-intensity-laser-therapy" },
   title: "High-Intensity Laser Therapy | Mobile Care | Go Chiro Mobile",
   description:
-    "High-intensity therapeutic laser may be available with at least one week advance notice as part of mobile musculoskeletal care and touring-production coverage in Pennsylvania.",
+    "Optional laser therapy with at least one week of notice. Serving Delaware County and surrounding communities; other locations by arrangement.",
 };
 
 const COMMON_GOALS = [
@@ -29,13 +29,13 @@ const COMMON_GOALS = [
 
 export default function HighIntensityLaserTherapyPage() {
   return (
-    <><PageSearchSchema path={"/high-intensity-laser-therapy"} name={"High-Intensity Laser Therapy | Mobile Care | Go Chiro Mobile"} description={"High-intensity therapeutic laser may be available with at least one week advance notice as part of mobile musculoskeletal care and touring-production coverage in Pennsylvania."} service={{"name":"High-intensity laser therapy by advance request","description":"Optional high-intensity therapeutic laser within mobile musculoskeletal care in Pennsylvania, requiring at least one week of advance notice.","areas":["Pennsylvania"]}} /><div>
+    <><PageSearchSchema path={"/high-intensity-laser-therapy"} name={"High-Intensity Laser Therapy | Mobile Care | Go Chiro Mobile"} description={"Optional laser therapy with at least one week of notice. Serving Delaware County and surrounding communities; other locations by arrangement."} service={{"name":"High-intensity laser therapy by advance request","description":"Optional high-intensity therapeutic laser within mobile musculoskeletal care, requiring at least one week of advance notice. Additional locations available by arrangement.","areas":["Delaware County and surrounding communities"]}} /><div>
       <Section tone="white" className="pt-14 pb-12 sm:pt-20 sm:pb-16">
         <Container>
           <PageHeader
             eyebrow="Advanced Therapeutic Modalities"
             title="High-Intensity Laser Therapy"
-            lede="A high-power therapeutic laser may be available by advance request as an optional part of Go Chiro Mobile musculoskeletal care and touring-production coverage in Pennsylvania."
+            lede="A high-power therapeutic laser may be available by advance request as an optional part of Go Chiro Mobile musculoskeletal care and touring-production coverage by arrangement."
           />
           <p className="mt-4 text-sm font-semibold text-muted">
             Laser therapy currently requires at least one week of advance notice so appropriate equipment availability can be arranged.
@@ -113,7 +113,7 @@ export default function HighIntensityLaserTherapyPage() {
           <div className="max-w-3xl">
             <H2>Request High-Intensity Laser Therapy</H2>
             <P>If you are interested in having high-intensity laser therapy available for a mobile visit or a touring-production engagement, contact Go Chiro Mobile at least one week before the requested date. We can confirm whether appropriate equipment can be arranged and discuss the logistics before you commit.</P>
-            <P>High-intensity laser therapy is currently offered only when appropriate equipment and scheduling are available. Mobile and touring-production care is provided at Pennsylvania locations.</P>
+            <P>High-intensity laser therapy is currently offered only when appropriate equipment and scheduling are available. Serving Delaware County and surrounding communities, with additional locations available by arrangement.</P>
             <div className="mt-8 flex flex-wrap gap-3">
               <CTAButton href={`tel:${BUSINESS_PHONE}`}>Call / Text {BUSINESS_PHONE}</CTAButton>
               <CTAButton href="/touring-production-care/request" variant="secondary">Production Request</CTAButton>

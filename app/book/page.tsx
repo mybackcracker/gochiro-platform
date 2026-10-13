@@ -1,4 +1,5 @@
 "use client";
+import { ONLINE_LOCATION_MESSAGE, SERVICE_AREA_STATEMENT } from "@/lib/serviceArea";
 import { matchesWeekendDay, weekendDates, type WeekendDay } from "@/lib/weekendBooking";
 import { zipRoute, locationRequestPath } from "@/lib/zipRouting";
 
@@ -670,6 +671,7 @@ export default function BookPage() {
 
   return (
     <main className="min-h-screen bg-cream px-4 py-4 sm:py-8">
+      <p className="mx-auto mb-4 max-w-lg text-sm leading-relaxed text-muted">{SERVICE_AREA_STATEMENT}</p>
       <section className="mx-auto w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
         <button onClick={goBack} className="text-sm font-semibold text-slate-500 hover:text-ink">
           ← Back
@@ -772,9 +774,9 @@ export default function BookPage() {
             {zip.length === 5 && !zipRegion && (
               <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
                 {zipDestination === "request" ? (
-                  <p>This Pennsylvania location is available by arrangement. Check your location to request a quote before booking.</p>
+                  <p>This location may be available by arrangement. Request a location review and quote before booking.</p>
                 ) : (
-                  <p>Care is available in Pennsylvania only. This ZIP is not listed as a Pennsylvania location. Please check your ZIP code.</p>
+                  <p>{ONLINE_LOCATION_MESSAGE}</p>
                 )}
               </div>
             )}
@@ -879,9 +881,9 @@ export default function BookPage() {
             {zip.length === 5 && !zipRegion && (
               <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
                 {zipDestination === "request" ? (
-                  <p>This Pennsylvania location is available by arrangement. Check your location to request a quote before booking.</p>
+                  <p>This location may be available by arrangement. Request a location review and quote before booking.</p>
                 ) : (
-                  <p>Care is available in Pennsylvania only. This ZIP is not listed as a Pennsylvania location. Please check your ZIP code.</p>
+                  <p>{ONLINE_LOCATION_MESSAGE}</p>
                 )}
               </div>
             )}

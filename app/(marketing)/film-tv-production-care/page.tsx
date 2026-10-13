@@ -3,8 +3,8 @@ import PageSearchSchema from "@/components/PageSearchSchema";
 import { Section, Container, PageHeader, CTAButton, H2, P, Step, TagList, Callout } from "@/components/ui";
 import { BUSINESS_PHONE, PUBLIC_CONTACT_EMAIL } from "@/lib/gochiro";
 
-const TITLE = "On-Set Chiropractor in Pennsylvania | Go Chiro Mobile";
-const DESCRIPTION = "On-set musculoskeletal and chiropractic care for film and TV cast and crew in Philadelphia and Southeastern Pennsylvania, by arrangement.";
+const TITLE = "On-Set Chiropractor in Philadelphia | Go Chiro Mobile";
+const DESCRIPTION = "On-set chiropractic care for film and TV cast and crew in Delaware County and nearby communities; Philadelphia and other locations by arrangement.";
 const REQUEST_URL = "/touring-production-care/request";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function FilmTVProductionCarePage() {
         service={{
           name: "On-set chiropractic care for film and television productions",
           description: DESCRIPTION,
-          areas: ["Philadelphia, Pennsylvania", "Southeastern Pennsylvania"],
+          areas: ["Philadelphia, Pennsylvania", "Delaware County and surrounding communities"],
         }}
       />
       <div>
@@ -32,9 +32,9 @@ export default function FilmTVProductionCarePage() {
             <PageHeader
               eyebrow="Film & TV Productions"
               title="On-Set Chiropractic Care for Film & TV Productions"
-              lede="Go Chiro Mobile brings personalized musculoskeletal and chiropractic care to cast and crew at studios and filming locations in Philadelphia and Southeastern Pennsylvania. Coverage is arranged around your production’s location, schedule and individual care needs."
+              lede="Go Chiro Mobile brings personalized musculoskeletal and chiropractic care to cast and crew at studios and filming locations. Coverage is arranged around your production’s location, schedule and individual care needs."
             />
-            <p className="mt-4 text-sm font-semibold text-muted">Available at Pennsylvania locations only.</p>
+            <p className="mt-4 text-sm font-semibold text-muted">Serving Delaware County and surrounding communities, with additional locations available by arrangement. Philadelphia visits are available by arrangement.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <CTAButton href={REQUEST_URL}>Request Production Coverage</CTAButton>
               <CTAButton href="sms:+16104940412" variant="secondary">Text About Production Care</CTAButton>
@@ -110,7 +110,7 @@ export default function FilmTVProductionCarePage() {
           <Container>
             <H2>How It Works</H2>
             <div className="mt-10 max-w-3xl">
-              <Step number={1} title="Tell us about the production">Send your production date, Pennsylvania location, preferred coverage hours and approximate number of people seeking care. Artist or production identity is optional at the inquiry stage.</Step>
+              <Step number={1} title="Tell us about the production">Send your production date, location, preferred coverage hours and approximate number of people seeking care. Artist or production identity is optional at the inquiry stage.</Step>
               <Step number={2} title="Arrange the coverage">We’ll discuss availability, location access and treatment-space needs. Coverage and pricing are quoted according to the requirements of the engagement.</Step>
               <Step number={3} title="Complete intake privately">Individual intake and care information are collected separately from the production inquiry.</Step>
               <Step number={4} title="Care takes place on location">Dr. DeFries brings the equipment for the arranged care. Each person’s evaluation helps determine the appropriate care.</Step>
@@ -122,7 +122,7 @@ export default function FilmTVProductionCarePage() {
           <Container>
             <div className="max-w-3xl">
               <H2 onDark>Arrange Film & TV Production Coverage</H2>
-              <P onDark>Send the date, Pennsylvania location and coverage window you have in mind. We’ll follow up about availability and the arrangements that fit your production.</P>
+              <P onDark>Send the date, location and coverage window you have in mind. We’ll follow up about availability and the arrangements that fit your production.</P>
               <div className="mt-8 flex flex-wrap gap-3">
                 <CTAButton href={REQUEST_URL} variant="inverse">Request Production Coverage</CTAButton>
                 <CTAButton href="sms:+16104940412" variant="inverseOutline">Text About Production Care</CTAButton>

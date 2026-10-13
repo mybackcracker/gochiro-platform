@@ -1,3 +1,4 @@
+import { SERVICE_AREA_STATEMENT } from "./serviceArea";
 import { BUSINESS_SCHEMA_ID, SCHEMA_SITE_URL } from "./businessSchema";
 
 export type PageSchemaInput = {
@@ -29,7 +30,7 @@ export function pageSchema({ path, name, description, type = "WebPage", service 
         "@type": "Service",
         "@id": `${url}#service`,
         name: service.name,
-        description: service.description,
+        description: `${service.description} ${SERVICE_AREA_STATEMENT}`,
         serviceType: service.name,
         url,
         provider: { "@id": BUSINESS_SCHEMA_ID },

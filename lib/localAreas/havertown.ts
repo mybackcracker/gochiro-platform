@@ -8,8 +8,7 @@ export const havertown: LocalAreaContent = {
   town: "Havertown",
 
   metaTitle: "Mobile Chiropractor in Havertown, PA — Go Chiro Mobile",
-  metaDescription:
-    "Mobile chiropractic care at your home or workplace in Havertown, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
+  metaDescription: "Mobile, house-call chiropractic care in Havertown and surrounding communities. Additional locations available by arrangement.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Havertown, PA",

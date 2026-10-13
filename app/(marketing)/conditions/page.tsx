@@ -7,9 +7,9 @@ import { GoalIcon } from "@/components/care/GoalIcons";
 import styles from "@/components/care/careEditorial.module.css";
 import WholePersonBanner from "@/components/care/WholePersonBanner";
 
-export const metadata: Metadata = { title: "Conditions & Concerns | Go Chiro Mobile", description: "Explore care for back, neck, shoulder, and other muscle and joint concerns. Mobile chiropractic evaluation in Delaware County and surrounding service areas.", alternates: { canonical: "/conditions" } };
+export const metadata: Metadata = { title: "Conditions & Concerns | Go Chiro Mobile", description: "Explore care for muscle and joint concerns in Delaware County and surrounding communities. Additional locations available by arrangement.", alternates: { canonical: "/conditions" } };
 export default function Page() {
-  return <><PageSearchSchema path="/conditions" name="Conditions & Concerns | Go Chiro Mobile" description="Explore care for back, neck, shoulder, and other muscle and joint concerns. Mobile chiropractic evaluation in Delaware County and surrounding service areas." type="CollectionPage" /><article className={styles.conditionHub}><Container>
+  return <><PageSearchSchema path="/conditions" name="Conditions & Concerns | Go Chiro Mobile" description="Explore care for muscle and joint concerns in Delaware County and surrounding communities. Additional locations available by arrangement." type="CollectionPage" /><article className={styles.conditionHub}><Container>
       <header className={styles.hubHero}>
         <p className={styles.eyebrow}>Care guided by your concerns</p>
         <h1>Conditions &amp; Concerns</h1>

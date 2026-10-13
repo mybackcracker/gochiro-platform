@@ -8,8 +8,7 @@ export const wallingford: LocalAreaContent = {
   town: "Wallingford",
 
   metaTitle: "Mobile Chiropractor in Wallingford & Swarthmore, PA — Go Chiro Mobile",
-  metaDescription:
-    "Mobile chiropractic care at your home or workplace in Wallingford, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
+  metaDescription: "Mobile, house-call chiropractic care in Wallingford and surrounding communities. Additional locations available by arrangement.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Wallingford & Swarthmore, PA",

@@ -1,3 +1,5 @@
+import { SERVICE_AREA_POSITIONING, SERVICE_AREA_META_DESCRIPTION, COMMUNITY_EXAMPLES_NOTE, SERVICE_AREA_FAQ } from "@/lib/serviceArea";
+import FAQs from "@/components/FAQs";
 import PageSearchSchema from "@/components/PageSearchSchema";
 import LocationRequestCTA from "@/components/LocationRequestCTA";
 import Link from "next/link";
@@ -5,14 +7,14 @@ import type { Metadata } from "next";
 import { Section, Container, Eyebrow, H2, CTAButton, Callout } from "@/components/ui";
 import ZipChecker from "@/components/ZipChecker";
 import LocalAreaLinkList from "@/components/LocalAreaLinkList";
-import { BUSINESS_SERVICE_AREA } from "@/lib/gochiro";
+
 import { LOCAL_AREAS } from "@/lib/localAreas";
 import type { NearbyArea } from "@/lib/localAreas/types";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/service-areas" },
   title: "Service Areas — Go Chiro Mobile",
-  description: "Find out if Go Chiro Mobile comes to your area.",
+  description: SERVICE_AREA_META_DESCRIPTION,
 };
 
 // Same three-way grouping as the ZIP cards above, but for local-area page
@@ -31,6 +33,7 @@ const DELAWARE_COUNTY_AREA_SLUGS = [
   "brookhaven",
   "boothwyn",
   "garnet-valley",
+  "glen-mills",
   "ridley-park",
   "springfield",
   "media",
@@ -46,7 +49,7 @@ const WEST_CHESTER_AREA_SLUGS = ["west-chester"];
 
 export default function ServiceAreasPage() {
   return (
-    <><PageSearchSchema path={"/service-areas"} name={"Service Areas — Go Chiro Mobile"} description={"Find out if Go Chiro Mobile comes to your area."} type="CollectionPage" /><div>
+    <><PageSearchSchema path={"/service-areas"} name={"Service Areas — Go Chiro Mobile"} description={SERVICE_AREA_META_DESCRIPTION} type="CollectionPage" /><div>
       <Section tone="navy" className="pb-14 pt-14 sm:pt-20">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
@@ -58,7 +61,7 @@ export default function ServiceAreasPage() {
               Find out if Go Chiro Mobile comes to your area.
             </p>
             <p className="mt-4 text-lg leading-relaxed text-white/80">
-              Service area: {BUSINESS_SERVICE_AREA}.
+              {SERVICE_AREA_POSITIONING}
             </p>
             <div className="mt-8 text-left">
               <ZipChecker />
@@ -93,11 +96,9 @@ export default function ServiceAreasPage() {
 
       <Section tone="white" className="pt-8 pb-14 sm:pt-10 sm:pb-16">
         <Container>
-          <H2>Browse by Community</H2>
+          <H2>Commonly Served Communities</H2>
           <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">
-            Read more about mobile chiropractic care in a specific community below, or use the ZIP
-            checker above — it remains the fastest way to confirm whether your exact address is
-            currently bookable.
+            {COMMUNITY_EXAMPLES_NOTE} Read more about a community below, or check whether your ZIP is available for online booking. Contact the practice about additional locations by arrangement.
           </p>
           <div className="mt-8 space-y-10">
             <div>
@@ -115,6 +116,7 @@ export default function ServiceAreasPage() {
           </div>
         </Container>
       </Section>
+      <FAQs items={[SERVICE_AREA_FAQ]} path="/service-areas" title="Questions About Visit Locations" />
     </div></>
   );
 }

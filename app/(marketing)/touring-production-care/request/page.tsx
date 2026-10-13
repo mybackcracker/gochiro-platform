@@ -7,12 +7,12 @@ import ProductionRequestForm from "./ProductionRequestForm";
 export const metadata: Metadata = {
   alternates: { canonical: "/touring-production-care/request" },
   title: "Request Production Coverage | Go Chiro Mobile",
-  description: "Request touring, film and TV production care in Philadelphia and Southeastern Pennsylvania.",
+  description: "Request touring, film and TV chiropractic care in Delaware County and nearby communities; Philadelphia and other locations by arrangement.",
 };
 
 export default function ProductionRequestPage() {
   return (
-    <><PageSearchSchema path={"/touring-production-care/request"} name={"Request Production Coverage | Go Chiro Mobile"} description={"Request touring, film and TV production care in Philadelphia and Southeastern Pennsylvania."} /><div>
+    <><PageSearchSchema path={"/touring-production-care/request"} name={"Request Production Coverage | Go Chiro Mobile"} description={"Request touring, film and TV chiropractic care in Delaware County and nearby communities; Philadelphia and other locations by arrangement."} /><div>
       <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
         <Container>
           <PageHeader

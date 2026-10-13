@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   } catch { return NextResponse.json({error:"Invalid request."},{status:400}); }
   if (raw && typeof raw === "object" && "website" in raw && raw.website) return NextResponse.json({success:true});
   const input = parseLocationRequest(raw);
-  if (!input) return NextResponse.json({error:"Please complete the required fields, use a Pennsylvania address and acknowledge the quote and deposit terms."},{status:400});
+  if (!input) return NextResponse.json({error:"Please check the address and required fields, and acknowledge the quote and deposit terms. For a location this form cannot accept, call or text (610) 494-0412."},{status:400});
   const mapsUrl = locationMapsUrl(input);
   const text = ["NEW LOCATION CHECK — NOT A BOOKING", `Name: ${input.name}`, `Reply by ${input.contactMethod}: ${input.contact}`, `Address: ${input.address}, ${input.city}, ${input.state} ${input.zip}`, `Google Maps: ${mapsUrl}`, `Private / reserved parking: ${input.privateParking}`, `Stairs: ${input.stairs}`, `Elevator: ${input.elevator}`, `Timing: ${input.timing}`, `Quote and deposit acknowledgment: accepted (policy ${LOCATION_POLICY_VERSION})`, `Submitted: ${new Date().toISOString()}`, "Review location first, then agree on care, price and scheduling. No appointment or payment has been created."].join("\n");
   try {

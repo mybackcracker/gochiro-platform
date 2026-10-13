@@ -1,3 +1,4 @@
+import { SERVICE_AREA_STATEMENT, SERVICE_AREA_META_DESCRIPTION } from "@/lib/serviceArea";
 import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -6,12 +7,12 @@ import { Section, Container, PageHeader, H3, ChoiceCard } from "@/components/ui"
 export const metadata: Metadata = {
   alternates: { canonical: "/book-online" },
   title: "Book Online — Go Chiro Mobile",
-  description: "Choose the option that applies to you.",
+  description: SERVICE_AREA_META_DESCRIPTION,
 };
 
 export default function BookOnlinePage() {
   return (
-    <><PageSearchSchema path={"/book-online"} name={"Book Online — Go Chiro Mobile"} description={"Choose the option that applies to you."} type="CollectionPage" /><div>
+    <><PageSearchSchema path={"/book-online"} name={"Book Online — Go Chiro Mobile"} description={SERVICE_AREA_META_DESCRIPTION} type="CollectionPage" /><div>
       <Section tone="white" className="pt-14 pb-12 sm:pt-20 sm:pb-16">
         <Container>
           <PageHeader
@@ -24,6 +25,7 @@ export default function BookOnlinePage() {
             Appointments available 7 days a week, including Saturday and Sunday. Availability varies by location and visit type.
           </p>
 
+          <p className="mt-4 text-muted">{SERVICE_AREA_STATEMENT}</p>
           <div className="mt-10 grid gap-6 lg:grid-cols-3">
             <ChoiceCard
               title="New Patient"

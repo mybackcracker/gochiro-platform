@@ -8,8 +8,7 @@ export const newtownSquare: LocalAreaContent = {
   town: "Newtown Square",
 
   metaTitle: "Mobile Chiropractor in Newtown Square & Broomall, PA — Go Chiro Mobile",
-  metaDescription:
-    "Mobile chiropractic care at your home or workplace in Newtown Square, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
+  metaDescription: "Mobile, house-call chiropractic care in Newtown Square and surrounding communities. Additional locations available by arrangement.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Newtown Square & Broomall, PA",

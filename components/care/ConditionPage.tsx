@@ -1,3 +1,4 @@
+import { SERVICE_AREA_STATEMENT } from "@/lib/serviceArea";
 import Image from "next/image";
 import Link from "next/link";
 import { Container, CTAButton } from "@/components/ui";
@@ -24,7 +25,7 @@ export default function ConditionPage({ content }: { content: ConditionContent }
         <p>Care at your location</p>
         <h1 className="font-heading text-4xl font-bold leading-[1.1] tracking-tight text-navy sm:text-5xl">{content.heroTitle}</h1>
         <p className="mt-6 text-lg leading-relaxed text-ink">{content.intro}</p>
-        <p className="mt-4 text-base leading-relaxed text-muted">Chiropractic evaluation and care at your home or workplace in Delaware County and surrounding service areas.</p>
+        <p className="mt-4 text-base leading-relaxed text-muted">{SERVICE_AREA_STATEMENT}</p>
         {content.slug === "neck-pain" ? <NeckSummary/> : <section aria-labelledby="condition-summary">
           <h2 id="condition-summary">Symptoms &amp; related concerns</h2>
           <ul className="mt-4 list-disc space-y-2 pl-5">{content.symptoms.map((symptom) => <li key={symptom}>{symptom}</li>)}</ul>
