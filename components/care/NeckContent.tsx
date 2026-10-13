@@ -20,8 +20,10 @@ export function NeckDetails() {
     <div className="mt-5 max-w-3xl space-y-4 text-base leading-relaxed text-ink">
       <p>Neck pain does not always start with an injury. You might notice stiffness when looking over your shoulder, an ache after a day at your desk, or tension that makes it hard to get comfortable at night. Repeated tasks, long periods in one position, and past injuries can all be part of the picture.</p>
       <p>The neck, shoulder blades, and upper back work together as you reach, lift, and turn. Discomfort may involve more than one area. Irritation of a nerve in the neck can also produce pain, tingling, or numbness farther down the arm. An examination helps distinguish those symptoms from a local shoulder, elbow, or hand problem.</p>
-      <p>If you also have low back discomfort, mention it during the visit. Dr. DeFries considers your overall movement and other complaints to determine which findings matter, rather than assuming every symptom comes from the neck.</p>
-      <p>Care focuses on more comfortable movement and everyday function. Depending on your findings, it may include hands-on or instrument-assisted adjustments, soft tissue care, exercises, postural retraining, and changes to activities that aggravate symptoms. Electrotherapy may be added when appropriate. Home guidance supports continued mobility and wellness between visits.</p>
+      <h3 className="font-heading text-xl font-bold text-navy">Why we pay attention to your neck</h3>
+      <p>Neck posture and movement are important parts of your overall examination. Some shoulder and arm symptoms can originate in the neck.</p>
+      <p>In his clinical experience, Dr. DeFries has often observed that improving neck movement accompanies decreased shoulder, arm, or back discomfort—and sometimes improvement in hip, knee, or ankle symptoms. Your examination considers these possible connections while assessing each painful area individually. Care focuses on your findings, movement, and goals.</p>
+      <p>Care focuses on more comfortable movement and everyday function. Depending on your findings, it may include hands-on or instrument-assisted adjustments, soft tissue care, exercises, postural retraining, and changes to activities that aggravate symptoms. Home guidance supports continued mobility and wellness between visits.</p>
     </div>
   </section>;
 }

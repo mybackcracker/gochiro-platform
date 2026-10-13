@@ -8,10 +8,10 @@ import { GoalIcon } from "@/components/care/GoalIcons";
 import styles from "@/components/care/careEditorial.module.css";
 import WholePersonBanner from "@/components/care/WholePersonBanner";
 
-export const metadata: Metadata = { title: "Chiropractic Treatments & Care | Go Chiro Mobile", description: "Learn about chiropractic adjustments, soft tissue therapies, postural retraining, exercise, and electrotherapy provided at your location.", alternates: { canonical: "/treatments" } };
+export const metadata: Metadata = { title: "Chiropractic Treatments & Care | Go Chiro Mobile", description: "Learn about chiropractic adjustment and mobilization, soft tissue therapy, and exercise with posture guidance at your location.", alternates: { canonical: "/treatments" } };
 export default function Page() {
   return <>
-    <PageSearchSchema path="/treatments" name="Chiropractic Treatments & Care | Go Chiro Mobile" description="Learn about chiropractic adjustments, soft tissue therapies, postural retraining, exercise, and electrotherapy provided at your location." />
+    <PageSearchSchema path="/treatments" name="Chiropractic Treatments & Care | Go Chiro Mobile" description="Learn about chiropractic adjustment and mobilization, soft tissue therapy, and exercise with posture guidance at your location." />
     <article className={styles.treatmentsPage}>
       <header className={styles.treatmentHero}>
         <div className={styles.readingWidth}>
@@ -21,6 +21,7 @@ export default function Page() {
         </div>
       </header>
       <div className={styles.readingWidth}>
+        <H2>Fundamental Care</H2>
         <nav aria-label="Treatment sections" className={styles.treatmentNav}>
           {TREATMENTS.map((t, i) => <Link key={t.id} href={`#${t.id}`}><span><small aria-hidden="true">0{i + 1}</small>{t.title}</span><span aria-hidden="true">↓</span></Link>)}
         </nav>
@@ -35,8 +36,8 @@ export default function Page() {
           <H2>{t.title}</H2>
           {t.paragraphs.map((p) => <p key={p}>{p}</p>)}
           <div className={styles.treatmentGoal}>
-            <GoalIcon kind={t.id === "exercise" ? "strength" : t.id === "posture" ? "reach" : "pain"}/>
-            <p>{t.id === "exercise" ? "Strength, movement control, and everyday function" : t.id === "posture" ? "Movement habits, muscle control, and function" : t.id === "electrotherapy" ? "Goals vary with the type of stimulation used" : "Pain relief and more comfortable movement"}</p>
+            <GoalIcon kind={t.id === "exercise" ? "strength" : "pain"}/>
+            <p>{t.id === "exercise" ? "Strength, posture, movement control, and everyday function" : "Pain relief and more comfortable movement"}</p>
           </div>
           {(t.id === "soft-tissue" || t.id === "adjustment") && <figure className={styles.treatmentPhoto}>
             <Image src={t.id === "adjustment" ? "/images/care/home-low-back-adjustment.jpg" : "/images/care/soft-tissue-care.jpg"} alt={t.id === "adjustment" ? "Dr. David DeFries performing a chiropractic adjustment during a home visit" : "Dr. David DeFries providing instrument-assisted soft tissue care during a home visit"} width={t.id === "adjustment" ? 360 : 1200} height={t.id === "adjustment" ? 480 : 1600} sizes="(min-width: 700px) 440px, 100vw" />
