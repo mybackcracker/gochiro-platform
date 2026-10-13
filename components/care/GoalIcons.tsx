@@ -10,7 +10,7 @@ export function GoalIcon({ kind }: { kind: MobilityIcon | "pain" | "strength" })
     walk: <><circle cx="40" cy="13" r="5"/><path d="M37 22 29 39 19 46M37 22 44 36h12M29 39l15 12 9 15M29 39 22 58 10 66"/></>,
   };
   return <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="h-16 w-16 shrink-0 text-navy" aria-hidden="true" focusable="false">
-    {kind === "pain" ? <><path d="M10 20h15l14 16 20 19M44 55h15V40"/><path d="M13 57v-9M25 57V39"/></> : kind === "strength" ? <><path d="M22 24v24M14 30v12M50 24v24M58 30v12M22 36h28"/><rect x="8" y="31" width="6" height="10" rx="2"/><rect x="58" y="31" width="6" height="10" rx="2"/></> : movement[kind]}
+    {kind === "pain" ? <><path d="M10 20h15l14 16 20 19M44 55h15V40"/><path d="M13 57v-9M25 57V39"/></> : kind === "strength" ? <><circle cx="34" cy="11" r="5"/><path d="M32 21 27 37M32 23 43 30 51 24M31 24 21 31 15 27M27 37 43 38 48 54h8M27 37 23 54 16 65H9M40 57h23v9H40"/></> : movement[kind]}
   </svg>;
 }
 
