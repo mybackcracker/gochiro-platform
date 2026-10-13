@@ -9,6 +9,7 @@ import { NeckSummary, NeckDetails, NeckFAQs } from "./NeckContent";
 
 export default function ConditionPage({ content }: { content: ConditionContent }) {
   const photos: Record<string, { src: string; alt: string; width: number; height: number }> = {
+    "sciatica": { src: "/images/care/standing-movement-examination.webp", alt: "Chiropractor observing a standing leg movement during an examination", width: 1200, height: 800 },
     "low-back-pain": { src: "/images/care/home-low-back-adjustment.jpg", alt: "Dr. David DeFries performing a chiropractic adjustment on a portable table in a home", width: 360, height: 480 },
     "neck-pain": { src: "/images/care/neck-care.jpg", alt: "Dr. David DeFries providing hands-on neck care during a house call", width: 1400, height: 1050 },
     "shoulder-pain": { src: "/images/care/shoulder-soft-tissue.jpg", alt: "Targeted hands-on soft tissue care around the shoulder", width: 1050, height: 1400 },
@@ -29,7 +30,7 @@ export default function ConditionPage({ content }: { content: ConditionContent }
       </div>
       {photo && <figure className="mx-auto w-full max-w-sm lg:max-w-none">
         <Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} preload sizes="(min-width: 1024px) 440px, (min-width: 640px) 384px, 100vw" className="h-auto w-full rounded-2xl"/>
-        <figcaption className="mt-3 text-sm text-muted">Chiropractic care brought to your location.</figcaption>
+        <figcaption className="mt-3 text-sm text-muted">{content.slug === "sciatica" ? "Standing movement assessment." : "Chiropractic care brought to your location."}</figcaption>
       </figure>}
     </header>
     {content.slug === "neck-pain" && <NeckDetails/>}
@@ -42,7 +43,7 @@ export default function ConditionPage({ content }: { content: ConditionContent }
       </section>
     </div>
     <section className="mt-10 border-t border-line pt-9"><h2 className="font-heading text-2xl font-bold text-navy">Care often used for {content.title.toLowerCase()}</h2>
-      <div className="mt-5 flex flex-wrap gap-3">{[["Adjustments", "adjustment"], ["Soft tissue care", "soft-tissue"], ["Movement guidance", "exercise"]].map(([label, anchor]) => <Link key={anchor} href={`/treatments#${anchor}`} className="inline-flex min-h-11 items-center rounded-lg bg-cream px-4 py-3 font-semibold text-navy underline decoration-navy/30 underline-offset-4 hover:decoration-navy">{label}</Link>)}</div>
+      <div className="mt-5 flex flex-wrap gap-3">{[["Adjustments", "adjustment"], ["Soft tissue care", "soft-tissue"], ["Movement & exercise therapy", "exercise"]].map(([label, anchor]) => <Link key={anchor} href={`/treatments#${anchor}`} className="inline-flex min-h-11 items-center rounded-lg bg-cream px-4 py-3 font-semibold text-navy underline decoration-navy/30 underline-offset-4 hover:decoration-navy">{label}</Link>)}</div>
       <p className="mt-5 max-w-3xl text-base leading-relaxed text-ink">{content.care}</p>
       <p className="mt-3 text-sm text-muted">This information describes care options. An examination is needed to determine what is appropriate for you.</p>
     </section>

@@ -20,14 +20,11 @@ export const TREATMENTS = [
   },
   {
     "id": "exercise",
-    "title": "Exercise Therapy",
+    "title": "Movement & Exercise Therapy",
     "paragraphs": [
-      "Exercise therapy uses specific movements to help restore strength, flexibility, endurance, and muscle coordination. Exercises are selected based on your examination, current abilities, and the activities you want to perform more comfortably.",
-      "Dr. DeFries guides you through the movements and checks your technique. Your program may include stretching, mobility exercises, strengthening, balance, or movement-control activities, with difficulty adjusted as you progress.",
-      "The goal is to help your muscles and joints work together more effectively and build your capacity for everyday activity. Exercise can also support ongoing mobility and wellness beyond the immediate complaint. When appropriate, you’ll receive home exercises and clear instructions.",
-      "The positions you use while sitting, standing, working, and moving influence how your muscles and joints share the demands of everyday activity. Holding one position for long periods may contribute to fatigue, tension, or discomfort.",
-      "Postural retraining starts with evaluating your posture, movement habits, and daily activities. Dr. DeFries helps you practice positioning and movement strategies suited to your body, work, and routine. This may include exercises, positioning cues, and changes to your workspace.",
-      "The goal is to develop comfortable, adaptable posture and better muscle coordination—not to hold one rigid position all day. Because care takes place at your location, your usual chair, desk, or work setup may provide opportunities for practical guidance."
+      "Everyday activities, physical work, and sports build on basic movements. Care focuses on how you move, your posture, and the strength and coordination needed for the activities that matter to you.",
+      "Dr. DeFries uses exercises and practical movement guidance selected for your examination findings, abilities, and goals. This may include mobility work, strengthening, balance, and practicing movement patterns.",
+      "Building these fundamentals supports more comfortable everyday activity and provides a foundation for more demanding work or sports. The aim is lasting improvement in function, with habits and exercises that support continued mobility and wellness."
     ]
   }
 ];
