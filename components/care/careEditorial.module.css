@@ -1,34 +1,34 @@
-.neckPage,.treatmentsPage{--care-ink:#142a3c;--care-accent:#bc491d;--care-paper:#f5f1e9;--care-line:#ded8cd;color:var(--care-ink);background:var(--care-paper)}
-.neckPage{padding:32px 0 72px}
-.neckPage h1,.neckPage h2,.treatmentsPage h1,.treatmentsPage h2{font-weight:800;letter-spacing:-.045em;line-height:1.08}
-.neckPage h2{font-size:clamp(1.65rem,2.8vw,2.5rem)}
-.neckPage p,.treatmentsPage p{line-height:1.75}
-.neckPage a:focus-visible,.treatmentsPage a:focus-visible{outline:3px solid #d66532;outline-offset:5px}
-.neckPage header{background:var(--care-ink);padding:48px;border-radius:18px;gap:44px!important;margin-bottom:48px}
-.neckPage header h1{font-size:clamp(3.5rem,6vw,5.5rem);color:#fff}
-.neckPage header p{color:#d4dfe6}
-.neckPage header>div>p:first-of-type{color:#f3915c;font-size:.75rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin:0 0 20px}
-.neckPage header section{background:#fffaf1;border:0;border-left:4px solid #f3915c;border-radius:10px;margin-top:28px;padding:24px}
-.neckPage header section h2{font-size:1.2rem;color:var(--care-ink);letter-spacing:-.02em}
-.neckPage header section li{color:var(--care-ink);font-size:.95rem;line-height:1.65}
-.neckPage header section a{color:var(--care-accent)}
-.neckPage header figure{padding:0;align-self:center}
-.neckPage header figure img{border-radius:12px}
-.neckPage header figcaption{color:#b7c8d4;font-size:.8rem;margin-top:14px}
-.neckPage header>div>div:last-child a{background:#f3915c;color:var(--care-ink)}
-.neckPage :global(#understanding-neck-pain){background:#fffdf8;border:1px solid var(--care-line);border-radius:14px;padding:36px;margin-top:0}
-.neckPage :global(section[aria-labelledby="care-goals"]){background:#e7eee9;border-radius:14px;padding:36px;margin-top:32px}
-.neckPage :global(section[aria-labelledby="care-goals"])>div>div{background:#fffdf8;border-radius:10px;min-height:172px}
-.neckPage :global(section[aria-labelledby="care-goals"]) svg{color:var(--care-accent);width:76px;height:76px}
+.conditionPage,.treatmentsPage{--care-ink:#142a3c;--care-accent:#bc491d;--care-paper:#f5f1e9;--care-line:#ded8cd;color:var(--care-ink);background:var(--care-paper)}
+.conditionPage{padding:32px 0 72px}
+.conditionPage h1,.conditionPage h2,.treatmentsPage h1,.treatmentsPage h2{font-weight:800;letter-spacing:-.045em;line-height:1.08}
+.conditionPage h2{font-size:clamp(1.65rem,2.8vw,2.5rem)}
+.conditionPage p,.treatmentsPage p{line-height:1.75}
+.conditionPage a:focus-visible,.treatmentsPage a:focus-visible{outline:3px solid #d66532;outline-offset:5px}
+.conditionPage header{background:var(--care-ink);padding:48px;border-radius:18px;gap:44px!important;margin-bottom:48px}
+.conditionPage header h1{font-size:clamp(2.8rem,4.8vw,5rem);color:#fff}
+.conditionPage header p{color:#d4dfe6}
+.conditionPage header>div>p:first-of-type{color:#f3915c;font-size:.75rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin:0 0 20px}
+.conditionPage header section{background:#fffaf1;border:0;border-left:4px solid #f3915c;border-radius:10px;margin-top:28px;padding:24px}
+.conditionPage header section h2{font-size:1.2rem;color:var(--care-ink);letter-spacing:-.02em}
+.conditionPage header section li{color:var(--care-ink);font-size:.95rem;line-height:1.65}
+.conditionPage header section a{color:var(--care-accent)}
+.conditionPage header figure{padding:0;align-self:center}
+.conditionPage header figure img{border-radius:12px}
+.conditionPage header figcaption{color:#b7c8d4;font-size:.8rem;margin-top:14px}
+.conditionPage header>div>div:last-child a{background:#f3915c;color:var(--care-ink)}
+.conditionPage :global(#understanding-neck-pain){background:#fffdf8;border:1px solid var(--care-line);border-radius:14px;padding:36px;margin-top:0}
+.conditionPage :global(section[aria-labelledby="care-goals"]){background:#e7eee9;border-radius:14px;padding:36px;margin-top:32px}
+.conditionPage :global(section[aria-labelledby="care-goals"])>div>div{background:#fffdf8;border-radius:10px;min-height:172px}
+.conditionPage :global(section[aria-labelledby="care-goals"]) svg{color:var(--care-accent);width:76px;height:76px}
 .contentGrid{gap:28px!important}
 .contentGrid>section{background:#fffdf8;border:1px solid var(--care-line);border-radius:14px;padding:32px}
 .contentGrid a{background:#f1e9dd;border-radius:8px}
-.neckPage :global(section[aria-labelledby="neck-faqs"]){background:#fffdf8;border:1px solid var(--care-line);border-radius:14px;padding:36px}
-.neckPage :global(section[aria-labelledby="neck-faqs"]) summary{font-size:1.06rem;line-height:1.5}
-.neckPage :global(section[aria-labelledby="neck-faqs"]) details[open] summary{color:var(--care-accent)}
-.neckPage aside,.treatmentsPage aside{background:#e7eee9;border-left:4px solid var(--care-accent);border-radius:12px}
-.neckPage>div>section:last-child{background:var(--care-ink);padding:38px;border-radius:14px}
-.neckPage>div>section:last-child h2,.neckPage>div>section:last-child p{color:#fff}
+.conditionPage :global(section[aria-labelledby="neck-faqs"]){background:#fffdf8;border:1px solid var(--care-line);border-radius:14px;padding:36px}
+.conditionPage :global(section[aria-labelledby="neck-faqs"]) summary{font-size:1.06rem;line-height:1.5}
+.conditionPage :global(section[aria-labelledby="neck-faqs"]) details[open] summary{color:var(--care-accent)}
+.conditionPage aside,.treatmentsPage aside{background:#e7eee9;border-left:4px solid var(--care-accent);border-radius:12px}
+.conditionPage>div>section:last-child{background:var(--care-ink);padding:38px;border-radius:14px}
+.conditionPage>div>section:last-child h2,.conditionPage>div>section:last-child p{color:#fff}
 .treatmentHero{background:var(--care-ink);color:#fff;padding:64px 0 56px}
 .readingWidth{width:min(840px,100% - 48px);margin-inline:auto}
 .treatmentHero h1{font-size:clamp(3.25rem,6vw,5.2rem);color:#fff;margin:20px 0 28px}
@@ -56,4 +56,22 @@
 .treatmentPhoto img{display:block;max-width:440px;width:100%;height:auto;margin-inline:auto;border-radius:8px}
 .bottomCTA{background:var(--care-ink);padding:32px;border-radius:14px;margin:32px 0 64px}
 .bottomCTA a{background:#f3915c;color:var(--care-ink)}
-@media(max-width:700px){.neckPage{padding-top:24px}.neckPage header{padding:28px 20px;gap:30px!important;border-radius:12px}.neckPage header h1{font-size:3.45rem}.neckPage header section{padding:20px}.neckPage :global(#understanding-neck-pain),.neckPage :global(section[aria-labelledby="care-goals"]),.neckPage :global(section[aria-labelledby="neck-faqs"]){padding:24px}.contentGrid>section{padding:24px}.neckPage>div>section:last-child{padding:28px}.treatmentHero{padding:40px 0}.readingWidth{width:calc(100% - 36px)}.treatmentHero h1{font-size:3.4rem}.treatmentHero>div>p:last-child{font-size:1rem}.treatmentNav a{padding:16px 18px}.goals{padding:24px}.goals ul{grid-template-columns:1fr;gap:14px}.treatmentSection{padding:32px 0}.treatmentSection>p{font-size:1rem}.treatmentGoal{padding:20px;gap:16px}.treatmentPhoto{padding:16px}.bottomCTA{padding:24px;margin-bottom:40px}}
+@media(max-width:700px){.conditionPage{padding-top:24px}.conditionPage header{padding:28px 20px;gap:30px!important;border-radius:12px}.conditionPage header h1{font-size:2.65rem}.conditionPage header section{padding:20px}.conditionPage :global(#understanding-neck-pain),.conditionPage :global(section[aria-labelledby="care-goals"]),.conditionPage :global(section[aria-labelledby="neck-faqs"]){padding:24px}.contentGrid>section{padding:24px}.conditionPage>div>section:last-child{padding:28px}.treatmentHero{padding:40px 0}.readingWidth{width:calc(100% - 36px)}.treatmentHero h1{font-size:3.4rem}.treatmentHero>div>p:last-child{font-size:1rem}.treatmentNav a{padding:16px 18px}.goals{padding:24px}.goals ul{grid-template-columns:1fr;gap:14px}.treatmentSection{padding:32px 0}.treatmentSection>p{font-size:1rem}.treatmentGoal{padding:20px;gap:16px}.treatmentPhoto{padding:16px}.bottomCTA{padding:24px;margin-bottom:40px}}
+
+.careSection{background:#fffdf8;border:1px solid var(--care-line);border-radius:14px;padding:32px}
+.safetySection{border:1px solid #d9bca8;border-left:4px solid var(--care-accent);border-radius:12px;padding:28px 32px;background:#fbf4ed}
+.conditionHub{background:#f5f1e9;color:#142a3c;padding:32px 0 64px}
+.hubHero{background:#142a3c;border-radius:18px;padding:52px;margin-bottom:36px}
+.hubHero h1{font-size:clamp(3rem,5.5vw,5rem);font-weight:800;line-height:1.08;letter-spacing:-.045em;color:#fff;max-width:850px;margin:20px 0 24px}
+.hubHero>p:last-child{color:#d4dfe6;max-width:760px;font-size:1.12rem;line-height:1.75}
+.hubGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.hubCard{display:flex;flex-direction:column;background:#fffdf8;border:1px solid #ded8cd;border-radius:14px;padding:28px;min-width:0;transition:border-color .2s,transform .2s}
+.hubCard:hover{border-color:#bc491d;transform:translateY(-3px)}
+.hubCard:focus-visible{outline:3px solid #bc491d;outline-offset:4px}
+.hubCard svg{color:#bc491d;width:56px;height:56px;margin-bottom:22px}
+.hubCard h2{font-size:1.35rem;font-weight:800;line-height:1.25;letter-spacing:-.025em}
+.hubCard p{margin:14px 0 24px;color:#42535c;line-height:1.7;font-size:.95rem}
+.hubCard>span{margin-top:auto;font-size:.9rem;font-weight:700;color:#bc491d}
+.conditionHub aside{background:#e7eee9;border-left:4px solid #bc491d}
+@media(max-width:1000px){.hubGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.careSection{padding:24px}.safetySection{padding:24px}.conditionHub{padding-top:24px}.hubHero{padding:30px 24px}.hubHero h1{font-size:2.8rem}.hubHero>p:last-child{font-size:1rem}.hubGrid{grid-template-columns:1fr;gap:18px}.hubCard{padding:24px}.hubCard svg{margin-bottom:16px}}
