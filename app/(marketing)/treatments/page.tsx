@@ -21,7 +21,7 @@ export default function Page() {
         </div>
       </header>
       <div className={styles.readingWidth}>
-        <H2>Fundamental Care</H2>
+        <H2 className="pt-10">Fundamental Care</H2>
         <nav aria-label="Treatment sections" className={styles.treatmentNav}>
           {TREATMENTS.map((t, i) => <Link key={t.id} href={`#${t.id}`}><span><small aria-hidden="true">0{i + 1}</small>{t.title}</span><span aria-hidden="true">↓</span></Link>)}
         </nav>
