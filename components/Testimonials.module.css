@@ -1,0 +1,22 @@
+.section { padding: 72px 0 24px; color: #142a3c; }
+.heading { display: flex; justify-content: space-between; gap: 32px; align-items: end; margin-bottom: 28px; }
+.heading h2 { font-size: clamp(1.9rem, 3vw, 2.8rem); line-height: 1.12; margin: 8px 0 0; }
+.heading > p { max-width: 340px; color: #52616b; line-height: 1.7; }
+.eyebrow, .theme { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.eyebrow { color: #52616b; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.card { display: flex; flex-direction: column; margin: 0; padding: 28px; border: 1px solid #deded5; border-radius: 18px; background: #fff; }
+.theme { color: #52616b; margin: 0 0 18px; }
+.card blockquote { margin: 0 0 26px; flex: 1; font-size: 1.35rem; line-height: 1.5; }
+.card blockquote p { margin: 0; }
+.card figcaption { font-weight: 700; font-size: .9rem; }
+.card figcaption span { display: block; margin-top: 5px; font-size: .75rem; font-weight: 400; color: #52616b; }
+.link { display: inline-flex; gap: 12px; margin-top: 24px; font-weight: 700; text-decoration: underline; text-underline-offset: 5px; }
+.link:focus-visible { outline: 2px solid #142a3c; outline-offset: 6px; }
+@media (max-width: 700px) {
+  .section { padding-top: 48px; }
+  .heading { display: block; }
+  .heading > p { margin-top: 16px; }
+  .grid { grid-template-columns: 1fr; gap: 14px; }
+  .card { padding: 24px; }
+}

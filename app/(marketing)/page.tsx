@@ -8,6 +8,7 @@ import { HOME_VISIT_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
 import JsonLd from "@/components/JsonLd";
 import { localBusinessSchema } from "@/lib/businessSchema";
 import { LOCAL_AREAS } from "@/lib/localAreas";
+import Testimonials from "@/components/Testimonials";
 import styles from "./home.module.css";
 
 const description = "Personalized mobile chiropractic care in Delaware County and the Main Line, with Chester County and Philadelphia visits by arrangement.";
@@ -60,6 +61,7 @@ export default function HomePage() {
         <div className={styles.careCopy}><p className={styles.eyebrow}>More than a quick adjustment</p><h2>Your concerns.<br />Your goals.<br /><span>Your care.</span></h2><p>Chiropractic manipulation or mobilization, soft tissue therapy, and guided movement may be included when appropriate. Your examination helps determine what fits.</p><div className="flex flex-wrap gap-6"><Link href="/treatments" className={styles.textLink}>Explore treatments <Arrow /></Link><Link href="/conditions" className={styles.textLink}>Conditions &amp; concerns <Arrow /></Link></div></div>
       </section>
       <section className={styles.darkSection}><div className={styles.wrap}><div className={styles.sectionHeading}><h2>Your first visit,<br />made clear.</h2><p>I bring the treatment table and equipment to your home or workplace.</p></div><div className={styles.steps}>{steps.map(([title, text], i) => <div key={title}><span className={styles.stepNumber}>0{i + 1}</span><h3>{title}</h3><p>{text}</p></div>)}</div></div></section>
+      <div className={styles.wrap}><Testimonials /></div>
       <section className={`${styles.wrap} ${styles.doctor}`}>
         <div className={styles.doctorPhoto}><Image src={DOCTOR_PORTRAIT_IMAGE.src} alt={DOCTOR_PORTRAIT_IMAGE.alt} fill sizes="(min-width: 900px) 35vw, 100vw" className={styles.photo} /></div>
         <div><p className={styles.eyebrow}>Meet your doctor</p><h2>Dr. David<br />DeFries, DC</h2><p>A third-generation chiropractor practicing since 2003. A Parker College of Chiropractic graduate providing personalized mobile care in Pennsylvania.</p><Link href="/about" className={styles.textLink}>Meet Dr. DeFries <Arrow /></Link><div className={styles.credentials}><div><strong>2003</strong><span>In practice since</span></div><div><strong>3rd</strong><span>Generation chiropractor</span></div></div></div>
