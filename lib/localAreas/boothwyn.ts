@@ -104,6 +104,7 @@ export const boothwyn: LocalAreaContent = {
     {
       question: "What conditions do you evaluate during a mobile chiropractic visit in Boothwyn?",
       answer: "Dr. DeFries evaluates concerns such as low back pain, sciatica, neck pain, headaches, shoulder and upper-body discomfort, foot and heel pain, stiffness and mobility limitations. Visits are also available for wellness and maintenance care. The evaluation determines whether chiropractic care is appropriate.",
+      links: [{"label": "Low back pain", "href": "/conditions/low-back-pain"}, {"label": "Neck pain", "href": "/conditions/neck-pain"}, {"label": "Sciatica", "href": "/conditions/sciatica"}, {"label": "All conditions and concerns", "href": "/conditions"}],
     },
     {
       question: "Do you take insurance, and how can I pay?",
@@ -113,7 +114,7 @@ export const boothwyn: LocalAreaContent = {
     {
       question: "What treatments might my chiropractic visit in Boothwyn include?",
       answer: "Depending on the evaluation, care may include chiropractic manipulation, soft-tissue techniques, mobility work and guidance for between visits. Treatment is based on your findings; not every visit includes every therapy. High-intensity laser therapy may be available by advance request and requires at least one week of notice.",
-      links: [{"label": "What to expect during your visit", "href": "/what-to-expect"}, {"label": "High-intensity laser therapy availability", "href": "/high-intensity-laser-therapy"}],
+      links: [{"label": "Treatments and care", "href": "/treatments"}, {"label": "What to expect during your visit", "href": "/what-to-expect"}, {"label": "High-intensity laser therapy availability", "href": "/high-intensity-laser-therapy"}],
     },
   ],
 };

@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 const treatments = [
   { title: "Chiropractic manipulation & mobilization", text: "Hands-on joint care, including gentle mobilization, selected according to your examination and comfort." },
   { title: "Soft tissue therapy", text: "Focused treatment for muscle tension and soft tissue discomfort that may affect how you move." },
-  { title: "Electrotherapy", text: "An additional treatment option when appropriate for your symptoms and examination." },
   { title: "Mobility & self-care", text: "Guided stretching, mobility exercises and practical advice to support movement during your stay and after you leave." },
 ];
 
@@ -45,7 +44,7 @@ export default function Page() {
           <div className="max-w-3xl space-y-4">
             <h2 className="font-heading text-3xl font-bold">Personalized care while you’re away</h2>
             <p className="leading-relaxed">Back pain, neck pain, muscle tension or stiffness can interfere with a work trip or a visit to Philadelphia. Whether you have never seen a chiropractor or want to maintain care while traveling, your visit starts with a discussion of your symptoms, health history and goals, followed by an examination.</p>
-            <p className="leading-relaxed">Treatment may combine chiropractic manipulation, soft tissue therapy, electrotherapy and mobility work. The combination depends on your needs and examination, with attention to comfort, function and ongoing wellness.</p>
+            <p className="leading-relaxed">Treatment may combine chiropractic manipulation, soft tissue therapy and mobility work. The combination depends on your needs and examination, with attention to comfort, function and ongoing wellness.</p>
           </div>
           <div className="grid gap-5 sm:grid-cols-2">{treatments.map(treatment => <article key={treatment.title} className="rounded-2xl border border-line bg-white p-6"><h3 className="font-heading text-xl font-bold">{treatment.title}</h3><p className="mt-3 leading-relaxed text-muted">{treatment.text}</p></article>)}</div>
         </div>

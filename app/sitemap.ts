@@ -1,3 +1,4 @@
+import { CONDITIONS } from "@/lib/conditions";
 import { EXERCISES } from "@/lib/exercises";
 import type { MetadataRoute } from "next";
 import { getLocalAreaSlugs } from "@/lib/localAreas";
@@ -10,6 +11,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/book-online",
     "/contact",
+    "/conditions",
+    "/treatments",
+    "/whole-person-approach",
     "/philadelphia",
     "/philadelphia/workplace",
     "/philadelphia/hotel-visits",
@@ -50,5 +54,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.5,
   }));
 
-  return [...staticPages, ...localAreaPages, ...exercisePages];
+  const conditionPages: MetadataRoute.Sitemap = CONDITIONS.map(({ slug }) => ({
+    url: `${BASE_URL}/conditions/${slug}`, changeFrequency: "monthly", priority: 0.8,
+  }));
+  return [...staticPages, ...localAreaPages, ...exercisePages, ...conditionPages];
 }

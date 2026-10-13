@@ -50,14 +50,14 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <div className={styles.concerns}><div className={styles.wrap}><span className={styles.eyebrow}>Common concerns</span>{["Back pain", "Neck pain", "Headaches", "Sciatica", "Joint pain"].map(x => <span key={x}>{x}</span>)}</div></div>
+      <div className={styles.concerns}><div className={styles.wrap}><span className={styles.eyebrow}>Common concerns</span>{[["Back pain", "low-back-pain"], ["Neck pain", "neck-pain"], ["Headaches", "headaches"], ["Sciatica", "sciatica"], ["Joint pain", ""]].map(([label, slug]) => <Link key={label} href={slug ? `/conditions/${slug}` : "/conditions"} className="underline underline-offset-4">{label}</Link>)}</div></div>
       <section className={`${styles.wrap} ${styles.section}`}>
         <div className={styles.sectionHeading}><h2>Care built around<br />how you live.</h2><p>Relief, better movement, and ongoing wellness. We start with what matters to you and review your progress together.</p></div>
         <div className={styles.people}>{people.map(([title, text], i) => <div className={styles.person} key={title}><span className={styles.number}>0{i + 1}</span><h3>{title}</h3><p>{text}</p></div>)}</div>
       </section>
       <section className={`${styles.wrap} ${styles.careGrid}`}>
         <div className={styles.carePhoto}><Image src="/images/home-shoulder-care.jpg" alt="Dr. David DeFries assisting a patient with shoulder movement during a home visit" fill sizes="(min-width: 900px) 48vw, 100vw" className={styles.shoulderPhoto} /></div>
-        <div className={styles.careCopy}><p className={styles.eyebrow}>More than a quick adjustment</p><h2>Your concerns.<br />Your goals.<br /><span>Your care.</span></h2><p>Chiropractic manipulation or mobilization, soft tissue therapy, electrotherapy, and guided movement may be included when appropriate. Your examination helps determine what fits.</p><Link href="/what-to-expect" className={styles.textLink}>See what a visit includes <Arrow /></Link></div>
+        <div className={styles.careCopy}><p className={styles.eyebrow}>More than a quick adjustment</p><h2>Your concerns.<br />Your goals.<br /><span>Your care.</span></h2><p>Chiropractic manipulation or mobilization, soft tissue therapy, and guided movement may be included when appropriate. Your examination helps determine what fits.</p><div className="flex flex-wrap gap-6"><Link href="/treatments" className={styles.textLink}>Explore treatments <Arrow /></Link><Link href="/conditions" className={styles.textLink}>Conditions &amp; concerns <Arrow /></Link></div></div>
       </section>
       <section className={styles.darkSection}><div className={styles.wrap}><div className={styles.sectionHeading}><h2>Your first visit,<br />made clear.</h2><p>I bring the treatment table and equipment to your home or workplace.</p></div><div className={styles.steps}>{steps.map(([title, text], i) => <div key={title}><span className={styles.stepNumber}>0{i + 1}</span><h3>{title}</h3><p>{text}</p></div>)}</div></div></section>
       <section className={`${styles.wrap} ${styles.doctor}`}>
