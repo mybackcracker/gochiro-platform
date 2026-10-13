@@ -32,7 +32,7 @@ export const BOOKING_NOTIFICATION_EMAIL = "contact@mybackcracker.com";
 export const BUSINESS_NAME = "Go Chiro Mobile";
 export const DOCTOR_NAME = "Dr. David DeFries, DC";
 export const BUSINESS_PHONE = "(610) 494-0412";
-export const BUSINESS_SERVICE_AREA = "Delaware County, parts of Chester County, and the Main Line, PA (Pennsylvania only)";
+export { BUSINESS_SERVICE_AREA } from "./serviceArea";
 // Confirmed October 2, 2026. Service-area business; no public street address.
 export const BUSINESS_HOURS = [
   { day: "Monday", hours: "9 a.m.–6 p.m." },

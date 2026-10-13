@@ -1,7 +1,7 @@
+import { SERVICE_AREA_POSITIONING } from "./serviceArea";
 import {
   BUSINESS_NAME,
   BUSINESS_PHONE,
-  BUSINESS_SERVICE_AREA,
   DOCTOR_NAME,
   PUBLIC_CONTACT_EMAIL,
   VISITS,
@@ -28,6 +28,7 @@ function servedPlace(name: string) {
   return {
     "@type": "Place",
     name: `${name}, PA`,
+    description: "An example of a commonly served community, not the complete service territory.",
     containedInPlace: { "@type": "State", name: "Pennsylvania" },
   };
 }
@@ -41,9 +42,10 @@ export function localBusinessSchema(areas: LocalAreaContent[]) {
     telephone: BUSINESS_PHONE,
     email: PUBLIC_CONTACT_EMAIL,
     url: SCHEMA_SITE_URL,
-    description: `${SERVICE_DESCRIPTION}. Service area: ${BUSINESS_SERVICE_AREA}. ${HOURS_EXCEPTIONS}`,
+    description: `${SERVICE_AREA_POSITIONING} Commonly served communities include the places listed below. ${HOURS_EXCEPTIONS}`,
     areaServed: [
-      { "@type": "AdministrativeArea", name: "Delaware County, Pennsylvania" },
+      { "@type": "AdministrativeArea", name: "Delaware County, Pennsylvania", description: "Primary service area, together with surrounding communities. Additional locations available by arrangement." },
+      { "@type": "Place", name: "Delaware County and surrounding communities" },
       "Parts of Chester County, Pennsylvania",
       ...areas.map((area) => servedPlace(area.town)),
     ],
@@ -85,6 +87,7 @@ export function townServiceSchema(area: LocalAreaContent) {
     "@type": "Service",
     "@id": `${SCHEMA_SITE_URL}/service-areas/${area.slug}#service`,
     name: `Mobile chiropractic care in ${area.town}, PA`,
+    description: `${area.town} is a commonly served community. ${SERVICE_AREA_POSITIONING}`,
     serviceType: SERVICE_DESCRIPTION,
     url: `${SCHEMA_SITE_URL}/service-areas/${area.slug}`,
     provider: { "@id": BUSINESS_SCHEMA_ID },

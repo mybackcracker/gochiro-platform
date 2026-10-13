@@ -8,8 +8,7 @@ export const chaddsFord: LocalAreaContent = {
   town: "Chadds Ford",
 
   metaTitle: "Mobile Chiropractor in Chadds Ford, PA — Go Chiro Mobile",
-  metaDescription:
-    "Mobile chiropractic care at your home or workplace in Chadds Ford, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
+  metaDescription: "Mobile, house-call chiropractic care in Chadds Ford and surrounding communities. Additional locations available by arrangement.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Chadds Ford, PA",

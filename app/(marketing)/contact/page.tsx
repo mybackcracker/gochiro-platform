@@ -1,3 +1,4 @@
+import { SERVICE_AREA_STATEMENT } from "@/lib/serviceArea";
 import PageSearchSchema from "@/components/PageSearchSchema";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -7,7 +8,7 @@ import { BUSINESS_PHONE, PUBLIC_CONTACT_EMAIL } from "@/lib/gochiro";
 export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
   title: "Contact — Go Chiro Mobile",
-  description: "Have a question or need something outside regular online scheduling?",
+  description: "Ask about mobile chiropractic visits in Delaware County and surrounding communities, with additional locations available by arrangement.",
 };
 
 const CONTACT_REASONS = [
@@ -22,15 +23,16 @@ const CONTACT_REASONS = [
 
 export default function ContactPage() {
   return (
-    <><PageSearchSchema path={"/contact"} name={"Contact — Go Chiro Mobile"} description={"Have a question or need something outside regular online scheduling?"} type="ContactPage" /><div>
+    <><PageSearchSchema path={"/contact"} name={"Contact — Go Chiro Mobile"} description={"Ask about mobile chiropractic visits in Delaware County and surrounding communities, with additional locations available by arrangement."} type="ContactPage" /><div>
       <Section tone="white" className="pt-14 pb-8 sm:pt-20 sm:pb-10">
         <Container>
           <PageHeader
             eyebrow="Contact"
             title="Contact Go Chiro Mobile"
-            lede="Have a question or need something outside regular online scheduling?"
+            lede="Ask about mobile chiropractic visits in Delaware County and surrounding communities, with additional locations available by arrangement."
           />
 
+          <p className="mt-6 text-lg">{SERVICE_AREA_STATEMENT}</p>
           <p className="mt-6 text-lg">Outside the regular service area? <Link href="/check-your-location" className="font-semibold underline">Check your location</Link> before arranging an appointment. For same-day requests, <a href="sms:+16104940412" className="font-semibold underline">text 610-494-0412</a>.</p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             <a

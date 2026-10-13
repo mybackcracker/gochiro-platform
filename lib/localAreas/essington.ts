@@ -8,8 +8,7 @@ export const essington: LocalAreaContent = {
   town: "Essington",
 
   metaTitle: "Mobile Chiropractor in Essington & Tinicum, PA — Go Chiro Mobile",
-  metaDescription:
-    "Mobile chiropractic care at your home or workplace in Essington, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
+  metaDescription: "Mobile, house-call chiropractic care in Essington and surrounding communities. Additional locations available by arrangement.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Essington & Tinicum, PA",

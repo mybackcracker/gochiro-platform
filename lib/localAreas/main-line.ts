@@ -8,8 +8,7 @@ export const mainLine: LocalAreaContent = {
   town: "Main Line",
 
   metaTitle: "Mobile Chiropractor on the Main Line, PA — Go Chiro Mobile",
-  metaDescription:
-    "Mobile chiropractic care at your home or workplace on the Main Line, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
+  metaDescription: "Mobile, house-call chiropractic care in Main Line and surrounding communities. Additional locations available by arrangement.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor on the Main Line, PA",

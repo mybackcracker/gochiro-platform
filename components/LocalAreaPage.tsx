@@ -1,3 +1,4 @@
+import { SERVICE_AREA_STATEMENT, COMMUNITY_EXAMPLES_NOTE, SERVICE_AREA_FAQ } from "@/lib/serviceArea";
 import Image from "next/image";
 import {
   Section,
@@ -32,6 +33,8 @@ export default function LocalAreaPage({ content }: { content: LocalAreaContent }
   const premiumGroupArea = content.slug === "main-line" || content.slug === "west-chester";
   const groupVisitHref = premiumGroupArea ? "/group-visits/premium" : "/group-visits/standard";
 
+  const faqs = [...(content.faqs || []), SERVICE_AREA_FAQ];
+
   return (
     <div>
       {/* Hero — text/CTA render before the photo in source order so mobile/tablet
@@ -58,6 +61,7 @@ export default function LocalAreaPage({ content }: { content: LocalAreaContent }
               <Eyebrow>{content.heroEyebrow}</Eyebrow>
               <H1 className="mt-3">{content.heroHeading}</H1>
               <Lede className="mt-5">{content.heroLede}</Lede>
+              <P>{SERVICE_AREA_STATEMENT}</P>
               {content.heroParagraphs.map((paragraph) => (
                 <P key={paragraph}>{paragraph}</P>
               ))}
@@ -196,12 +200,13 @@ export default function LocalAreaPage({ content }: { content: LocalAreaContent }
         <Container>
           <H2>{content.nearbyHeading}</H2>
           <P className="max-w-2xl">{content.nearbyParagraph}</P>
+          <P className="max-w-2xl">{COMMUNITY_EXAMPLES_NOTE}</P>
           <LocalAreaLinkList items={content.nearbyAreas} />
         </Container>
       </Section>
 
-      {content.faqs && (
-        <FAQs items={content.faqs} path={`/service-areas/${content.slug}`} title={`Frequently Asked Questions About Chiropractic Visits in ${content.town}`} />
+      {faqs.length > 0 && (
+        <FAQs items={faqs} path={`/service-areas/${content.slug}`} title={`Frequently Asked Questions About Chiropractic Visits in ${content.town}`} />
       )}
 
       {/* Closing CTA */}

@@ -8,8 +8,7 @@ export const brookhaven: LocalAreaContent = {
   town: "Brookhaven",
 
   metaTitle: "Mobile Chiropractor in Brookhaven, PA — Go Chiro Mobile",
-  metaDescription:
-    "Mobile chiropractic care at your home or workplace in Brookhaven, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
+  metaDescription: "Mobile, house-call chiropractic care in Brookhaven and surrounding communities. Additional locations available by arrangement.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Brookhaven, PA",

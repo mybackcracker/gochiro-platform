@@ -8,8 +8,7 @@ export const glenolden: LocalAreaContent = {
   town: "Glenolden",
 
   metaTitle: "Mobile Chiropractor in Glenolden & Holmes, PA — Go Chiro Mobile",
-  metaDescription:
-    "Mobile chiropractic care at your home or workplace in Glenolden, PA with Dr. David DeFries, DC. See visit prices, hours and book online.",
+  metaDescription: "Mobile, house-call chiropractic care in Glenolden and surrounding communities. Additional locations available by arrangement.",
 
   heroEyebrow: "Service Area",
   heroHeading: "Mobile Chiropractor in Glenolden & Holmes, PA",

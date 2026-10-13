@@ -1,3 +1,4 @@
+import { SERVICE_AREA_FAQ } from "@/lib/serviceArea";
 import PageSearchSchema from "@/components/PageSearchSchema";
 import type { Metadata } from "next";
 import ExtendedAreaTerms from "@/components/ExtendedAreaTerms";
@@ -48,6 +49,7 @@ function priceRange(v: VisitType): string {
 }
 
 const PRICING_FAQS: FAQItem[] = [
+  SERVICE_AREA_FAQ,
   {
     question: "How much is my first chiropractic visit?",
     answer: `Within the regular online booking area, weekday new patient visits range from ${priceRange("new-patient")}, depending on the visit location. Weekend pricing differs. Your exact price is shown during booking for your location and selected date, before you confirm.`,

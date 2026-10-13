@@ -1,3 +1,4 @@
+import { SERVICE_AREA_META_DESCRIPTION } from "@/lib/serviceArea";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Montserrat, Open_Sans } from "next/font/google";
@@ -20,8 +21,7 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.gochiromobile.com"),
   title: "Go Chiro Mobile — Chiropractic Care That Comes to You",
-  description:
-    "Dr. David DeFries, DC provides one-on-one chiropractic care in your home, workplace, or other convenient location.",
+  description: SERVICE_AREA_META_DESCRIPTION,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

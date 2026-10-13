@@ -1,3 +1,4 @@
+import { SERVICE_AREA_STATEMENT } from "@/lib/serviceArea";
 import Link from "next/link";
 import { PUBLIC_CONTACT_EMAIL, BUSINESS_NAME, BUSINESS_PHONE, DOCTOR_NAME } from "@/lib/gochiro";
 
@@ -32,7 +33,7 @@ export default function SiteFooter() {
               {PUBLIC_CONTACT_EMAIL}
             </a>
           </p>
-          <p className="mt-3 max-w-sm text-sm">Delaware County and the Main Line, with Chester County and Philadelphia visits by arrangement. Pennsylvania only.</p>
+          <p className="mt-3 max-w-sm text-sm">{SERVICE_AREA_STATEMENT}</p>
         </div>
         <nav className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm">
           {FOOTER_LINKS.map((link) => (

@@ -108,7 +108,7 @@ export default function HowBackstageCareWorksPage() {
           <div className="max-w-3xl">
             <H2>Designed to stay out of the production&apos;s way</H2>
             <P>The goal is not to create another backstage process for someone to supervise. Once coverage is arranged, Go Chiro Mobile handles the care workflow while coordinating with the production&apos;s preferred timing, location and access requirements.</P>
-            <p className="mt-6 text-sm text-muted">Availability, services, provider mix and appointment length can vary by engagement. Touring-production care is currently available at Pennsylvania locations.</p>
+            <p className="mt-6 text-sm text-muted">Availability, services, provider mix and appointment length can vary by engagement. Serving Delaware County and surrounding communities, with additional locations available by arrangement. Philadelphia visits are available by arrangement.</p>
           </div>
         </Container>
       </Section>
