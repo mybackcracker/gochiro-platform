@@ -30,7 +30,7 @@ export function pageSchema({ path, name, description, type = "WebPage", service 
         "@type": "Service",
         "@id": `${url}#service`,
         name: service.name,
-        description: `${service.description} ${SERVICE_AREA_STATEMENT}`,
+        description: service.description.includes(SERVICE_AREA_STATEMENT) ? service.description : `${service.description} ${SERVICE_AREA_STATEMENT}`,
         serviceType: service.name,
         url,
         provider: { "@id": BUSINESS_SCHEMA_ID },
