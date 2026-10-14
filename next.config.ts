@@ -35,6 +35,11 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/mobile-chiropractor-in-glen-mills-pa",
+        destination: "/service-areas/glen-mills",
+        permanent: true,
+      },
+      {
         source: "/chiropractor-in-brookhaven-pa",
         destination: "/service-areas/brookhaven",
         permanent: true,
@@ -151,6 +156,11 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/areas-served-faq",
+        destination: "/service-areas",
+        permanent: true,
+      },
+      {
+        source: "/areas-served-faq-2",
         destination: "/service-areas",
         permanent: true,
       },
