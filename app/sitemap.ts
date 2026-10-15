@@ -1,3 +1,4 @@
+import { ARTICLES } from "@/lib/articles";
 import { CONDITIONS } from "@/lib/conditions";
 import { EXERCISES } from "@/lib/exercises";
 import type { MetadataRoute } from "next";
@@ -9,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/about",
+    "/articles",
     "/book-online",
     "/contact",
     "/conditions",
@@ -57,5 +59,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const conditionPages: MetadataRoute.Sitemap = CONDITIONS.map(({ slug }) => ({
     url: `${BASE_URL}/conditions/${slug}`, changeFrequency: "monthly", priority: 0.8,
   }));
-  return [...staticPages, ...localAreaPages, ...exercisePages, ...conditionPages];
+  return [...staticPages, ...localAreaPages, ...exercisePages, ...conditionPages, ...ARTICLES.map(article => ({ url: `${BASE_URL}/articles/${article.slug}`, lastModified: article.published, changeFrequency: "monthly" as const, priority: 0.8 }))];
 }
