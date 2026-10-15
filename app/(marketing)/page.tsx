@@ -12,8 +12,8 @@ import { LOCAL_AREAS } from "@/lib/localAreas";
 import Testimonials from "@/components/Testimonials";
 import styles from "./home.module.css";
 
-const title = "Mobile Chiropractor in Delaware County | Go Chiro Mobile";
-const description = "House-call chiropractic care with Dr. David DeFries, DC, in Delaware County and surrounding communities. Additional locations available by arrangement.";
+const title = "Mobile Chiropractor in Delaware County & Surrounding Areas";
+const description = "Personalized chiropractic care with Dr. David DeFries, DC, in Delaware County and surrounding areas. Focused on your concerns, movement, and goals.";
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
   title,
@@ -38,18 +38,18 @@ export default function HomePage() {
     <PageSearchSchema path="/" name={title} description={description} />
     <JsonLd data={localBusinessSchema(Object.values(LOCAL_AREAS))} />
     <div className={styles.home}>
-      <div className={styles.notice}><span><i aria-hidden="true" />Appointments available 7 days a week</span><a href="sms:+16104940412">Need care today? Text 610-494-0412 <Arrow /></a></div>
+      <div className={styles.notice}><span><i aria-hidden="true" />Appointments available 7 days a week</span><div>Have a question? <a href="tel:+16104940412">Call</a> or <a href="sms:+16104940412">text</a> 610-494-0412</div></div>
       <section className={styles.hero}>
         <div className={styles.wrap}>
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
               <p className={styles.eyebrow}>Personal care. Your place.</p>
-              <h1>Mobile Chiropractic Care <span>in Delaware County</span></h1>
-              <p className={styles.lead}>One-on-one chiropractic care with Dr. David DeFries, DC, at your home or workplace. The table, the equipment, and the attention come to you.</p>
+              <h1>Mobile Chiropractic Care <span>in Delaware County and Surrounding Areas</span></h1>
+              <p className={styles.lead}>One-on-one care with Dr. David DeFries, DC. A thoughtful examination, clear explanations, and treatment guided by your concerns, movement, and goals—at your home or workplace.</p>
               <p className={styles.area}>{SERVICE_AREA_STATEMENT}</p>
               <div className={styles.actions}><Link className={styles.primary} href="#service-area">Check your availability <Arrow /></Link><Link className={styles.outline} href="/what-to-expect">What to expect</Link></div>
             </div>
-            <div className={styles.heroPhoto}><Image src={HOME_VISIT_IMAGE.src} alt={HOME_VISIT_IMAGE.alt} fill priority sizes="(min-width: 900px) 48vw, 100vw" className={styles.photo} /><div className={styles.photoNote}>Less travel for you.<br /><strong>More time for your care.</strong></div></div>
+            <div className={styles.heroPhoto}><Image src={HOME_VISIT_IMAGE.src} alt={HOME_VISIT_IMAGE.alt} fill priority sizes="(min-width: 900px) 48vw, 100vw" className={styles.photo} /></div>
           </div>
         </div>
       </section>
@@ -62,7 +62,7 @@ export default function HomePage() {
         <div className={styles.carePhoto}><Image src="/images/home-shoulder-care.jpg" alt="Dr. David DeFries assisting a patient with shoulder movement during a home visit" fill sizes="(min-width: 900px) 48vw, 100vw" className={styles.shoulderPhoto} /></div>
         <div className={styles.careCopy}><p className={styles.eyebrow}>More than a quick adjustment</p><h2>Your concerns.<br />Your goals.<br /><span>Your care.</span></h2><p>Chiropractic manipulation or mobilization, soft tissue therapy, and guided movement may be included when appropriate. Your examination helps determine what fits.</p><div className="flex flex-wrap gap-6"><Link href="/treatments" className={styles.textLink}>Explore treatments <Arrow /></Link><Link href="/conditions" className={styles.textLink}>Conditions &amp; concerns <Arrow /></Link></div></div>
       </section>
-      <section className={styles.darkSection}><div className={styles.wrap}><div className={styles.sectionHeading}><h2>Your first visit,<br />made clear.</h2><p>I bring the treatment table and equipment to your home or workplace.</p></div><div className={styles.steps}>{steps.map(([title, text], i) => <div key={title}><span className={styles.stepNumber}>0{i + 1}</span><h3>{title}</h3><p>{text}</p></div>)}</div></div></section>
+      <section className={styles.darkSection}><div className={styles.wrap}><div className={styles.sectionHeading}><h2>Your first visit,<br />made clear.</h2><p>Understand what we find, how care may help, and what comes next.</p></div><div className={styles.steps}>{steps.map(([title, text], i) => <div key={title}><span className={styles.stepNumber}>0{i + 1}</span><h3>{title}</h3><p>{text}</p></div>)}</div></div></section>
       <div className={styles.wrap}><Testimonials /></div>
       <section className={`${styles.wrap} ${styles.doctor}`}>
         <div className={styles.doctorPhoto}><Image src={DOCTOR_PORTRAIT_IMAGE.src} alt={DOCTOR_PORTRAIT_IMAGE.alt} fill sizes="(min-width: 900px) 35vw, 100vw" className={styles.photo} /></div>
@@ -74,7 +74,6 @@ export default function HomePage() {
       <section className={`${styles.wrap} ${styles.planning}`}>
         <div className={styles.details}><div><h3>Appointment hours</h3><dl>{[{day:"Monday–Thursday", hours:BUSINESS_HOURS[0].hours}, ...BUSINESS_HOURS.slice(4)].map(x => <div key={x.day}><dt>{x.day}</dt><dd>{x.hours}</dd></div>)}</dl></div><div className={styles.pricing}><p className={styles.eyebrow}>Clear costs before you commit</p><h3>Know your price<br />before booking.</h3><p>Regular online booking shows your exact price before you confirm. Visits by arrangement are individually quoted for care and travel and require a deposit to confirm.</p><p>No payment is required to request a visit.</p><Link href="/pricing" className={styles.textLink}>View regular booking prices <Arrow /></Link></div></div>
       </section>
-      <section className={`${styles.wrap} ${styles.beyond}`}><div><p className={styles.eyebrow}>Care beyond the everyday</p><h2>Philadelphia.<br />Backstage.<br />On location.</h2></div><div><p>Visits for individuals, hotel guests, workplaces, performers, and touring crews are available by arrangement. Philadelphia visits are available by arrangement.</p><div className={styles.beyondLinks}><Link href="/philadelphia">Explore Philadelphia care <Arrow /></Link><Link href="/philadelphia/hotel-visits">Hotel &amp; traveler visits <Arrow /></Link><Link href="/touring-production-care">Touring &amp; production care <Arrow /></Link></div></div></section>
       <section className={styles.last}><div className={styles.wrap}><h2>Stay where you are.<br /><span>We’ll come to you.</span></h2><div className={styles.actions}><Link className={styles.primary} href="#service-area">Check your availability <Arrow /></Link><a href="sms:+16104940412" className={styles.outline}>Text 610-494-0412</a></div></div></section>
     </div>
   </>;
