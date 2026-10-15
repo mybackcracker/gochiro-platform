@@ -1,0 +1,13 @@
+.body { color: var(--color-ink, #23343e); font-size: 1.125rem; line-height: 1.8; }
+.body h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 750; line-height: 1.25; margin: 2.5rem 0 1rem; }
+.body p { margin: 1rem 0; }
+.body a { color: #244f63; text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.body a:hover { color: #172f40; }
+.body ul { list-style: disc; padding-left: 1.4rem; margin: 1rem 0; }
+.body li { margin: .5rem 0; }
+.body :global(.resource-table) { overflow-x: auto; margin: 1.5rem 0; }
+.body table { width: 100%; border-collapse: collapse; font-size: 1rem; line-height: 1.6; }
+.body th, .body td { text-align: left; vertical-align: top; padding: .85rem; border-bottom: 1px solid #dce0dc; }
+.body th { background: #f5f1e8; font-weight: 700; }
+.body th:first-child { width: 45%; }
+.body hr { margin: 2.5rem 0 1.5rem; border-color: #dce0dc; }
