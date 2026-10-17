@@ -32,9 +32,9 @@ export const ASSISTANT_TOPICS: AssistantTopic[] = [
     answer:
       "Your first visit starts with a conversation about your goals and an examination. Treatment may begin at that visit when appropriate. If you have not been seen by Dr. DeFries in over a year, please use the new-patient booking option.",
     links: [
-      { label: "Schedule a first visit", href: "/book?start=new" },
       { label: "What to expect", href: "/what-to-expect" },
     ],
+    needsZip: true,
   },
   {
     id: "returning",
@@ -42,9 +42,9 @@ export const ASSISTANT_TOPICS: AssistantTopic[] = [
     answer:
       "If you have been seen within the past year, choose a returning-patient appointment. Maintenance visits are for routine care and wellness; a new or worsening concern may need a different visit type. Maintenance requires at least 48 hours' advance booking.",
     links: [
-      { label: "Schedule a returning visit", href: "/book?start=returning" },
       { label: "View visit types", href: "/book-online" },
     ],
+    needsZip: true,
   },
   {
     id: "group",
@@ -52,9 +52,9 @@ export const ASSISTANT_TOPICS: AssistantTopic[] = [
     answer:
       "Two to six people can schedule care at one location and share travel costs. The total varies by location, number of people, and visit date, and is shown during booking. New patients must each complete their own intake. Anyone with a new injury or significantly worsening complaint should book an individual visit instead. For more than six people, contact the practice.",
     links: [
-      { label: "Plan a Group Visit", href: "/book?start=group" },
       { label: "Group Visit details", href: "/group-visits/standard" },
     ],
+    needsZip: true,
   },
   {
     id: "pricing",
@@ -96,8 +96,8 @@ export const ASSISTANT_TOPICS: AssistantTopic[] = [
       "Dr. DeFries discusses your concerns and goals, examines movement and function, and explains the findings and potential next steps. If appropriate, treatment may take place during the first visit. Your booking confirmation provides any applicable intake instructions.",
     links: [
       { label: "What to expect", href: "/what-to-expect" },
-      { label: "Book a first visit", href: "/book?start=new" },
     ],
+    needsZip: true,
   },
   {
     id: "other",
@@ -156,5 +156,38 @@ export function assistantZipResult(zip: string): AssistantZipResult {
     kind: "incomplete",
     message: "Please enter a valid five-digit ZIP code.",
     links: [],
+  };
+}
+
+
+/**
+ * The assistant knows the patient's chosen booking category, so don't make
+ * them choose it again. The scheduler's start and zip parameters are
+ * validated by /book, which owns policy, visit type, availability and price.
+ * For price/area questions, keep all three booking choices available.
+ */
+export function assistantZipResultForTopic(
+  topic: AssistantTopicId,
+  zip: string
+): AssistantZipResult {
+  const result = assistantZipResult(zip);
+  if (result.kind !== "booking") return result;
+  const chosenStart: Partial<Record<AssistantTopicId, "new" | "returning" | "group">> = {
+    new: "new",
+    returning: "returning",
+    group: "group",
+    "first-visit": "new",
+  };
+  const start = chosenStart[topic];
+  if (!start) return result;
+  const link = result.links.find((item) => item.href.startsWith("/book?start=" + start + "&"));
+  return {
+    ...result,
+    message: start === "group"
+      ? "Your ZIP is in the regular booking area. Continue to Group Visit scheduling; the ZIP and visit category will carry over."
+      : start === "returning"
+        ? "Your ZIP is in the regular booking area. Continue to returning-patient scheduling; you can choose Maintenance, Priority, or another eligible return visit without re-entering your location."
+        : "Your ZIP is in the regular booking area. Continue directly to the new-patient booking process; the ZIP and visit category will carry over.",
+    links: link ? [link] : [],
   };
 }
