@@ -4,6 +4,7 @@ import {
   ASSISTANT_TOPICS,
   assistantTopic,
   assistantZipResult,
+  assistantZipResultForTopic,
 } from "../lib/assistantGuidance";
 
 test("guided assistant has unique, informative choices with working internal paths", () => {
@@ -52,4 +53,34 @@ test("booking and patient guidance keeps clinically sensitive questions out of t
   assert.match(assistantTopic("insurance").answer, /self-pay/i);
   assert.equal(assistantTopic("pricing").needsZip, true);
   assert.equal(assistantTopic("area").needsZip, true);
+});
+
+
+test("selected new, returning or group visit passes ZIP and skips the generic booking menu", () => {
+  const starts = {
+    new: "new",
+    returning: "returning",
+    group: "group",
+    "first-visit": "new",
+  } as const;
+  for (const [topic, start] of Object.entries(starts) as Array<[keyof typeof starts, string]>) {
+    assert.equal(assistantTopic(topic).needsZip, true);
+    const result = assistantZipResultForTopic(topic, "19061");
+    assert.equal(result.kind, "booking");
+    assert.equal(result.links.length, 1);
+    assert.equal(result.links[0].href, "/book?start=" + start + "&zip=19061");
+  }
+});
+
+test("price and location questions keep all visit choices", () => {
+  assert.equal(assistantZipResultForTopic("pricing", "19061").links.length, 3);
+  assert.equal(assistantZipResultForTopic("area", "19061").links.length, 3);
+});
+
+test("special-arrangement ZIPs never route into regular booking for any category", () => {
+  for (const topic of ["new", "returning", "group", "pricing", "area"] as const) {
+    const result = assistantZipResultForTopic(topic, "19103");
+    assert.equal(result.kind, "request");
+    assert.deepEqual(result.links.map((link) => link.href), ["/check-your-location?zip=19103"]);
+  }
 });
