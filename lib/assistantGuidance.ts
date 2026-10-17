@@ -1,118 +1,50 @@
+import {
+  findRegion,
+  groupVisitTotal,
+  isValidGroupVisitComposition,
+  priceFor,
+  priceForDate,
+  type VisitType,
+} from "./gochiro";
 import { locationRequestPath, zipRoute } from "./zipRouting";
 
-export type AssistantTopicId =
-  | "new"
-  | "returning"
-  | "group"
-  | "pricing"
-  | "area"
-  | "hours"
-  | "insurance"
-  | "first-visit"
-  | "other";
-
+export type AssistantTopicId = "area" | "pricing" | "pain" | "schedule" | "group";
 export type AssistantLink = { label: string; href: string };
-export type AssistantTopic = {
-  id: AssistantTopicId;
-  question: string;
-  answer: string;
-  links: AssistantLink[];
-  needsZip?: boolean;
-};
+export type AssistantTopic = { id: AssistantTopicId; question: string };
 
-/**
- * General administrative guidance only. Deliberately does not collect or
- * interpret symptoms, patient records, dates of birth, or treatment needs.
- * Booking prices, eligibility and real availability stay with /book.
- */
 export const ASSISTANT_TOPICS: AssistantTopic[] = [
-  {
-    id: "new",
-    question: "I'm a new patient",
-    answer:
-      "Your first visit starts with a conversation about your goals and an examination. Treatment may begin at that visit when appropriate. If you have not been seen by Dr. DeFries in over a year, please use the new-patient booking option.",
-    links: [
-      { label: "What to expect", href: "/what-to-expect" },
-    ],
-    needsZip: true,
-  },
-  {
-    id: "returning",
-    question: "I've been treated before",
-    answer:
-      "If you have been seen within the past year, choose a returning-patient appointment. Maintenance visits are for routine care and wellness; a new or worsening concern may need a different visit type. Maintenance requires at least 48 hours' advance booking.",
-    links: [
-      { label: "View visit types", href: "/book-online" },
-    ],
-    needsZip: true,
-  },
-  {
-    id: "group",
-    question: "Tell me about Group Visits",
-    answer:
-      "Two to six people can schedule care at one location and share travel costs. The total varies by location, number of people, and visit date, and is shown during booking. New patients must each complete their own intake. Anyone with a new injury or significantly worsening complaint should book an individual visit instead. For more than six people, contact the practice.",
-    links: [
-      { label: "Group Visit details", href: "/group-visits/standard" },
-    ],
-    needsZip: true,
-  },
-  {
-    id: "pricing",
-    question: "How much does a visit cost?",
-    answer:
-      "The fee depends on your ZIP code, visit type, and appointment date. Weekend prices can differ from weekday prices. Enter your ZIP below to find the correct booking path. The scheduler shows the applicable fee before you confirm; this assistant does not provide a final quote.",
-    links: [{ label: "See pricing details", href: "/pricing" }],
-    needsZip: true,
-  },
-  {
-    id: "area",
-    question: "Do you come to my area?",
-    answer:
-      "Go Chiro Mobile serves Delaware County, parts of Chester County, and some Philadelphia locations by arrangement. Enter a five-digit ZIP to see whether regular online booking is offered or whether you can request a visit. This is a service-area check, not a live appointment search.",
-    links: [{ label: "View service areas", href: "/service-areas" }],
-    needsZip: true,
-  },
-  {
-    id: "hours",
-    question: "Do you offer weekend visits?",
-    answer:
-      "Yes. Appointment hours include Saturday and Sunday, generally 9 a.m. to 1 p.m. Some areas have shorter Saturday hours, and visit types differ on Sundays. Exact openings are only shown in the online scheduler.",
-    links: [{ label: "Explore appointment options", href: "/book-online" }],
-  },
-  {
-    id: "insurance",
-    question: "Do you accept insurance?",
-    answer:
-      "Routine visits are self-pay. Cash, check, cards, HSA/FSA and Venmo are accepted. Motor-vehicle and work-injury visits may be billed through applicable insurance or claims; contact the practice to discuss your situation. Reimbursement is not guaranteed.",
-    links: [
-      { label: "Payment and pricing", href: "/pricing" },
-      { label: "Contact the practice", href: "/contact" },
-    ],
-  },
-  {
-    id: "first-visit",
-    question: "What happens at my first visit?",
-    answer:
-      "Dr. DeFries discusses your concerns and goals, examines movement and function, and explains the findings and potential next steps. If appropriate, treatment may take place during the first visit. Your booking confirmation provides any applicable intake instructions.",
-    links: [
-      { label: "What to expect", href: "/what-to-expect" },
-    ],
-    needsZip: true,
-  },
-  {
-    id: "other",
-    question: "I have another question",
-    answer:
-      "For questions about an individual situation, a visit by special arrangement, or whether you should schedule a particular appointment, please call or text the practice directly. This website assistant handles general visit information, not medical advice.",
-    links: [{ label: "Contact Go Chiro Mobile", href: "/contact" }],
-  },
+  { id: "area", question: "Do you come to my location?" },
+  { id: "pricing", question: "How much does a visit cost?" },
+  { id: "pain", question: "Can you help with my pain?" },
+  { id: "schedule", question: "I'd like to schedule a visit" },
+  { id: "group", question: "Tell me about Group Visits" },
 ];
 
 export function assistantTopic(id: AssistantTopicId): AssistantTopic {
-  const topic = ASSISTANT_TOPICS.find((item) => item.id === id);
-  if (!topic) throw new Error("Unknown visit assistant topic");
-  return topic;
+  const item = ASSISTANT_TOPICS.find((topic) => topic.id === id);
+  if (!item) throw new Error("Unknown assistant topic");
+  return item;
 }
+
+export type AssistantPainRegionId =
+  | "neck" | "low-back" | "upper-back" | "headaches"
+  | "shoulder-arm-hand" | "hip-knee-foot" | "sciatica" | "other";
+
+export const ASSISTANT_PAIN_REGIONS: Array<{
+  id: AssistantPainRegionId;
+  label: string;
+  summary: string;
+  href: string;
+}> = [
+  { id: "neck", label: "Neck", summary: "Neck pain is one of the most common concerns we see.", href: "/conditions/neck-pain" },
+  { id: "low-back", label: "Low back", summary: "Low back pain is one of the most common concerns we see.", href: "/conditions/low-back-pain" },
+  { id: "upper-back", label: "Upper back", summary: "Upper back discomfort is a common concern we evaluate.", href: "/conditions/upper-back-pain" },
+  { id: "headaches", label: "Headaches", summary: "Headaches are another concern we commonly discuss and evaluate.", href: "/conditions/headaches" },
+  { id: "shoulder-arm-hand", label: "Shoulder, arm or hand", summary: "Shoulder, arm, and hand concerns are among the problems we evaluate.", href: "/conditions" },
+  { id: "hip-knee-foot", label: "Hip, knee or foot", summary: "Hip, knee, and foot concerns are among the problems we evaluate.", href: "/conditions" },
+  { id: "sciatica", label: "Sciatica or pain down the leg", summary: "Pain traveling into the leg is another concern we evaluate.", href: "/conditions/sciatica" },
+  { id: "other", label: "Other / Not sure", summary: "We evaluate many muscle and joint concerns; an examination helps determine appropriate next steps.", href: "/conditions" },
+];
 
 export type AssistantZipResult = {
   message: string;
@@ -120,74 +52,80 @@ export type AssistantZipResult = {
   kind: "booking" | "request" | "outside" | "incomplete";
 };
 
+/** Consults the same canonical ZIP coverage rules as the booking system. */
 export function assistantZipResult(zip: string): AssistantZipResult {
   const route = zipRoute(zip);
   if (route === "booking") {
     return {
       kind: "booking",
-      message:
-        "This ZIP is within the regular online booking area. Choose your visit below. The scheduler will confirm appointment availability and show the price for your date.",
+      message: "Yes, we offer mobile chiropractic visits in your area. Actual appointment availability is confirmed during scheduling.",
       links: [
-        { label: "New patient", href: "/book?start=new&zip=" + zip },
-        { label: "Returning patient", href: "/book?start=returning&zip=" + zip },
+        { label: "New Patient", href: "/book?start=new&zip=" + zip },
+        { label: "Returning Patient", href: "/book?start=returning&zip=" + zip },
         { label: "Group Visit", href: "/book?start=group&zip=" + zip },
       ],
     };
   }
-  if (route === "request") {
+  if (route === "request") return {
+    kind: "request",
+    message: "This location is outside our regular online booking area. A visit may be available by arrangement.",
+    links: [{ label: "Request a visit", href: locationRequestPath(zip) }],
+  };
+  if (route === "not-pennsylvania") return {
+    kind: "outside",
+    message: "Regular online booking is not offered for this ZIP. Please call or text us with a location question.",
+    links: [{ label: "Contact us", href: "/contact" }],
+  };
+  return { kind: "incomplete", message: "Please enter a valid five-digit ZIP code.", links: [] };
+}
+
+export type AssistantPatientCategory = "new" | "returning" | "group";
+export function assistantBookingHref(zip: string, category: AssistantPatientCategory): string | null {
+  if (zipRoute(zip) !== "booking") return null;
+  return `/book?start=${category}&zip=${zip}`;
+}
+
+/** For returning patients, the price is indicative; the scheduler identifies the actual Priority tier. */
+export type AssistantPriceChoice = "new" | "maintenance" | "priority";
+export type AssistantPriceSummary = { weekday: string; saturday: string; sunday: string };
+const SATURDAY = "2026-10-03";
+const SUNDAY = "2026-10-04";
+
+function money(value: number | null): string {
+  return value === null ? "Ask about insurance/claim billing" : `$${value}`;
+}
+function range(a: number | null, b: number | null): string {
+  if (a === null || b === null) return "Ask about insurance/claim billing";
+  return a === b ? money(a) : `$${Math.min(a, b)}–$${Math.max(a, b)}`;
+}
+
+export function assistantIndividualPrices(zip: string, choice: AssistantPriceChoice): AssistantPriceSummary | null {
+  const region = findRegion(zip);
+  if (!region) return null;
+  if (choice === "priority") {
+    const standard: VisitType = "priority-standard";
+    const upgraded: VisitType = "priority-upgraded";
     return {
-      kind: "request",
-      message:
-        "This Pennsylvania ZIP is outside the regular online booking area. A visit may be available by arrangement; submit a location request for review. Availability and any quote must be confirmed by the practice.",
-      links: [
-        { label: "Request a visit", href: locationRequestPath(zip) },
-      ],
+      weekday: range(priceFor(region, standard), priceFor(region, upgraded)),
+      saturday: range(priceForDate(region, standard, SATURDAY), priceForDate(region, upgraded, SATURDAY)),
+      sunday: range(priceForDate(region, standard, SUNDAY), priceForDate(region, upgraded, SUNDAY)),
     };
   }
-  if (route === "not-pennsylvania") {
-    return {
-      kind: "outside",
-      message:
-        "This ZIP is not within the Pennsylvania service-area request system. Please contact the practice directly with questions about your location.",
-      links: [{ label: "Contact the practice", href: "/contact" }],
-    };
-  }
+  const visit: VisitType = choice === "new" ? "new-patient" : "maintenance";
   return {
-    kind: "incomplete",
-    message: "Please enter a valid five-digit ZIP code.",
-    links: [],
+    weekday: money(priceFor(region, visit)),
+    saturday: money(priceForDate(region, visit, SATURDAY)),
+    sunday: choice === "maintenance" ? "Not offered" : money(priceForDate(region, visit, SUNDAY)),
   };
 }
 
-
-/**
- * The assistant knows the patient's chosen booking category, so don't make
- * them choose it again. The scheduler's start and zip parameters are
- * validated by /book, which owns policy, visit type, availability and price.
- * For price/area questions, keep all three booking choices available.
- */
-export function assistantZipResultForTopic(
-  topic: AssistantTopicId,
-  zip: string
-): AssistantZipResult {
-  const result = assistantZipResult(zip);
-  if (result.kind !== "booking") return result;
-  const chosenStart: Partial<Record<AssistantTopicId, "new" | "returning" | "group">> = {
-    new: "new",
-    returning: "returning",
-    group: "group",
-    "first-visit": "new",
-  };
-  const start = chosenStart[topic];
-  if (!start) return result;
-  const link = result.links.find((item) => item.href.startsWith("/book?start=" + start + "&"));
+export function assistantGroupPrices(zip: string, newCount: number, existingCount: number): AssistantPriceSummary | null {
+  const region = findRegion(zip);
+  const composition = { newCount, existingCount };
+  if (!region || !isValidGroupVisitComposition(composition)) return null;
   return {
-    ...result,
-    message: start === "group"
-      ? "Your ZIP is in the regular booking area. Continue to Group Visit scheduling; the ZIP and visit category will carry over."
-      : start === "returning"
-        ? "Your ZIP is in the regular booking area. Continue to returning-patient scheduling; you can choose Maintenance, Priority, or another eligible return visit without re-entering your location."
-        : "Your ZIP is in the regular booking area. Continue directly to the new-patient booking process; the ZIP and visit category will carry over.",
-    links: link ? [link] : [],
+    weekday: money(groupVisitTotal(region, composition)),
+    saturday: money(groupVisitTotal(region, composition, SATURDAY)),
+    sunday: money(groupVisitTotal(region, composition, SUNDAY)),
   };
 }
