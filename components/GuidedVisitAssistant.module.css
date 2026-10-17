@@ -302,3 +302,101 @@
     scroll-behavior: auto;
   }
 }
+
+
+/* Approved guided-flow controls, including back navigation and a compact
+   same-window price comparison. */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0;
+  background: transparent;
+  color: #a73e15;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 0 8px;
+  cursor: pointer;
+}
+.back:hover,
+.back:focus-visible {
+  text-decoration: underline;
+}
+.topic strong {
+  font: inherit;
+  font-weight: 700;
+}
+.topic small {
+  display: block;
+  margin-top: 3px;
+  color: #53616b;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.smallNote {
+  margin: 0;
+  color: #53616b;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.priceTable {
+  margin: 0;
+  border: 1px solid #ded6c9;
+  border-radius: 9px;
+  overflow: hidden;
+  background: #fff;
+}
+.priceTable div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 12px;
+}
+.priceTable div + div {
+  border-top: 1px solid #e3dcd3;
+}
+.priceTable dt {
+  font-size: 13px;
+}
+.priceTable dd {
+  margin: 0;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 750;
+}
+.countRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.countRow label {
+  color: #142a3c;
+  font-size: 12px;
+  font-weight: 700;
+}
+.countRow input {
+  display: block;
+  margin-top: 6px;
+  width: 100%;
+  border: 1px solid #a2aeb6;
+  border-radius: 7px;
+  padding: 10px;
+  background: #fff;
+  color: #142a3c;
+  font-size: 16px;
+}
+.primaryButton {
+  background: #142a3c;
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.primaryButton:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
