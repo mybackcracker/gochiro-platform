@@ -11,6 +11,7 @@ import { localBusinessSchema } from "@/lib/businessSchema";
 import { LOCAL_AREAS } from "@/lib/localAreas";
 import Testimonials from "@/components/Testimonials";
 import styles from "./home.module.css";
+import GuidedVisitAssistant from "@/components/GuidedVisitAssistant";
 
 const title = "Mobile Chiropractor in Delaware County & Surrounding Areas";
 const description = "Personalized chiropractic care with Dr. David DeFries, DC, in Delaware County and surrounding areas. Focused on your concerns, movement, and goals.";
@@ -76,5 +77,6 @@ export default function HomePage() {
       </section>
       <section className={styles.last}><div className={styles.wrap}><h2>Stay where you are.<br /><span>We’ll come to you.</span></h2><div className={styles.actions}><Link className={styles.primary} href="#service-area">Check your availability <Arrow /></Link><a href="sms:+16104940412" className={styles.outline}>Text 610-494-0412</a></div></div></section>
     </div>
+    <GuidedVisitAssistant />
   </>;
 }
