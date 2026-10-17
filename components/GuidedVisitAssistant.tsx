@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   ASSISTANT_TOPICS,
   assistantTopic,
-  assistantZipResult,
+  assistantZipResultForTopic,
   type AssistantTopicId,
   type AssistantZipResult,
 } from "@/lib/assistantGuidance";
@@ -81,7 +81,7 @@ export default function GuidedVisitAssistant() {
 
   function checkZip(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const guidance = assistantZipResult(zip);
+    const guidance = assistantZipResultForTopic(selected ?? "area", zip);
     setZipResult(guidance);
     track("zip_route_" + guidance.kind);
   }
@@ -128,7 +128,7 @@ export default function GuidedVisitAssistant() {
                   </div>
                   {topic.needsZip && (
                     <form className={styles.zipForm} onSubmit={checkZip}>
-                      <label htmlFor="assistant-zip">Your visit ZIP code</label>
+                      <label htmlFor="assistant-zip">Enter your visit ZIP code to continue</label>
                       <div className={styles.zipRow}>
                         <input
                           id="assistant-zip"
