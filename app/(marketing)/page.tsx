@@ -138,12 +138,12 @@ export default function HomePage() {
             <p className={styles.eyebrow}>Meet your chiropractor</p>
             <h2 id="doctor-heading">Experience matters.<br />So does being heard.</h2>
             <p>
-              I'm Dr. David DeFries, a third-generation chiropractor practicing since 2003.
+              I&apos;m Dr. David DeFries, a third-generation chiropractor practicing since 2003.
               I grew up seeing the value of a doctor who knows their patients, listens carefully,
               and takes time to explain what is happening.
             </p>
             <p>
-              That's the kind of care I aim to provide: thoughtful, personal, and focused on helping
+              That&apos;s the kind of care I aim to provide: thoughtful, personal, and focused on helping
               you understand and manage your health—not simply returning for the next adjustment.
             </p>
             <Link href="/about" className={styles.textLink}>
