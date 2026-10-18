@@ -7,9 +7,9 @@ export default function Testimonials() {
       <div className={styles.heading}>
         <div>
           <p className={styles.eyebrow}>Patient perspectives</p>
-          <h2 id="patient-reviews-heading">What patients say.</h2>
+          <h2 id="patient-reviews-heading">In patients’ own words.</h2>
         </div>
-        <p>Short excerpts from public Google reviews. Follow the link to read more.</p>
+        <p>Real patient feedback about listening, education, and the care experience. Read the full reviews on Google.</p>
       </div>
       <div className={styles.grid}>
         {TESTIMONIALS.map((review) => (

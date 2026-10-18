@@ -8,21 +8,15 @@ export const TESTIMONIAL_SOURCE_URL =
 
 export const TESTIMONIALS = [
   {
-    id: "kelly-maile",
-    name: "Kelly M.",
-    theme: "Kindness & care",
-    quote: "His professionalism, kindness, and skill were incredible.",
+    id: "michael-morris",
+    name: "Michael M.",
+    theme: "Education beyond the adjustment",
+    quote: "Temporary relief is amazing, but to have someone show you how to correct the behavior that causes discomfort is invaluable.",
   },
   {
     id: "theresa-dorsch",
     name: "Theresa D.",
-    theme: "Listening",
+    theme: "Being heard",
     quote: "He listens to his patients",
-  },
-  {
-    id: "michael-morris",
-    name: "Michael M.",
-    theme: "Patient education",
-    quote: "I’ve been educated.",
   },
 ] as const;

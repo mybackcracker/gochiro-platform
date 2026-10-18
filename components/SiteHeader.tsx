@@ -5,17 +5,12 @@ import { useEffect, useState } from "react";
 import { BUSINESS_NAME } from "@/lib/gochiro";
 
 const NAV_LINKS = [
+  { href: "/philosophy", label: "My Approach" },
   { href: "/about", label: "About" },
   { href: "/conditions", label: "Conditions" },
   { href: "/treatments", label: "Treatments" },
-  { href: "/articles", label: "Articles" },
-  { href: "/philosophy", label: "Philosophy" },
-  { href: "/what-to-expect", label: "What to Expect" },
-  { href: "/forms", label: "Forms" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/what-to-expect", label: "Your Visit" },
   { href: "/service-areas", label: "Service Areas" },
-  { href: "/touring-production-care", label: "Touring & Events" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export default function SiteHeader({ locationRequest = false }: { locationRequest?: boolean }) {
@@ -44,7 +39,7 @@ export default function SiteHeader({ locationRequest = false }: { locationReques
           <span className="font-heading text-lg font-bold tracking-tight text-ink">{BUSINESS_NAME}</span>
         </Link>
 
-        <nav className="hidden items-center gap-x-4 gap-y-2 text-[13px] font-semibold text-muted 2xl:flex">
+        <nav className="hidden items-center gap-x-4 gap-y-2 text-[13px] font-semibold text-muted xl:flex">
           {NAV_LINKS.map((link) => (
             <Link key={link.href} href={link.href} className="transition-colors hover:text-navy">
               {link.label}
@@ -59,7 +54,7 @@ export default function SiteHeader({ locationRequest = false }: { locationReques
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label={menuOpen ? "Close menu" : "Menu"}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-line text-ink transition-colors hover:border-navy/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 2xl:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-line text-ink transition-colors hover:border-navy/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 xl:hidden"
           >
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" className="h-4.5 w-4.5" aria-hidden>
               {menuOpen ? (
@@ -79,7 +74,7 @@ export default function SiteHeader({ locationRequest = false }: { locationReques
       </div>
 
       {menuOpen && (
-        <nav id="mobile-nav" aria-label="Site" className="border-t border-line bg-white 2xl:hidden">
+        <nav id="mobile-nav" aria-label="Site" className="border-t border-line bg-white xl:hidden">
           <div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-2 sm:px-6">
             {NAV_LINKS.map((link) => (
               <Link
