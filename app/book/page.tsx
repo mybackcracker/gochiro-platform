@@ -1,6 +1,7 @@
 "use client";
 import { ONLINE_LOCATION_MESSAGE, SERVICE_AREA_STATEMENT } from "@/lib/serviceArea";
 import { matchesWeekendDay, weekendDates, type WeekendDay } from "@/lib/weekendBooking";
+import TravelEstimateCard from "@/components/TravelEstimateCard";
 import { zipRoute, locationRequestPath } from "@/lib/zipRouting";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -772,9 +773,9 @@ export default function BookPage() {
             />
 
             {zip.length === 5 && !zipRegion && (
-              <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
+              <div className="mt-4 text-sm text-ink">
                 {zipDestination === "request" ? (
-                  <p>This location may be available by arrangement. Request a location review and quote before booking.</p>
+                  <TravelEstimateCard key={zip} zip={zip} />
                 ) : (
                   <p>{ONLINE_LOCATION_MESSAGE}</p>
                 )}
@@ -796,6 +797,7 @@ export default function BookPage() {
             )}
 
             <button
+              hidden={zipDestination === "request"}
               onClick={continueFromZip}
               disabled={zipDestination !== "booking" && zipDestination !== "request"}
               className="mt-4 w-full rounded-xl bg-navy px-5 py-3.5 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
@@ -849,7 +851,7 @@ export default function BookPage() {
             )}
 
             {!groupCompositionValid && (
-              <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
+              <div className="mt-4 text-sm text-ink">
                 A Group Visit needs {GROUP_VISIT_MIN_PARTICIPANTS}–{GROUP_VISIT_MAX_PARTICIPANTS} people total.
               </div>
             )}
@@ -879,9 +881,9 @@ export default function BookPage() {
             />
 
             {zip.length === 5 && !zipRegion && (
-              <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
+              <div className="mt-4 text-sm text-ink">
                 {zipDestination === "request" ? (
-                  <p>This location may be available by arrangement. Request a location review and quote before booking.</p>
+                  <TravelEstimateCard key={zip} zip={zip} />
                 ) : (
                   <p>{ONLINE_LOCATION_MESSAGE}</p>
                 )}
@@ -900,6 +902,7 @@ export default function BookPage() {
             )}
 
             <button
+              hidden={zipDestination === "request"}
               onClick={() => {
                 if (zipDestination === "request") { router.push(locationRequestPath(zip)); return; }
                 if (!zipRegion) return;
@@ -1082,7 +1085,7 @@ export default function BookPage() {
         {step === "maintenance-warning" && (
           <>
             <h1 className="mt-2 text-2xl font-bold text-ink">Maintenance / Wellness Visit</h1>
-            <div className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-900">
+            <div className="mt-4 text-sm text-ink">
               Maintenance visits require 48 hours’ advance notice and are not offered Sundays. For a new or worsening complaint needing earlier care—including Saturday or Sunday—choose New Complaint / Priority Visit.
             </div>
             <div className="mt-6 space-y-3">
