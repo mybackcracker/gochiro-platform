@@ -36,7 +36,7 @@ export default function TravelEstimateCard({ zip, initial = null, onEstimate, sh
   const validQuote = quote?.estimate.zip === zip ? quote : null;
   const e = validQuote?.estimate;
   return <section className="mt-5 rounded-2xl border border-line bg-cream p-5 text-ink sm:p-6" aria-label="Visit cost estimate">
-    <h2 className="text-lg font-bold">Visits to {zip} may be available by arrangement.</h2>
+    <h2 style={{ fontSize: "1.125rem", lineHeight: 1.4, letterSpacing: "normal", fontWeight: 700 }}>Visits to {zip} may be available by arrangement.</h2>
     <p className="mt-3 text-sm leading-relaxed">We try to help when care at home is needed. Outside our regular booking area, additional travel time increases the cost.</p>
     <div aria-live="polite" aria-atomic="true">
       {status === "loading" && <p className="mt-4 text-sm" role="status">Calculating your travel estimate…</p>}

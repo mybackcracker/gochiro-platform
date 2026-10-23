@@ -3,10 +3,14 @@ import { createHmac, timingSafeEqual } from "node:crypto";
 import { zipRoute } from "./zipRouting";
 import { ESTIMATE_MAX_AGE_MS, makeTravelEstimate, TRAVEL_ESTIMATE_POLICY, type TravelEstimate, type SignedTravelEstimate } from "./travelEstimate";
 
+export class TravelEstimateError extends Error {
+  constructor(public readonly code: string) { super(code); this.name = "TravelEstimateError"; }
+}
+const SAFE_PROVIDER_REASONS = new Set(["API_KEY_INVALID", "API_KEY_SERVICE_BLOCKED", "SERVICE_DISABLED", "BILLING_DISABLED", "BILLING_NOT_ACTIVE", "API_KEY_HTTP_REFERRER_BLOCKED", "API_KEY_IP_ADDRESS_BLOCKED", "RATE_LIMIT_EXCEEDED", "QUOTA_EXCEEDED", "API_KEY_EXPIRED", "CONSUMER_INVALID"]);
 const ENDPOINT = "https://routes.googleapis.com/directions/v2:computeRoutes";
 function secret(): string {
   const key = process.env.GOOGLE_ROUTES_API_KEY;
-  if (!key) throw new Error("Travel estimates are not configured");
+  if (!key) throw new TravelEstimateError("MISSING_API_KEY");
   return key;
 }
 function signature(payload: string): string {
@@ -40,18 +44,29 @@ async function drivingSeconds(origin: string, destination: string, fetcher: type
     signal: AbortSignal.timeout(8000), cache: "no-store",
   });
   // Provider bodies may contain operational details. Never log or return them to a visitor.
-  if (!response.ok) throw new Error("Routing service unavailable");
+  if (!response.ok) {
+    let code = `GOOGLE_HTTP_${response.status}`;
+    try {
+      const body = await response.json();
+      const details: unknown = body?.error?.details;
+      if (Array.isArray(details)) {
+        const reason = details.map(d => d?.reason).find(r => typeof r === "string" && SAFE_PROVIDER_REASONS.has(r));
+        if (reason) code = reason;
+      }
+    } catch { /* Ignore provider text: it must not appear in logs or responses. */ }
+    throw new TravelEstimateError(code);
+  }
   const result = await response.json();
   const duration: unknown = result.routes?.[0]?.duration;
-  if (typeof duration !== "string" || !/^\d+(\.\d+)?s$/.test(duration)) throw new Error("No driving route available");
+  if (typeof duration !== "string" || !/^\d+(\.\d+)?s$/.test(duration)) throw new TravelEstimateError("NO_ROUTE");
   const seconds = Number(duration.slice(0, -1));
-  if (!Number.isFinite(seconds) || seconds <= 0) throw new Error("No driving route available");
+  if (!Number.isFinite(seconds) || seconds <= 0) throw new TravelEstimateError("NO_ROUTE");
   return seconds;
 }
 export async function calculateTravelEstimate(zip: string, fetcher: typeof fetch = fetch): Promise<SignedTravelEstimate> {
   if (zipRoute(zip) !== "request") throw new Error("ZIP does not require an extended-area estimate");
   const origin = process.env.GOOGLE_ROUTES_ORIGIN;
-  if (!origin) throw new Error("Travel origin is not configured");
+  if (!origin) throw new TravelEstimateError("MISSING_ORIGIN");
   const destination = `${zip}, Pennsylvania, USA`;
   const [outbound, returning] = await Promise.all([drivingSeconds(origin, destination, fetcher), drivingSeconds(destination, origin, fetcher)]);
   return signEstimate(makeTravelEstimate(zip, outbound, returning));

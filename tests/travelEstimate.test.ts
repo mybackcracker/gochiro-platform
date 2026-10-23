@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { estimateSummary, makeTravelEstimate, travelCharge, ESTIMATE_MAX_AGE_MS } from "../lib/travelEstimate";
-import { calculateTravelEstimate, signEstimate, verifyEstimate } from "../lib/travelEstimateServer";
+import { calculateTravelEstimate, signEstimate, verifyEstimate, TravelEstimateError } from "../lib/travelEstimateServer";
 import { locationRequestPath } from "../lib/zipRouting";
 
 process.env.GOOGLE_ROUTES_API_KEY = "synthetic-unit-test-key-not-a-credential";
@@ -68,4 +68,20 @@ test("provider failures never create a zero or fabricated estimate", async () =>
   }
   await assert.rejects(calculateTravelEstimate("19446", async () => new Response("provider details", {status:403})));
   await assert.rejects(calculateTravelEstimate("19446", async () => { throw new Error("Timeout"); }));
+});
+
+
+test("routing diagnostics identify configuration and provider restrictions without returning private error text", async () => {
+  const savedOrigin = process.env.GOOGLE_ROUTES_ORIGIN;
+  delete process.env.GOOGLE_ROUTES_ORIGIN;
+  try { await assert.rejects(calculateTravelEstimate("19446"), (e: unknown) => e instanceof TravelEstimateError && e.code === "MISSING_ORIGIN"); }
+  finally { process.env.GOOGLE_ROUTES_ORIGIN = savedOrigin; }
+  const savedKey = process.env.GOOGLE_ROUTES_API_KEY;
+  delete process.env.GOOGLE_ROUTES_API_KEY;
+  try { await assert.rejects(calculateTravelEstimate("19446"), (e: unknown) => e instanceof TravelEstimateError && e.code === "MISSING_API_KEY"); }
+  finally { process.env.GOOGLE_ROUTES_API_KEY = savedKey; }
+  for (const reason of ["BILLING_DISABLED", "API_KEY_SERVICE_BLOCKED", "API_KEY_HTTP_REFERRER_BLOCKED", "SERVICE_DISABLED"]) {
+    await assert.rejects(calculateTravelEstimate("19446", async () => new Response(JSON.stringify({error: {message: "private upstream details", details: [{reason}]}}), {status:403})), (e: unknown) => e instanceof TravelEstimateError && e.code === reason && !e.message.includes("private"));
+  }
+  await assert.rejects(calculateTravelEstimate("19446", async () => new Response(JSON.stringify({error: {details: [{reason:"private user-supplied text"}]}}), {status:403})), (e: unknown) => e instanceof TravelEstimateError && e.code === "GOOGLE_HTTP_403");
 });

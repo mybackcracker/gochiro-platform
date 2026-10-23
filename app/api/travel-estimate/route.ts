@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { calculateTravelEstimate } from "@/lib/travelEstimateServer";
+import { calculateTravelEstimate, TravelEstimateError } from "@/lib/travelEstimateServer";
 import { zipRoute } from "@/lib/zipRouting";
 
 export const runtime = "nodejs";
@@ -23,5 +23,9 @@ export async function POST(req: NextRequest) {
   if (limit.count >= 10 || recent.size > 5000) return json({ error: "Please wait a minute before checking again, or request a personal quote." }, 429);
   limit.count++; recent.set(key, limit);
   try { return json(await calculateTravelEstimate(zip)); }
-  catch { return json({ error: "An automatic estimate is unavailable. You can still request a personal quote before booking." }, 503); }
+  catch (error) {
+    const code = error instanceof TravelEstimateError ? error.code : "ROUTING_UNAVAILABLE";
+    console.warn("Travel estimate unavailable", { code });
+    return json({ error: "An automatic estimate is unavailable. You can still request a personal quote before booking.", reference: code }, 503);
+  }
 }
