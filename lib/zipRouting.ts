@@ -6,6 +6,6 @@ export function zipRoute(zip: string): ZipRoute {
   if (findRegion(zip)) return "booking";
   return isPennsylvaniaZip(zip) ? "request" : "not-pennsylvania";
 }
-export function locationRequestPath(zip: string): string {
-  return `/check-your-location?zip=${encodeURIComponent(zip)}`;
+export function locationRequestPath(zip: string, estimateToken?: string): string {
+  return `/check-your-location?zip=${encodeURIComponent(zip)}${estimateToken ? `&estimate=${encodeURIComponent(estimateToken)}` : ""}`;
 }
