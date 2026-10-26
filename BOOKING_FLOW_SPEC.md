@@ -57,8 +57,8 @@ The returning option is labeled for patients seen by Dr. DeFries within the last
 2. **Policy.** Show cancellation, travel-flexibility, intake, and payment terms in a scrollable panel. Agreement checkbox is required.
 3. **Time funnel.** Offer timing bucket, available day, time-of-day period, and slots.
 4. **Contact and appointment address.** Require first name, last name, ten-digit US phone, email, street, city, state, and five-digit address ZIP. Unit/suite is optional. Fields show inline validation errors. The address ZIP is contact/location data; the initially selected service ZIP continues to determine scheduling region and price.
-5. **Review.** Display visit, date/time, complete address, service ZIP, displayed region, and fee. The patient can confirm and open intake immediately or confirm and rely on the emailed intake link. A fixed Square payment link is also available on this screen.
-6. **Confirmation.** Display success, appointment time, Square link, and intake link.
+5. **Review.** Display visit, date/time, complete address, service ZIP, displayed region, and fee. A single Confirm Appointment button submits the booking. A fixed Square payment link is also available on this screen.
+6. **Confirmation.** Display success and appointment time before offering intake. New patients open intake in a separate tab using Complete Intake; there is no automatic redirect. Explain that a blank intake page does not cancel the saved appointment and ask patients to retry intake or contact the practice rather than book again. Retain the Square link. Hide the scheduler Back button after confirmation to avoid returning to a submission screen. Approved October 26, 2026; supersedes the immediate-intake redirect described in earlier versions. Confirmation emails continue through the existing server workflow.
 
 ## 4. Returning-patient flow
 
