@@ -156,3 +156,9 @@ These are observations, not approved changes:
 - Email failure is not exposed as a warning after a successful calendar booking.
 - Group attendees are not individually collected, so intake distribution depends on the host.
 - The scheduler has no automated tests; changes currently rely on lint, production build, and manual integration checks.
+
+## Booking agreement placement — approved October 26, 2026
+
+Supersedes the earlier cancellation-policy entry gate and standalone Before You Book agreement screens. All individual and group booking paths now reach available times and contact details without a policy checkbox. One unchecked booking-policy checkbox appears beside the final appointment review and price. Confirm stays disabled until accepted; the submit handlers also refuse an unaccepted submission. Choosing another slot clears acceptance.
+
+The review summarizes the applicable individual cancellation or group host/headcount terms, arrival window, payment wording and relevant intake deadline, with the full cancellation policy opening separately. This changes placement only, not fees, deadlines, eligibility or treatment/privacy consent in the separate intake process. The confirmation-first intake handoff remains in place.

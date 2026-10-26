@@ -30,7 +30,6 @@ type Step =
   | "landing"
   | "region"
   | "zip"
-  | "policy"
   | "weekend"
   | "visit"
   | "maintenance-warning"
@@ -44,7 +43,6 @@ type Step =
   // by `visit === "group-visit"` inside those steps' JSX).
   | "group-count"
   | "group-zip"
-  | "group-policy"
   | "group-contact";
 
 type Bucket = "asap" | "week" | "future";
@@ -154,7 +152,6 @@ export default function BookPage() {
   // patient to forward separately.
   const [groupNewCount, setGroupNewCount] = useState(1);
   const [groupExistingCount, setGroupExistingCount] = useState(1);
-  const [groupPolicyAgreed, setGroupPolicyAgreed] = useState(false);
   const groupComposition = useMemo(
     () => ({ newCount: groupNewCount, existingCount: groupExistingCount }),
     [groupNewCount, groupExistingCount]
@@ -275,7 +272,7 @@ export default function BookPage() {
     if (start === "new") {
       setPatientType("new");
       if (initialRegion) setVisit("new-patient");
-      setStep(initialRegion ? "policy" : "zip");
+      setStep(initialRegion ? "time" : "zip");
     } else if (start === "returning") {
       setPatientType("returning");
       setStep(initialRegion ? "visit" : "region");
@@ -305,13 +302,6 @@ export default function BookPage() {
       if (funnelStage === "day" && !bucketSkipped) {
         setFunnelStage("bucket");
         setBucket(null);
-        return;
-      }
-      if (funnelStage === "bucket" && visit === "group-visit") {
-        if (history[history.length - 1] === "group-policy") {
-          setHistory((h) => h.slice(0, -1));
-        }
-        setStep("group-policy");
         return;
       }
       // funnelStage === "day" && bucketSkipped: no bucket screen to return to
@@ -367,7 +357,7 @@ export default function BookPage() {
     setWeekendDay(null);
     if (patientType === "new") {
       setVisit("new-patient");
-      go("policy");
+      goToSchedule();
     } else {
       go("visit");
     }
@@ -518,6 +508,7 @@ export default function BookPage() {
 
   function selectSlot(iso: string) {
     setBookingError(null);
+    setPolicyAgreed(false);
     setSelectedSlot(iso);
     go(visit === "group-visit" ? "group-contact" : "contact");
   }
@@ -545,7 +536,7 @@ export default function BookPage() {
   // Always show confirmation before offering intake. The external intake
   // page must never obscure the fact that the appointment was saved.
   async function confirmBooking() {
-    if (!region || !visit || !selectedSlot) return;
+    if (!region || !visit || !selectedSlot || !policyAgreed || bookingLoading) return;
     setBookingLoading(true);
     setBookingError(null);
 
@@ -613,7 +604,7 @@ export default function BookPage() {
   }
 
   async function confirmGroupBooking() {
-    if (!region || !selectedSlot) return;
+    if (!region || !selectedSlot || !policyAgreed || bookingLoading) return;
     setBookingLoading(true);
     setBookingError(null);
 
@@ -658,6 +649,39 @@ export default function BookPage() {
       setBookingLoading(false);
     }
   }
+
+  const bookingAgreement = (
+    <div className="mt-6 rounded-xl border border-line p-4 text-sm text-slate-700">
+      <h2 className="font-semibold text-ink">Before you confirm</h2>
+      <div className="mt-3 space-y-3">
+        {visit === "group-visit" ? (
+          <>
+            <p><strong>Group eligibility:</strong> Routine wellness care only. Acute, new or significantly worsening complaints need an individual visit.</p>
+            <p><strong>Host responsibility:</strong> You are responsible for the full quoted group total. Reduce headcount more than 24 hours ahead and we&apos;ll recalculate. Within 24 hours, the reserved group total remains due, including cancellation or rescheduling.</p>
+            {groupNewCount > 0 && <p><strong>Intake:</strong> Each new patient must complete their own intake within 3 hours of booking to be treated as part of the Group Visit.</p>}
+          </>
+        ) : (
+          <>
+            <p><strong>Cancellation:</strong> Give at least 24 hours&apos; notice to cancel or reschedule. Late changes and no-shows carry a $50 fee. Contact us about an emergency or unavoidable circumstance; the fee may be waived at the practice&apos;s discretion.</p>
+            {patientType === "new" && <p><strong>Intake:</strong> Complete your forms at least 2 hours before your appointment. If forms are not completed in time, your appointment will be canceled and a missed-appointment fee will apply.</p>}
+          </>
+        )}
+        <p><strong>Arrival:</strong> Please allow 15 minutes before or after the scheduled time.</p>
+        <p>Payment is not required to book. You are welcome to pay now or at the time of the visit.</p>
+      </div>
+      <a href="/pricing#cancellation-policy" target="_blank" rel="noopener noreferrer" className="mt-3 inline-block font-semibold underline">Read the full cancellation and rescheduling policy</a>
+      <label className="mt-4 flex items-start gap-3 font-medium">
+        <input
+          id="booking-policy-agreement"
+          type="checkbox"
+          checked={policyAgreed}
+          onChange={(event) => setPolicyAgreed(event.target.checked)}
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-line"
+        />
+        I have read and agree to the booking policies above.
+      </label>
+    </div>
+  );
 
   return (
     <main className="min-h-screen bg-cream px-4 py-4 sm:py-8">
@@ -847,7 +871,10 @@ export default function BookPage() {
             )}
 
             <button
-              onClick={() => go(region && zipRegion === region ? "group-policy" : "group-zip")}
+              onClick={() => {
+                if (region && zipRegion === region) goToSchedule();
+                else go("group-zip");
+              }}
               disabled={!groupCompositionValid}
               className="mt-6 w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
@@ -896,121 +923,12 @@ export default function BookPage() {
                 if (zipDestination === "request") { router.push(locationRequestPath(zip)); return; }
                 if (!zipRegion) return;
                 setRegion(zipRegion);
-                go("group-policy");
+                goToSchedule();
               }}
               disabled={zipDestination !== "booking" && zipDestination !== "request"}
               className="mt-6 w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               {zipDestination === "request" ? "Check Your Location" : "Continue"}
-            </button>
-          </>
-        )}
-
-        {step === "group-policy" && (
-          <>
-            <h1 className="mt-1 text-2xl font-bold text-ink">Before You Book</h1>
-
-            <div className="mt-4 space-y-3 rounded-xl border border-slate-200 p-3 text-sm text-slate-700">
-              <div>
-                <h2 className="font-semibold text-ink">Routine care only</h2>
-                <p className="mt-0.5">
-                  Acute or significantly worsening complaints — including a new complaint in an existing patient — need an individual visit.
-                </p>
-              </div>
-              <div>
-                <h2 className="font-semibold text-ink">Host responsibility</h2>
-                <p className="mt-0.5">
-                  The host is responsible for the full quoted group total. Payment is not required to book. You are welcome to pay now or at the time of the visit.
-                </p>
-              </div>
-              <div>
-                <h2 className="font-semibold text-ink">Changes within 24 hours</h2>
-                <p className="mt-0.5">
-                  Reduce headcount more than 24 hours ahead and we&apos;ll recalculate. Within 24 hours, the reserved
-                  group total remains due.
-                </p>
-              </div>
-              <div>
-                <h2 className="font-semibold text-ink">New-patient intake</h2>
-                <p className="mt-0.5">
-                  Each new patient must complete the intake form within 3 hours of booking to be treated as part of the Group Visit.
-                </p>
-              </div>
-            </div>
-
-            <label className="mt-3 flex items-start gap-3 text-sm font-medium text-slate-700">
-              <input
-                type="checkbox"
-                checked={groupPolicyAgreed}
-                onChange={(e) => setGroupPolicyAgreed(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-line"
-              />
-              I have read and agree to the policies above
-            </label>
-
-            <button
-              onClick={goToSchedule}
-              disabled={!groupPolicyAgreed}
-              className="mt-4 w-full rounded-xl bg-navy px-5 py-3.5 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
-            >
-              Continue
-            </button>
-          </>
-        )}
-
-        {step === "policy" && (
-          <>
-            <h1 className="mt-2 text-2xl font-bold text-ink">Before You Book</h1>
-            <p className="mt-2 text-muted">Please review the following before scheduling your visit:</p>
-
-            <div className="mt-6 max-h-72 space-y-5 overflow-y-auto rounded-xl border border-slate-200 p-4 text-sm text-slate-700">
-              <div>
-                <h2 className="font-semibold text-ink">Cancellation Policy</h2>
-                <p className="mt-1">
-                  We require at least 24 hours&apos; notice to cancel or reschedule your appointment. Cancellations,
-                  no-shows, or same-day changes made with less than 24 hours&apos; notice will be charged a $50 fee.
-                </p>
-              </div>
-              <div>
-                <h2 className="font-semibold text-ink">Arrival Window</h2>
-                <p className="mt-1">
-                  Dr. DeFries travels between appointments, so please allow about 15 minutes of flexibility before
-                  and after your scheduled time.
-                </p>
-              </div>
-              <div>
-                <h2 className="font-semibold text-ink">Intake Forms</h2>
-                <p className="mt-1">
-                  New patient intake forms must be completed at least 2 hours before your appointment. If they
-                  aren&apos;t completed in time, your appointment will be canceled and a missed-appointment fee will
-                  apply.
-                </p>
-              </div>
-              <div>
-                <h2 className="font-semibold text-ink">Payment</h2>
-                <p className="mt-1">
-                  Payment is due at or before your visit. We accept cash, check, credit card (HSA/FSA eligible), and
-                  Venmo.
-                </p>
-              </div>
-            </div>
-
-            <label className="mt-4 flex items-start gap-3 text-sm font-medium text-slate-700">
-              <input
-                type="checkbox"
-                checked={policyAgreed}
-                onChange={(e) => setPolicyAgreed(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-line"
-              />
-              I have read and agree to the policies above
-            </label>
-
-            <button
-              onClick={goToSchedule}
-              disabled={!policyAgreed}
-              className="mt-6 w-full rounded-xl bg-navy px-5 py-4 text-lg font-semibold text-white disabled:cursor-not-allowed disabled:bg-slate-300"
-            >
-              Continue
             </button>
           </>
         )}
@@ -1715,13 +1633,11 @@ export default function BookPage() {
               <div className="mt-4 rounded-xl bg-red-50 p-4 text-sm text-red-900">{bookingError}</div>
             )}
 
-            <div className="mt-6 rounded-xl bg-blue-50 p-4 text-sm text-blue-900">
-              Payment isn&apos;t required to book — you can pay now or when we arrive.
-            </div>
+            {bookingAgreement}
 
             <button
               onClick={confirmBooking}
-              disabled={bookingLoading}
+              disabled={bookingLoading || !policyAgreed}
               className="mt-5 w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
             >
               {bookingLoading ? "Booking…" : "Confirm Appointment"}
@@ -1781,14 +1697,11 @@ export default function BookPage() {
               <div className="mt-4 rounded-xl bg-red-50 p-4 text-sm text-red-900">{bookingError}</div>
             )}
 
-            <div className="mt-6 rounded-xl bg-blue-50 p-4 text-sm text-blue-900">
-              As the host, you&apos;re responsible for the full amount above. Changes within 24 hours do not reduce
-              the reserved group total. Payment is not required to book. You are welcome to pay now or at the time of the visit.
-            </div>
+            {bookingAgreement}
 
             <button
               onClick={confirmGroupBooking}
-              disabled={bookingLoading}
+              disabled={bookingLoading || !policyAgreed}
               className="mt-5 w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
             >
               {bookingLoading ? "Booking…" : "Confirm Group Visit"}
