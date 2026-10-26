@@ -542,11 +542,9 @@ export default function BookPage() {
     go("review");
   }
 
-  // Books the appointment. `routeToIntakeNow` only controls what happens
-  // immediately after: either way the appointment is booked and (for new
-  // patients) the intake link is emailed — that email is the safety net if
-  // the patient bails out of the "complete now" hand-off partway through.
-  async function confirmBooking(routeToIntakeNow: boolean) {
+  // Always show confirmation before offering intake. The external intake
+  // page must never obscure the fact that the appointment was saved.
+  async function confirmBooking() {
     if (!region || !visit || !selectedSlot) return;
     setBookingLoading(true);
     setBookingError(null);
@@ -584,15 +582,7 @@ export default function BookPage() {
       }
 
       // The patient confirmation + doctor notification emails are sent
-      // server-side inside /api/book itself (see lib/bookingEmail.ts) — that
-      // covers both buttons uniformly, since both hit the same endpoint.
-
-      if (routeToIntakeNow) {
-        // Navigate directly rather than window.open — an async window.open
-        // (after the await above) gets blocked as a popup in most browsers.
-        window.location.href = INTAKE_URL;
-        return;
-      }
+      // server-side inside /api/book itself (see lib/bookingEmail.ts).
 
       go("confirmed");
     } catch {
@@ -673,9 +663,11 @@ export default function BookPage() {
     <main className="min-h-screen bg-cream px-4 py-4 sm:py-8">
       <p className="mx-auto mb-4 max-w-lg text-sm leading-relaxed text-muted">{SERVICE_AREA_STATEMENT}</p>
       <section className="mx-auto w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
-        <button onClick={goBack} className="text-sm font-semibold text-slate-500 hover:text-ink">
-          ← Back
-        </button>
+        {step !== "confirmed" && (
+          <button onClick={goBack} className="text-sm font-semibold text-slate-500 hover:text-ink">
+            ← Back
+          </button>
+        )}
 
         {patientType && (
           <p className="mt-5 text-xs font-semibold uppercase tracking-[0.15em] text-slate-500">
@@ -1727,32 +1719,13 @@ export default function BookPage() {
               Payment isn&apos;t required to book — you can pay now or when we arrive.
             </div>
 
-            {patientType === "new" ? (
-              <>
-                <button
-                  onClick={() => confirmBooking(true)}
-                  disabled={bookingLoading}
-                  className="mt-5 w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
-                >
-                  {bookingLoading ? "Booking…" : "Confirm Appointment & Complete Intake Now"}
-                </button>
-                <button
-                  onClick={() => confirmBooking(false)}
-                  disabled={bookingLoading}
-                  className="mt-3 w-full rounded-xl border border-line px-5 py-4 text-center text-lg font-semibold text-ink disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {bookingLoading ? "Booking…" : "Confirm Appointment & Email Intake Form"}
-                </button>
-              </>
-            ) : (
-              <button
-                onClick={() => confirmBooking(false)}
-                disabled={bookingLoading}
-                className="mt-5 w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
-              >
-                {bookingLoading ? "Booking…" : "Confirm Appointment"}
-              </button>
-            )}
+            <button
+              onClick={confirmBooking}
+              disabled={bookingLoading}
+              className="mt-5 w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white disabled:bg-slate-300"
+            >
+              {bookingLoading ? "Booking…" : "Confirm Appointment"}
+            </button>
 
             {paymentLink && (
               <a
@@ -1837,6 +1810,28 @@ export default function BookPage() {
                 })}.`}
             </div>
 
+            {patientType === "new" && (
+              <div className="mt-5 rounded-xl border border-line p-4">
+                <h2 className="font-semibold text-ink">Next step: complete your intake</h2>
+                <p className="mt-2 text-sm text-muted">
+                  Your appointment is confirmed. The intake form opens in a separate tab so you can keep this confirmation.
+                </p>
+                <a
+                  href={INTAKE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 block w-full rounded-xl bg-navy px-5 py-4 text-center font-semibold text-white"
+                >
+                  Complete Intake
+                </a>
+                <p className="mt-3 text-sm text-muted">
+                  If the intake page is blank or won&apos;t open, your appointment is still booked. Please do not book again.
+                  Return here to try the intake link again, or call or text{" "}
+                  <a href="tel:6104940412" className="font-semibold underline">610-494-0412</a> for help.
+                </p>
+              </div>
+            )}
+
             {paymentLink && (
               <a
                 href={paymentLink}
@@ -1845,17 +1840,6 @@ export default function BookPage() {
                 className="mt-5 block w-full rounded-xl bg-navy px-5 py-4 text-center text-lg font-semibold text-white"
               >
                 Pay with Square
-              </a>
-            )}
-
-            {patientType === "new" && (
-              <a
-                href={INTAKE_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-3 block w-full rounded-xl border border-line px-5 py-4 text-center font-semibold text-ink"
-              >
-                Complete Intake
               </a>
             )}
           </>
