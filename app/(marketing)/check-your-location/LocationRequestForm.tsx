@@ -1,8 +1,14 @@
 "use client";
+import TravelEstimateCard from "@/components/TravelEstimateCard";
+import type { SignedTravelEstimate } from "@/lib/travelEstimate";
+import { zipRoute } from "@/lib/zipRouting";
 import { FormEvent, useState } from "react";
 import { LOCATION_CONTACTS, LOCATION_TIMING, PRIVATE_PARKING_OPTIONS, STAIRS_OPTIONS, ELEVATOR_OPTIONS } from "@/lib/locationRequest";
-export default function LocationRequestForm({ initialZip = "" }: { initialZip?: string }) {
+export default function LocationRequestForm({ initialZip = "", initialEstimate = null }: { initialZip?: string; initialEstimate?: SignedTravelEstimate | null }) {
   const [zip,setZip] = useState(initialZip);
+  const [estimate,setEstimate] = useState<SignedTravelEstimate | null>(initialEstimate);
+  const [submittedTotal,setSubmittedTotal] = useState<number | null>(null);
+  const currentEstimate = estimate?.estimate.zip === zip ? estimate : null;
   const [method,setMethod] = useState("Text");
   const [status,setStatus] = useState("idle");
   const [message,setMessage] = useState("");
@@ -15,12 +21,15 @@ export default function LocationRequestForm({ initialZip = "" }: { initialZip?: 
       const response = await fetch("/api/location-request",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({...Object.fromEntries(data),acknowledged:data.get("acknowledged") === "on"})});
       const result = await response.json();
       if (!response.ok || result.success !== true) throw new Error(result.error || "Unable to send your request.");
+      setSubmittedTotal(typeof result.estimate?.total === "number" ? result.estimate.total : null);
       setStatus("success");
     } catch (e) { setStatus("error");setMessage(e instanceof Error ? e.message : "Please call or text 610-494-0412."); }
   }
   const field = "mt-2 block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-ink focus:outline-2 focus:outline-navy";
-  if (status === "success") return <div role="status" className="rounded-2xl bg-cream p-6"><h2 className="text-xl font-bold">Your location request has been received.</h2><p className="mt-3">We’ll review whether we can serve your location and contact you about the next steps. This is not a confirmed appointment.</p></div>;
+  if (status === "success") return <div role="status" className="rounded-2xl bg-cream p-6"><h2 className="text-xl font-bold">Your location request has been received.</h2><p className="mt-3">We’ll review whether we can serve your location and contact you about the next steps. This is not a confirmed appointment.</p>{submittedTotal !== null && <p className="mt-3 font-semibold">Your submitted estimate: ${submittedTotal}, including care and travel. We’ll confirm the final price with you before booking.</p>}</div>;
   return <form onSubmit={submit} className="space-y-6">
+    {zipRoute(zip) === "request" && <TravelEstimateCard key={zip} zip={zip} initial={initialEstimate?.estimate.zip === zip ? initialEstimate : null} onEstimate={setEstimate} showRequest={false} />}
+    <input type="hidden" name="estimateToken" value={currentEstimate?.token || ""} />
     <fieldset disabled={status === "sending"} className="space-y-6">
       <legend className="mb-4 text-xl font-bold">Tell us where you need care</legend>
       <label className="block font-semibold">Name<input name="name" autoComplete="name" required maxLength={100} className={field}/></label>
@@ -34,7 +43,7 @@ export default function LocationRequestForm({ initialZip = "" }: { initialZip?: 
       <label className="block font-semibold">Is an elevator available?<select name="elevator" required defaultValue="" className={field}><option value="" disabled>Select elevator access</option>{ELEVATOR_OPTIONS.map(x=><option key={x}>{x}</option>)}</select></label>
       <label className="block font-semibold">How soon are you hoping to be seen?<select name="timing" required defaultValue="" className={field}><option value="" disabled>Select timing</option>{LOCATION_TIMING.map(x=><option key={x}>{x}</option>)}</select></label>
       <div hidden aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off"/></label></div>
-      <label className="flex items-start gap-3"><input name="acknowledged" type="checkbox" required className="mt-1 h-5 w-5 shrink-0"/><span>I understand that pricing includes care and travel, and a deposit of at least 50% is required to confirm an accepted appointment. I have read the cancellation terms above.</span></label>
+      <label className="flex items-start gap-3"><input name="acknowledged" type="checkbox" required className="mt-1 h-5 w-5 shrink-0"/><span>I understand that any total shown is an estimate pending confirmation of my address, timing, and care needs. Pricing includes care and travel, and a deposit of at least 50% is required to confirm an accepted appointment. I have read the cancellation terms above.</span></label>
       <button type="submit" className="rounded-lg bg-apricot px-6 py-3 font-semibold text-navy hover:bg-apricot-light disabled:opacity-60">{status === "sending" ? "Sending…" : "Request a Visit"}</button>
     </fieldset>
     {status === "error" && <p role="alert" className="text-red-800">{message}</p>}
