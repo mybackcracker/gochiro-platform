@@ -202,6 +202,7 @@ export default function HomePage() {
             <Link href="/treatments">Explore treatments <Arrow /></Link>
             <Link href="/pricing">Visit pricing <Arrow /></Link>
             <Link href="/group-visits">Group visits <Arrow /></Link>
+            <Link href="/workplace-care">Workplace care <Arrow /></Link>
           </nav>
         </section>
       </div>
