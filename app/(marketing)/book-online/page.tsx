@@ -50,6 +50,10 @@ export default function BookOnlinePage() {
             />
           </div>
 
+          <p className="mt-6 text-base text-muted">
+            Scheduling for a larger workplace or crew? <Link className="font-semibold text-navy underline" href="/workplace-care">Request an onsite employee treatment block</Link> instead. The group booking option above is for routine small-group visits with one host.
+          </p>
+
           <div className="mt-10">
             <H3>Need More Information First?</H3>
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-base font-semibold text-navy">
