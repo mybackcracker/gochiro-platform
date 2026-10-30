@@ -10,6 +10,8 @@ const FOOTER_LINKS = [
   { href: "/philosophy", label: "Our Philosophy" },
   { href: "/what-to-expect", label: "What to Expect" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/group-visits", label: "Group Visits" },
+  { href: "/workplace-care", label: "Workplace Care" },
   { href: "/service-areas", label: "Service Areas" },
   { href: "/philadelphia", label: "Philadelphia Care" },
   { href: "/philadelphia/hotel-visits", label: "Hotel & Traveler Care" },

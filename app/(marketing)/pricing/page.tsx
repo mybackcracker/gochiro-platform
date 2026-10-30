@@ -75,6 +75,11 @@ const PRICING_FAQS: FAQItem[] = [
     links: [{ label: "Group visit details and booking", href: "/book?start=group" }],
   },
   {
+    question: "Are employee workplace sessions priced like a family group visit?",
+    answer: "No. Workplace treatment blocks are arranged separately. For suitable local Delaware County locations, a one-hour block starts at a $200 minimum, which may be covered by employee appointments or employer sponsorship. Other locations are quoted individually.",
+    links: [{ label: "Explore workplace and crew care", href: "/workplace-care" }],
+  },
+  {
     question: "Can I get paperwork to submit to my health insurance?",
     answer: "Yes. Go Chiro Mobile can provide billing paperwork for you to submit to your health insurance for possible reimbursement. We do not submit routine health insurance claims on your behalf. Reimbursement depends on your plan and is not guaranteed.",
   },
@@ -127,7 +132,7 @@ export default function PricingPage() {
         <Container>
           <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-start">
             <div>
-              <H2>Group Visits</H2>
+              <H2>Family & Small-Group Visits</H2>
               <P className="max-w-md">
                 Groups of {GROUP_VISIT_MIN_PARTICIPANTS}–{GROUP_VISIT_MAX_PARTICIPANTS} people. Group Visits are designed for
                 wellness-focused chiropractic care and are not intended for acute injuries,
@@ -135,8 +140,8 @@ export default function PricingPage() {
                 evaluation and treatment.
               </P>
               <p className="mt-4 max-w-md text-lg leading-relaxed text-muted">
-                The host is responsible for the total group fee. Your complete total is shown
-                before booking.
+                These small-group visits use one host booking. The host is responsible for the total group fee. Your complete total is shown
+                before booking. Workplace treatment blocks are a separate service described below.
               </p>
               <div className="mt-6">
                 <CTAButton href="/book?start=group">Book a Group Visit</CTAButton>
@@ -156,6 +161,31 @@ export default function PricingPage() {
                 <p className="mt-1 text-sm font-medium text-muted">per group on Saturday or Sunday</p>
               </div>
             </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section tone="white" className="pt-8 pb-10 sm:pt-10 sm:pb-12">
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-start">
+            <div>
+              <H2>Workplace & Crew Treatment Blocks</H2>
+              <P className="max-w-2xl">
+                For employers and organized crews at one workplace, we arrange individual onsite appointments in a reserved treatment window rather than using the regular family group booking tool.
+              </P>
+              <P className="max-w-2xl">
+                The local Delaware County minimum is $200 for a one-hour treatment block. Initial appointments are $50 (approximately 15 minutes) and returning appointments are $40 (approximately 10 minutes). Individual employee payments count toward the $200 minimum; it is not an additional fee. The employer may instead sponsor the block or any shortfall.
+              </P>
+              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted">
+                Additional time is $100 per 30 minutes by arrangement. Philadelphia and other locations needing extra travel, parking or access are quoted before booking. These sessions require advance coordination and are not yet individually payable through the online group scheduler.
+              </p>
+              <div className="mt-6"><CTAButton href="/workplace-care">View Workplace Program</CTAButton></div>
+            </div>
+            <Callout title="HSA / FSA and workplace care" tone="white">
+              <p className="text-base leading-relaxed text-muted">
+                Chiropractic treatment for qualifying medical care is generally eligible for HSA and healthcare FSA payment, depending on the plan. General wellness services without a medical purpose may not qualify. Itemized receipts are available.
+              </p>
+            </Callout>
           </div>
         </Container>
       </Section>
