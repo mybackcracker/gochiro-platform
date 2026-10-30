@@ -24,6 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/group-intake",
     "/exercises",
     "/high-intensity-laser-therapy",
+    "/group-visits",
+    "/workplace-care",
     "/group-visits/standard",
     "/group-visits/premium",
     "/philosophy",
