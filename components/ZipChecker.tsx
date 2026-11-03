@@ -1,15 +1,14 @@
 "use client";
 import { ONLINE_LOCATION_MESSAGE } from "@/lib/serviceArea";
 
-import { useRouter } from "next/navigation";
-import { zipRoute, locationRequestPath } from "@/lib/zipRouting";
+import TravelEstimateCard from "@/components/TravelEstimateCard";
+import { zipRoute } from "@/lib/zipRouting";
 import Link from "next/link";
 import { useState } from "react";
 import { findRegion } from "@/lib/gochiro";
 import { CTAButton } from "@/components/ui";
 
 export default function ZipChecker() {
-  const router = useRouter();
   const [zip, setZip] = useState("");
   const [checked, setChecked] = useState(false);
   const region = findRegion(zip);
@@ -31,8 +30,7 @@ export default function ZipChecker() {
         />
         <button
           onClick={() => {
-            if (route === "request") router.push(locationRequestPath(zip));
-            else setChecked(true);
+            setChecked(true);
           }}
           disabled={zip.length !== 5}
           className="rounded-lg bg-apricot px-6 py-3.5 text-base font-bold text-navy transition-colors hover:bg-apricot-light disabled:cursor-not-allowed disabled:bg-line disabled:text-muted"
@@ -51,7 +49,8 @@ export default function ZipChecker() {
         </div>
       )}
       <p className="mt-5 text-sm text-muted">Learn about group visits: <Link href="/group-visits/standard" className="font-semibold text-navy underline">Delaware County</Link> · <Link href="/group-visits/premium" className="font-semibold text-navy underline">Main Line &amp; West Chester</Link></p>
-      {checked && zip.length === 5 && !region && (
+      {checked && route === "request" && <TravelEstimateCard key={zip} zip={zip} />}
+      {checked && zip.length === 5 && !region && route !== "request" && (
         <div className="mt-5 rounded-xl bg-cream p-4">
           <p>{ONLINE_LOCATION_MESSAGE} <Link href="/contact" className="font-semibold underline">Contact the practice</Link>.</p>
         </div>
