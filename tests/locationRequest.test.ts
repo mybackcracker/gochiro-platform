@@ -13,3 +13,12 @@ test("map link preserves the full address without executing address punctuation"
   assert.equal(url.searchParams.get("query"),"100 Test Street #2 & Main, Philadelphia, PA 19103");
   assert.equal(url.searchParams.get("api"),"1");
 });
+
+test("short address-first form works without parking and access questions", () => {
+  const { privateParking, stairs, elevator, ...shortRequest } = valid;
+  const parsed = parseLocationRequest(shortRequest);
+  assert.ok(parsed);
+  assert.equal(parsed.privateParking, "Unsure");
+  assert.equal(parsed.stairs, "Unsure");
+  assert.equal(parsed.elevator, "Unsure");
+});
