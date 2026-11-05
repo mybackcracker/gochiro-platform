@@ -1,7 +1,7 @@
 import "next/dist/compiled/server-only";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { zipRoute } from "./zipRouting";
-import { ESTIMATE_MAX_AGE_MS, makeTravelEstimate, TRAVEL_ESTIMATE_POLICY, type TravelEstimate, type SignedTravelEstimate } from "./travelEstimate";
+import { ESTIMATE_MAX_AGE_MS, makeTravelEstimate, normalizedVisitAddress, TRAVEL_ESTIMATE_POLICY, type TravelEstimate, type SignedTravelEstimate } from "./travelEstimate";
 
 export class TravelEstimateError extends Error {
   constructor(public readonly code: string) { super(code); this.name = "TravelEstimateError"; }
@@ -20,7 +20,7 @@ export function signEstimate(estimate: TravelEstimate): SignedTravelEstimate {
   const payload = Buffer.from(JSON.stringify(estimate)).toString("base64url");
   return { estimate, token: `${payload}.${signature(payload)}` };
 }
-export function verifyEstimate(token: unknown, zip: string, now = Date.now()): TravelEstimate | null {
+export function verifyEstimate(token: unknown, zip: string, now = Date.now(), expectedDestination?: string): TravelEstimate | null {
   if (typeof token !== "string" || token.length > 2000 || !process.env.GOOGLE_ROUTES_API_KEY) return null;
   try {
     const parts = token.split(".");
@@ -30,8 +30,8 @@ export function verifyEstimate(token: unknown, zip: string, now = Date.now()): T
     const expected = Buffer.from(signature(payload), "base64url");
     if (supplied.length !== expected.length || !timingSafeEqual(supplied, expected)) return null;
     const e = JSON.parse(Buffer.from(payload, "base64url").toString("utf8")) as TravelEstimate;
-    if (e.zip !== zip || e.policy !== TRAVEL_ESTIMATE_POLICY || !Number.isFinite(e.issuedAt) || e.issuedAt > now + 60_000 || now - e.issuedAt > ESTIMATE_MAX_AGE_MS) return null;
-    const calculated = makeTravelEstimate(zip, e.outboundSeconds, e.returnSeconds, e.issuedAt);
+    if (e.zip !== zip || (expectedDestination !== undefined && e.destinationAddress !== expectedDestination) || e.policy !== TRAVEL_ESTIMATE_POLICY || !Number.isFinite(e.issuedAt) || e.issuedAt > now + 60_000 || now - e.issuedAt > ESTIMATE_MAX_AGE_MS) return null;
+    const calculated = makeTravelEstimate(zip, e.outboundSeconds, e.returnSeconds, e.issuedAt, e.destinationAddress);
     if (e.travelFee !== calculated.travelFee || e.appointmentFee !== calculated.appointmentFee || e.total !== calculated.total) return null;
     return e;
   } catch { return null; }
@@ -63,11 +63,11 @@ async function drivingSeconds(origin: string, destination: string, fetcher: type
   if (!Number.isFinite(seconds) || seconds <= 0) throw new TravelEstimateError("NO_ROUTE");
   return seconds;
 }
-export async function calculateTravelEstimate(zip: string, fetcher: typeof fetch = fetch): Promise<SignedTravelEstimate> {
+export async function calculateTravelEstimate(zip: string, street: string, city: string, fetcher: typeof fetch = fetch): Promise<SignedTravelEstimate> {
   if (zipRoute(zip) !== "request") throw new Error("ZIP does not require an extended-area estimate");
   const origin = process.env.GOOGLE_ROUTES_ORIGIN;
   if (!origin) throw new TravelEstimateError("MISSING_ORIGIN");
-  const destination = `${zip}, Pennsylvania, USA`;
+  const destination = normalizedVisitAddress(street, city, zip);
   const [outbound, returning] = await Promise.all([drivingSeconds(origin, destination, fetcher), drivingSeconds(destination, origin, fetcher)]);
-  return signEstimate(makeTravelEstimate(zip, outbound, returning));
+  return signEstimate(makeTravelEstimate(zip, outbound, returning, Date.now(), destination));
 }
