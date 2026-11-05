@@ -67,8 +67,8 @@ test("provider failures never create a zero or fabricated estimate", async () =>
   for (const value of [{routes:[]}, {routes:[{duration:"NaNs"}]}, {routes:[{duration:"0s"}]}]) {
     await assert.rejects(calculateTravelEstimate("19446", "10 Test Road", "Lansdale", async () => new Response(JSON.stringify(value))));
   }
-  await assert.rejects(calculateTravelEstimate("19446", async () => new Response("provider details", {status:403})));
-  await assert.rejects(calculateTravelEstimate("19446", async () => { throw new Error("Timeout"); }));
+  await assert.rejects(calculateTravelEstimate("19446", "10 Test Road", "Lansdale", async () => new Response("provider details", {status:403})));
+  await assert.rejects(calculateTravelEstimate("19446", "10 Test Road", "Lansdale", async () => { throw new Error("Timeout"); }));
 });
 
 
@@ -82,9 +82,9 @@ test("routing diagnostics identify configuration and provider restrictions witho
   try { await assert.rejects(calculateTravelEstimate("19446", "10 Test Road", "Lansdale"), (e: unknown) => e instanceof TravelEstimateError && e.code === "MISSING_API_KEY"); }
   finally { process.env.GOOGLE_ROUTES_API_KEY = savedKey; }
   for (const reason of ["BILLING_DISABLED", "API_KEY_SERVICE_BLOCKED", "API_KEY_HTTP_REFERRER_BLOCKED", "SERVICE_DISABLED"]) {
-    await assert.rejects(calculateTravelEstimate("19446", async () => new Response(JSON.stringify({error: {message: "private upstream details", details: [{reason}]}}), {status:403})), (e: unknown) => e instanceof TravelEstimateError && e.code === reason && !e.message.includes("private"));
+    await assert.rejects(calculateTravelEstimate("19446", "10 Test Road", "Lansdale", async () => new Response(JSON.stringify({error: {message: "private upstream details", details: [{reason}]}}), {status:403})), (e: unknown) => e instanceof TravelEstimateError && e.code === reason && !e.message.includes("private"));
   }
-  await assert.rejects(calculateTravelEstimate("19446", async () => new Response(JSON.stringify({error: {details: [{reason:"private user-supplied text"}]}}), {status:403})), (e: unknown) => e instanceof TravelEstimateError && e.code === "GOOGLE_HTTP_403");
+  await assert.rejects(calculateTravelEstimate("19446", "10 Test Road", "Lansdale", async () => new Response(JSON.stringify({error: {details: [{reason:"private user-supplied text"}]}}), {status:403})), (e: unknown) => e instanceof TravelEstimateError && e.code === "GOOGLE_HTTP_403");
 });
 
 
