@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { estimateSummary, makeTravelEstimate, travelCharge, qualifiesExtendedAreaRequest, ESTIMATE_MAX_AGE_MS } from "../lib/travelEstimate";
+import { estimateSummary, makeTravelEstimate, normalizedVisitAddress, travelCharge, qualifiesExtendedAreaRequest, ESTIMATE_MAX_AGE_MS } from "../lib/travelEstimate";
 import { calculateTravelEstimate, signEstimate, verifyEstimate, TravelEstimateError } from "../lib/travelEstimateServer";
 import { locationRequestPath } from "../lib/zipRouting";
 
@@ -49,22 +49,23 @@ test("routing requests use server-only credentials and both driving directions; 
     calls.push(body);
     return new Response(JSON.stringify({routes:[{duration: calls.length === 1 ? "1800s" : "2700s"}]}));
   };
-  const signed = await calculateTravelEstimate("19446", mock);
+  const signed = await calculateTravelEstimate("19446", "10 Test Road", "Lansdale", mock);
   assert.equal(calls.length, 2);
+  assert.equal(signed.estimate.destinationAddress, "10 Test Road, Lansdale, PA 19446");
   assert.equal(calls[0].origin.address, calls[1].destination.address);
-  assert.equal(calls[0].destination.address, "19446, Pennsylvania, USA");
+  assert.equal(calls[0].destination.address, "10 Test Road, Lansdale, PA 19446");
   assert.equal(signed.estimate.travelFee, 125);
   const exposed = JSON.stringify(signed) + Buffer.from(signed.token.split(".")[0], "base64url").toString("utf8");
   assert.ok(!exposed.includes("Synthetic Origin"));
   assert.ok(!exposed.includes(process.env.GOOGLE_ROUTES_API_KEY!));
-  await assert.rejects(calculateTravelEstimate("19061", mock));
-  await assert.rejects(calculateTravelEstimate("19985", mock));
+  await assert.rejects(calculateTravelEstimate("19061", "10 Test Road", "Lansdale", mock));
+  await assert.rejects(calculateTravelEstimate("19985", "10 Test Road", "Lansdale", mock));
   assert.equal(calls.length, 2);
 });
 
 test("provider failures never create a zero or fabricated estimate", async () => {
   for (const value of [{routes:[]}, {routes:[{duration:"NaNs"}]}, {routes:[{duration:"0s"}]}]) {
-    await assert.rejects(calculateTravelEstimate("19446", async () => new Response(JSON.stringify(value))));
+    await assert.rejects(calculateTravelEstimate("19446", "10 Test Road", "Lansdale", async () => new Response(JSON.stringify(value))));
   }
   await assert.rejects(calculateTravelEstimate("19446", async () => new Response("provider details", {status:403})));
   await assert.rejects(calculateTravelEstimate("19446", async () => { throw new Error("Timeout"); }));
@@ -74,11 +75,11 @@ test("provider failures never create a zero or fabricated estimate", async () =>
 test("routing diagnostics identify configuration and provider restrictions without returning private error text", async () => {
   const savedOrigin = process.env.GOOGLE_ROUTES_ORIGIN;
   delete process.env.GOOGLE_ROUTES_ORIGIN;
-  try { await assert.rejects(calculateTravelEstimate("19446"), (e: unknown) => e instanceof TravelEstimateError && e.code === "MISSING_ORIGIN"); }
+  try { await assert.rejects(calculateTravelEstimate("19446", "10 Test Road", "Lansdale"), (e: unknown) => e instanceof TravelEstimateError && e.code === "MISSING_ORIGIN"); }
   finally { process.env.GOOGLE_ROUTES_ORIGIN = savedOrigin; }
   const savedKey = process.env.GOOGLE_ROUTES_API_KEY;
   delete process.env.GOOGLE_ROUTES_API_KEY;
-  try { await assert.rejects(calculateTravelEstimate("19446"), (e: unknown) => e instanceof TravelEstimateError && e.code === "MISSING_API_KEY"); }
+  try { await assert.rejects(calculateTravelEstimate("19446", "10 Test Road", "Lansdale"), (e: unknown) => e instanceof TravelEstimateError && e.code === "MISSING_API_KEY"); }
   finally { process.env.GOOGLE_ROUTES_API_KEY = savedKey; }
   for (const reason of ["BILLING_DISABLED", "API_KEY_SERVICE_BLOCKED", "API_KEY_HTTP_REFERRER_BLOCKED", "SERVICE_DISABLED"]) {
     await assert.rejects(calculateTravelEstimate("19446", async () => new Response(JSON.stringify({error: {message: "private upstream details", details: [{reason}]}}), {status:403})), (e: unknown) => e instanceof TravelEstimateError && e.code === reason && !e.message.includes("private"));
@@ -93,4 +94,12 @@ test("out-of-area inquiries require explicit price acknowledgment or manual-quot
   assert.equal(qualifiesExtendedAreaRequest(true, false, true), false);
   assert.equal(qualifiesExtendedAreaRequest(false, false, true), true);
   assert.equal(qualifiesExtendedAreaRequest(false, false, false), false);
+});
+
+test("a signed travel quote cannot be submitted with a different street address", () => {
+  const address = normalizedVisitAddress("10 Test Road", "Lansdale", "19446");
+  const signed = signEstimate(makeTravelEstimate("19446", 3600, 3600, now, address));
+  assert.ok(verifyEstimate(signed.token, "19446", now, address));
+  assert.equal(verifyEstimate(signed.token, "19446", now, normalizedVisitAddress("12 Test Road", "Lansdale", "19446")), null);
+  assert.throws(() => normalizedVisitAddress("", "Lansdale", "19446"));
 });
