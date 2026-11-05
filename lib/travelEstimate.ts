@@ -27,6 +27,9 @@ export function makeTravelEstimate(zip: string, outboundSeconds: number, returnS
   if (appointmentFee === null) throw new Error("New-patient pricing unavailable");
   return { policy: TRAVEL_ESTIMATE_POLICY, zip, outboundSeconds, returnSeconds, travelFee, appointmentFee, total: appointmentFee + travelFee, issuedAt: now };
 }
+export function qualifiesExtendedAreaRequest(hasVerifiedEstimate: boolean, acknowledgedEstimate: boolean, requestedManualQuote: boolean): boolean {
+  return hasVerifiedEstimate ? acknowledgedEstimate : requestedManualQuote;
+}
 export function estimateSummary(estimate: TravelEstimate): string[] {
   return [
     `Estimate reference: ${estimate.policy} / ${new Date(estimate.issuedAt).toISOString()} / ${estimate.zip}`,
