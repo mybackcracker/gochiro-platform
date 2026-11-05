@@ -1,5 +1,5 @@
 import { verifyEstimate } from "@/lib/travelEstimateServer";
-import { estimateSummary, qualifiesExtendedAreaRequest } from "@/lib/travelEstimate";
+import { estimateSummary, qualifiesExtendedAreaRequest, normalizedVisitAddress } from "@/lib/travelEstimate";
 import { zipRoute } from "@/lib/zipRouting";
 import { NextRequest, NextResponse } from "next/server";
 import { parseLocationRequest, LOCATION_POLICY_VERSION, locationMapsUrl } from "@/lib/locationRequest";
@@ -18,8 +18,11 @@ export async function POST(req: NextRequest) {
   const input = parseLocationRequest(raw);
   if (!input) return NextResponse.json({error:"Please check the address and required fields, and acknowledge the quote and deposit terms. For a location this form cannot accept, call or text (610) 494-0412."},{status:400});
   if (zipRoute(input.zip) !== "request") return NextResponse.json({error:"This ZIP belongs in the regular booking area or cannot be estimated."},{status:400});
+  let destination: string;
+  try { destination = normalizedVisitAddress(input.address, input.city, input.zip); }
+  catch { return NextResponse.json({error:"Please check the full visit address."},{status:400}); }
   const token = raw && typeof raw === "object" && "estimateToken" in raw ? raw.estimateToken : undefined;
-  const estimate = token ? verifyEstimate(token, input.zip) : null;
+  const estimate = token ? verifyEstimate(token, input.zip, Date.now(), destination) : null;
   if (token && !estimate) return NextResponse.json({error:"Your estimate has expired or no longer matches this ZIP. Refresh the page to update it before sending."},{status:400});
   const submitted = raw as Record<string, unknown>;
   const acknowledgedEstimate = submitted.estimateAcknowledged === "true";
