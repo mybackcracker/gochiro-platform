@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { estimateSummary, makeTravelEstimate, travelCharge, ESTIMATE_MAX_AGE_MS } from "../lib/travelEstimate";
+import { estimateSummary, makeTravelEstimate, travelCharge, qualifiesExtendedAreaRequest, ESTIMATE_MAX_AGE_MS } from "../lib/travelEstimate";
 import { calculateTravelEstimate, signEstimate, verifyEstimate, TravelEstimateError } from "../lib/travelEstimateServer";
 import { locationRequestPath } from "../lib/zipRouting";
 
@@ -84,4 +84,13 @@ test("routing diagnostics identify configuration and provider restrictions witho
     await assert.rejects(calculateTravelEstimate("19446", async () => new Response(JSON.stringify({error: {message: "private upstream details", details: [{reason}]}}), {status:403})), (e: unknown) => e instanceof TravelEstimateError && e.code === reason && !e.message.includes("private"));
   }
   await assert.rejects(calculateTravelEstimate("19446", async () => new Response(JSON.stringify({error: {details: [{reason:"private user-supplied text"}]}}), {status:403})), (e: unknown) => e instanceof TravelEstimateError && e.code === "GOOGLE_HTTP_403");
+});
+
+
+test("out-of-area inquiries require explicit price acknowledgment or manual-quote request", () => {
+  assert.equal(qualifiesExtendedAreaRequest(true, true, false), true);
+  assert.equal(qualifiesExtendedAreaRequest(true, false, false), false);
+  assert.equal(qualifiesExtendedAreaRequest(true, false, true), false);
+  assert.equal(qualifiesExtendedAreaRequest(false, false, true), true);
+  assert.equal(qualifiesExtendedAreaRequest(false, false, false), false);
 });
