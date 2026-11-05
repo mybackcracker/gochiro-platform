@@ -30,3 +30,13 @@ Routing failures never produce a fabricated or zero estimate: the visitor can re
 - Live Google lookup and delivered-email validation require the configured Vercel preview. Check a covered ZIP, then out-of-area ZIPs such as 19446 and 18938; compare displayed and submitted totals. Change ZIP before submitting to verify the stale total is removed. Test one synthetic request only after explicitly authorizing its notification email.
 
 Rollback: revert this feature commit. Clearing `GOOGLE_ROUTES_API_KEY` disables automatic estimates while preserving manually quoted visit requests.
+
+## November 2026 qualification update
+
+The published display acknowledges that out-of-area travel can be important for someone who needs care at home. A ZIP estimate shows an all-in weekday first-visit figure, care/travel breakout, and an explicit checkbox: the requester indicates willingness to arrange the visit at approximately the displayed total, subject to confirmation. The hourly calculation is internal and is no longer advertised in the patient UI.
+
+The request submit button is disabled until the visitor checks the appropriate box. A valid signed estimate and explicit estimate acknowledgment are both verified by the server. If an automatic estimate fails, the user must instead explicitly request a manually confirmed quote. This fallback creates no booking or charge. Normal service-area ZIPs are directed to the regular scheduler rather than using this request form.
+
+The request email records whether the visitor accepted the displayed estimate or requested a personal quote. A location request remains nonbinding: final address, care needs, price and appointment time are confirmed separately; a minimum 50% deposit must then be arranged before confirmation. No dynamic payment link is added by this implementation. Out-of-area trips cannot book automatically.
+
+The main appointment scheduler and ZIP-checker routing are intentionally unchanged. Requests arriving from either route arrive at the same extended-area quote form.
