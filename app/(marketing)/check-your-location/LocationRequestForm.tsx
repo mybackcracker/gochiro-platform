@@ -7,14 +7,21 @@ import { LOCATION_CONTACTS, LOCATION_TIMING, PRIVATE_PARKING_OPTIONS, STAIRS_OPT
 export default function LocationRequestForm({ initialZip = "", initialEstimate = null }: { initialZip?: string; initialEstimate?: SignedTravelEstimate | null }) {
   const [zip,setZip] = useState(initialZip);
   const [estimate,setEstimate] = useState<SignedTravelEstimate | null>(initialEstimate);
+  const [estimateUnavailable,setEstimateUnavailable] = useState(false);
+  const [acceptedEstimate,setAcceptedEstimate] = useState(false);
+  const [acceptedManualQuote,setAcceptedManualQuote] = useState(false);
   const [submittedTotal,setSubmittedTotal] = useState<number | null>(null);
   const currentEstimate = estimate?.estimate.zip === zip ? estimate : null;
+  const requestZip = zipRoute(zip) === "request";
+  const manualFallback = requestZip && estimateUnavailable && !currentEstimate;
+  const qualified = requestZip && (currentEstimate ? acceptedEstimate : manualFallback && acceptedManualQuote);
   const [method,setMethod] = useState("Text");
   const [status,setStatus] = useState("idle");
   const [message,setMessage] = useState("");
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (status === "sending") return;
+    if (!qualified) { setStatus("error"); setMessage("Please acknowledge the estimate, or request a personal quote if automatic pricing is unavailable."); return; }
     const data = new FormData(event.currentTarget);
     setStatus("sending"); setMessage("");
     try {
@@ -28,15 +35,21 @@ export default function LocationRequestForm({ initialZip = "", initialEstimate =
   const field = "mt-2 block w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-ink focus:outline-2 focus:outline-navy";
   if (status === "success") return <div role="status" className="rounded-2xl bg-cream p-6"><h2 className="text-xl font-bold">Your location request has been received.</h2><p className="mt-3">We’ll review whether we can serve your location and contact you about the next steps. This is not a confirmed appointment.</p>{submittedTotal !== null && <p className="mt-3 font-semibold">Your submitted estimate: ${submittedTotal}, including care and travel. We’ll confirm the final price with you before booking.</p>}</div>;
   return <form onSubmit={submit} className="space-y-6">
-    {zipRoute(zip) === "request" && <TravelEstimateCard key={zip} zip={zip} initial={initialEstimate?.estimate.zip === zip ? initialEstimate : null} onEstimate={setEstimate} showRequest={false} />}
+    {zipRoute(zip) === "request" && <TravelEstimateCard key={zip} zip={zip} initial={initialEstimate?.estimate.zip === zip ? initialEstimate : null} onEstimate={setEstimate} onUnavailable={setEstimateUnavailable} showRequest={false} />}
     <input type="hidden" name="estimateToken" value={currentEstimate?.token || ""} />
+    <input type="hidden" name="estimateAcknowledged" value={currentEstimate && acceptedEstimate ? "true" : "false"} />
+    <input type="hidden" name="manualQuoteRequested" value={manualFallback && acceptedManualQuote ? "true" : "false"} />
     <fieldset disabled={status === "sending"} className="space-y-6">
       <legend className="mb-4 text-xl font-bold">Tell us where you need care</legend>
+      {currentEstimate && requestZip && <label className="flex items-start gap-3 rounded-xl border border-line bg-cream p-4"><input type="checkbox" checked={acceptedEstimate} onChange={e=>setAcceptedEstimate(e.target.checked)} required className="mt-1 h-5 w-5 shrink-0"/><span><strong>I understand the estimated total is ${currentEstimate.estimate.total}, including chiropractic care and additional travel.</strong> I am interested in arranging a visit at approximately this cost, subject to confirmation of the final price and availability.</span></label>}
+      {manualFallback && <label className="flex items-start gap-3 rounded-xl border border-line bg-cream p-4"><input type="checkbox" checked={acceptedManualQuote} onChange={e=>setAcceptedManualQuote(e.target.checked)} required className="mt-1 h-5 w-5 shrink-0"/><span>Automatic pricing is unavailable. I would like to receive a personal quote before deciding whether to schedule. No appointment or payment will be created.</span></label>}
+      {zipRoute(zip) === "booking" && <p className="rounded-xl bg-cream p-4">Your ZIP is in our regular service area. Please use <a href="/book" className="font-semibold underline">regular online booking</a>.</p>}
+      {requestZip && !currentEstimate && !manualFallback && <p className="text-sm text-muted">An estimate will appear above before you can send a visit request.</p>}
       <label className="block font-semibold">Name<input name="name" autoComplete="name" required maxLength={100} className={field}/></label>
       <label className="block font-semibold">Preferred reply method<select name="contactMethod" value={method} onChange={e=>setMethod(e.target.value)} className={field}>{LOCATION_CONTACTS.map(x=><option key={x}>{x}</option>)}</select></label>
       <label className="block font-semibold">{method === "Email" ? "Email address" : "Phone number"}<input key={method === "Email" ? "email" : "tel"} name="contact" type={method === "Email" ? "email" : "tel"} autoComplete={method === "Email" ? "email" : "tel"} required maxLength={160} className={field}/></label>
       <label className="block font-semibold">Visit street address<input name="address" autoComplete="street-address" required maxLength={200} className={field}/></label>
-      <div className="grid gap-5 sm:grid-cols-2"><label className="block font-semibold">City<input name="city" autoComplete="address-level2" required maxLength={100} className={field}/></label><label className="block font-semibold">ZIP code<input name="zip" value={zip} onChange={e=>setZip(e.target.value.replace(/\D/g, "").slice(0,5))} autoComplete="postal-code" inputMode="numeric" pattern="[0-9]{5}" required maxLength={5} className={field}/></label></div>
+      <div className="grid gap-5 sm:grid-cols-2"><label className="block font-semibold">City<input name="city" autoComplete="address-level2" required maxLength={100} className={field}/></label><label className="block font-semibold">ZIP code<input name="zip" value={zip} onChange={e=>{setZip(e.target.value.replace(/\D/g, "").slice(0,5));setEstimate(null);setEstimateUnavailable(false);setAcceptedEstimate(false);setAcceptedManualQuote(false);setStatus("idle");setMessage("");}} autoComplete="postal-code" inputMode="numeric" pattern="[0-9]{5}" required maxLength={5} className={field}/></label></div>
       <p>Serving Delaware County and surrounding communities, with additional locations available by arrangement.</p><label className="block font-semibold">State<input name="state" value="PA" readOnly autoComplete="address-level1" className={field}/></label><p className="text-sm text-muted">For a location not handled by this form, call or text <a href="sms:+16104940412" className="font-semibold underline">(610) 494-0412</a> to discuss arrangements.</p>
       <label className="block font-semibold">Is private or reserved parking available?<select name="privateParking" required defaultValue="" className={field}><option value="" disabled>Select parking</option>{PRIVATE_PARKING_OPTIONS.map(x=><option key={x}>{x}</option>)}</select></label>
       <label className="block font-semibold">Are there stairs to reach the treatment space?<select name="stairs" required defaultValue="" className={field}><option value="" disabled>Select stairs</option>{STAIRS_OPTIONS.map(x=><option key={x}>{x}</option>)}</select></label>
@@ -44,7 +57,7 @@ export default function LocationRequestForm({ initialZip = "", initialEstimate =
       <label className="block font-semibold">How soon are you hoping to be seen?<select name="timing" required defaultValue="" className={field}><option value="" disabled>Select timing</option>{LOCATION_TIMING.map(x=><option key={x}>{x}</option>)}</select></label>
       <div hidden aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off"/></label></div>
       <label className="flex items-start gap-3"><input name="acknowledged" type="checkbox" required className="mt-1 h-5 w-5 shrink-0"/><span>I understand that any total shown is an estimate pending confirmation of my address, timing, and care needs. Pricing includes care and travel, and a deposit of at least 50% is required to confirm an accepted appointment. I have read the cancellation terms above.</span></label>
-      <button type="submit" className="rounded-lg bg-apricot px-6 py-3 font-semibold text-navy hover:bg-apricot-light disabled:opacity-60">{status === "sending" ? "Sending…" : "Request a Visit"}</button>
+      <button type="submit" disabled={!qualified || status === "sending"} className="rounded-lg bg-apricot px-6 py-3 font-semibold text-navy hover:bg-apricot-light disabled:cursor-not-allowed disabled:opacity-60">{status === "sending" ? "Sending…" : "Request a Visit"}</button>
     </fieldset>
     {status === "error" && <p role="alert" className="text-red-800">{message}</p>}
   </form>;
