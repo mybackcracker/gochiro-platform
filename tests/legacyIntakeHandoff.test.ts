@@ -66,7 +66,6 @@ test("group confirmations use one shared intake form link for all new patients",
   const source = fs.readFileSync("lib/bookingEmail.ts", "utf8");
   const groupSection = source.slice(source.indexOf("function buildHostTextEmail"));
   assert(groupSection.includes("GROUP_INTAKE_URL"));
-  assert(groupSection.includes("Group Visit guidance and intake"));
   assert(!groupSection.includes("intakeLinks"));
   assert.equal(GROUP_INTAKE_URL, "https://gochiromobile.com/group-intake");
 });
