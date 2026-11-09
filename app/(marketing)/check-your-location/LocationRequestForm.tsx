@@ -7,7 +7,6 @@ import { LOCATION_CONTACTS, LOCATION_TIMING } from "@/lib/locationRequest";
 type Phase = "address" | "quoted" | "contact" | "sent";
 export default function LocationRequestForm({ initialZip = "" }: { initialZip?: string }) {
   const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
   const [zip, setZip] = useState(initialZip);
   const [phase, setPhase] = useState<Phase>("address");
   const [quote, setQuote] = useState<SignedTravelEstimate | null>(null);
@@ -19,11 +18,10 @@ export default function LocationRequestForm({ initialZip = "" }: { initialZip?: 
   const [submittedTotal, setSubmittedTotal] = useState<number | null>(null);
   const field = "mt-1 block w-full rounded-lg border border-slate-300 bg-white px-3 py-3 text-ink focus:outline-2 focus:outline-navy";
   const button = "w-full rounded-lg bg-apricot px-5 py-3 font-bold text-navy hover:bg-apricot-light disabled:opacity-60";
-  const address = street.trim() + ", " + city.trim() + ", PA " + zip;
+  const address = quote?.estimate.destinationAddress ?? (street.trim() + ", PA " + zip);
 
-  function editAddress(fieldName: "street" | "city" | "zip", value: string) {
+  function editAddress(fieldName: "street" | "zip", value: string) {
     if (fieldName === "street") setStreet(value);
-    if (fieldName === "city") setCity(value);
     if (fieldName === "zip") setZip(value.replace(/\D/g, "").slice(0, 5));
     setQuote(null); setManual(false); setCanRequestManual(false); setPhase("address"); setError("");
   }
@@ -35,7 +33,7 @@ export default function LocationRequestForm({ initialZip = "" }: { initialZip?: 
     try {
       const response = await fetch("/api/travel-estimate", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ street, city, zip })
+        body: JSON.stringify({ street, zip })
       });
       const data = await response.json();
       if (!response.ok) {
@@ -61,7 +59,7 @@ export default function LocationRequestForm({ initialZip = "" }: { initialZip?: 
       const response = await fetch("/api/location-request", {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...fields, address: street, city, zip, state: "PA", contactMethod: method,
+          ...fields, address: street, zip, state: "PA", contactMethod: method,
           acknowledged: true, estimateToken: quote?.token || "",
           estimateAcknowledged: quote ? "true" : "false",
           manualQuoteRequested: manual ? "true" : "false"
@@ -86,14 +84,9 @@ export default function LocationRequestForm({ initialZip = "" }: { initialZip?: 
       <label className="block text-sm font-semibold">Street address
         <input value={street} onChange={e => editAddress("street", e.target.value)} autoComplete="street-address" required minLength={5} maxLength={200} placeholder="Street number and name" className={field}/>
       </label>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        <label className="block text-sm font-semibold">City
-          <input value={city} onChange={e => editAddress("city", e.target.value)} autoComplete="address-level2" required minLength={2} maxLength={100} className={field}/>
-        </label>
         <label className="block text-sm font-semibold">ZIP code
           <input value={zip} onChange={e => editAddress("zip", e.target.value)} autoComplete="postal-code" inputMode="numeric" pattern="[0-9]{5}" required className={field}/>
         </label>
-      </div>
       {zipRoute(zip) === "booking" ? <p className="text-sm">We serve this area. <a href="/book" className="font-semibold underline">Book a regular visit</a>.</p>
         : zip.length === 5 && zipRoute(zip) === "not-pennsylvania" ? <p className="text-sm">For this location, please <a href="/contact" className="font-semibold underline">contact the practice</a>.</p>
         : <button type="submit" disabled={busy || zipRoute(zip) !== "request"} className={button}>{busy ? "Checking…" : "See Estimated Price"}</button>}

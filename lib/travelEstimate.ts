@@ -25,8 +25,8 @@ export function normalizedVisitAddress(street: string, city: string, zip: string
   if (typeof street !== "string" || typeof city !== "string" || typeof zip !== "string") throw new Error("Invalid address");
   const clean = (part: string) => part.trim().replace(/\s+/g, " ");
   const a = clean(street), c = clean(city);
-  if (a.length < 5 || a.length > 200 || c.length < 2 || c.length > 100 || !/^\d{5}$/.test(zip) || /[\r\n]/.test(a + c)) throw new Error("Invalid address");
-  return a + ", " + c + ", PA " + zip;
+  if (a.length < 5 || a.length > 200 || (c.length > 0 && c.length < 2) || c.length > 100 || !/^\d{5}$/.test(zip) || /[\r\n]/.test(a + c)) throw new Error("Invalid address");
+  return [a, c, "PA " + zip].filter(Boolean).join(", ");
 }
 
 export function makeTravelEstimate(zip: string, outboundSeconds: number, returnSeconds: number, now = Date.now(), destinationAddress = ""): TravelEstimate {

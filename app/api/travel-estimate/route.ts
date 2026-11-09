@@ -14,9 +14,9 @@ export async function POST(req: NextRequest) {
     const body = await req.text();
     if (body.length > 600) return json({ error: "Invalid address." }, 400);
     const data = JSON.parse(body);
-    zip = data.zip; street = data.street; city = data.city;
+    zip = data.zip; street = data.street; city = data.city ?? "";
   } catch { return json({ error: "Invalid ZIP request." }, 400); }
-  if (typeof zip !== "string" || zipRoute(zip) !== "request" || typeof street !== "string" || typeof city !== "string" || street.trim().length < 5 || city.trim().length < 2 || street.length > 200 || city.length > 100) return json({ error: "Please enter a complete Pennsylvania street address." }, 400);
+  if (typeof zip !== "string" || zipRoute(zip) !== "request" || typeof street !== "string" || typeof city !== "string" || street.trim().length < 5 || (city.trim().length > 0 && city.trim().length < 2) || street.length > 200 || city.length > 100) return json({ error: "Please enter a complete Pennsylvania street address." }, 400);
   const now = Date.now();
   for (const [key, value] of recent) if (value.until < now) recent.delete(key);
   const key = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";

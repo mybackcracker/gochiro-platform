@@ -1,8 +1,8 @@
 import { verifyEstimate } from "@/lib/travelEstimateServer";
-import { estimateSummary, qualifiesExtendedAreaRequest, normalizedVisitAddress } from "@/lib/travelEstimate";
+import { qualifiesExtendedAreaRequest, normalizedVisitAddress } from "@/lib/travelEstimate";
 import { zipRoute } from "@/lib/zipRouting";
 import { NextRequest, NextResponse } from "next/server";
-import { parseLocationRequest, LOCATION_POLICY_VERSION, locationMapsUrl } from "@/lib/locationRequest";
+import { parseLocationRequest, LOCATION_POLICY_VERSION, locationRequestNotification } from "@/lib/locationRequest";
 import { sendEmail } from "@/lib/gmail";
 import { BOOKING_NOTIFICATION_EMAIL, BUSINESS_NAME, PUBLIC_CONTACT_EMAIL } from "@/lib/gochiro";
 export async function POST(req: NextRequest) {
@@ -28,10 +28,17 @@ export async function POST(req: NextRequest) {
   const acknowledgedEstimate = submitted.estimateAcknowledged === "true";
   const requestedManualQuote = submitted.manualQuoteRequested === "true";
   if (!qualifiesExtendedAreaRequest(Boolean(estimate), acknowledgedEstimate, requestedManualQuote)) return NextResponse.json({error:"Please acknowledge the estimated total or request a personal quote before sending."},{status:400});
-  const mapsUrl = locationMapsUrl(input);
-  const text = ["NEW LOCATION CHECK — NOT A BOOKING", `Name: ${input.name}`, `Reply by ${input.contactMethod}: ${input.contact}`, `Address: ${input.address}, ${input.city}, ${input.state} ${input.zip}`, `Google Maps: ${mapsUrl}`, `Private / reserved parking: ${input.privateParking}`, `Stairs: ${input.stairs}`, `Elevator: ${input.elevator}`, `Timing: ${input.timing}`, ...(estimate ? [...estimateSummary(estimate), "Estimated care-and-travel total acknowledged: yes; requester interested at approximately this cost."] : ["Automatic estimate unavailable; requester explicitly asked for a personal quote before deciding whether to book."]), `Quote and deposit acknowledgment: accepted (policy ${LOCATION_POLICY_VERSION})`, `Submitted: ${new Date().toISOString()}`, "Review location first, then agree on care, price and scheduling. No appointment or payment has been created."].join("\n");
+  const notification = locationRequestNotification(input, destination, estimate);
   try {
-    await sendEmail({to:BOOKING_NOTIFICATION_EMAIL,fromName:BUSINESS_NAME,fromAddress:PUBLIC_CONTACT_EMAIL,subject:"New location-check request",text,html:`<p><a href="${mapsUrl}">Open visit location in Google Maps</a></p><pre>${text.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}</pre>`});
+    await sendEmail({to:BOOKING_NOTIFICATION_EMAIL,fromName:BUSINESS_NAME,fromAddress:PUBLIC_CONTACT_EMAIL,...notification});
+    console.info("Location request sent", {
+      depositPolicy: LOCATION_POLICY_VERSION,
+      estimate: estimate ? {
+        policy: estimate.policy, issuedAt: estimate.issuedAt,
+        outboundSeconds: estimate.outboundSeconds, returnSeconds: estimate.returnSeconds,
+        appointmentFee: estimate.appointmentFee, travelFee: estimate.travelFee, total: estimate.total,
+      } : null,
+    });
     return NextResponse.json({success:true, estimate: estimate ? { total: estimate.total } : null});
   } catch {
     console.error("Location-check notification failed.");

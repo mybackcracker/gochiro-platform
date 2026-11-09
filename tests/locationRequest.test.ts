@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { parseLocationRequest, locationMapsUrl } from "../lib/locationRequest";
+import { parseLocationRequest, locationMapsUrl, locationRequestNotification } from "../lib/locationRequest";
 const valid = {name:"Test",contactMethod:"Text",contact:"6105550100",address:"100 Test Street",city:"Philadelphia",state:"PA",zip:"19103",privateParking:"Unsure",stairs:"Unsure",elevator:"Unsure",timing:"My timing is flexible",acknowledged:true};
 test("location checks accept flexible timing without a visit date/type",()=>{assert.ok(parseLocationRequest(valid));});
 test("reject missing consent, invalid contacts and unsupported state",()=>{for(const patch of [{acknowledged:false},{contact:"123"},{contactMethod:"Email",contact:"invalid"},{state:"DE"},{zip:"abcde"},{privateParking:""},{stairs:"invalid"},{elevator:""}])assert.equal(parseLocationRequest({...valid,...patch}),null);});
@@ -21,4 +21,16 @@ test("short address-first form works without parking and access questions", () =
   assert.equal(parsed.privateParking, "Unsure");
   assert.equal(parsed.stairs, "Unsure");
   assert.equal(parsed.elevator, "Unsure");
+});
+
+test("a request without city preserves the quoted destination and clickable reply", () => {
+  const parsed = parseLocationRequest({ ...valid, city: undefined, name: "Test <request>" });
+  assert.ok(parsed);
+  const destination = "100 Test Street, PA 19103";
+  const notification = locationRequestNotification(parsed, destination, { total: 175, appointmentFee: 100, travelFee: 75 });
+  assert.equal(new URL(locationMapsUrl(parsed)).searchParams.get("query"), destination);
+  assert.match(notification.html, /sms:6105550100/);
+  assert.match(notification.html, /Test &lt;request&gt;/);
+  assert.match(notification.text, /Estimate shown: \$175/);
+  assert.doesNotMatch(notification.html, /Unsure/);
 });
