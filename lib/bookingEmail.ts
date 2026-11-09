@@ -422,10 +422,9 @@ function buildHostTextEmail(b: GroupBookingEmailData): string {
   body += "You may reduce the reserved headcount more than 24 hours before the visit and the group total will be recalculated. Within 24 hours, the original reserved group total remains due if fewer people participate or the group cancels or reschedules.\n\n";
 
   if (b.newCount > 0) {
-    const patientWord = b.newCount === 1 ? "patient" : "patients";
-    body += "NEW PATIENT INTAKE\n";
-    body += `This booking includes ${b.newCount} new ${patientWord}. Send the same link below to each new patient. It explains who Group Visits are suited for, then opens the regular patient intake. Each new patient must complete their own form within 3 hours of booking to be treated as part of the Group Visit.\n`;
-    body += `Group Visit guidance and intake: ${GROUP_INTAKE_URL}\n\n`;
+    body += "New Patient Intake for Your Group Visit\n";
+    body += `Please forward this link to each new patient in your group. Each new patient needs to complete their own form using the same link within 3 hours of booking.\n`;
+    body += `Open New Patient Intake: ${GROUP_INTAKE_URL}\n\n`;
   }
 
   body += "PAYMENT\n";
@@ -473,11 +472,10 @@ function buildHostHtmlEmail(b: GroupBookingEmailData): string {
   html += '<p style="margin:0 0 16px 0;">You may reduce the reserved headcount more than 24 hours before the visit and the group total will be recalculated. Within 24 hours, the original reserved group total remains due if fewer people participate or the group cancels or reschedules.</p>';
 
   if (b.newCount > 0) {
-    const patientWord = b.newCount === 1 ? "patient" : "patients";
     html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
-    html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#173B57;">New Patient Intake</h2>';
-    html += `<p style="margin:0 0 16px 0;">This booking includes <strong>${b.newCount} new ${patientWord}</strong>. Send the same link below to each new patient. It explains who Group Visits are suited for, then opens the regular patient intake. Each new patient must complete their own form within 3 hours of booking to be treated as part of the Group Visit.</p>`;
-    html += `<p style="margin:16px 0;"><a href="${escapeHtml(GROUP_INTAKE_URL)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Group Visit Guidance &amp; Intake</a></p>`;
+    html += '<h2 style="font-size:18px;line-height:1.3;margin:0 0 10px 0;color:#173B57;">New Patient Intake for Your Group Visit</h2>';
+    html += `<p style="margin:0 0 16px 0;">Please forward this link to each new patient in your group. Each new patient needs to complete their own form using the same link within 3 hours of booking.</p>`;
+    html += `<p style="margin:16px 0;"><a href="${escapeHtml(GROUP_INTAKE_URL)}" style="display:block;background:#15803d;color:#ffffff;text-align:center;text-decoration:none;padding:14px 16px;border-radius:6px;font-weight:bold;">Open New Patient Intake</a></p>`;
   }
 
   html += '<hr style="border:none;border-top:1px solid #dddddd;margin:20px 0;">';
