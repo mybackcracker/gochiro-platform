@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import ZipChecker from "@/components/ZipChecker";
-import { SHOULDER_EXERCISE_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
+import { HOME_VISIT_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "@/lib/images";
 import JsonLd from "@/components/JsonLd";
 import { localBusinessSchema } from "@/lib/businessSchema";
 import { LOCAL_AREAS } from "@/lib/localAreas";
@@ -21,32 +21,32 @@ export const metadata: Metadata = {
   description,
 };
 
-const principles = [
+const people = [
   {
-    title: "Understand the bigger picture",
-    text: "We look beyond the painful area to consider your history, how you move, and what may be contributing to the problem.",
+    title: "Pain affecting everyday life",
+    text: "Back, neck, shoulder, or joint discomfort making it harder to work, sleep, walk, or get through your day.",
   },
   {
-    title: "Care based on your needs",
-    text: "Your examination, concerns, and goals guide treatment—not a preset routine applied to every patient.",
+    title: "Stiffness or limited movement",
+    text: "Difficulty turning, bending, reaching, or returning to the activities you want to do more comfortably.",
   },
   {
-    title: "Knowledge you can use",
-    text: "Clear explanations and practical guidance help you take an active role in better movement and function between visits.",
+    title: "Care that fits your day",
+    text: "One-on-one chiropractic care at home or work, without the trip to an office. Your examination and goals guide the plan.",
   },
 ];
 
 const steps = [
   {
-    title: "Start with your goals",
+    title: "Talk & examine",
     text: "We discuss your concerns and evaluate how the problem affects your movement and everyday activities.",
   },
   {
-    title: "Choose care thoughtfully",
+    title: "Care chosen for you",
     text: "When appropriate, treatment is based on the examination and may include adjustments, soft tissue work, or guided movement.",
   },
   {
-    title: "Leave understanding your next step",
+    title: "A clear next step",
     text: "You learn what we found, what you can do between visits, and whether further care makes sense for you.",
   },
 ];
@@ -66,11 +66,11 @@ export default function HomePage() {
             <div className={styles.heroGrid}>
               <div className={styles.heroCopy}>
                 <p className={styles.eyebrow}>Mobile chiropractic care · Delaware County, PA</p>
-                <h1>Chiropractic care that looks <span>beyond where it hurts.</span></h1>
+                <h1>Your chiropractor.<br /><span>Your own front door.</span></h1>
                 <p className={styles.lead}>
-                  Relieving pain matters. So does understanding what is contributing to it. I take
-                  time to examine, explain what I find, and tailor care to your goals—so you can
-                  move better, function better, and make informed decisions about your health.
+                  Back pain, neck stiffness, or movement that feels harder than it should?
+                  I bring personalized chiropractic care to your home or workplace,
+                  starting with an examination and a conversation about what matters to you.
                 </p>
                 <p className={styles.support}>
                   One-on-one visits with Dr. David DeFries, DC, at your home or workplace.
@@ -78,20 +78,20 @@ export default function HomePage() {
                 <p className={styles.area}>{SERVICE_AREA_STATEMENT}</p>
                 <div className={styles.actions}>
                   <Link className={styles.primary} href="#service-area">
-                    Check availability <Arrow />
+                    Check availability & book <Arrow />
                   </Link>
-                  <Link className={styles.outline} href="/philosophy">
-                    Explore my approach
+                  <Link className={styles.outline} href="/what-to-expect">
+                    What is a house call like?
                   </Link>
                 </div>
               </div>
               <div className={styles.heroPhoto}>
                 <Image
-                  src={SHOULDER_EXERCISE_IMAGE.src}
-                  alt={SHOULDER_EXERCISE_IMAGE.alt}
+                  src={HOME_VISIT_IMAGE.src}
+                  alt={HOME_VISIT_IMAGE.alt}
                   fill
                   priority
-                  sizes="(min-width: 900px) 45vw, 100vw"
+                  sizes="(min-width: 1180px) 470px, (min-width: 701px) 42vw, calc(100vw - 36px)"
                   className={styles.photo}
                 />
               </div>
@@ -99,19 +99,38 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className={[styles.wrap, styles.section].join(" ")} aria-labelledby="approach-heading">
+        <section className={[styles.wrap, styles.section].join(" ")} id="service-area" aria-labelledby="booking-heading">
+          <div className={styles.availability}>
+            <div>
+              <p className={styles.eyebrow}>Book your first visit</p>
+              <h2 id="booking-heading">First, let’s check<br /><span>your location.</span></h2>
+              <p>
+                Enter your ZIP, choose New Patient, and select an available time.
+                Your location and exact price are confirmed before you book.
+                Outside the regular area? You can request a visit by arrangement.
+              </p>
+              <p className={styles.bookingNote}>After booking, complete your intake so I can review your history before I arrive.</p>
+              <Link href="/service-areas" className={styles.textLink}>
+                Explore service areas <Arrow />
+              </Link>
+            </div>
+            <div className={styles.zip}><ZipChecker /></div>
+          </div>
+        </section>
+
+        <section className={[styles.wrap, styles.section].join(" ")} aria-labelledby="people-heading">
           <div className={styles.sectionHeading}>
             <div>
-              <p className={styles.eyebrow}>My approach to care</p>
-              <h2 id="approach-heading">Understand first.<br />Make progress together.</h2>
+              <p className={styles.eyebrow}>Who I help</p>
+              <h2 id="people-heading">When moving hurts,<br />let’s start there.</h2>
             </div>
             <p>
-              Good care is more than a quick adjustment. We start by understanding the problem
-              and work toward the improvements that matter to you.
+              You do not need to know which treatment you need before booking.
+              We start by understanding your symptoms, movement, and goals.
             </p>
           </div>
           <div className={styles.people}>
-            {principles.map((item, i) => (
+            {people.map((item, i) => (
               <div className={styles.person} key={item.title}>
                 <span className={styles.number}>0{i + 1}</span>
                 <h3>{item.title}</h3>
@@ -124,13 +143,38 @@ export default function HomePage() {
           </Link>
         </section>
 
-        <section className={[styles.wrap, styles.doctor].join(" ")} aria-labelledby="doctor-heading">
+        <section className={styles.darkSection} aria-labelledby="visit-heading">
+          <div className={styles.wrap}>
+            <div className={styles.sectionHeading}>
+              <div>
+                <p className={styles.eyebrow}>Your first house call</p>
+                <h2 id="visit-heading">Here’s what happens<br />when I arrive.</h2>
+              </div>
+              <p>I bring a portable treatment table. You bring your questions. Wear loose, comfortable clothing and leave room for the table.</p>
+            </div>
+            <div className={styles.steps}>
+              {steps.map((step, i) => (
+                <div key={step.title}>
+                  <span className={styles.stepNumber}>0{i + 1}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.text}</p>
+                </div>
+              ))}
+            </div>
+            <Link href="/what-to-expect" className={styles.darkLink}>
+              What to expect at your visit <Arrow />
+            </Link>
+          </div>
+        </section>
+
+
+        <section className={[styles.wrap, styles.doctor, styles.doctorSection].join(" ")} aria-labelledby="doctor-heading">
           <div className={styles.doctorPhoto}>
             <Image
               src={DOCTOR_PORTRAIT_IMAGE.src}
               alt={DOCTOR_PORTRAIT_IMAGE.alt}
               fill
-              sizes="(min-width: 900px) 35vw, 100vw"
+              sizes="(min-width: 1180px) 445px, (min-width: 701px) 36vw, calc(100vw - 36px)"
               className={styles.photo}
             />
           </div>
@@ -156,47 +200,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className={styles.darkSection} aria-labelledby="visit-heading">
-          <div className={styles.wrap}>
-            <div className={styles.sectionHeading}>
-              <div>
-                <p className={styles.eyebrow}>Your visit</p>
-                <h2 id="visit-heading">Thoughtful care.<br />Clear next steps.</h2>
-              </div>
-              <p>From the first conversation to practical guidance you can use afterward.</p>
-            </div>
-            <div className={styles.steps}>
-              {steps.map((step, i) => (
-                <div key={step.title}>
-                  <span className={styles.stepNumber}>0{i + 1}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
-                </div>
-              ))}
-            </div>
-            <Link href="/what-to-expect" className={styles.darkLink}>
-              What to expect at your visit <Arrow />
-            </Link>
-          </div>
-        </section>
-
         <div className={styles.wrap}><Testimonials /></div>
-
-        <section className={[styles.wrap, styles.section].join(" ")} id="service-area">
-          <div className={styles.availability}>
-            <div>
-              <p className={styles.eyebrow}>Personal care, at your location</p>
-              <h2>Ready to take<br /><span>the next step?</span></h2>
-              <p>
-                Enter your ZIP to view regular online booking options or request a visit
-                by arrangement. Appointments are available seven days a week.
-              </p>
-              <Link href="/service-areas" className={styles.textLink}>
-                Explore service areas <Arrow />
-              </Link>
-            </div>
-            <div className={styles.zip}><ZipChecker /></div>
-          </div>
+        <section className={[styles.wrap, styles.section, styles.finalCta].join(" ")} aria-labelledby="ready-heading">
+          <p className={styles.eyebrow}>Care starts with a conversation</p>
+          <h2 id="ready-heading">Ready for your first house call?</h2>
+          <p>Check your location to see visit options. Have a question first? <Link href="/contact" className={styles.textLink}>Contact the practice <Arrow /></Link></p>
+          <Link href="#service-area" className={styles.primary}>Check availability & book <Arrow /></Link>
           <nav className={styles.resourceLinks} aria-label="More patient information">
             <Link href="/conditions">Conditions we help with <Arrow /></Link>
             <Link href="/treatments">Explore treatments <Arrow /></Link>
@@ -209,3 +218,4 @@ export default function HomePage() {
     </>
   );
 }
+
