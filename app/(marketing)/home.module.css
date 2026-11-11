@@ -18,7 +18,8 @@
 .home a:focus-visible { outline: 3px solid #d66532; outline-offset: 5px; }
 .wrap { width: min(1140px, calc(100% - 80px)); margin-inline: auto; }
 .eyebrow { font-size: .73rem; font-weight: 800; letter-spacing: .105em; text-transform: uppercase; }
-.hero { background: var(--ink); color: white; padding: 78px 0; }
+.hero { background: var(--ink); color: white; padding: 64px 0; }
+.heroGrid > *, .doctor > *, .availability > * { min-width: 0; }
 .heroGrid { display: grid; grid-template-columns: 1.13fr .87fr; gap: clamp(30px, 5vw, 70px); align-items: center; }
 .heroCopy h1 { font-size: clamp(2.7rem, 4.6vw, 4.35rem); margin-top: 22px; text-wrap: balance; }
 .heroCopy h1 span { color: #f3915c; }
@@ -27,6 +28,7 @@
 .area { font-size: .85rem; color: #c6d3db; max-width: 550px; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .primary, .outline {
+  min-height: 48px;
   padding: 15px 21px;
   border-radius: 8px;
   font-weight: 700;
@@ -42,7 +44,7 @@
 .outline:hover { background: #284457; }
 .heroPhoto { position: relative; aspect-ratio: 4 / 5; border-radius: 14px; overflow: hidden; }
 .photo { object-fit: cover; object-position: center; }
-.section { padding-block: 100px; scroll-margin-top: 130px; }
+.section { padding-block: 76px; scroll-margin-top: 130px; }
 .sectionHeading { display: flex; justify-content: space-between; align-items: end; gap: 44px; margin-bottom: 34px; }
 .sectionHeading .eyebrow { margin: 0 0 15px; color: var(--accent); }
 .sectionHeading p:not(.eyebrow) { max-width: 370px; color: #4c5d66; margin: 0; }
@@ -119,3 +121,26 @@
   .home a { transition: none; }
   .home a:hover { transform: none; }
 }
+
+/* Keep the booking decision close to the introduction and usable at narrow widths. */
+.home { overflow-wrap: break-word; }
+.bookingNote { font-size: .9rem; border-top: 1px solid #c4d1ce; padding-top: 16px; }
+.finalCta { text-align: center; border-top: 1px solid #ded6c8; }
+.finalCta .eyebrow { color: var(--accent); }
+.finalCta > p:not(.eyebrow) { max-width: 650px; margin: 22px auto; }
+.resourceLinks a { min-height: 44px; }
+@media (min-width: 701px) and (max-width: 1000px) {
+  .availability { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .actions { flex-direction: column; }
+  .actions a { justify-content: center; width: 100%; }
+  .heroCopy h1 { font-size: clamp(2.3rem, 9.3vw, 3.65rem); }
+  .heroPhoto { aspect-ratio: 4 / 3; }
+  .finalCta .primary { justify-content: center; width: 100%; }
+  .finalCta .resourceLinks { text-align: left; }
+}
+
+
+.doctorSection { padding-top: 76px; }
+@media (max-width: 700px) { .doctorSection { padding-top: 66px; } }
