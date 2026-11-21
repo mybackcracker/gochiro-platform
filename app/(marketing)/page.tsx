@@ -11,9 +11,9 @@ import { LOCAL_AREAS } from "@/lib/localAreas";
 import Testimonials from "@/components/Testimonials";
 import styles from "./home.module.css";
 
-const title = "Mobile Chiropractor in Delaware County & Surrounding Areas";
+const title = "Mobile Chiropractor in Delaware County, PA";
 const description =
-  "Personalized mobile chiropractic care with Dr. David DeFries, DC. Thoughtful evaluation, patient education, and goal-directed treatment at your home or workplace in Delaware County and surrounding areas.";
+  "One-on-one home and workplace chiropractic visits with Dr. David DeFries, DC, in Delaware County and surrounding communities. View availability and visit pricing.";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -65,23 +65,20 @@ export default function HomePage() {
           <div className={styles.wrap}>
             <div className={styles.heroGrid}>
               <div className={styles.heroCopy}>
-                <p className={styles.eyebrow}>Mobile chiropractic care · Delaware County, PA</p>
-                <h1>Chiropractic care that looks <span>beyond where it hurts.</span></h1>
+                <p className={styles.eyebrow}>Go Chiro Mobile</p>
+                <h1>Mobile Chiropractor in Delaware County, PA.</h1>
+                <p className={styles.tagline}>Thoughtful chiropractic care, brought to you.</p>
                 <p className={styles.lead}>
-                  Relieving pain matters. So does understanding what is contributing to it. I take
-                  time to examine, explain what I find, and tailor care to your goals—so you can
-                  move better, function better, and make informed decisions about your health.
-                </p>
-                <p className={styles.support}>
-                  One-on-one visits with Dr. David DeFries, DC, at your home or workplace.
+                  One-on-one home and workplace visits with Dr. David DeFries, DC.
+                  Care begins with understanding your concerns, how you move, and your goals.
                 </p>
                 <p className={styles.area}>{SERVICE_AREA_STATEMENT}</p>
                 <div className={styles.actions}>
                   <Link className={styles.primary} href="#service-area">
-                    Check availability <Arrow />
+                    Check availability
                   </Link>
-                  <Link className={styles.outline} href="/philosophy">
-                    Explore my approach
+                  <Link className={styles.outline} href="/pricing">
+                    View pricing
                   </Link>
                 </div>
               </div>
@@ -103,11 +100,12 @@ export default function HomePage() {
           <div className={styles.sectionHeading}>
             <div>
               <p className={styles.eyebrow}>My approach to care</p>
-              <h2 id="approach-heading">Understand first.<br />Make progress together.</h2>
+              <h2 id="approach-heading">Chiropractic care that looks beyond where it hurts</h2>
             </div>
             <p>
-              Good care is more than a quick adjustment. We start by understanding the problem
-              and work toward the improvements that matter to you.
+              Relieving pain matters. So does understanding what is contributing to it. I take
+              time to examine, explain what I find, and tailor care to your goals—so you can
+              move better, function better, and make informed decisions about your health.
             </p>
           </div>
           <div className={styles.people}>
@@ -186,14 +184,16 @@ export default function HomePage() {
           <div className={styles.availability}>
             <div>
               <p className={styles.eyebrow}>Personal care, at your location</p>
-              <h2>Ready to take<br /><span>the next step?</span></h2>
+              <h2>Availability &amp; pricing</h2>
               <p>
                 Enter your ZIP to view regular online booking options or request a visit
-                by arrangement. Appointments are available seven days a week.
+                by arrangement. Your price is shown during scheduling, before you confirm.
+                Available times depend on your location and visit type.
               </p>
-              <Link href="/service-areas" className={styles.textLink}>
-                Explore service areas <Arrow />
-              </Link>
+              <div className={styles.actions}>
+                <Link href="/pricing" className={styles.textLink}>View visit pricing</Link>
+                <Link href="/service-areas" className={styles.textLink}>Explore service areas</Link>
+              </div>
             </div>
             <div className={styles.zip}><ZipChecker /></div>
           </div>
