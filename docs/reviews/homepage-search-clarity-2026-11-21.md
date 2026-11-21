@@ -10,27 +10,30 @@ User-supplied October 25–November 18, 2026: 1,175 impressions, 30 clicks,
 export was supplied for this review. These aggregate figures do not identify
 a particular page's ranking problem or predict the effect of the proposed changes.
 
-## Proposed homepage
+## Proposed homepage — revised after discussion
 
-- H1: “Mobile Chiropractor in Delaware County, PA.”
-- Supporting line: “Thoughtful chiropractic care, brought to you.”
-- Introduction: “One-on-one home and workplace visits with Dr. David DeFries, DC.
-  Care begins with understanding your concerns, how you move, and your goals.”
+- H1: “Mobile Chiropractor in Delaware County, PA & Surrounding Areas”.
+- Supporting line: “Get chiropractic care at home or work.”
+- Introduction: “Dr. David DeFries, DC brings one-on-one evaluation and hands-on
+  treatment to you—for back pain, neck pain, stiffness, and difficulty moving comfortably.”
 - Preserve the current service-area statement verbatim.
-- Primary action: “Check availability,” linking to the existing homepage ZIP checker.
-- Adjacent secondary action: “View pricing,” linking to /pricing.
+- Primary action: “Check Availability & Fees,” linking straight to the existing
+  homepage ZIP checker. No dollar amounts or ZIP field in the hero.
+- Secondary action: “Learn About Mobile Care,” linking to the next section.
+  This replaces the separate hero pricing button.
 - Next section H2: “Chiropractic care that looks beyond where it hurts”.
-  Move the existing patient-centered evaluation paragraph beneath it.
-- At the ZIP checker, replace “Ready to take the next step?” with
-  “Availability & pricing”. Explain that the price is shown during scheduling,
-  before confirmation; available times depend on location and visit type.
-  Put pricing and service-area links together alongside the checker.
-- Align homepage title and description with the new introduction. Preserve
-  canonical, structured-data coverage, photographs and the remainder of the page.
+  Three brief cards explain evaluation/treatment, the equipment brought to
+  the location, and findings/next-step guidance.
+- The ZIP section heading is “Check availability & fees”. Prices remain in the
+  existing location/visit/date flow. No separate pricing button beside the widget.
+- Align homepage title/description with the revised introduction.
+- Preserve photographs, canonical and structured-data coverage.
 
+The initial “thoughtful care” supporting line and goals-oriented introduction
+were rejected during review and are superseded by the copy above.
 Only homepage content and its supporting-line CSS are edited. No rate, ZIP,
 scheduling, checkout, deposit or service eligibility logic is changed. No new
-town page is proposed.
+town page is proposed. The draft remains unapproved for production.
 
 ## Live booking review
 

@@ -11,9 +11,9 @@ import { LOCAL_AREAS } from "@/lib/localAreas";
 import Testimonials from "@/components/Testimonials";
 import styles from "./home.module.css";
 
-const title = "Mobile Chiropractor in Delaware County, PA";
+const title = "Mobile Chiropractor in Delaware County, PA & Surrounding Areas";
 const description =
-  "One-on-one home and workplace chiropractic visits with Dr. David DeFries, DC, in Delaware County and surrounding communities. View availability and visit pricing.";
+  "Mobile chiropractic evaluation and hands-on treatment with Dr. David DeFries, DC, at home or work in Delaware County and surrounding areas. Check availability and fees.";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -23,16 +23,16 @@ export const metadata: Metadata = {
 
 const principles = [
   {
-    title: "Understand the bigger picture",
-    text: "We look beyond the painful area to consider your history, how you move, and what may be contributing to the problem.",
+    title: "Evaluation and hands-on treatment",
+    text: "Your visit begins with an examination. Treatment is based on what the examination finds.",
   },
   {
-    title: "Care based on your needs",
-    text: "Your examination, concerns, and goals guide treatment—not a preset routine applied to every patient.",
+    title: "The equipment comes to you",
+    text: "Dr. DeFries brings the chiropractic table and equipment to your home or workplace.",
   },
   {
-    title: "Knowledge you can use",
-    text: "Clear explanations and practical guidance help you take an active role in better movement and function between visits.",
+    title: "Understand your next steps",
+    text: "Get an explanation of the findings and practical guidance for what to do between visits.",
   },
 ];
 
@@ -66,19 +66,19 @@ export default function HomePage() {
             <div className={styles.heroGrid}>
               <div className={styles.heroCopy}>
                 <p className={styles.eyebrow}>Go Chiro Mobile</p>
-                <h1>Mobile Chiropractor in Delaware County, PA.</h1>
-                <p className={styles.tagline}>Thoughtful chiropractic care, brought to you.</p>
+                <h1>Mobile Chiropractor in Delaware County, PA &amp; Surrounding Areas</h1>
+                <p className={styles.tagline}>Get chiropractic care at home or work.</p>
                 <p className={styles.lead}>
-                  One-on-one home and workplace visits with Dr. David DeFries, DC.
-                  Care begins with understanding your concerns, how you move, and your goals.
+                  Dr. David DeFries, DC brings one-on-one evaluation and hands-on treatment
+                  to you—for back pain, neck pain, stiffness, and difficulty moving comfortably.
                 </p>
                 <p className={styles.area}>{SERVICE_AREA_STATEMENT}</p>
                 <div className={styles.actions}>
                   <Link className={styles.primary} href="#service-area">
-                    Check availability
+                    Check Availability &amp; Fees
                   </Link>
-                  <Link className={styles.outline} href="/pricing">
-                    View pricing
+                  <Link className={styles.outline} href="#mobile-care">
+                    Learn About Mobile Care
                   </Link>
                 </div>
               </div>
@@ -96,16 +96,15 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className={[styles.wrap, styles.section].join(" ")} aria-labelledby="approach-heading">
+        <section className={[styles.wrap, styles.section].join(" ")} id="mobile-care" aria-labelledby="approach-heading">
           <div className={styles.sectionHeading}>
             <div>
               <p className={styles.eyebrow}>My approach to care</p>
               <h2 id="approach-heading">Chiropractic care that looks beyond where it hurts</h2>
             </div>
             <p>
-              Relieving pain matters. So does understanding what is contributing to it. I take
-              time to examine, explain what I find, and tailor care to your goals—so you can
-              move better, function better, and make informed decisions about your health.
+              Care at your location includes evaluation, appropriate treatment, and an
+              explanation of what comes next.
             </p>
           </div>
           <div className={styles.people}>
@@ -184,14 +183,13 @@ export default function HomePage() {
           <div className={styles.availability}>
             <div>
               <p className={styles.eyebrow}>Personal care, at your location</p>
-              <h2>Availability &amp; pricing</h2>
+              <h2>Check availability &amp; fees</h2>
               <p>
                 Enter your ZIP to view regular online booking options or request a visit
                 by arrangement. Your price is shown during scheduling, before you confirm.
                 Available times depend on your location and visit type.
               </p>
               <div className={styles.actions}>
-                <Link href="/pricing" className={styles.textLink}>View visit pricing</Link>
                 <Link href="/service-areas" className={styles.textLink}>Explore service areas</Link>
               </div>
             </div>
