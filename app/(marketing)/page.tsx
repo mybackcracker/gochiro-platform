@@ -11,9 +11,9 @@ import { LOCAL_AREAS } from "@/lib/localAreas";
 import Testimonials from "@/components/Testimonials";
 import styles from "./home.module.css";
 
-const title = "Mobile Chiropractor in Delaware County & Surrounding Areas";
+const title = "Mobile Chiropractor in Delaware County, PA & Surrounding Areas";
 const description =
-  "Personalized mobile chiropractic care with Dr. David DeFries, DC. Thoughtful evaluation, patient education, and goal-directed treatment at your home or workplace in Delaware County and surrounding areas.";
+  "Mobile chiropractic evaluation and hands-on treatment with Dr. David DeFries, DC, at home or work in Delaware County and surrounding areas. Check availability and fees.";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -23,16 +23,16 @@ export const metadata: Metadata = {
 
 const principles = [
   {
-    title: "Understand the bigger picture",
-    text: "We look beyond the painful area to consider your history, how you move, and what may be contributing to the problem.",
+    title: "Evaluation and hands-on treatment",
+    text: "Your visit begins with an examination. Treatment is based on what the examination finds.",
   },
   {
-    title: "Care based on your needs",
-    text: "Your examination, concerns, and goals guide treatment—not a preset routine applied to every patient.",
+    title: "The equipment comes to you",
+    text: "Dr. DeFries brings the chiropractic table and equipment to your home or workplace.",
   },
   {
-    title: "Knowledge you can use",
-    text: "Clear explanations and practical guidance help you take an active role in better movement and function between visits.",
+    title: "Understand your next steps",
+    text: "Get an explanation of the findings and practical guidance for what to do between visits.",
   },
 ];
 
@@ -65,23 +65,20 @@ export default function HomePage() {
           <div className={styles.wrap}>
             <div className={styles.heroGrid}>
               <div className={styles.heroCopy}>
-                <p className={styles.eyebrow}>Mobile chiropractic care · Delaware County, PA</p>
-                <h1>Chiropractic care that looks <span>beyond where it hurts.</span></h1>
+                <p className={styles.eyebrow}>Go Chiro Mobile</p>
+                <h1>Mobile Chiropractor in Delaware County, PA &amp; Surrounding Areas</h1>
+                <p className={styles.tagline}>Get chiropractic care at home or work.</p>
                 <p className={styles.lead}>
-                  Relieving pain matters. So does understanding what is contributing to it. I take
-                  time to examine, explain what I find, and tailor care to your goals—so you can
-                  move better, function better, and make informed decisions about your health.
-                </p>
-                <p className={styles.support}>
-                  One-on-one visits with Dr. David DeFries, DC, at your home or workplace.
+                  Dr. David DeFries, DC brings one-on-one evaluation and hands-on treatment
+                  to you—for back pain, neck pain, stiffness, and difficulty moving comfortably.
                 </p>
                 <p className={styles.area}>{SERVICE_AREA_STATEMENT}</p>
                 <div className={styles.actions}>
                   <Link className={styles.primary} href="#service-area">
-                    Check availability <Arrow />
+                    Check Availability &amp; Fees
                   </Link>
-                  <Link className={styles.outline} href="/philosophy">
-                    Explore my approach
+                  <Link className={styles.outline} href="#mobile-care">
+                    Learn About Mobile Care
                   </Link>
                 </div>
               </div>
@@ -99,15 +96,15 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className={[styles.wrap, styles.section].join(" ")} aria-labelledby="approach-heading">
+        <section className={[styles.wrap, styles.section].join(" ")} id="mobile-care" aria-labelledby="approach-heading">
           <div className={styles.sectionHeading}>
             <div>
               <p className={styles.eyebrow}>My approach to care</p>
-              <h2 id="approach-heading">Understand first.<br />Make progress together.</h2>
+              <h2 id="approach-heading">Chiropractic care that looks beyond where it hurts</h2>
             </div>
             <p>
-              Good care is more than a quick adjustment. We start by understanding the problem
-              and work toward the improvements that matter to you.
+              Care at your location includes evaluation, appropriate treatment, and an
+              explanation of what comes next.
             </p>
           </div>
           <div className={styles.people}>
@@ -186,14 +183,15 @@ export default function HomePage() {
           <div className={styles.availability}>
             <div>
               <p className={styles.eyebrow}>Personal care, at your location</p>
-              <h2>Ready to take<br /><span>the next step?</span></h2>
+              <h2>Check availability &amp; fees</h2>
               <p>
                 Enter your ZIP to view regular online booking options or request a visit
-                by arrangement. Appointments are available seven days a week.
+                by arrangement. Your price is shown during scheduling, before you confirm.
+                Available times depend on your location and visit type.
               </p>
-              <Link href="/service-areas" className={styles.textLink}>
-                Explore service areas <Arrow />
-              </Link>
+              <div className={styles.actions}>
+                <Link href="/service-areas" className={styles.textLink}>Explore service areas</Link>
+              </div>
             </div>
             <div className={styles.zip}><ZipChecker /></div>
           </div>
